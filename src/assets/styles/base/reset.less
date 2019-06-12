@@ -1,0 +1,24 @@
+@import './mixin/mobile';
+@import './variable/global';
+
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  line-height: 1.5;
+  font-family: @fontDefault;
+  -webkit-font-smoothing: antialiased;
+  color: #333;
+}
+
+a img {
+  border: 0;
+}
+
+a {
+  text-decoration: none;
+  .setTapColor();
+}
