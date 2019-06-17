@@ -127,17 +127,19 @@ export default {
     margin-bottom: 4px;
     box-sizing: border-box;
     .imgWrap {
-      height: 56px;
-      line-height: 56px;
+      width: 42px;
+      height: 42px;
+      line-height: 42px;
+      margin-top: 7px;
+      margin-right: 4px;
+      overflow: hidden;
       img {
-        width: 38px;
+        width: 100%;
         height: auto;
         padding: 0;
         margin: 0;
         border: none;
-        margin-right: 4px;
         font-size: 0;
-        vertical-align: middle;
       }
     }
     .unionName {
