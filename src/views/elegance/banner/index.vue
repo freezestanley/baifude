@@ -33,6 +33,7 @@ export default {
       new Swiper(".eleganceBanner .swiper-container", {
         autoplay: true,
         loop: true,
+        spaceBetween: 20,
         pagination: {
           el: ".elegance-swiper-pagination"
         }
