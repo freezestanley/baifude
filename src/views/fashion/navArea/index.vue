@@ -228,10 +228,11 @@ img {
     text-align: center;
   }
   .enName {
-    font-size: 11px;
-    font-family: LucidaGrande;
+    font-size: 12px;
+    font-family: Poppins-Regular;
     color: rgba(34, 34, 34, 1);
     line-height: 13px;
+    transform: scale(0.9);
   }
   .item {
     text-align: center;
@@ -291,8 +292,7 @@ img {
   background-color: #f01e1e;
   color: #fff;
   font-size: 10px;
-  font-family: PingFangSC-Medium;
-  font-weight: 500;
+  font-family: Poppins-Regular;
   line-height: 14px;
   border-radius: 7px 7px 7px 0px;
   white-space: nowrap;

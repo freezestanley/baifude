@@ -42,7 +42,10 @@ export default {
       var that = this;
       new Swiper(".swiper-container1", {
         autoplay: true,
-        loop: true,
+        loop:
+          this.mallUnionConf.tnewsRecommendImageDtos.length === 1
+            ? false
+            : true,
         pagination: {
           el: ".swiper-pagination",
           type: "custom",
@@ -53,16 +56,18 @@ export default {
             let paginationStyle = "";
             let html = "";
             let width = "";
-            for (let i = 1; i <= total; i++) {
-              if (i === current) {
-                color = activeColor;
-                width = "12px";
-              } else {
-                color = normalColor;
-                width = "6px";
+            if (total > 1) {
+              for (let i = 1; i <= total; i++) {
+                if (i === current) {
+                  color = activeColor;
+                  width = "12px";
+                } else {
+                  color = normalColor;
+                  width = "6px";
+                }
+                paginationStyle = `background:${color};margin-left:0.1rem;opacity:1;width:${width}`;
+                html += `<span class="swiper-pagination-bullet" style=${paginationStyle}></span>`;
               }
-              paginationStyle = `background:${color};margin-left:0.1rem;opacity:1;width:${width}`;
-              html += `<span class="swiper-pagination-bullet" style=${paginationStyle}></span>`;
             }
             return html;
           }
@@ -113,8 +118,8 @@ img {
 .banner {
   background-color: #fff;
   margin: 4px 0px;
-  height: 78px;
-  padding: 20px 0;
+  height: 126px;
+  // padding: 20px 0;
   overflow: hidden;
   img {
     width: 100%;

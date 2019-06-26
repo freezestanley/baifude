@@ -8,6 +8,11 @@
     ></component>
     <!-- 首页弹窗 -->
     <homeShell v-if="popUp" @changeShow="changeShow" :show="show"></homeShell>
+    <LocationNotice
+      v-if="locationShow"
+      :locationCityName="locationCityName"
+      :locationCityId="locationCityId"
+    ></LocationNotice>
   </div>
 </template>
 
@@ -26,15 +31,20 @@ export default {
   name: "home",
   data() {
     return {
+      locationShow: false,
       styleCode: "",
       fords: [],
       show: false,
-      popUp: {}
+      popUp: {},
+      locationCityName: "",
+      locationCityId: ""
     };
   },
   components: {
-    homeShell: () => import("../../components/homeShell")
+    homeShell: () => import("../../components/homeShell"),
+    LocationNotice: () => import("../../components/locationNotice")
   },
+
   created() {
     const union = getQueryString("union");
 
@@ -42,9 +52,48 @@ export default {
     this.getNotice(union);
     this.getData(union);
     this.getCityList();
+    setTimeout(() => {
+      if (sessionStorage.getItem("userChange") !== "1") {
+        this.getCurrentCity();
+      }
+      sessionStorage.setItem("userChange", "0");
+    }, 1000);
   },
   methods: {
     ...mapMutations(["updateState"]),
+    getCurrentCity() {
+      // eslint-disable-next-line no-undef
+      let geolocation = new qq.maps.Geolocation(
+        "OE2BZ-6FWRQ-LFQ56-GOGXT-CKES2-OEBS2",
+        "key"
+      );
+      geolocation.getLocation(this.showPosition, this.errorMsg);
+    },
+    showPosition(position) {
+      this.updateState({
+        key: "position",
+        val: position
+      });
+      let cityName = position.city.replace("市", "");
+      this.locationCityName = cityName;
+      this.getCityId(cityName);
+    },
+    errorMsg() {
+      console.log("定位失败");
+    },
+    //  根据城市名获取城市id
+    getCityId(cityName) {
+      this.apis.getCityIdByName({ cityName }).then(resp => {
+        this.locationCityId = resp.cityId;
+        this.updateState({
+          key: "locationCityId",
+          val: resp.cityId
+        });
+        if (String(this.$route.query.city) !== String(resp.cityId)) {
+          this.locationShow = true;
+        }
+      });
+    },
     changeShow(data) {
       let checked = data.checked;
       if (checked) {
@@ -223,9 +272,12 @@ export default {
         })
         .then(res => {
           if (res.loginFlag === OK) {
-            const base = window.location.href;
-            window.location.href =
-              res.loginUrl + "&returnUrl=" + encodeURIComponent(base);
+            // 本地开发不跳登录
+            if (process.env.NODE_ENV !== "development") {
+              const base = window.location.href;
+              window.location.href =
+                res.loginUrl + "&returnUrl=" + encodeURIComponent(base);
+            }
           }
         });
     },
@@ -281,6 +333,16 @@ export default {
       if (newVal.query.city !== oldVal.query.city) {
         this.getCityList();
       }
+    },
+    locationShow(newValue) {
+      if (newValue) {
+        document.body.style.position = "fixed";
+        document.body.style.width = "100%";
+        document.body.style.height = "100%";
+      } else {
+        document.body.style.position = "static";
+        document.body.style.height = "auto";
+      }
     }
   }
 };
@@ -302,6 +364,7 @@ html {
 .commonBg {
   background-color: #fff;
   padding-bottom: 83px;
+  overflow: hidden;
 }
 @supports (bottom: constant(safe-area-inset-bottom)) or
   (bottom: env(safe-area-inset-bottom)) {

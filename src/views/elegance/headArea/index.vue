@@ -133,6 +133,7 @@ export default {
       margin-top: 7px;
       margin-right: 4px;
       overflow: hidden;
+      position: relative;
       img {
         width: 100%;
         height: auto;
@@ -140,6 +141,10 @@ export default {
         margin: 0;
         border: none;
         font-size: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
       }
     }
     .unionName {
@@ -223,6 +228,8 @@ export default {
 }
 .cityName {
   display: block;
+  font-size: 14px;
+  line-height: 37px;
   .ellipsis();
 }
 </style>

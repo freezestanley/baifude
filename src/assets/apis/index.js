@@ -58,3 +58,12 @@ export function getNotice(params) {
   const getNoticeApi = "/notice/noticeContent";
   return sendPost(getNoticeApi, params, true);
 }
+
+/**
+ * 根据城市名获取城市id
+ * @param { JSON } params 请求的参数
+ */
+export function getCityIdByName(params) {
+  const getCityIdByNameApi = "/location/getCityIdByName";
+  return sendPost(getCityIdByNameApi, params, true);
+}

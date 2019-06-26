@@ -39,7 +39,9 @@
     </div>
     <img :src="unionConf.h5BgImage || unionConf.bgImage" />
     <div class="logo">
-      <img :src="mallUnionConf.logo" />
+      <div class="logo_img">
+        <img :src="mallUnionConf.logo" />
+      </div>
       <div>{{ mallUnionConf.customerName }}</div>
     </div>
   </div>
@@ -155,7 +157,7 @@ export default {
   .logo {
     position: absolute;
     width: 123px;
-    height: 76px;
+    height: 90px;
     border-radius: 2px;
     overflow: hidden;
     text-align: center;
@@ -164,11 +166,18 @@ export default {
     color: #f1f1f1;
     line-height: 16px;
     .translaterCenter();
+    .logo_img {
+      width: 48px;
+      height: 48px;
+      margin: 10px auto;
+      border-radius: 4px;
+      background-color: #fff;
+      overflow: hidden;
+    }
     img {
-      width: 40px;
-      height: 40px;
-      margin-top: 10px;
-      border-radius: 2px;
+      width: 48px;
+      height: 48px;
+      border-radius: 4px;
     }
   }
 }

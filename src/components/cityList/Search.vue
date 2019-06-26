@@ -15,7 +15,9 @@
     <div class="container-module container-location">
       <van-icon name="location-o"></van-icon>
       <span>当前定位的城市</span>
-      <strong>{{ cityName }}</strong>
+      <strong @click="onClick(locationCityId)">
+        {{ position.city ? position.city.replace("市", "") : "上海" }}
+      </strong>
     </div>
     <div class="container-filters" v-if="filterCities.length">
       <ul class="container-wrap">
@@ -46,6 +48,8 @@ export default {
   },
   computed: {
     ...mapState({
+      position: state => state.position,
+      locationCityId: state => state.locationCityId,
       cities: state => {
         return state.cities.length
           ? state.cities
@@ -66,6 +70,7 @@ export default {
   },
   mounted() {
     document.addEventListener("touchmove", this.onTouchMove);
+    // console.log(this.position);
   },
   beforeDestroy() {
     document.removeEventListener("touchmove", this.onTouchMove);
@@ -75,6 +80,7 @@ export default {
       this.$emit("changeCity", cid);
     },
     onBack() {
+      sessionStorage.setItem("userChange", "1");
       window.history.back();
     },
     onTouchMove(ev) {

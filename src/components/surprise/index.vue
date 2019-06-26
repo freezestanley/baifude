@@ -118,6 +118,19 @@ export default {
   margin-top: 5px;
   padding: 15px 16px;
 }
+.fashionModuleWrap {
+  img {
+    border-radius: 4px;
+  }
+}
+.eliteModuleWrap .eName,
+.fashionModuleWrap .eName {
+  font-family: Poppins-Regular !important;
+  font-weight: 400 !important;
+}
+.eleganceModuleWrap .eName {
+  font-family: "Merriweather-Regular" !important;
+}
 .surprise {
   img,
   a {

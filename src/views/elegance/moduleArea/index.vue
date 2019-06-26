@@ -55,8 +55,7 @@ export default {
   }
   .enTitle {
     font-size: 11px;
-    font-family: Avenir Book;
-    font-weight: 500;
+    font-family: "Merriweather-Bold";
     color: #666;
     line-height: 15px;
     margin-top: 7px;

@@ -17,7 +17,9 @@ export default new Vuex.Store({
     cityName: "", // 当前切换的城市名称
     cid: "", // 当前城市的id
     showCityList: false,
-    bavUrl: {}
+    bavUrl: {}, //底部tab链接
+    position: {}, //定位信息
+    locationCityId: ""
   },
   mutations: {
     updateState(state, { key, val }) {

@@ -79,6 +79,19 @@ export default {
   margin-top: 5px;
   padding: 15px 16px;
 }
+.fashionModuleWrap {
+  img {
+    border-radius: 4px;
+  }
+}
+.eliteModuleWrap .eName,
+.fashionModuleWrap .eName {
+  font-family: Poppins-Regular !important;
+  font-weight: 400 !important;
+}
+.eleganceModuleWrap .eName {
+  font-family: "Merriweather-Bold" !important;
+}
 .best {
   display: flex;
   flex-wrap: wrap;
@@ -116,8 +129,6 @@ export default {
       .eName {
         font-size: 12px;
         line-height: 15px;
-        font-family: Charter Bold;
-        font-weight: bold;
       }
     }
   }

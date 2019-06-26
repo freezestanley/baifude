@@ -1,11 +1,6 @@
 <template>
   <div class="footerBottom">
-    <div
-      class="show"
-      :style="{
-        backgroundColour: unionConf.bottomColor ? unionConf.bottomColor : '#fff'
-      }"
-    >
+    <div class="show">
       <a
         class="footer"
         v-for="(tab, index) in footerList"
@@ -59,8 +54,8 @@ export default {
           pageUrl: this.bavUrl.homePageUrl
         },
         {
-          name: "订单",
-          enName: "order",
+          name: "福利",
+          enName: "benefits",
           pageUrl: this.bavUrl.cardCenterUrl
         },
         {
@@ -82,8 +77,8 @@ export default {
           pageUrl: this.bavUrl.shoppingCartUrl
         },
         {
-          name: "订单",
-          enName: "order",
+          name: "福利",
+          enName: "benefits",
           pageUrl: this.bavUrl.cardCenterUrl
         },
         {
@@ -147,14 +142,18 @@ export default {
         color: #666;
         .on {
           color: #222;
+          font-weight: 700;
         }
         .name {
           font-size: 11px;
           line-height: 16px;
         }
         .enName {
-          font-size: 11px;
+          font-size: 12px;
+          font-family: Merriweather-Regular;
+          transform: scale(0.9);
           line-height: 14px;
+          font-family: "Merriweather-Regular";
         }
       }
     }

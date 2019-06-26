@@ -30,14 +30,16 @@ export default {
   },
   methods: {
     creatSwiper() {
-      new Swiper(".eleganceBanner .swiper-container", {
-        autoplay: true,
-        loop: true,
-        spaceBetween: 20,
-        pagination: {
-          el: ".elegance-swiper-pagination"
-        }
-      });
+      if (this.mallUnionConf.tnewsRecommendImageDtos.length > 1) {
+        new Swiper(".eleganceBanner .swiper-container", {
+          autoplay: true,
+          loop: true,
+          spaceBetween: 20,
+          pagination: {
+            el: ".elegance-swiper-pagination"
+          }
+        });
+      }
     }
   },
   mounted() {

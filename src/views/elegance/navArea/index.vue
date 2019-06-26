@@ -215,12 +215,13 @@ a {
           }
           .enName {
             margin-top: 1px;
-            font-size: 11px;
-            font-family: Charter Roman;
+            font-size: 12px;
+            font-family: "Merriweather-Regular";
             width: 56px;
             text-align: center;
             line-height: 14px;
             margin-right: 0;
+            transform: scale(0.9);
             .ellipsis(56px);
           }
         }
