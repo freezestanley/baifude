@@ -127,6 +127,7 @@ export default {
   },
   methods: {
     onClick(cid) {
+      sessionStorage.setItem("userChange", "1");
       this.$emit("changeCity", cid);
     },
     calculateHeight() {

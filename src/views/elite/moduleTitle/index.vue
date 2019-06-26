@@ -1,15 +1,30 @@
 <template>
   <!-- 标题 -->
-  <div style="display:flex;justify-content: center">
-    <div :class="isBilingual ? 'leftLine db' : 'leftLine'">
-      <div :class="isBilingual ? '_dot dot dot_1' : 'dot dot_1'"></div>
+
+  <div v-if="isBilingual && enTitle" class="title en">
+    <div class="cTitle">{{ title }}</div>
+    <div class="enTitle" style="display:flex;justify-content: center;">
+      <div class="leftLine db">
+        <div class="_dot dot dot_1"></div>
+      </div>
+      <span class="padding4">{{ enTitle }}</span>
+      <div class="rightLine db">
+        <div class="_dot dot dot_2"></div>
+      </div>
+    </div>
+  </div>
+  <div v-else style="display:flex;justify-content: center">
+    <div :class="isBilingual && enTitle ? 'leftLine db' : 'leftLine'">
+      <div
+        :class="isBilingual && enTitle ? '_dot dot dot_1' : 'dot dot_1'"
+      ></div>
     </div>
     <div class="title">
       <div class="cTitle">{{ title }}</div>
       <div v-show="isBilingual" class="enTitle">{{ enTitle }}</div>
     </div>
-    <div :class="isBilingual ? 'rightLine db' : 'rightLine'">
-      <div :class="isBilingual ? '_dot dot dot_2' : 'dot dot_2'"></div>
+    <div class="rightLine">
+      <div class="dot dot_2"></div>
     </div>
   </div>
 </template>
@@ -52,10 +67,7 @@ export default {
   }
 }
 .db {
-  height: 30px !important;
-}
-._dot {
-  top: 28.5px !important;
+  top: -5px;
 }
 .title {
   font-size: 17px;
@@ -63,15 +75,21 @@ export default {
   font-weight: 500;
   color: rgba(34, 34, 34, 1);
   line-height: 24px;
-  padding: 0 10px;
+  padding: 0 4px;
   margin-bottom: 12px;
   text-align: center;
   .enTitle {
     font-size: 11px;
-    font-family: LucidaGrande-Bold;
+    font-family: Poppins-Medium;
     font-weight: bold;
     color: rgba(34, 34, 34, 1);
     line-height: 13px;
   }
+}
+.en {
+  padding: 0 4px;
+}
+.padding4 {
+  padding: 0 4px;
 }
 </style>

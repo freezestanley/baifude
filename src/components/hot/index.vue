@@ -108,6 +108,19 @@ export default {
   margin-top: 5px;
   padding: 15px 16px;
 }
+.fashionModuleWrap {
+  img {
+    border-radius: 4px;
+  }
+}
+.eliteModuleWrap .eName,
+.fashionModuleWrap .eName {
+  font-family: Poppins-Regular !important;
+  font-weight: 400 !important;
+}
+.eleganceModuleWrap .eName {
+  font-family: "Merriweather-Regular" !important;
+}
 .hot {
   p {
     margin: 0;
@@ -135,7 +148,7 @@ export default {
     justify-content: space-between;
 
     .bottomgoods {
-      width: 106px;
+      width: 108px;
       overflow: hidden;
       a {
         display: block;
@@ -159,7 +172,6 @@ export default {
           .eName {
             font-size: 12px;
             line-height: 15px;
-            font-family: Charter Bold;
           }
         }
       }

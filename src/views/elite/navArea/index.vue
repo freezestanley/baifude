@@ -309,10 +309,11 @@ img {
     line-height: 20px;
   }
   .enName {
-    font-size: 11px;
-    font-family: LucidaGrande;
+    font-size: 12px;
+    font-family: Poppins-Regular;
     color: rgba(34, 34, 34, 1);
     line-height: 13px;
+    transform: scale(0.9);
   }
   .item {
     text-align: center;

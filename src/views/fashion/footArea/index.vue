@@ -8,7 +8,7 @@
         ></i>
         <div class="nameWrap">
           <div v-if="!isBilingual" class="name on">首页</div>
-          <div v-if="isBilingual" class="enName on">home</div>
+          <div v-if="isBilingual" class="enName en_on">home</div>
         </div>
       </a>
       <a
@@ -23,10 +23,10 @@
         </div>
       </a>
       <a class="footer" :href="bavUrl.cardCenterUrl">
-        <i class="iconfont fashion-order__normal"></i>
+        <i class="iconfont fashion-benefits__normal"></i>
         <div class="nameWrap">
-          <div v-if="!isBilingual" class="name">订单</div>
-          <div v-if="isBilingual" class="enName">order</div>
+          <div v-if="!isBilingual" class="name">福利</div>
+          <div v-if="isBilingual" class="enName">benefits</div>
         </div>
       </a>
       <a class="footer" :href="bavUrl.userCentUrl">
@@ -103,22 +103,27 @@ i {
     margin-top: 5px;
     color: #888;
     .nameWrap {
-      // margin-top: 4px;
       color: #666;
-      .on {
-        color: #222;
-      }
       .name {
-        font-size: 11px;
-        font-family: PingFangSC-Medium;
-        font-weight: 500;
+        font-size: 12px;
+        transform: scale(0.9);
+        font-family: PingFangSC-Light;
         line-height: 16px;
       }
-      .enName {
-        font-size: 11px;
-        font-family: Charter-Bold;
+      .on {
+        color: #222;
+        font-family: PingFangSC-Medium;
         font-weight: bold;
+      }
+      .enName {
+        font-family: Poppins-Regular;
         line-height: 14px;
+        font-size: 12px;
+        transform: scale(0.9);
+      }
+      .en_on {
+        color: #222;
+        font-weight: bold;
       }
     }
   }

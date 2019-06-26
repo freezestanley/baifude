@@ -76,6 +76,11 @@ export default {
   margin-top: 5px;
   padding: 15px 16px;
 }
+.fashionModuleWrap {
+  img {
+    border-radius: 4px;
+  }
+}
 .activity {
   display: flex;
   flex-wrap: wrap;

@@ -30,7 +30,10 @@ export default {
       var that = this;
       new Swiper(".swiper-container1", {
         autoplay: true,
-        loop: true,
+        loop:
+          this.mallUnionConf.tnewsRecommendImageDtos.length === 1
+            ? false
+            : true,
         spaceBetween: 20,
         pagination: {
           el: ".swiper-pagination",
@@ -41,18 +44,18 @@ export default {
             let color = "";
             let paginationStyle = "";
             let html = "";
-            // let append = "";
-            for (let i = 1; i <= total; i++) {
-              if (i === current) {
-                color = activeColor;
-              } else {
-                color = normalColor;
+            if (total > 1) {
+              for (let i = 1; i <= total; i++) {
+                if (i === current) {
+                  color = activeColor;
+                } else {
+                  color = normalColor;
+                }
+                paginationStyle = `background:${color};opacity:1;`;
+                html += `<span class="swiper-pagination-bullet" style=${paginationStyle}></span>`;
               }
-              paginationStyle = `background:${color};opacity:1;`;
-              html += `<span class="swiper-pagination-bullet" style=${paginationStyle}></span>`;
             }
-            // #aeaeae
-            // html = `<div>${append}</div>`;
+
             return html;
           }
         }

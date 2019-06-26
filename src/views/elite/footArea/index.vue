@@ -1,5 +1,5 @@
 <template>
-  <div class="footerBottom" :style="{ background: unionConf.bottomColor }">
+  <div class="footerBottom">
     <div class="show">
       <a class="footer" :href="bavUrl.homePageUrl">
         <i
@@ -23,10 +23,10 @@
         </div>
       </a>
       <a class="footer" :href="bavUrl.cardCenterUrl">
-        <i class="iconfont elite-order__normal"></i>
+        <i class="iconfont elite-benefits__normal"></i>
         <div class="nameWrap">
-          <div v-if="!isBilingual" class="name">订单</div>
-          <div v-if="isBilingual" class="enName">order</div>
+          <div v-if="!isBilingual" class="name">福利</div>
+          <div v-if="isBilingual" class="enName">benefits</div>
         </div>
       </a>
       <a class="footer" :href="bavUrl.userCentUrl">
@@ -100,16 +100,17 @@ i {
       top: -5px;
       color: #999;
       .name {
-        font-size: 11px;
+        font-size: 12px;
+        transform: scale(0.9);
         font-weight: 500;
         line-height: 16px;
         font-family: PingFangSC-Light;
       }
       .enName {
-        font-size: 11px;
-        font-family: Charter-Roman;
-        font-weight: normal;
+        font-family: Poppins-Regular;
         line-height: 14px;
+        font-size: 12px;
+        transform: scale(0.9);
       }
       .on {
         color: #222;
@@ -117,7 +118,6 @@ i {
       }
       .on_en {
         color: #222;
-        font-family: Charter-Bold;
         font-weight: bold;
       }
     }

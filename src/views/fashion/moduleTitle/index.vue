@@ -1,35 +1,16 @@
 <template>
   <!-- 标题 -->
-  <div style="display:flex;justify-content: center">
-    <!-- <div
-      class="triangle_border_left"
-      :style="{ borderRightColor: unionConf.colour }"
-    ></div>-->
-    <div style="position:relative;margin-bottom: 12px;" v-if="!isBilingual">
-      <i
-        class="iconfont fashion-tag__left icon_left"
-        :style="{ color: unionConf.colour }"
-      ></i>
-
+  <div class="title-wrap">
+    <div class="title-content">
       <div class="title">
-        <div class="cTitle">{{ title }}</div>
-        <!-- <div v-show="isBilingual" class="enTitle">{{ enTitle }}</div> -->
-      </div>
-      <i
-        class="iconfont fashion-tag__right icon_right"
-        :style="{ color: unionConf.colour }"
-      ></i>
-    </div>
-
-    <div style="position:relative;margin-bottom: 12px;" v-if="isBilingual">
-      <div class="title">
-        <div class="cTitle">{{ title }}</div>
+        <div class="cTitle" v-if="isBilingual && enTitle">{{ title }}</div>
         <div v-show="isBilingual" class="enTitle">
           <i
             class="iconfont fashion-tag__left icon_left"
             :style="{ color: unionConf.colour }"
           ></i>
-          <span>{{ enTitle }}</span>
+          <span class="enTitle-text" v-if="enTitle">{{ enTitle }}</span>
+          <span class="title-text" v-else>{{ title }}</span>
           <i
             class="iconfont fashion-tag__right icon_right"
             :style="{ color: unionConf.colour }"
@@ -37,11 +18,6 @@
         </div>
       </div>
     </div>
-
-    <!-- <div
-      class="triangle_border_right"
-      :style="{ borderLeftColor: unionConf.colour }"
-    ></div>-->
   </div>
 </template>
 
@@ -60,19 +36,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
-i {
-  font-size: 10px !important;
-  width: 10px;
-  position: absolute;
-  transform: translateY(-50%) scale(0.272);
-  top: 50%;
-}
-
-.icon_left {
-  left: -64px;
-}
-.icon_right {
-  right: 0%;
+.iconfont {
+  display: inline-block;
+  font-size: 70px;
+  vertical-align: top;
 }
 .title {
   font-size: 17px;
@@ -83,23 +50,15 @@ i {
   padding: 0 10px;
   text-align: center;
   .enTitle {
-    font-size: 11px;
-    font-family: LucidaGrande-Bold;
-    font-weight: bold;
-    color: rgba(34, 34, 34, 1);
-    line-height: 13px;
-    position: relative;
-
-    .icon_left {
-      left: -71px;
+    &-text {
+      vertical-align: top;
+      font-family: Poppins-Medium;
+      font-size: 12px;
+      transform: scale(0.9);
     }
-    .icon_right {
-      right: -7px;
-    }
-
-    i {
-      top: 51%;
-    }
+  }
+  &-text {
+    font-size: 17px;
   }
 }
 .triangle_border_left {
@@ -121,5 +80,13 @@ i {
   position: relative;
   top: 10px;
   transform: scale(0.6);
+}
+.title-wrap {
+  display: flex;
+  justify-content: center;
+  .title-content {
+    position: relative;
+    margin-bottom: 12px;
+  }
 }
 </style>
