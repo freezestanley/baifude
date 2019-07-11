@@ -30,7 +30,10 @@
       </div>
     </div>
     <img :src="unionConf.h5BgImage || unionConf.bgImage" />
-    <div v-show="mallUnionConf.logo" class="logo">
+    <div
+      v-show="mallUnionConf.logo && mallUnionConf.logo.length !== 0"
+      class="logo"
+    >
       <div class="logo_img">
         <img :src="mallUnionConf.logo" />
       </div>
