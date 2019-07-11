@@ -30,7 +30,7 @@
       </div>
     </div>
     <img :src="unionConf.h5BgImage || unionConf.bgImage" />
-    <div class="logo">
+    <div v-show="mallUnionConf.logo" class="logo">
       <div class="logo_img">
         <img :src="mallUnionConf.logo" />
       </div>
@@ -148,7 +148,6 @@ export default {
     .logo_img {
       width: 42px;
       height: 42px;
-      background-color: #fff;
       margin: 9px auto;
       border-radius: 4px;
       overflow: hidden;
