@@ -26,7 +26,7 @@
             >{{ cityName }}</router-link
           >
         </div>
-        <div class="unionName">{{ mallUnionConf.customerName }}</div>
+        <!-- <div class="unionName">{{ mallUnionConf.customerName }}</div> -->
         <div class="search">
           <img
             v-if="mallUnionConf.isShowSearch"
