@@ -1,5 +1,9 @@
 <template>
   <div :class="styleCode === 'elite' ? 'bgGray' : 'commonBg'">
+    <notice
+      v-if="isShowUnionNotice"
+      :unionNoticeContent="unionNoticeContent"
+    ></notice>
     <component
       :is="ford.comp"
       :content="ford.data"
@@ -37,12 +41,15 @@ export default {
       show: false,
       popUp: {},
       locationCityName: "",
-      locationCityId: ""
+      locationCityId: "",
+      isShowUnionNotice: false,
+      unionNoticeContent: ""
     };
   },
   components: {
     homeShell: () => import("../../components/homeShell"),
-    LocationNotice: () => import("../../components/locationNotice")
+    LocationNotice: () => import("../../components/locationNotice"),
+    notice: () => import("../../components/notice")
   },
 
   created() {
@@ -122,9 +129,11 @@ export default {
     },
     getCityList() {
       const cid = Number(getQueryString("city"));
-
+      const union = getQueryString("union");
       this.apis
         .cityList({
+          union: union,
+          unionFlag: 1,
           city: cid,
           platform: 1
         })
@@ -183,6 +192,13 @@ export default {
                 data: null,
                 comp: () => import(`@/views/${unionConf.body.styleCode}`)
               });
+
+              // 站内公告
+              this.isShowUnionNotice =
+                unionConf.body.mallUnionConfigDto.isShowUnionNotice;
+              this.unionNoticeContent =
+                unionConf.body.mallUnionConfigDto.unionNoticeContent;
+
               this.styleCode = unionConf.body.styleCode;
               this.updateState({
                 key: "styleCode",
