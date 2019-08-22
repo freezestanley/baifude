@@ -7,7 +7,7 @@
         :text="notice.noticeContent"
         left-icon
         mode="closeable"
-        background="#FFEFEF"
+        :background="unionConf.colour"
         color="#CC2929"
         class="noticeBar"
       />
@@ -181,7 +181,7 @@ export default {
 }
 .notice_warp {
   position: relative;
-  padding-left: 20px;
+  // padding-left: 20px;
   background-color: #ffefef;
   .notice {
     position: absolute;
