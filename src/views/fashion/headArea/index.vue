@@ -159,7 +159,8 @@ export default {
   }
   .logo {
     position: absolute;
-    width: 123px;
+    // width: 123px;
+    width: 100%;
     height: 90px;
     border-radius: 2px;
     overflow: hidden;
