@@ -3,18 +3,33 @@
   <div class="title-wrap">
     <div class="title-content">
       <div class="title">
-        <div class="cTitle" v-if="isBilingual && enTitle">{{ title }}</div>
-        <div v-show="isBilingual" class="enTitle">
-          <i
-            class="iconfont fashion-tag__left icon_left"
-            :style="{ color: unionConf.colour }"
-          ></i>
-          <span class="enTitle-text" v-if="enTitle">{{ enTitle }}</span>
-          <span class="title-text" v-else>{{ title }}</span>
-          <i
-            class="iconfont fashion-tag__right icon_right"
-            :style="{ color: unionConf.colour }"
-          ></i>
+        <div v-show="!isBilingual">
+          <div class="enTitle">
+            <i
+              class="iconfont fashion-tag__left icon_left"
+              :style="{ color: unionConf.colour }"
+            ></i>
+            <span class="title-text">{{ title }}</span>
+            <i
+              class="iconfont fashion-tag__right icon_right"
+              :style="{ color: unionConf.colour }"
+            ></i>
+          </div>
+        </div>
+        <div v-show="isBilingual">
+          <div class="cTitle">{{ title }}</div>
+          <div class="enTitle">
+            <i
+              class="iconfont fashion-tag__left icon_left"
+              :style="{ color: unionConf.colour }"
+            ></i>
+            <span class="enTitle-text" v-if="enTitle">{{ enTitle }}</span>
+            <span class="title-text" v-else>{{ title }}</span>
+            <i
+              class="iconfont fashion-tag__right icon_right"
+              :style="{ color: unionConf.colour }"
+            ></i>
+          </div>
         </div>
       </div>
     </div>
