@@ -2,7 +2,7 @@
   <div class="header">
     <div class="top">
       <div class="union clearfix">
-        <div class="imgWrap fl">
+        <div class="imgWrap fl" v-if="!!mallUnionConf.logo">
           <img :src="mallUnionConf.logo" />
         </div>
         <span class="unionName fl">{{ mallUnionConf.customerName }}</span>
