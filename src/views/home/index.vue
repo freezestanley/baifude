@@ -83,9 +83,7 @@ export default {
       });
       let cityName = position.city.replace("市", "");
       this.locationCityName = cityName;
-      if (sessionStorage.getItem("DF_FORD_ISLOCATION") != 1) {
-        this.getCityId(cityName);
-      }
+      this.getCityId(cityName);
     },
     errorMsg() {
       console.log("定位失败");
@@ -99,13 +97,14 @@ export default {
           val: resp.cityId
         });
         if (
+          getCookie("DF_FORD_ISLOCATION") != 1 &&
           !getQueryString("city") &&
           this.locationCityName &&
           String(this.$route.query.city) !== String(resp.cityId)
         ) {
           this.locationShow = true;
-          // 定位过了
-          sessionStorage.setItem("DF_FORD_ISLOCATION", 1);
+          // 定位过了// 弹框设置cookie
+          setCookie("DF_FORD_ISLOCATION", 1, 1);
         }
       });
     },
