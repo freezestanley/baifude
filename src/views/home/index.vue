@@ -96,13 +96,8 @@ export default {
           key: "locationCityId",
           val: resp.cityId
         });
-        console.log(!getCookie("DF_FORD_ISLOCATION"));
-        console.log(!getQueryString("city"));
-        console.log(this.locationCityName);
-        console.log(String(this.$route.query.city) !== String(resp.cityId));
         if (
           !getCookie("DF_FORD_ISLOCATION") &&
-          !getQueryString("city") &&
           this.locationCityName &&
           String(this.$route.query.city) !== String(resp.cityId)
         ) {
@@ -110,7 +105,6 @@ export default {
           // 定位过了// 弹框设置cookie
           setCookie("DF_FORD_ISLOCATION", 1, 1);
         }
-        console.log(this.locationShow);
       });
     },
     changeShow(data) {
