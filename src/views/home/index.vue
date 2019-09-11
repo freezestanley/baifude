@@ -96,6 +96,7 @@ export default {
           key: "locationCityId",
           val: resp.cityId
         });
+        console.log(getCookie("DF_FORD_ISLOCATION"));
         if (
           getCookie("DF_FORD_ISLOCATION") != 1 &&
           !getQueryString("city") &&
