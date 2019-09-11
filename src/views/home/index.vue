@@ -136,12 +136,13 @@ export default {
       });
     },
     getCityList() {
-      // const cid = Number(getQueryString("city"));
+      const cid = Number(getQueryString("city"));
       const union = getQueryString("union");
       this.apis
         .cityList({
           union: union,
           unionFlag: 1,
+          city: cid,
           platform: 1
         })
         .then(res => {
