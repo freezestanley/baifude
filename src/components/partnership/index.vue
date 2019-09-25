@@ -74,8 +74,8 @@ export default {
   overflow: hidden;
 }
 .eleganceModuleWrap {
-  margin-top: 5px;
-  padding: 15px 16px;
+  margin-top: 0px;
+  padding: 0px;
 }
 .fashionModuleWrap {
   img {
@@ -98,6 +98,7 @@ export default {
   a {
     display: block;
     width: 343px;
+    margin: 0 auto;
   }
   /deep/.partnership-swiper-container {
     width: 100%;
