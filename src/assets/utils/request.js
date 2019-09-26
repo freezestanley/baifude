@@ -11,22 +11,18 @@ const { NODE_ENV, VUE_APP_FLAG } = process.env;
 
 if (NODE_ENV === "production") {
   switch (VUE_APP_FLAG) {
-    case "test":
-      appAPI = "https://m.dongfangfuli.com/gw/app/";
-      mallAPI = "https://m.dongfangfuli.com/api/";
-      break;
-    case "wdev":
-      appAPI = "http://10.8.3.17:81/gw/app/";
-      mallAPI = "http://10.8.3.17:81/mallapi/";
+    case "test01":
+      appAPI = "http://mallzuul.test01.com";
+      mallAPI = "http://api.test01.com";
       break;
     default:
-      appAPI = "https://m.dongfangfuli.com/gw/app/";
-      mallAPI = "https://m.dongfangfuli.com/mallapi/";
+      appAPI = "/gw/app";
+      mallAPI = "/mallapi";
       break;
   }
 } else {
-  appAPI = "http://10.8.3.17:81/gw/app/";
-  mallAPI = "http://10.8.3.17:81/mallapi/";
+  appAPI = "http://10.8.3.17/gw/app";
+  mallAPI = "http://10.8.3.17/mallapi";
 }
 
 /**

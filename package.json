@@ -4,10 +4,13 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "dev": "vue-cli-service build --mode dev",
+    "uat": "vue-cli-service build --mode uat",
+    "test": "vue-cli-service build --mode test",
+    "test01": "vue-cli-service build --mode test01",
+    "stage": "vue-cli-service build --mode stage",
     "production": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test": "vue-cli-service build --mode test",
-    "wdev": "vue-cli-service build --mode wdev",
     "dll": "webpack --config webpack.dll.conf.js -p"
   },
   "dependencies": {
