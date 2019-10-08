@@ -99,6 +99,7 @@ img {
 .noticeBar {
   height: 28px;
   font-size: 12px;
+  padding-left: 30px;
 }
 .notice_warp {
   position: relative;

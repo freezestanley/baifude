@@ -11,7 +11,7 @@
       :key="index"
     ></component>
     <!-- 首页弹窗 -->
-    <homeShell v-if="popUp" @changeShow="changeShow" :show="show"></homeShell>
+    <homeShell></homeShell>
     <LocationNotice
       v-if="locationShow"
       :locationCityName="locationCityName"
@@ -24,12 +24,7 @@
 import axios from "axios";
 import { mapMutations } from "vuex";
 import { OK } from "@/assets/utils/constant";
-import {
-  getQueryString,
-  setCookie,
-  getCookie,
-  delCookie
-} from "@/assets/utils";
+import { getQueryString, setCookie, getCookie } from "@/assets/utils";
 
 export default {
   name: "home",
@@ -38,7 +33,7 @@ export default {
       locationShow: false,
       styleCode: "",
       fords: [],
-      show: false,
+      show: true,
       popUp: {},
       locationCityName: "",
       locationCityId: "",
@@ -107,16 +102,18 @@ export default {
         }
       });
     },
-    changeShow(data) {
-      let checked = data.checked;
-      if (checked) {
-        // 选中则该项目期间不再显示(存cookie)
-        let name = "homeActivity" + this.popUp.id;
-        let value = this.popUp.id + 1;
-        setCookie(name, value, 365);
-      }
-      this.show = data.show;
-    },
+    // changeShow(data) {
+    //   let checked = data.checked;
+    //   console.log(checked);
+    //   // if (checked) {
+    //   //   // 选中则该项目期间不再显示(存cookie)
+    //   //   let name = "homeActivity" + this.popUp.id;
+    //   //   let value = this.popUp.id + 1;
+    //   //   setCookie(name, value, 365);
+    //   // }
+    //   this.show = data.show;
+    //   console.log(this.show);
+    // },
     getUnionConfig(union) {
       const cid = Number(getQueryString("city"));
       return this.apis.findByUnion({ union, city: cid ? cid : null });
@@ -319,35 +316,35 @@ export default {
         });
     },
     getPopUpShow() {
-      if (!this.popUp) {
-        return false;
-      }
-      let name = "homeActivity" + this.popUp.id;
-      let hasCookie = getCookie(name);
-      let flag = true;
-      if (hasCookie) {
-        flag = false;
-      }
-      if (!this.popUp.isShow) {
-        flag = false;
-        if (hasCookie) {
-          delCookie(name);
-        }
-      }
-      let now = Number(new Date());
-      if (
-        now > Number(new Date(this.popUp.endTime)) ||
-        now < Number(new Date(this.popUp.startTime))
-      ) {
-        flag = false;
-        // 已不再活动期限内，将多余cookie删除
-        if (hasCookie) {
-          delCookie(name);
-        }
-      }
-      if (flag) {
-        this.show = flag;
-      }
+      // if (!this.popUp) {
+      //   return false;
+      // }
+      // let name = "homeActivity" + this.popUp.id;
+      // let hasCookie = getCookie(name);
+      // let flag = true;
+      // if (hasCookie) {
+      //   flag = false;
+      // }
+      // if (!this.popUp.isShow) {
+      //   flag = false;
+      //   if (hasCookie) {
+      //     delCookie(name);
+      //   }
+      // }
+      // let now = Number(new Date());
+      // if (
+      //   now > Number(new Date(this.popUp.endTime)) ||
+      //   now < Number(new Date(this.popUp.startTime))
+      // ) {
+      //   flag = false;
+      //   // 已不再活动期限内，将多余cookie删除
+      //   if (hasCookie) {
+      //     delCookie(name);
+      //   }
+      // }
+      // if (flag) {
+      //   this.show = flag;
+      // }
     }
   },
   watch: {

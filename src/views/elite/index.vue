@@ -124,6 +124,7 @@ export default {
   .noticeBar {
     height: 28px;
     font-size: 12px;
+    padding-left: 30px;
   }
   .top {
     position: fixed;

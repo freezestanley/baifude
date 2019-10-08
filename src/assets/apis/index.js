@@ -67,3 +67,13 @@ export function getCityIdByName(params) {
   const getCityIdByNameApi = "/location/getCityIdByName";
   return sendPost(getCityIdByNameApi, params, true);
 }
+
+/**
+ * 关闭弹窗
+ * @param { JSON } params 请求的参数
+ */
+
+export function closePopup(params) {
+  const closePopupApi = "/mallUnion/unionConifg/closePopup";
+  return sendPost(closePopupApi, params);
+}

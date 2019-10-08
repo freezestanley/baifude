@@ -50,18 +50,14 @@
 </template>
 
 <script>
+import { getQueryString } from "@/assets/utils";
 import { mapState } from "vuex";
 export default {
   name: "shell",
-  props: {
-    show: {
-      type: Boolean,
-      default: false
-    }
-  },
   data() {
     return {
-      checked: false
+      checked: false,
+      show: false
     };
   },
   computed: {
@@ -72,21 +68,27 @@ export default {
   },
   methods: {
     clickClose() {
-      this.$emit("changeShow", { checked: this.checked, show: false }, false);
+      if (this.checked && this.popUpConf.unionId) {
+        const union = getQueryString("union");
+        this.apis.closePopup({ unionId: this.popUpConf.unionId, union });
+      }
+      this.show = false;
     },
     go(url) {
       window.location.href = url;
     }
   },
   watch: {
-    show(val) {
-      this.show = val;
-    },
     popUpConf: {
       handler() {
-        setTimeout(() => {
-          this.clickClose();
-        }, this.popUpConf.showTime * 1000);
+        if (this.popUpConf.isShow) {
+          this.show = true;
+          setTimeout(() => {
+            this.clickClose();
+          }, this.popUpConf.showTime * 1000);
+        } else {
+          this.show = false;
+        }
       },
       deep: true,
       immediate: true
