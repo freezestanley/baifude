@@ -23,11 +23,12 @@ export default {
       // if (ua.toLowerCase().indexOf("windowswechat")) {
       //   // 企业微信pc端（不确定）
       // }
-      console.log(process.env.NODE_ENV);
-      console.log(process.env.VUE_APP_FLAG);
+      // console.log(process.env.NODE_ENV);
+      // console.log(process.env.VUE_APP_FLAG);
       if (
         !detect(ua).os.phone &&
-        ua.toLowerCase().indexOf("windowswechat") === -1
+        ua.toLowerCase().indexOf("windowswechat") === -1 &&
+        union !== "aon"
       ) {
         if (
           process.env.NODE_ENV == "production" &&
