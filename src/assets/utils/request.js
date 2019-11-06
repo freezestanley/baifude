@@ -10,15 +10,12 @@ let appAPI, mallAPI;
 const { NODE_ENV, VUE_APP_FLAG } = process.env;
 
 if (NODE_ENV === "production") {
-  switch (VUE_APP_FLAG) {
-    case "test01":
-      appAPI = "http://mallzuul.test01.com";
-      mallAPI = "http://api.test01.com";
-      break;
-    default:
-      appAPI = "/gw/app";
-      mallAPI = "/mallapi";
-      break;
+  if (/test\d{2}$/g.test(VUE_APP_FLAG)) {
+    appAPI = `http://appzuul.${VUE_APP_FLAG}.com`;
+    mallAPI = `http://api.${VUE_APP_FLAG}.com`;
+  } else {
+    appAPI = "/gw/app";
+    mallAPI = "/mallapi";
   }
 } else {
   appAPI = "http://10.8.3.17/gw/app";
