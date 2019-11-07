@@ -7,8 +7,8 @@
         :text="notice.noticeContent"
         left-icon
         mode="closeable"
-        :background="unionConf.colour"
-        color="#CC2929"
+        background="#FEF8D8"
+        color="#DD8815"
         class="noticeBar"
       />
       <img class="notice" src="../../assets/images/elite/icon_notice.png" alt />
