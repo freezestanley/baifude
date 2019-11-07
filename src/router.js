@@ -16,6 +16,9 @@ export default new Router({
     {
       path: "/home",
       name: "home",
+      meta: {
+        title: "百福德H5首页"
+      },
       component: () => import(/* webpackChunkName: "home" */ "./views/home")
     },
     {
