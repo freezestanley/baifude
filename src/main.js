@@ -30,16 +30,16 @@ Vue.use(Dialog);
 Vue.use(NoticeBar);
 Vue.use(Toast);
 
-// router.beforeEach((to, from, next) => {
-//   const { meta } = to;
-//   const dfCollect = new DFCollectSDK({
-//     commonUpData: {
-//       pageName: meta.title
-//     }
-//   });
-//   dfCollect.setIntervalPv(2000);
-//   next();
-// });
+router.beforeEach((to, from, next) => {
+  const { meta } = to;
+  const dfCollect = new DFCollectSDK({
+    commonUpData: {
+      pageName: meta.title
+    }
+  });
+  dfCollect.setIntervalPv(2000);
+  next();
+});
 
 Vue.config.productionTip = false;
 
