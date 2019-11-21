@@ -46,9 +46,9 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 export default {
-  name: "Header",
+  name: 'Header',
   data() {
     return {};
   },
@@ -66,16 +66,17 @@ export default {
   },
   methods: {
     goService() {
-      let baseUrl = window.location.href;
-      window.location.href =
-        " https://chat56.live800.com/live800/chatClient/chatbox.jsp?companyID=1111643&configID=232155&jid=8404559658&enterurl=" +
-        encodeURIComponent(baseUrl);
+      window.qimoChatClick();
+      // let baseUrl = window.location.href;
+      // window.location.href =
+      //   " https://chat56.live800.com/live800/chatClient/chatbox.jsp?companyID=1111643&configID=232155&jid=8404559658&enterurl=" +
+      //   encodeURIComponent(baseUrl);
     },
     goSearch() {
       let baseUrl = window.location.href;
       window.location.href =
         this.mallUnionConf.h5SearchUrl +
-        "&returnUrl=" +
+        '&returnUrl=' +
         encodeURIComponent(baseUrl);
     }
   },
@@ -89,7 +90,7 @@ export default {
   height: 104px;
   position: relative;
   .clearfix:after {
-    content: ".";
+    content: '.';
     display: block;
     height: 0;
     clear: both;
