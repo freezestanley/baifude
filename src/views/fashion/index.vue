@@ -76,19 +76,19 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import HeadArea from './headArea';
-import NavArea from './navArea';
-import News from './news';
-import Banner from './banner';
+import { mapState } from "vuex";
+import HeadArea from "./headArea";
+import NavArea from "./navArea";
+import News from "./news";
+import Banner from "./banner";
 export default {
-  name: 'fashion',
+  name: "fashion",
   data() {
     return {
       flag: false,
-      serviceIncon: require('@/assets/images/fashion/ac_service.png'),
-      seachIncon: require('@/assets/images/fashion/ac_seach.png'),
-      locationIcon: require('@/assets/images/fashion/ac_location.png')
+      serviceIncon: require("@/assets/images/fashion/ac_service.png"),
+      seachIncon: require("@/assets/images/fashion/ac_seach.png"),
+      locationIcon: require("@/assets/images/fashion/ac_location.png")
     };
   },
   components: {
@@ -99,21 +99,21 @@ export default {
   },
   mounted: function() {
     this.$nextTick(() => {
-      window.addEventListener('scroll', this.handleScroll); // 监听（绑定）滚轮滚动事件
+      window.addEventListener("scroll", this.handleScroll); // 监听（绑定）滚轮滚动事件
     });
   },
   methods: {
     goService() {
-      window.qimoChatClick();
-      // let baseUrl = window.location.href;
-      // window.location.href =
-      //   " https://chat56.live800.com/live800/chatClient/chatbox.jsp?companyID=1111643&configID=232155&jid=8404559658&enterurl=" +
-      //   encodeURIComponent(baseUrl);
+      try {
+        window.qimoChatClick();
+      } catch (error) {
+        console.log(error);
+      }
     },
     handleScroll: function() {
       const scrollTop =
         document.documentElement.scrollTop || document.body.scrollTop;
-      const headHeight = document.getElementById('js-head').offsetHeight;
+      const headHeight = document.getElementById("js-head").offsetHeight;
 
       this.flag = scrollTop >= headHeight ? true : false;
     },
@@ -121,7 +121,7 @@ export default {
       let baseUrl = window.location.href;
       window.location.href =
         this.mallUnionConf.h5SearchUrl +
-        '&returnUrl=' +
+        "&returnUrl=" +
         encodeURIComponent(baseUrl);
     }
   },
@@ -135,7 +135,7 @@ export default {
     })
   },
   beforeDestroy: function() {
-    window.removeEventListener('scroll', this.handleScroll); //  离开页面清除（移除）滚轮滚动事件
+    window.removeEventListener("scroll", this.handleScroll); //  离开页面清除（移除）滚轮滚动事件
   }
 };
 </script>
