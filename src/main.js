@@ -31,17 +31,37 @@ Vue.use(NoticeBar);
 Vue.use(Toast);
 
 router.beforeEach((to, from, next) => {
-  const { meta } = to;
-  const dfCollect = new DFCollectSDK({
-    commonUpData: {
-      pageName: meta.title
-    }
-  });
-  dfCollect.setIntervalPv(2000);
   next();
+  const { meta } = to;
+  if (meta.title) {
+    document.body.setAttribute('data-name',`${meta.title}`)
+  }
 });
 
 Vue.config.productionTip = false;
+
+// 埋点代码
+const { NODE_ENV, VUE_APP_FLAG } = process.env;
+let sendUrl = '//10.8.30.16:10012/tracker/add'
+if (NODE_ENV == 'production' && VUE_APP_FLAG == 'pro') {
+  sendUrl = '//tracker.dongfangfuli.com/tracker/add'
+}
+
+if (DFCollectSDK) {
+  let df_collect = new DFCollectSDK({
+      sendUrl: sendUrl,
+      commonUpData: {
+        pageName: document.body.getAttribute('data-name'),
+        pageChannel: document.title
+      }
+    })
+  setInterval(function () {
+    df_collect.pageVisit({
+      pageName: document.body.getAttribute('data-name')
+    })
+  },2000)
+}
+// 埋点代码
 
 new Vue({
   router,
