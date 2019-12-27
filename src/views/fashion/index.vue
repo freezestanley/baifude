@@ -104,11 +104,11 @@ export default {
   },
   methods: {
     goService() {
-      //window.qimoChatClick();
-      let baseUrl = window.location.href;
-      window.location.href =
-        " https://chat56.live800.com/live800/chatClient/chatbox.jsp?companyID=1111643&configID=232155&jid=8404559658&enterurl=" +
-        encodeURIComponent(baseUrl);
+      try {
+        window.qimoChatClick();
+      } catch (error) {
+        console.log(error);
+      }
     },
     handleScroll: function() {
       const scrollTop =
