@@ -18,12 +18,9 @@
     ></script>
     <!-- <script
       type="text/javascript"
-      src="http://10.8.2.13:10012/js/DFCollectSDK_201911061515.js"
-    ></script> -->
-    <script
-      type="text/javascript"
       src="//tracker.dongfangfuli.com/js/DFCollectSDK_201911061515.js"
-    ></script>
+    ></script> -->
+    <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
     <title></title>
     <script>
       (function() {
@@ -35,7 +32,29 @@
 
           document.body.appendChild(s);
         });
+
+        try {
+          new VConsole();
+          setTimeout(() => {
+            document.getElementById("__vconsole").style.display = "none";
+          });
+
+          let vc_timer = null;
+          document.addEventListener("touchstart", e => {
+            e.preventDefault();
+            vc_timer = setTimeout(() => {
+              document.getElementById("__vconsole").style.display = 'block';
+            }, 3000);
+          });
+          document.addEventListener("touchend", () => {
+            clearTimeout(vc_timer);
+            vc_timer = null;
+          });
+        } catch (error) {
+          console.log(error);
+        }
       })();
+
     </script>
   </head>
   <body>
