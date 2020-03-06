@@ -10,7 +10,6 @@ import { getQueryString, detect } from "@/assets/utils";
 export default {
   created() {
     this.redirect();
-    console.log("app created!");
   },
   methods: {
     redirect() {
