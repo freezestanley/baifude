@@ -8,11 +8,9 @@
 import { getQueryString, detect } from "@/assets/utils";
 
 export default {
-  data() {
-    return {};
-  },
   created() {
     this.redirect();
+    console.log("app created!");
   },
   methods: {
     redirect() {
@@ -33,9 +31,7 @@ export default {
               window.location = `http://${union}.dongfangfuli.com/bfd_pc/index?union=${union}&city=${city}`;
               break;
             default:
-              window.location = `www.${union}.${
-                process.env.VUE_APP_FLAG
-              }.com/bfd_pc/index?union=${union}&city=145`;
+              window.location = `www.${union}.${process.env.VUE_APP_FLAG}.com/bfd_pc/index?union=${union}&city=145`;
               break;
           }
         }
