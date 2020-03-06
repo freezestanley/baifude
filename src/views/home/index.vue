@@ -48,7 +48,6 @@ export default {
   },
 
   created() {
-    console.log("home created");
     const union = getQueryString("union");
 
     this.isLogin(union);
@@ -103,18 +102,6 @@ export default {
         }
       });
     },
-    // changeShow(data) {
-    //   let checked = data.checked;
-    //   console.log(checked);
-    //   // if (checked) {
-    //   //   // 选中则该项目期间不再显示(存cookie)
-    //   //   let name = "homeActivity" + this.popUp.id;
-    //   //   let value = this.popUp.id + 1;
-    //   //   setCookie(name, value, 365);
-    //   // }
-    //   this.show = data.show;
-    //   console.log(this.show);
-    // },
     getUnionConfig(union) {
       const cid = Number(getQueryString("city"));
       return this.apis.findByUnion({ union, city: cid ? cid : null });
@@ -181,7 +168,6 @@ export default {
         duration: 0,
         message: "加载中..."
       });
-      console.log("当前开始请求后台!");
       axios
         .all([
           this.getUnionConfig(union),
@@ -192,9 +178,7 @@ export default {
           axios.spread((unionConf, unionMallConf, unionMoulds) => {
             this.$toast.clear();
             // 收集要渲染的组件及缓存数据
-            console.log("所有数据请求成功!");
             if (unionConf && unionConf.body) {
-              console.log("开始进入组件组装!");
               this.fords.push({
                 data: null,
                 comp: () => import(`@/views/${unionConf.body.styleCode}`)
@@ -295,15 +279,12 @@ export default {
         })
         .then(res => {
           if (res.loginFlag === OK) {
-            console.log("未登录!");
             // 本地开发不跳登录
             if (process.env.NODE_ENV !== "development") {
               const base = window.location.href;
               window.location.href =
                 res.loginUrl + "&returnUrl=" + encodeURIComponent(base);
             }
-          } else {
-            console.log("已登录!");
           }
         });
     },
