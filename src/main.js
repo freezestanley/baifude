@@ -4,7 +4,6 @@ import router from "./router";
 import store from "./store";
 import "amfe-flexible";
 import * as apis from "./assets/apis";
-import VConsole from "vconsole";
 
 Vue.prototype.apis = apis;
 
@@ -64,23 +63,6 @@ if (window.DFCollectSDK) {
   }, 2000);
 }
 // 埋点代码
-
-new VConsole();
-setTimeout(() => {
-  document.getElementById("__vconsole").classList.add("hide-vc");
-});
-
-let vc_timer = null;
-document.addEventListener("touchstart", e => {
-  vc_timer = setTimeout(() => {
-    e.stopPropagation();
-    document.getElementById("__vconsole").classList.add("show-vc");
-  }, 5000);
-});
-document.addEventListener("touchend", () => {
-  clearTimeout(vc_timer);
-  vc_timer = null;
-});
 
 new Vue({
   router,
