@@ -8,11 +8,9 @@
 import { getQueryString, detect } from "@/assets/utils";
 
 export default {
-  data() {
-    return {};
-  },
   created() {
     this.redirect();
+    console.log("app created!");
   },
   methods: {
     redirect() {
