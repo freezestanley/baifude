@@ -54,12 +54,12 @@ export default {
     this.getNotice(union);
     this.getData(union);
     this.getCityList();
-    setTimeout(() => {
-      if (sessionStorage.getItem("userChange") !== "1") {
-        this.getCurrentCity();
-      }
-      sessionStorage.setItem("userChange", "0");
-    }, 1000);
+    // setTimeout(() => {
+    //   if (sessionStorage.getItem("userChange") !== "1") {
+    //     this.getCurrentCity();
+    //   }
+    //   sessionStorage.setItem("userChange", "0");
+    // }, 1000);
   },
   methods: {
     ...mapMutations(["updateState"]),
