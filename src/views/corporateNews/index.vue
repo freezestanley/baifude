@@ -86,7 +86,7 @@
       },
       goToDetail(item){
         console.log("index--===",item)
-        this.$router.push({path:'/newsdetail',query:{id:item.id}});
+        this.$router.push({path:'/corporatenews/newsdetail',query:{id:item.id}});
       }
     },
   }
