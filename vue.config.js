@@ -2,6 +2,7 @@ const path = require("path");
 const webpack = require("webpack");
 const AddAssetHtmlPlugin = require("add-asset-html-webpack-plugin");
 const { env } = process;
+const { DEV_SERVER } = require("./config");
 
 module.exports = {
   publicPath: env.NODE_ENV === "development" ? "/" : "/bfd/",
@@ -36,5 +37,6 @@ module.exports = {
       config.plugins = [...config.plugins, ...plugins];
       config.externals = { ...config.externals, ...exts };
     }
-  }
+  },
+  devServer: DEV_SERVER
 };

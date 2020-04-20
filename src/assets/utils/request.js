@@ -18,8 +18,10 @@ if (NODE_ENV === "production") {
     mallAPI = "/mallapi";
   }
 } else {
-  appAPI = "http://10.8.3.17/gw/app";
-  mallAPI = "http://10.8.3.17/mallapi";
+  // appAPI = "http://10.8.3.17/gw/app";
+  // mallAPI = "http://10.8.3.17/mallapi";
+  appAPI = "/gw/app";
+  mallAPI = "/mallapi";
 }
 
 /**
