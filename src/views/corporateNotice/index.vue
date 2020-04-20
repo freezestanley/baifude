@@ -7,8 +7,7 @@
                finished-text="没有更多了"
                @load="onLoad"
        >
-           <!--<van-cell v-for="item in list" :key="item" :title="item" />-->
-           <NoticeList :data="list"></NoticeList>
+           <NoticeList :data="list" @goToDetail="goToDetail"></NoticeList>
        </van-list>
 
    </div>
@@ -53,6 +52,9 @@
           }
         }, 1000);
       },
+      goToDetail(item){
+        console.log("item111",item)
+      }
     },
   }
 </script>

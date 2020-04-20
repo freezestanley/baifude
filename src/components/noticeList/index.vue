@@ -1,6 +1,6 @@
 <template>
     <section class="notice-wrap">
-        <div class="notice-item" v-for="(item,index) in data" :key="index" >
+        <div class="notice-item" v-for="(item,index) in data" :key="index" @click="goToDetail(item)">
             <div class="notice-title">{{item.title}}</div>
             <div class="notice-data">{{item.time}}</div>
         </div>
@@ -17,6 +17,11 @@
           return []
         }
       },
+    },
+    methods:{
+      goToDetail(item){
+        this.$emit('goToDetail', item);
+      }
     },
   }
 </script>
