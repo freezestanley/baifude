@@ -25,6 +25,9 @@ import {
   Button,
   Field,
   CheckboxGroup,
+  Calendar,
+  Uploader,
+  Image
 } from "vant";
 Vue.use(Search);
 Vue.use(Icon);
@@ -39,7 +42,9 @@ Vue.use(Form);
 Vue.use(Button);
 Vue.use(Field);
 Vue.use(CheckboxGroup);
-
+Vue.use(Calendar);
+Vue.use(Uploader);
+Vue.use(Image);
 router.beforeEach((to, from, next) => {
   next();
   const { meta } = to;
