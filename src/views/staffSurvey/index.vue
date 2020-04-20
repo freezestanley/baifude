@@ -1,13 +1,66 @@
 <template>
-    <div>员工调研</div>
+    <div class="page">
+        <van-list
+                v-model="loading"
+                :finished="finished"
+                :immediate-check="false"
+                finished-text="没有更多了"
+                @load="onLoad"
+        >
+            <NoticeList :data="list" @goToDetail="goToDetail"></NoticeList>
+        </van-list>
+    </div>
 </template>
 
 <script>
+  import NoticeList from '@/components/noticeList/index';
   export default {
-    name: "index"
+    name: "index",
+    components:{
+      NoticeList,
+    },
+    data(){
+      return{
+        list:[
+          {"title":"春节假期去向调查表","time":"2020-04-13"},
+          {"title":"企业员工返岗调查表","time":"2020-04-13"},
+          {"title":"员工每日健康上报","time":"2020-04-13"},
+          {"title":"疫情特殊时期，在家工作临时方案办公环境调查","time":"2020-04-13"},
+          {"title":"2019年度优秀员工名单","time":"2020-04-13"},
+          {"title":"2019年度优秀员工名单","time":"2020-04-13"},
+        ],
+        loading: false,
+        finished: false,
+      }
+    },
+    methods:{
+      onLoad() {
+        // 异步更新数据
+        // setTimeout 仅做示例，真实场景中一般为 ajax 请求
+        setTimeout(() => {
+          for (let i = 0; i < 5; i++) {
+            this.list.push({"title":"2019年度优秀员工名单","time":"2020-04-13"});
+          }
+
+          // 加载状态结束
+          this.loading = false;
+
+          // 数据全部加载完成
+          if (this.list.length >= 20) {
+            this.finished = true;
+          }
+        }, 1000);
+      },
+      goToDetail(item){
+        console.log("item111",item)
+      }
+    },
   }
 </script>
 
-<style scoped>
-
+<style lang="less" scoped>
+    .page{
+        padding: 0 10px;
+        font-size: 14px;
+    }
 </style>
