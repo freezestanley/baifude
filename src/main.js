@@ -19,7 +19,8 @@ import {
   Lazyload,
   Dialog,
   NoticeBar,
-  Toast
+  Toast,
+  List,
 } from "vant";
 Vue.use(Search);
 Vue.use(Icon);
@@ -29,6 +30,7 @@ Vue.use(Lazyload);
 Vue.use(Dialog);
 Vue.use(NoticeBar);
 Vue.use(Toast);
+Vue.use(List);
 
 router.beforeEach((to, from, next) => {
   next();
