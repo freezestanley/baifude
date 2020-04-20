@@ -21,6 +21,10 @@ import {
   NoticeBar,
   Toast,
   List,
+  Form,
+  Button,
+  Field,
+  CheckboxGroup,
 } from "vant";
 Vue.use(Search);
 Vue.use(Icon);
@@ -31,6 +35,10 @@ Vue.use(Dialog);
 Vue.use(NoticeBar);
 Vue.use(Toast);
 Vue.use(List);
+Vue.use(Form);
+Vue.use(Button);
+Vue.use(Field);
+Vue.use(CheckboxGroup);
 
 router.beforeEach((to, from, next) => {
   next();

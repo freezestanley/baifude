@@ -70,7 +70,7 @@ export default {
   created(){
     console.log("paramsData---==",this.paramsData)
   },
-    
+
 }
 </script>
 <style lang="less" scoped>
