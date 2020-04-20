@@ -3,6 +3,8 @@ import Router from "vue-router";
 const CorporateNews = () => import('@/views/corporateNews/index').then(m => m.default)
 const CorporateActivity = () => import('@/views/corporateActivity/index')
 const CorporateActivityDetail = () => import('@/views/corporateActivity/detail/index')
+const NewsDetail = () => import('@/views/corporateNews/detail').then(m => m.default)
+const CorporateNotice = () => import('@/views/corporateNotice/index').then(m => m.default)
 Vue.use(Router);
 
 export default new Router({
@@ -48,6 +50,22 @@ export default new Router({
       meta: {
         title: "活动详情"
       }
-    }
+    },
+    {
+      path: "/newsdetail",
+      name: "newsDetail",
+      component:NewsDetail,
+      meta: {
+        title: "企业新闻详情"
+      }
+    },
+    {
+      path: "/corporatenotice",
+      name: "corporateNotice",
+      component:CorporateNotice,
+      meta: {
+        title: "企业公告"
+      }
+    },
   ]
 });

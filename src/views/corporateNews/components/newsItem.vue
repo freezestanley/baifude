@@ -1,6 +1,6 @@
 <template>
     <section class="newItem">
-        <div class="newItem-wrap" v-for="(item,index) in newsData" :key="index">
+        <div class="newItem-wrap" v-for="(item,index) in newsData" :key="index" @click="goToDetail(item)">
             <div class="newItem-wrap-left">
                 <img :src="item.picture"/>
             </div>
@@ -23,13 +23,17 @@
         }
       },
     },
-    methods:{},
+    methods:{
+      //跳转详情页面操作
+      goToDetail(item){
+        this.$emit('goToDetail', item);
+      },
+    },
   }
 </script>
 
 <style lang="less" scoped>
 .newItem{
-    width: 100%;
     height:130px;
     padding: 0 10px;
     .newItem-wrap{
