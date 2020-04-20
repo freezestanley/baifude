@@ -1,6 +1,6 @@
 <template>
     <section class="activity-wrap">
-        <div class="activit-item" v-for="(item,index) in data" :key="index">
+        <div class="activit-item" v-for="(item,index) in data" :key="index" @click="goToDetail(item)">
             <div class="activity-pic">
                 <img :src="item.pic" alt="">
             </div>
@@ -22,6 +22,11 @@
           return []
         }
       },
+    },
+    methods:{
+      goToDetail(item){
+        this.$emit("goToDetail",item)
+      }
     },
   }
 </script>

@@ -1,6 +1,6 @@
 <template>
     <section class="page">
-        <Activity :data="list"></Activity>
+        <Activity :data="list" @goToDetail="goTodetail"></Activity>
     </section>
 </template>
 
@@ -23,7 +23,11 @@ export default {
     methods:{
         activityDetail(){
             this.$router.push({path:'/corporateactivity/activitydetail',query:''});
-        }
+        },
+      goTodetail(item){
+          console.log("item---===",item)
+        this.$router.push({name:'activityDetail',params:{...item}});
+      }
     }
 }
 </script>
