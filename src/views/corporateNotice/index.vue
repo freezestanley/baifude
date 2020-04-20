@@ -23,16 +23,16 @@
     data(){
       return{
         list:[
-          {"title":"2019年度优秀员工名单","time":"2020-04-13"},
-          {"title":"2019年度优秀员工名单","time":"2020-04-13"},
-          {"title":"2019年度优秀员工名单","time":"2020-04-13"},
-          {"title":"2019年度优秀员工名单","time":"2020-04-13"},
-          {"title":"2019年度优秀员工名单","time":"2020-04-13"},
-          {"title":"2019年度优秀员工名单","time":"2020-04-13"},
+          {id:1,"title":"2019年度优秀员工名单","time":"2020-04-13"},
+          {id:2,"title":"2019年度优秀员工名单","time":"2020-04-13"},
+          {id:3,"title":"2019年度优秀员工名单","time":"2020-04-13"},
+          {id:4,"title":"2019年度优秀员工名单","time":"2020-04-13"},
+          {id:5,"title":"2019年度优秀员工名单","time":"2020-04-13"},
+          {id:6,"title":"2019年度优秀员工名单","time":"2020-04-13"},
         ],
         loading: false,
         finished: false,
-      }
+     }
     },
     methods:{
       onLoad() {
@@ -53,6 +53,7 @@
         }, 1000);
       },
       goToDetail(item){
+        this.$router.push({path:'/corporatenotice/detail',query:{id:item.id}});
         console.log("item111",item)
       }
     },
