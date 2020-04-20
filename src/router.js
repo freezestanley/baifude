@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-
+const CorporateNews = () => import('@/views/corporateNews/index').then(m => m.default)
 Vue.use(Router);
 
 export default new Router({
@@ -24,6 +24,14 @@ export default new Router({
     {
       path: "/",
       redirect: "/home"
-    }
+    },
+    {
+      path: "/corporatenews",
+      name: "corporateNews",
+      component:CorporateNews,
+      meta: {
+        title: "企业新闻"
+      },
+    },
   ]
 });
