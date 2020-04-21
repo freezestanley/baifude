@@ -25,8 +25,8 @@
       return{
         bannerList:[
             {id:1,url:"https://image.dongfangfuli.com/2020/03/06/afb9c24dec39529743df70263646950fcb6e182847f734eb54bffec6b3e9f3e6.jpg"},
-            {id:1,url:"https://image.dongfangfuli.com/2020/03/06/35e7e327db62108061c59f7cdc8f3fbf1763f692a3ce0ef12245c858241f3d7b.jpg"},
-            {id:1,url:"https://image.dongfangfuli.com/2019/09/24/22f2c097a80046b3775a0dc0372d7a39c589ab07c6f9bc84f865bcc9a9e4b086.jpg"},
+            {id:2,url:"https://image.dongfangfuli.com/2020/03/06/35e7e327db62108061c59f7cdc8f3fbf1763f692a3ce0ef12245c858241f3d7b.jpg"},
+            {id:3,url:"https://image.dongfangfuli.com/2019/09/24/22f2c097a80046b3775a0dc0372d7a39c589ab07c6f9bc84f865bcc9a9e4b086.jpg"},
         ]
       }
     },
