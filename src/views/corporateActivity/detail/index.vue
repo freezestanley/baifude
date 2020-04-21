@@ -48,7 +48,7 @@
            </div>
         </div>
         <van-popup v-model="showPopup" position="bottom" >
-            <div class="wrap">
+            <div class="wrapActivity">
                 <div class="title">填写报名信息</div>
                 <div class="formContanier">
                     <van-form @submit="onSubmit" :show-error="false">
@@ -237,7 +237,7 @@ export default {
 
     }
 
-    .wrap{
+    .wrapActivity{
         .title{
             margin: 0 10px;
             text-align: left;
@@ -253,7 +253,7 @@ export default {
 </style>
 
 <style lang="less">
-.wrap{
+.wrapActivity{
     input::-webkit-input-placeholder {
        font-size: 12px;
     }
