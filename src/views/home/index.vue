@@ -1,10 +1,10 @@
 <template>
   <div class="wrap">
     <div class="container">
-      <notice
+      <!-- <notice
         v-if="isShowUnionNotice"
         :unionNoticeContent="unionNoticeContent"
-      ></notice>
+      ></notice> -->
       <component
         :is="ford.comp"
         :content="ford.data"
@@ -12,12 +12,12 @@
         :key="index"
       ></component>
       <!-- 首页弹窗 -->
-      <homeShell></homeShell>
-      <LocationNotice
-        v-if="locationShow"
+      <!-- <homeShell></homeShell> -->
+      <!-- <LocationNotice
+        v-if="true"
         :locationCityName="locationCityName"
         :locationCityId="locationCityId"
-      ></LocationNotice>
+      ></LocationNotice> -->
       <div class="news">
         <!-- 企业新闻 -->
       </div>
@@ -179,6 +179,7 @@ export default {
             this.$toast.clear();
             // 收集要渲染的组件及缓存数据
             if (unionConf && unionConf.body) {
+              console.log(12345,unionConf.body.styleCode);
               this.fords.push({
                 data: null,
                 comp: () => import(`@/views/${unionConf.body.styleCode}`)
@@ -239,25 +240,25 @@ export default {
               return false;
             }
 
-            if (unionMoulds && unionMoulds.body) {
-              unionMoulds.body.forEach(unionMod => {
-                this.fords.push({
-                  data: unionMod,
-                  comp: () => import(`@/components/${unionMod.formatCode}`)
-                });
-              });
-            } else {
-              this.$notify(unionMoulds.data.msg);
-              return false;
-            }
+            // if (unionMoulds && unionMoulds.body) {
+            //   unionMoulds.body.forEach(unionMod => {
+            //     this.fords.push({
+            //       data: unionMod,
+            //       comp: () => import(`@/components/${unionMod.formatCode}`)
+            //     });
+            //   });
+            // } else {
+            //   this.$notify(unionMoulds.data.msg);
+            //   return false;
+            // }
 
-            if (unionConf && unionConf.body) {
-              this.fords.push({
-                data: null,
-                comp: () =>
-                  import(`@/views/${unionConf.body.styleCode}/footArea`)
-              });
-            }
+            // if (unionConf && unionConf.body) {
+            //   this.fords.push({
+            //     data: null,
+            //     comp: () =>
+            //       import(`@/views/${unionConf.body.styleCode}/footArea`)
+            //   });
+            // }
 
             // 缓存工会商城配置
             if (unionMallConf) {
