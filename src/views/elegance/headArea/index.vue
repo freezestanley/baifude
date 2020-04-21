@@ -1,21 +1,14 @@
 <template>
   <div class="header">
     <div class="top">
-      <div class="union clearfix">
-        <div class="imgWrap fl" v-if="!!mallUnionConf.logo">
-          <img :src="mallUnionConf.logo" />
-        </div>
-        <span class="unionName fl">{{ mallUnionConf.customerName }}</span>
-      </div>
-      <img
-        @click="goService"
-        class="serviceImg"
-        v-if="openService"
-        src="../../../assets/images/elegance/elegance_icon_service.png"
-        alt
-      />
       <div class="subTop">
         <div class="show">
+          <div class="union clearfix">
+            <div class="imgWrap fl" v-if="!!mallUnionConf.logo">
+              <img :src="mallUnionConf.logo" />
+            </div>
+            <!-- <span class="unionName fl">{{ mallUnionConf.customerName }}</span> -->
+          </div>
           <div class="location clearfix">
             <span class="locationName fl">
               <router-link
@@ -29,9 +22,6 @@
               <span class="arrow"></span>
             </div>
           </div>
-          <div class="lineWrap">
-            <div class="line"></div>
-          </div>
           <div class="search" v-if="isShowSearch" @click="goSearch">
             <img
               class="searchImg"
@@ -39,8 +29,27 @@
               alt
             />
           </div>
+          <div class="serveContainer">
+            <img
+              @click="goService"
+              class="serviceImg"
+              v-if="openService"
+              src="../../../assets/images/elegance/elegance_icon_service.png"
+              alt
+            />
+          </div>
+          <div class="dialogContainer">
+            <img
+              @click="goService"
+              class="dialogImg"
+              v-if="openService"
+              src="../../../assets/images/elegance/dialog.svg"
+              alt
+            />
+          </div>
         </div>
       </div>
+      
     </div>
   </div>
 </template>
@@ -87,7 +96,7 @@ export default {
 <style lang="less" scoped>
 .header {
   width: 100%;
-  height: 104px;
+  height: 40px;
   position: relative;
   .clearfix:after {
     content: ".";
@@ -108,31 +117,43 @@ export default {
   .top {
     width: 100%;
     height: auto;
-    margin-bottom: 19px;
-    .serviceImg {
-      position: absolute;
-      width: 32px;
-      height: 32px;
-      top: 12px;
-      right: 10px;
-      cursor: pointer;
+    margin-bottom: 6px;
+    .serveContainer{
+      height: 40px;
+      display: table-cell;
+      vertical-align: middle;
+      .serviceImg {
+        // position: absolute;
+        width: 32px;
+        height: 32px;
+        // top: 12px;
+        // right: 10px;
+        cursor: pointer;
+        vertical-align: text-bottom;
+      }
+    }
+    .dialogContainer{
+      display: table-cell;
+      vertical-align: middle;
+      margin-left: 10px;
+      .dialogImg{
+        height: 40px;
+        cursor: pointer;
+      }
     }
   }
   .union {
     display: block;
-    width: 100%;
-    height: 56px;
-    line-height: 56px;
-    padding: 0 16px;
+    width: 70px;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 0 0 16px;
     background: #fff;
-    margin-bottom: 4px;
     box-sizing: border-box;
     .imgWrap {
-      width: 42px;
-      height: 42px;
-      line-height: 42px;
-      margin-top: 7px;
-      margin-right: 4px;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
       overflow: hidden;
       position: relative;
       img {
@@ -158,15 +179,13 @@ export default {
   .subTop {
     margin: 0 auto;
     width: 343px;
-    height: 44px;
-    line-height: 44px;
+    height: 40px;
+    line-height: 40px;
     border-radius: 4px;
-    box-shadow: 0 0 14px 0 rgba(69, 69, 69, 0.1);
     box-sizing: border-box;
     opacity: 1;
 
     .show {
-      padding-top: 3px;
       height: 37px;
       display: flex;
       .location {
@@ -174,7 +193,8 @@ export default {
         font-family: PingFangSC-Medium, sans-serif;
         font-weight: 500;
         color: #222;
-        line-height: 37px;
+        line-height: 40px;
+        flex: 1;
         .locationName {
           margin-right: 6px;
           padding-left: 7px;
@@ -215,7 +235,7 @@ export default {
         }
       }
       .search {
-        width: 235px;
+        width: 40px;
         font-size: 14px;
         .searchImg {
           display: block;

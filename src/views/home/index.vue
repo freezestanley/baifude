@@ -12,7 +12,7 @@
         :key="index"
       ></component>
       <!-- 首页弹窗 -->
-      <!-- <homeShell></homeShell> -->
+      <homeShell></homeShell>
       <!-- <LocationNotice
         v-if="true"
         :locationCityName="locationCityName"
