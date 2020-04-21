@@ -5,8 +5,8 @@ const { env } = process;
 const { DEV_SERVER } = require("./config");
 
 module.exports = {
-  publicPath: env.NODE_ENV === "development" ? "/" : "/bfd/",
-  outputDir: env.outputDir,
+  publicPath: env.NODE_ENV === "development" ? "/" : `${env.publicPath}/home-h5/`,
+  outputDir: 'dist/home-h5',
   assetsDir: "assets",
   pluginOptions: {
     "style-resources-loader": {
