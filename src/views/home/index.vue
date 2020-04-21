@@ -12,7 +12,7 @@
         :key="index"
       ></component>
       <!-- 首页弹窗 -->
-      <!-- <homeShell></homeShell> -->
+      <homeShell></homeShell>
       <!-- <LocationNotice
         v-if="true"
         :locationCityName="locationCityName"
@@ -117,9 +117,9 @@ export default {
     };
   },
   components: {
-    // homeShell: () => import("../../components/homeShell"),
-    // LocationNotice: () => import("../../components/locationNotice"),
-    // notice: () => import("../../components/notice"),
+    homeShell: () => import("../../components/homeShell"),
+    LocationNotice: () => import("../../components/locationNotice"),
+    notice: () => import("../../components/notice"),
     Title,NewsItem,BusinessActivity,Boutique
   },
 
