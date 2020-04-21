@@ -2,9 +2,10 @@ const path = require("path");
 const webpack = require("webpack");
 const AddAssetHtmlPlugin = require("add-asset-html-webpack-plugin");
 const { env } = process;
+const publicPath = env.VUE_APP_PUBLIC_PATH;
 
 module.exports = {
-  publicPath: env.NODE_ENV === "development" ? "/" : "/bfd/",
+  publicPath: env.NODE_ENV === "development" ? "/" : publicPath",
   outputDir: env.outputDir,
   assetsDir: "assets",
   pluginOptions: {
