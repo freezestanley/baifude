@@ -28,7 +28,7 @@
       v-if="unionConf.newsOpen === 1 && mallUnionConf.tnewsDtos.length != 0"
     ></news> -->
     <!-- 金刚区 -->
-    <nav-area></nav-area>
+    <!-- <nav-area></nav-area> -->
   </div>
 </template>
 
