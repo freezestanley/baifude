@@ -1,5 +1,5 @@
 <template>
-    <div class="title" @click="goToNext">
+    <div class="title" @click="goToNext(titleName)">
         <div class="title-item">{{titleName}}</div>
         <div v-if="titleMore" class="title-more">更多</div>
     </div>
@@ -28,8 +28,8 @@
       console.log("thisprops----",this.props)
     },
     methods:{
-      goToNext(){
-        this.$emit('goToNext')
+      goToNext(item){
+        this.$emit('goToNext',item)
       }
     }
   }

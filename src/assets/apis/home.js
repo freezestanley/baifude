@@ -24,7 +24,7 @@ function submitActivity(params) {
  */
 function newsListPage(params) {
   const newslistPageApi = "/cms/front/news/listPage";
-  return sendPostNew(newslistPageApi, 'post',params, true);
+  return sendPostNew(newslistPageApi, 'post',params, false);
 }
 
 export {
