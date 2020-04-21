@@ -96,6 +96,13 @@ export default {
         },{
           url:'https://image.dongfangfuli.com/2020/03/06/35e7e327db62108061c59f7cdc8f3fbf1763f692a3ce0ef12245c858241f3d7b.jpg',
           instruct:'企业活动'
+        },
+        {
+          url:'https://img3.mukewang.com/szimg/5e8d3f4a08c81ed506000338-360-202.jpg',
+          instruct:'员工调研'
+        },{
+          url:'https://image.dongfangfuli.com/2020/03/06/35e7e327db62108061c59f7cdc8f3fbf1763f692a3ce0ef12245c858241f3d7b.jpg',
+          instruct:'企业公告'
         }
       ],  //活动导航栏
       newsData:[

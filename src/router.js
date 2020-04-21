@@ -34,7 +34,7 @@ export default new Router({
       name: "home",
       component:Home,
       meta: {
-        title: "企业新闻"
+        title: "百福得首页"
       },
     },
     {

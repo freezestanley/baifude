@@ -1,7 +1,7 @@
 <template>
     <div class="wrap">
       <div class="activity_container" v-for="(item,index) in activityNavData" :key="index">
-          <div class="activity">
+          <div class="activity" @click="gotoActivity(index)">
               <img class="act_image" :src="item.url" alt=""/>
               <div class="instruction">{{item.instruct}}</div>
           </div>
@@ -27,6 +27,21 @@ export default {
         }
       },
     },
+    methods:{
+        gotoActivity(index){
+            let path = "";
+            if(index == 0){
+                path = '/corporatenews';
+            }else if(index == 1){
+                path = '/corporateactivity';
+            }else if(index == 2){
+                path = '/staffsurvey';
+            }else if(index == 3){
+                path = '/corporatenotice';
+            }
+            this.$router.push({path:path,query:""});
+        }
+    }
 }
 </script>
 <style lang="less" scoped>
@@ -36,7 +51,7 @@ export default {
     .activity_container{
         text-align: center;
         width: 25%;
-        height: 77px;
+        height: 97px;
         position: relative;
         .activity{
             display: inline-block;
