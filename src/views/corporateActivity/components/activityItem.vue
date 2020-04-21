@@ -2,11 +2,11 @@
     <section class="activity-wrap">
         <div class="activit-item" v-for="(item,index) in data" :key="index" @click="goToDetail(item)">
             <div class="activity-pic">
-                <img :src="item.pic" alt="">
+                <img :src="item.picture" alt="">
             </div>
             <div class="activity-text">
                 <div class="activity-desc">{{item.title}}</div>
-                <div class="activity-status">{{item.statusDesc}}</div>
+                <div class="activity-status" v-html="item.controlValue"></div>
             </div>
         </div>
     </section>
