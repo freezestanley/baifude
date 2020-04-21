@@ -264,25 +264,25 @@ export default {
               return false;
             }
 
-            if (unionMoulds && unionMoulds.body) {
-              unionMoulds.body.forEach(unionMod => {
-                this.fords.push({
-                  data: unionMod,
-                  comp: () => import(`@/components/${unionMod.formatCode}`)
-                });
-              });
-            } else {
-              this.$notify(unionMoulds.data.msg);
-              return false;
-            }
+            // if (unionMoulds && unionMoulds.body) {
+            //   unionMoulds.body.forEach(unionMod => {
+            //     this.fords.push({
+            //       data: unionMod,
+            //       comp: () => import(`@/components/${unionMod.formatCode}`)
+            //     });
+            //   });
+            // } else {
+            //   this.$notify(unionMoulds.data.msg);
+            //   return false;
+            // }
 
-            if (unionConf && unionConf.body) {
-              this.fords.push({
-                data: null,
-                comp: () =>
-                  import(`@/views/${unionConf.body.styleCode}/footArea`)
-              });
-            }
+            // if (unionConf && unionConf.body) {
+            //   this.fords.push({
+            //     data: null,
+            //     comp: () =>
+            //       import(`@/views/${unionConf.body.styleCode}/footArea`)
+            //   });
+            // }
 
             // 缓存工会商城配置
             if (unionMallConf) {
