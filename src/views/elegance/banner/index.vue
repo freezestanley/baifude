@@ -51,7 +51,7 @@ export default {
 <style lang="less" scoped>
 .eleganceBanner {
   background-color: #fff;
-  margin: 18px 16px 0;
+  margin: 6px 3px 0;
   height: 126px;
   overflow: hidden;
   img,

@@ -117,7 +117,6 @@ export default {
   .top {
     width: 100%;
     height: auto;
-    margin-bottom: 6px;
     .serveContainer{
       height: 40px;
       display: table-cell;
@@ -129,13 +128,13 @@ export default {
         // top: 12px;
         // right: 10px;
         cursor: pointer;
-        vertical-align: text-bottom;
+        vertical-align: middle;
       }
     }
     .dialogContainer{
       display: table-cell;
       vertical-align: middle;
-      margin-left: 10px;
+      margin: 0 10px;
       .dialogImg{
         height: 40px;
         cursor: pointer;
@@ -147,7 +146,7 @@ export default {
     width: 70px;
     height: 40px;
     line-height: 40px;
-    padding: 0 0 0 16px;
+    margin: 0 0 0 10px;
     background: #fff;
     box-sizing: border-box;
     .imgWrap {
@@ -178,7 +177,7 @@ export default {
   }
   .subTop {
     margin: 0 auto;
-    width: 343px;
+    width: 356px;
     height: 40px;
     line-height: 40px;
     border-radius: 4px;

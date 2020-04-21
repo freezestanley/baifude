@@ -117,9 +117,9 @@ export default {
     };
   },
   components: {
-    // homeShell: () => import("../../components/homeShell"),
-    // LocationNotice: () => import("../../components/locationNotice"),
-    // notice: () => import("../../components/notice"),
+    homeShell: () => import("../../components/homeShell"),
+    LocationNotice: () => import("../../components/locationNotice"),
+    notice: () => import("../../components/notice"),
     Title,NewsItem,BusinessActivity,Boutique
   },
 
