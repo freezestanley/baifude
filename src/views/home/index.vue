@@ -1,23 +1,23 @@
 <template>
   <div class="wrap">
     <div class="container">
-      <!--<notice-->
-        <!--v-if="isShowUnionNotice"-->
-        <!--:unionNoticeContent="unionNoticeContent"-->
-      <!--&gt;</notice>-->
-      <!--<component-->
-        <!--:is="ford.comp"-->
-        <!--:content="ford.data"-->
-        <!--v-for="(ford, index) of fords"-->
-        <!--:key="index"-->
-      <!--&gt;</component>-->
-      <!--&lt;!&ndash; 首页弹窗 &ndash;&gt;-->
-      <!--<homeShell></homeShell>-->
-      <!--<LocationNotice-->
-        <!--v-if="locationShow"-->
-        <!--:locationCityName="locationCityName"-->
-        <!--:locationCityId="locationCityId"-->
-      <!--&gt;</LocationNotice>-->
+      <!-- <notice
+        v-if="isShowUnionNotice"
+        :unionNoticeContent="unionNoticeContent"
+      ></notice> -->
+      <component
+        :is="ford.comp"
+        :content="ford.data"
+        v-for="(ford, index) of fords"
+        :key="index"
+      ></component>
+      <!-- 首页弹窗 -->
+      <!-- <homeShell></homeShell> -->
+      <!-- <LocationNotice
+        v-if="true"
+        :locationCityName="locationCityName"
+        :locationCityId="locationCityId"
+      ></LocationNotice> -->
       <div class="news">
           <!-- 企业新闻 -->
           <Title titleName="企业新闻" :titleMore="true" @goToNext="goToNext"></Title>

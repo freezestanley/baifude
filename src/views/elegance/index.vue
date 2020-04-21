@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="notice_warp">
+    <!-- <div class="notice_warp">
       <van-notice-bar
         v-if="mallUnionConf.openNotice && notice.noticeContent"
         :text="notice.noticeContent"
@@ -11,7 +11,10 @@
         class="noticeBar"
       />
       <img class="notice" src="../../assets/images/elite/icon_notice.png" alt />
-    </div>
+    </div> -->
+    <news
+      v-if="unionConf.newsOpen === 1 && mallUnionConf.tnewsDtos.length != 0"
+    ></news>
 
     <head-area id="js-head"></head-area>
     <!-- 滑动到一定距离之后出现 -->
@@ -21,9 +24,9 @@
     <!-- Banner -->
     <banner v-if="mallUnionConf.tnewsRecommendImageDtos.length > 0"></banner>
     <!-- 信息栏 -->
-    <news
+    <!-- <news
       v-if="unionConf.newsOpen === 1 && mallUnionConf.tnewsDtos.length != 0"
-    ></news>
+    ></news> -->
     <!-- 金刚区 -->
     <nav-area></nav-area>
   </div>
@@ -34,7 +37,7 @@ import { mapState } from "vuex";
 import navArea from "./navArea";
 import headArea from "./headArea";
 import headTop from "./headArea/HeadTop.vue";
-import news from "./news";
+import news from "./news/newIndex.vue";
 import banner from "./banner";
 export default {
   name: "elegance",
