@@ -18,6 +18,8 @@
         :locationCityName="locationCityName"
         :locationCityId="locationCityId"
       ></LocationNotice> -->
+
+      <ActivityNav :activityNavData="activityNavData"></ActivityNav>
         <!-- 企业新闻 -->
       <div class="layout news" v-if="newsData.length>0">
           <Title titleName="企业新闻" :titleMore="true" @goToNext="goToNext"></Title>
@@ -71,6 +73,7 @@ import BusinessActivity from '@/components/businessActivity/index'
 import Title from '@/components/moduleTtile/index'
 import NewsItem from '../corporateNews/components/newsItem'
 import Boutique from '@/components/boutique/index';
+import ActivityNav from '@/components/activitynav/index';
 
 
 export default {
@@ -86,6 +89,22 @@ export default {
       locationCityId: "",
       isShowUnionNotice: false,
       unionNoticeContent: "",
+      activityNavData:[
+        {
+          url:'https://img3.mukewang.com/szimg/5e8d3f4a08c81ed506000338-360-202.jpg',
+          instruct:'企业新闻'
+        },{
+          url:'https://image.dongfangfuli.com/2020/03/06/35e7e327db62108061c59f7cdc8f3fbf1763f692a3ce0ef12245c858241f3d7b.jpg',
+          instruct:'企业活动'
+        },
+        {
+          url:'https://img3.mukewang.com/szimg/5e8d3f4a08c81ed506000338-360-202.jpg',
+          instruct:'员工调研'
+        },{
+          url:'https://image.dongfangfuli.com/2020/03/06/35e7e327db62108061c59f7cdc8f3fbf1763f692a3ce0ef12245c858241f3d7b.jpg',
+          instruct:'企业公告'
+        }
+      ],  //活动导航栏
       newsData:[
           {
         "id": 2,
@@ -120,7 +139,7 @@ export default {
     homeShell: () => import("../../components/homeShell"),
     LocationNotice: () => import("../../components/locationNotice"),
     notice: () => import("../../components/notice"),
-    Title,NewsItem,BusinessActivity,Boutique
+    Title,NewsItem,BusinessActivity,Boutique,ActivityNav
   },
 
   created() {
