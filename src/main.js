@@ -27,7 +27,9 @@ import {
   CheckboxGroup,
   Calendar,
   Uploader,
-  Image
+  Image,
+  Radio,
+  RadioGroup
 } from "vant";
 Vue.use(Search);
 Vue.use(Icon);
@@ -45,6 +47,8 @@ Vue.use(CheckboxGroup);
 Vue.use(Calendar);
 Vue.use(Uploader);
 Vue.use(Image);
+Vue.use(Radio);
+Vue.use(RadioGroup);
 router.beforeEach((to, from, next) => {
   next();
   const { meta } = to;

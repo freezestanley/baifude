@@ -75,7 +75,7 @@
                         />
                         <van-field
                             v-model="activityData.number"
-                            label="参与人数"
+                            label="参与人数:"
                             placeholder="请输入参与人数"
                             :rules="[{ required: true, message: '请输入参与人数' }]"
                             class="frameInput"
@@ -86,18 +86,27 @@
                             name="calendar"
                             :value="activityData.date"
                             label="出生日期:"
-                            placeholder="点击选择日期"
+                            placeholder="yyyy/mm/dd"
                             @click="showCalendar = true"
                             :rules="[{ required: true, message: '请选择出生日期' }]"
+                            class="frameInput"
                         />
-                        <van-calendar v-model="showCalendar" @confirm="onConfirm" />
+                        <van-calendar :max-date="new Date('2030/01/01')" v-model="showCalendar" @confirm="onConfirm" />
+                        <van-field name="radio" label="性别">
+                            <template #input>
+                                <van-radio-group v-model="activityData.gender" direction="horizontal">
+                                <van-radio name="1">男</van-radio>
+                                <van-radio name="2">女</van-radio>
+                                </van-radio-group>
+                            </template>
+                        </van-field>
                         <van-field name="checkboxGroup" label="参与环节:" :rules="[{ required: true, message: '请选择内容' }]">
                             <template #input>
-                                <van-checkbox-group v-model="activityData.checkBackTracking" direction="horizontal">
-                                <van-checkbox name="1" shape="square">飞机</van-checkbox>
-                                <van-checkbox name="2" shape="square">火车</van-checkbox>
-                                <van-checkbox name="3" shape="square">自驾</van-checkbox>
-                                <van-checkbox name="4" shape="square">大巴</van-checkbox>
+                                <van-checkbox-group  v-model="activityData.checkBackTracking" >
+                                <van-checkbox class="margin_bt7" name="1" shape="square">飞机</van-checkbox>
+                                <van-checkbox class="margin_bt7" name="2" shape="square">火车</van-checkbox>
+                                <van-checkbox class="margin_bt7" name="3" shape="square">自驾</van-checkbox>
+                                <van-checkbox class="margin_bt7" name="4" shape="square">大巴</van-checkbox>
                                 </van-checkbox-group>
                             </template>
                         </van-field>
@@ -148,6 +157,7 @@ export default {
             personNum:"", //参与人数
             date:"", //出生日期
             checkBackTracking:[],
+            gender:"" //性别
         }
     }
   },
@@ -167,7 +177,8 @@ export default {
     closeSignUp(){
         this.showPopup = false;
     },
-    onConfirm(){
+    onConfirm(date){
+        this.activityData.date = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
         this.showCalendar = false;
     }
   }
@@ -257,6 +268,14 @@ export default {
         .van-field__label{
             width: auto;
         } 
+    }
+    .van-image__img{
+        display: block;
+        width: 56px;
+        height: 56px;
+    }
+    .margin_bt7{
+        margin-bottom: 7px;
     }
     
     
