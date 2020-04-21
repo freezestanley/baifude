@@ -1,25 +1,37 @@
 <template>
   <div class="wrap">
     <div class="container">
-      <notice
-        v-if="isShowUnionNotice"
-        :unionNoticeContent="unionNoticeContent"
-      ></notice>
-      <component
-        :is="ford.comp"
-        :content="ford.data"
-        v-for="(ford, index) of fords"
-        :key="index"
-      ></component>
-      <!-- 首页弹窗 -->
-      <homeShell></homeShell>
-      <LocationNotice
-        v-if="locationShow"
-        :locationCityName="locationCityName"
-        :locationCityId="locationCityId"
-      ></LocationNotice>
+      <!--<notice-->
+        <!--v-if="isShowUnionNotice"-->
+        <!--:unionNoticeContent="unionNoticeContent"-->
+      <!--&gt;</notice>-->
+      <!--<component-->
+        <!--:is="ford.comp"-->
+        <!--:content="ford.data"-->
+        <!--v-for="(ford, index) of fords"-->
+        <!--:key="index"-->
+      <!--&gt;</component>-->
+      <!--&lt;!&ndash; 首页弹窗 &ndash;&gt;-->
+      <!--<homeShell></homeShell>-->
+      <!--<LocationNotice-->
+        <!--v-if="locationShow"-->
+        <!--:locationCityName="locationCityName"-->
+        <!--:locationCityId="locationCityId"-->
+      <!--&gt;</LocationNotice>-->
       <div class="news">
-        <!-- 企业新闻 -->
+          <!-- 企业新闻 -->
+          <Title titleName="企业新闻" :titleMore="true" @goToNext="goToNext"></Title>
+          <NewsItem :newsData="newsData"></NewsItem>
+      </div>
+      <div class="activity">
+          <!--企业活动-->
+        <Title titleName="企业活动" :titleMore="true" @goToNext="goToNext"></Title>
+          <BusinessActivity></BusinessActivity>
+      </div>
+      <div class="elegance">
+            <!-- 活动风采 -->
+         <Title titleName="活动风采" :titleMore="true" @goToNext="goToNext"></Title>
+         <NewsItem :newsData="newsData"></NewsItem>
       </div>
 
     </div>
@@ -31,6 +43,9 @@ import axios from "axios";
 import { mapMutations } from "vuex";
 import { OK } from "@/assets/utils/constant";
 import { getQueryString, setCookie, getCookie } from "@/assets/utils";
+import BusinessActivity from '@/components/businessActivity/index'
+import Title from '@/components/moduleTtile/index'
+import NewsItem from '../corporateNews/components/newsItem'
 
 export default {
   name: "home",
@@ -44,13 +59,23 @@ export default {
       locationCityName: "",
       locationCityId: "",
       isShowUnionNotice: false,
-      unionNoticeContent: ""
+      unionNoticeContent: "",
+      newsData:[
+          {
+        "id": 2,
+        "type": 1,
+        "categoryId": 2,
+        "title": "新闻标题2",
+        "content": "新闻内容内容我和我的祖国一刻也不能分割无论我走到哪里都流出一首赞歌我歌唱每一座高山我歌唱每一条河袅袅炊烟小小村落路上一道辙啦新闻内容内容我和我的祖国一刻也不能分割无论我走到哪里都流出一首赞歌我歌唱每一座高山我歌唱每一条河袅袅炊烟小小村落路上一道辙啦",
+        "picture": "https://img3.mukewang.com/szimg/5e8d3f4a08c81ed506000338-360-202.jpg"
+      }],
     };
   },
   components: {
-    homeShell: () => import("../../components/homeShell"),
-    LocationNotice: () => import("../../components/locationNotice"),
-    notice: () => import("../../components/notice")
+    // homeShell: () => import("../../components/homeShell"),
+    // LocationNotice: () => import("../../components/locationNotice"),
+    // notice: () => import("../../components/notice"),
+    Title,NewsItem,BusinessActivity
   },
 
   created() {
@@ -305,6 +330,10 @@ export default {
     },
     getPopUpShow() {
     
+    },
+
+    goToNext(){
+      console.log(112112122)
     }
   },
   watch: {
@@ -358,4 +387,10 @@ html {
     padding-bottom: 117px;
   }
 }
+</style>
+<style lang="less" scoped>
+  .wrap{
+      .news,.elegance,.activity{padding: 10px 10px 0;}
+      /*.elegance{padding: 10px 10px 0;}*/
+  }
 </style>

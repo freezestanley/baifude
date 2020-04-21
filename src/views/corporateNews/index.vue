@@ -112,7 +112,7 @@
         margin: 10px 0;
     }
     .news-cont{
-
+        padding:0 10px ;
     }
 }
 </style>

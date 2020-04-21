@@ -54,7 +54,7 @@
                 text-align: center;
                 color: #333;
                 cursor:pointer;
-                margin-left: 15px;
+                margin-right: 15px;
             }
             .tabs-active{
                 color: #05ab17;

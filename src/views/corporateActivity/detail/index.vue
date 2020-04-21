@@ -133,7 +133,7 @@
     </section>
 </template>
 <script>
-import {queryActivityList} from '../../../assets/apis/home'
+import {queryActivityList} from '@/assets/apis/home'
 export default {
   data(){
     return{

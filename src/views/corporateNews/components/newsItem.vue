@@ -35,7 +35,7 @@
 <style lang="less" scoped>
 .newItem{
     height:130px;
-    padding: 0 10px;
+    /*padding: 0 10px;*/
     .newItem-wrap{
         width: 100%;
         display: flex;
