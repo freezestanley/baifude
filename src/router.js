@@ -30,7 +30,7 @@ export default new Router({
       component: () => import(/* webpackChunkName: "oldHome" */ "./views/oldHome")
     },
     {
-      path: "/home",
+      path: "/home-h5",
       name: "home",
       component:Home,
       meta: {
@@ -39,7 +39,7 @@ export default new Router({
     },
     {
       path: "/",
-      redirect: "/home"
+      redirect: "/home-h5"
     },
     {
       path: "/corporatenews",
