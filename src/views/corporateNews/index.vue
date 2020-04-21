@@ -7,10 +7,20 @@
     <div class="news-cont">
       <Tab :tabList="tabList" :tabIndex="tabIndex" @changeTab="changeTab">
         <template slot="name1">
-          <NewsItem :newsData="newsData" @goToDetail="goToDetail"></NewsItem>
+          <div></div>
+          <van-list
+                  v-model="loading"
+                  :finished="finished"
+                  :immediate-check="false"
+                  finished-text="没有更多了"
+                  @load="onLoad"
+                  :offset="10"
+          >
+            <NewsItem :newsData="data" @goToDetail="goToDetail"></NewsItem>
+          </van-list>
         </template>
         <template slot="name2">
-          <NewsItem :newsData="activeData" @goToDetail="goToDetail"></NewsItem>
+          <NewsItem :newsData="data" @goToDetail="goToDetail"></NewsItem>
         </template>
       </Tab>
     </div>
@@ -38,7 +48,7 @@ export default {
         { index: 0, name: "企业新闻", key: "name1" },
         { index: 1, name: "活动风采", key: "name2" }
       ],
-      newsData: [
+      data: [
         {
           id: 2,
           type: 1,
@@ -89,44 +99,45 @@ export default {
         //   "content": "新闻内容内容我和我的祖国一刻也不能分割无论我走到哪里都流出一首赞歌我歌唱每一座高山我歌唱每一条河袅袅炊烟小小村落路上一道辙啦新闻内容内容我和我的祖国一刻也不能分割无论我走到哪里都流出一首赞歌我歌唱每一座高山我歌唱每一条河袅袅炊烟小小村落路上一道辙啦",
         //   "picture": "https://img3.mukewang.com/szimg/5e95524508fe369f06000338-360-202.jpg",
         // },
-      ] //活动风采数据
+      ], //活动风采数据
+      page: 1,//请求第几页
+      pageSize: 10,//每页请求的数量
+      total: 0,//总共的数据条数
     };
   },
   created() {
-    // let params = { type: 1, categoryId: 1 };
-    // this.queryNewsList(params);
+    let params = { type: 1, categoryId: 1 };
+    this.queryNewsList(params);
   },
   methods: {
     //tab切换事件
     changeTab(tab) {
       this.tabIndex = tab.index;
-      // let params = {}
-      // if (tab.index == 1) {
-      //   params = { type: 1, categoryId: 2 }
-      // }else {
-      //   params = { type: 1, categoryId: 1 };
-      // }
-      // this.queryNewsList(params);
+      let params = {}
+      if (tab.index == 1) {
+        params = { type: 1, categoryId: 2 };
+      }else {
+        params = { type: 1, categoryId: 1 };
+      }
+      this.queryNewsList(params);
     },
     goToDetail(item) {
-      console.log("index--===", item);
       this.$router.push({
         path: "/corporatenews/newsdetail",
         query: { id: item.id }
       });
     },
-    // async queryNewsList(params) {
-    //   let res = await newsListPage(params);
-    //   if (utilRes.successCheck(res)) {
-    //     this.newsData = res.data.listObj;
-    //     this.activeData = res.data.listObj;
-    //   } else {
-    //     this.$message({
-    //       type: "error",
-    //       message: res.errMsg ? res.errMsg : "调用接口失败!"
-    //     });
-    //   }
-    // }
+    async queryNewsList(params) {
+      let res = await newsListPage(params);
+      if (utilRes.successCheck(res)) {
+        this.data = res.data.listObj;
+      } else {
+        this.$message({
+          type: "error",
+          message: res.errMsg ? res.errMsg : "调用接口失败!"
+        });
+      }
+    }
   }
 };
 </script>

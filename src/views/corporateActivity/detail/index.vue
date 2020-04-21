@@ -133,7 +133,7 @@
     </section>
 </template>
 <script>
-import {queryActivityList} from '@/assets/apis/home'
+import {queryActivityList,activity_queryActivityDetail} from '@/assets/apis/home'
 export default {
   data(){
     return{
@@ -185,6 +185,18 @@ export default {
     },
     async queryActivityListMethod(params){
         let res = await queryActivityList(params);
+    },
+    async activity_queryActivityDetail() {
+      let params={currentPage:1,itemsPerPage:10}
+      let res = await activity_queryActivityDetail(params);
+      if (utilRes.successCheck(res)) {
+        this.list = res.data.listObj;
+      } else {
+        this.$message({
+          type: "error",
+          message: res.errMsg ? res.errMsg : "调用接口失败!"
+        });
+      }
     }
   }
 
