@@ -25,6 +25,8 @@
   import Tab from './components/nav';
   import NewsItem from './components/newsItem';
   import Banner from './components/banner';
+  import {newsListPage} from '@/assets/apis/home'
+
   export default {
     name: "index",
     components:{
@@ -84,7 +86,8 @@
       }
     },
     created(){
-      console.log("mallUnionConf--===",this.mallUnionConf)
+      let params = {"type":1};
+      this.queryNewsList(params);
     },
     methods: {
       //tab切换事件
@@ -94,6 +97,10 @@
       goToDetail(item){
         console.log("index--===",item)
         this.$router.push({path:'/corporatenews/newsdetail',query:{id:item.id}});
+      },
+      async queryNewsList(params){
+        let res = await newsListPage(params);
+        console.log("res---",res)
       }
     },
   }

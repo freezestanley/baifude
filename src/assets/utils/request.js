@@ -102,7 +102,7 @@ export function sendPost(url, params, immediate) {
  */
 export function sendPostNew(url,type='post', params, immediate) {
   return _axios({
-    url: type==='post'?'':mixUrl(url,params),
+    url: type==='post'?url:mixUrl(url,params),
     method: type,
     data: params,
     baseURL: '',
