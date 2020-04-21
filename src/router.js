@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
+const Home = () => import('@/views/home/index').then(m => m.default)
 const CorporateNews = () => import('@/views/corporateNews/index').then(m => m.default)
 const CorporateActivity = () => import('@/views/corporateActivity/index')
 const CorporateActivityDetail = () => import('@/views/corporateActivity/detail/index')
@@ -21,12 +22,20 @@ export default new Router({
         import(/* webpackChunkName: "cityList" */ "./components/cityList")
     },
     {
-      path: "/home",
-      name: "home",
+      path: "/oldHome",
+      name: "oldHome",
       meta: {
         title: "百福德H5首页"
       },
-      component: () => import(/* webpackChunkName: "home" */ "./views/home")
+      component: () => import(/* webpackChunkName: "oldHome" */ "./views/oldHome")
+    },
+    {
+      path: "/home",
+      name: "home",
+      component:Home,
+      meta: {
+        title: "企业新闻"
+      },
     },
     {
       path: "/",
