@@ -62,6 +62,7 @@ export default {
             .act_image{
                 height: 70px;
                 width: 70px;
+                border-radius: 50%;
             }
         }
     }
