@@ -133,6 +133,7 @@
     </section>
 </template>
 <script>
+import {queryActivityList} from '../../../assets/apis/home'
 export default {
   data(){
     return{
@@ -162,7 +163,8 @@ export default {
     }
   },
   created(){
-    console.log("paramsData---==",this.paramsData)
+    let params = {userId:321};
+    this.queryActivityListMethod(params);
   },
   methods:{
     onSubmit(){
@@ -180,6 +182,9 @@ export default {
     onConfirm(date){
         this.activityData.date = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
         this.showCalendar = false;
+    },
+    async queryActivityListMethod(params){
+        let res = await queryActivityList(params);
     }
   }
 
