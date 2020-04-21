@@ -18,22 +18,46 @@
         :locationCityName="locationCityName"
         :locationCityId="locationCityId"
       ></LocationNotice> -->
-      <div class="news">
-          <!-- 企业新闻 -->
+        <!-- 企业新闻 -->
+      <div class="layout news" v-if="newsData.length>0">
           <Title titleName="企业新闻" :titleMore="true" @goToNext="goToNext"></Title>
           <NewsItem :newsData="newsData"></NewsItem>
       </div>
-      <div class="activity">
+      <div class="layout activity" v-if="activityData.length>0">
           <!--企业活动-->
         <Title titleName="企业活动" :titleMore="true" @goToNext="goToNext"></Title>
-          <BusinessActivity></BusinessActivity>
+          <BusinessActivity :data="activityData"></BusinessActivity>
       </div>
-      <div class="elegance">
-            <!-- 活动风采 -->
+        <!-- 活动风采 -->
+      <div class="layout elegance" v-if="newsData.length>0">
          <Title titleName="活动风采" :titleMore="true" @goToNext="goToNext"></Title>
          <NewsItem :newsData="newsData"></NewsItem>
       </div>
-
+        <!-- 员工调研 -->
+        <div class="layout survey" v-if="newsData.length>0">
+            <Title titleName="员工调研" :titleMore="true" @goToNext="goToNext"></Title>
+           <div class="survey-wrap">
+               <p>疫情过后你会报复性消费吗</p>
+               <div class="survey-pic">
+                   <img :src="surveyObj.pic" alt="">
+               </div>
+           </div>
+        </div>
+        <!-- 企业公告 -->
+      <div class="layout notice" v-if="list.length>0">
+         <Title titleName="企业公告" :titleMore="true" @goToNext="goToNext"></Title>
+          <div class="notice-wrap">
+              <div class="notice-item" v-for="(item,index) in list" :key="index">
+                  <div class="notice-item-text">{{item.title}}</div>
+                  <div class="notice-item-time">{{item.time}}</div>
+              </div>
+          </div>
+      </div>
+        <!-- 精品推荐 -->
+      <div class="layout">
+         <Title titleName="精品推荐"></Title>
+          <Boutique :data="boutiqueData"></Boutique>
+      </div>
     </div>
   </div>
 </template>
@@ -46,6 +70,8 @@ import { getQueryString, setCookie, getCookie } from "@/assets/utils";
 import BusinessActivity from '@/components/businessActivity/index'
 import Title from '@/components/moduleTtile/index'
 import NewsItem from '../corporateNews/components/newsItem'
+import Boutique from '@/components/boutique/index';
+
 
 export default {
   name: "home",
@@ -68,14 +94,33 @@ export default {
         "title": "新闻标题2",
         "content": "新闻内容内容我和我的祖国一刻也不能分割无论我走到哪里都流出一首赞歌我歌唱每一座高山我歌唱每一条河袅袅炊烟小小村落路上一道辙啦新闻内容内容我和我的祖国一刻也不能分割无论我走到哪里都流出一首赞歌我歌唱每一座高山我歌唱每一条河袅袅炊烟小小村落路上一道辙啦",
         "picture": "https://img3.mukewang.com/szimg/5e8d3f4a08c81ed506000338-360-202.jpg"
-      }],
+      }],//新闻数据
+      activityData:[
+        {"pic":"https://img3.mukewang.com/szimg/5e8d3f4a08c81ed506000338-360-202.jpg","text":"瑜伽活动","time":"2020.04-2020.06","status":"报名中"},
+        {"pic":"https://img3.mukewang.com/szimg/5e8d3f4a08c81ed506000338-360-202.jpg","text":"瑜伽活动","time":"2020.04-2020.06","status":"已结束"},
+        {"pic":"https://img3.mukewang.com/szimg/5e8d3f4a08c81ed506000338-360-202.jpg","text":"瑜伽活动","time":"2020.04-2020.06","status":"报名中"},
+      ],//企业活动数据
+      list:[
+        {id:1,"title":"2019年度优秀员工名单","time":"2020-04-13"},
+        {id:2,"title":"2019年度优秀员工名单","time":"2020-04-13"},
+        {id:3,"title":"2019年度优秀员工名单","time":"2020-04-13"},
+        {id:4,"title":"2019年度优秀员工名单","time":"2020-04-13"},
+        {id:5,"title":"2019年度优秀员工名单","time":"2020-04-13"},
+        {id:6,"title":"2019年度优秀员工名单","time":"2020-04-13"},
+      ],
+      boutiqueData:[
+          {"pic":"https://image.dongfangfuli.com/2020/03/06/afb9c24dec39529743df70263646950fcb6e182847f734eb54bffec6b3e9f3e6.jpg"},
+      ],
+      surveyObj:{
+        "pic":"https://image.dongfangfuli.com/2020/03/06/35e7e327db62108061c59f7cdc8f3fbf1763f692a3ce0ef12245c858241f3d7b.jpg"
+      }
     };
   },
   components: {
     // homeShell: () => import("../../components/homeShell"),
     // LocationNotice: () => import("../../components/locationNotice"),
     // notice: () => import("../../components/notice"),
-    Title,NewsItem,BusinessActivity
+    Title,NewsItem,BusinessActivity,Boutique
   },
 
   created() {
@@ -390,7 +435,37 @@ html {
 </style>
 <style lang="less" scoped>
   .wrap{
-      .news,.elegance,.activity{padding: 10px 10px 0;}
-      /*.elegance{padding: 10px 10px 0;}*/
+      font-size: 12px;
+      .layout{padding: 10px 10px 0;}
+     .notice{
+         .notice-wrap{
+             border-top: 1px dotted #C7C7C7;
+             .notice-item{
+                 display: flex;
+                 padding: 6px 0;
+                 border-bottom: 1px dotted #C7C7C7;
+                 .notice-item-text{
+                     width: 80%;
+                 }
+                 .notice-item-time{
+                     width: 20%;
+                 }
+             }
+         }
+
+     }
+     .survey{
+         .survey-wrap{
+             .survey-pic{
+                 width: 100%;
+                 height: 120px;
+                 img{
+                     width: 100%;
+                     height: 100%;
+                     display: block;
+                 }
+             }
+         }
+     }
   }
 </style>
