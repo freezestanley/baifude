@@ -377,8 +377,29 @@ export default {
     
     },
 
-    goToNext(){
-      console.log(112112122)
+    goToNext(item){
+      if(item == "企业新闻"){
+        this.$router.push({
+          path: "/corporatenews",
+        });
+      }else if(item == "企业活动"){
+        this.$router.push({
+          path: "/corporateactivity",
+        });
+      }else if(item == "活动风采"){
+        this.$router.push({
+          path: "/corporatenews",
+        });
+      }else if(item == "企业公告"){
+        this.$router.push({
+          path: "/corporatenotice",
+        });
+      }else if(item == "员工调研"){
+        this.$router.push({
+          path: "/staffsurvey",
+        });
+      }
+
     }
   },
   watch: {
