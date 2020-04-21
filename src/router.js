@@ -22,7 +22,7 @@ export default new Router({
         import(/* webpackChunkName: "cityList" */ "./components/cityList")
     },
     {
-      path: "/oldHome",
+      path: "/oldhome",
       name: "oldHome",
       meta: {
         title: "百福德H5首页"

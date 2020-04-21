@@ -1,6 +1,9 @@
 <template>
     <div class="page">
-        <div class="news-banner"></div>
+        <!--<div class="news-banner">-->
+           <!---->
+        <!--</div>-->
+        <Banner></Banner>
         <div class="news-cont">
             <Tab
                     :tabList="tabList"
@@ -21,10 +24,11 @@
 <script>
   import Tab from './components/nav';
   import NewsItem from './components/newsItem';
+  import Banner from './components/banner';
   export default {
     name: "index",
     components:{
-      Tab,NewsItem
+      Tab,NewsItem,Banner,
     },
     data(){
       return{
@@ -78,6 +82,9 @@
           // },
         ],//活动风采数据
       }
+    },
+    created(){
+      console.log("mallUnionConf--===",this.mallUnionConf)
     },
     methods: {
       //tab切换事件
