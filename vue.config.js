@@ -25,9 +25,9 @@ module.exports = {
         // dll文件位置
         filepath: path.resolve(__dirname, "./public/vendor/*.js"),
         // dll 引用路径
-        publicPath: "./vendor",
+        publicPath: (env.NODE_ENV === "development" ? "/" : `${env.publicPath}/home-h5/`) + "vendor",
         // dll最终输出的目录
-        outputPath: "./vendor"
+        outputPath: "./vendor",
       })
     ];
     const exts = {
