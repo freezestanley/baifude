@@ -138,7 +138,7 @@ export default {
   data(){
     return{
         paramsData:this.$route.params,
-        showPopup: true,
+        showPopup: false,
         showCalendar: false,
         infoData:{
             "activityName":"马拉松",
