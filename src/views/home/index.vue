@@ -457,7 +457,8 @@ export default {
     },
     // 活动列表跳详情
     activityDetail(item){
-      this.$router.push({name:'activityDetail',params:{...item}});
+      this.$router.push({path:'/home-h5/corporateactivity/activitydetail',query:{id:item.id}});
+      // this.$router.push({name:'activityDetail',params:{...item}});
     }
 
   },

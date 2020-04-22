@@ -42,10 +42,9 @@
                    <div class="info-item-desc">{{infoData.content}}</div>
                </div>
            </div>
-           <div class="detail-footer">
-               <div class="ensure-btn" @click="gotoSignUp">{{}}</div>
-               <!--<div class="cancle-btn" @click="cancelSignUp">取消报名</div>-->
-           </div>
+            <div class="btn-wrap">
+                <van-button :disabled="isdisabled" class="detail-footer">{{parseType(infoData.entryStatus)}}</van-button>
+            </div>
         </div>
         <Fields ref="fields"></Fields>
     </section>
@@ -70,7 +69,7 @@ export default {
             checkBackTracking:[],
             gender:"" //性别
         },
-        btnStatus:false,//按钮是否置灰
+        isdisabled:false,//按钮是否置灰
     }
   },
   created(){
@@ -90,6 +89,11 @@ export default {
       let res = await activity_queryActivityDetail(params);
       if (utilRes.successCheck(res)) {
         this.infoData = res.data;
+        const {entryStatus} = res.data;
+        if(entryStatus == ("CANNOT_ENTRY" || "QUOTE_FULL" || "OVER")){
+          this.isdisabled=true;
+        }
+
       } else {
         this.$message({
           type: "error",
@@ -109,7 +113,16 @@ export default {
           message: res.errMsg ? res.errMsg : "调用接口失败!"
         });
       }
-    }
+    },
+    parseType(type) {
+      switch (type) {
+        case 'CANNOT_ENTRY': return '无法报名';
+        case 'TO_ENTRY ': return '我要报名';
+        case 'CANCEL_ENTRY': return '取消报名';
+        case 'QUOTE_FULL': return '名额已满';
+        case 'OVER': return '已结束';
+      }
+    },
   },
   components: {
       Fields
@@ -143,8 +156,13 @@ export default {
             }
         }
     }
+    .btn-wrap{
+        display: flex;
+        width: 100%;
+        justify-content: center;
+    }
     .detail-footer{
-        margin: 40px auto 0;
+        margin-top: 40px;
         width: 90%;
         height: 40px;
         line-height: 40px;
