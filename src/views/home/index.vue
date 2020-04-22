@@ -5,17 +5,17 @@
         <!-- 企业新闻 -->
       <div class="layout news" v-if="newsData.length>0">
           <Title titleName="企业新闻" :titleMore="true" @goToNext="goToNext"></Title>
-          <NewsItem :newsData="newsData"></NewsItem>
+          <NewsItem :newsData="newsData" @goToDetail="goToDetail"></NewsItem>
       </div>
       <div class="layout activity" v-if="activityData.length>0">
           <!--企业活动-->
         <Title titleName="企业活动" :titleMore="true" @goToNext="goToNext"></Title>
-          <BusinessActivity :data="activityData"></BusinessActivity>
+          <BusinessActivity :data="activityData" @activityDetail="activityDetail"></BusinessActivity>
       </div>
         <!-- 活动风采 -->
       <div class="layout elegance" v-if="newsData.length>0">
          <Title titleName="活动风采" :titleMore="true" @goToNext="goToNext"></Title>
-         <NewsItem :newsData="newsData"></NewsItem>
+         <NewsItem :newsData="styleData" @goToDetail="goToDetail"></NewsItem>
       </div>
         <!-- 员工调研 -->
         <div class="layout survey" v-if="newsData.length>0">
@@ -31,9 +31,9 @@
       <div class="layout notice" v-if="list.length>0">
          <Title titleName="企业公告" :titleMore="true" @goToNext="goToNext"></Title>
           <div class="notice-wrap">
-              <div class="notice-item" v-for="(item,index) in list" :key="index">
+              <div class="notice-item" v-for="(item,index) in list" :key="index" @click="goNoticeDetail(item)">
                   <div class="notice-item-text">{{item.title}}</div>
-                  <div class="notice-item-time">{{item.time}}</div>
+                  <div class="notice-item-time">{{item.publishTime}}</div>
               </div>
           </div>
       </div>
@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import { Toast } from 'vant'
 import axios from "axios";
 import { mapMutations } from "vuex";
 import { OK } from "@/assets/utils/constant";
@@ -56,6 +57,8 @@ import Title from '@/components/moduleTtile/index'
 import NewsItem from '../corporateNews/components/newsItem'
 import Boutique from '@/components/boutique/index';
 import ActivityNav from '@/components/activitynav/index';
+import { newsListPage,activity_queryActivitiyPage } from "@/assets/apis/home";
+import utilRes from "@/assets/utils/resResult";
 
 
 export default {
@@ -87,28 +90,10 @@ export default {
           instruct:'企业公告'
         }
       ],  //活动导航栏
-      newsData:[
-          {
-        "id": 2,
-        "type": 1,
-        "categoryId": 2,
-        "title": "新闻标题2",
-        "content": "新闻内容内容我和我的祖国一刻也不能分割无论我走到哪里都流出一首赞歌我歌唱每一座高山我歌唱每一条河袅袅炊烟小小村落路上一道辙啦新闻内容内容我和我的祖国一刻也不能分割无论我走到哪里都流出一首赞歌我歌唱每一座高山我歌唱每一条河袅袅炊烟小小村落路上一道辙啦",
-        "picture": "https://img3.mukewang.com/szimg/5e8d3f4a08c81ed506000338-360-202.jpg"
-      }],//新闻数据
-      activityData:[
-        {"pic":"https://img3.mukewang.com/szimg/5e8d3f4a08c81ed506000338-360-202.jpg","text":"瑜伽活动","time":"2020.04-2020.06","status":"报名中"},
-        {"pic":"https://img3.mukewang.com/szimg/5e8d3f4a08c81ed506000338-360-202.jpg","text":"瑜伽活动","time":"2020.04-2020.06","status":"已结束"},
-        {"pic":"https://img3.mukewang.com/szimg/5e8d3f4a08c81ed506000338-360-202.jpg","text":"瑜伽活动","time":"2020.04-2020.06","status":"报名中"},
-      ],//企业活动数据
-      list:[
-        {id:1,"title":"2019年度优秀员工名单","time":"2020-04-13"},
-        {id:2,"title":"2019年度优秀员工名单","time":"2020-04-13"},
-        {id:3,"title":"2019年度优秀员工名单","time":"2020-04-13"},
-        {id:4,"title":"2019年度优秀员工名单","time":"2020-04-13"},
-        {id:5,"title":"2019年度优秀员工名单","time":"2020-04-13"},
-        {id:6,"title":"2019年度优秀员工名单","time":"2020-04-13"},
-      ],
+      newsData:[],//新闻数据
+      activityData:[],//企业活动数据
+      styleData:[],//活动风采数据
+      list:[],//企业公告列表数据
       boutiqueData:[
           {"pic":"https://image.dongfangfuli.com/2020/03/06/afb9c24dec39529743df70263646950fcb6e182847f734eb54bffec6b3e9f3e6.jpg"},
       ],
@@ -131,6 +116,11 @@ export default {
     this.getNotice(union);
     this.getData(union);
     this.getCityList();
+    this.queryNewsList({type:1,categoryId:1});//企业新闻
+    this.queryActiveStyleList({type:1,categoryId:2});//活动风采
+    this.activity_queryActivitiyPage();//企业活动
+    this.queryNoticeList();//企业公告
+
   },
   methods: {
     ...mapMutations(["updateState"]),
@@ -377,7 +367,7 @@ export default {
     getPopUpShow() {
     
     },
-
+    // 点击更多跳转相对应列表页
     goToNext(item){
       if(item == "企业新闻"){
         this.$router.push({
@@ -396,12 +386,80 @@ export default {
           path: "/home-h5/corporatenotice",
         });
       }else if(item == "员工调研"){
-        this.$router.push({
-          path: "/home-h5/staffsurvey",
-        });
+        Toast('敬请期待')
+        // this.$router.push({
+        //   path: "/home-h5/staffsurvey",
+        // });
       }
 
+    },
+    //企业新闻列表接口
+    async queryNewsList(param) {
+      const obj ={...param}
+      let res = await newsListPage(obj);
+      if (utilRes.successCheck(res)) {
+        if(res.data.listObj.length>0){
+          this.newsData.push(res.data.listObj[0]); //首页新闻取列表新闻里面的第一条
+        }
+      } else {
+        this.$notify(res.errMsg);
+      }
+    },
+    //活动风采列表接口
+    async queryActiveStyleList(param) {
+      const obj ={...param}
+      let res = await newsListPage(obj);
+      if (utilRes.successCheck(res)) {
+        if(res.data.listObj.length>0){
+          this.styleData.push(res.data.listObj[0]); //首页新闻取列表新闻里面的第一条
+        }
+      } else {
+        this.$notify(res.errMsg);
+      }
+    },
+    //企业活动列表接口
+    async activity_queryActivitiyPage() {
+      let params={currentPage:1,itemsPerPage:10}
+      let res = await activity_queryActivitiyPage(params);
+      if (utilRes.successCheck(res)) {
+        this.activityData = res.data.listObj;
+      } else {
+        this.$notify(res.errMsg);
+      }
+    },
+    //企业公告列表
+    async queryNoticeList() {
+      let params ={
+        currentPage:1,
+        itemsPerPage:10,
+        type:2,
+      }
+      const obj ={...params}
+      let res = await newsListPage(obj);
+      if (utilRes.successCheck(res)) {
+        this.list = res.data.listObj; //请求返回当页的列表
+      } else {
+        this.$message({
+          type: "error",
+          message: res.errMsg ? res.errMsg : "调用接口失败!"
+        });
+      }
+    },
+    goToDetail(item){
+      this.$router.push({
+        path: "/home-h5/corporatenews/newsdetail",
+        query: { id: item.id }
+      });
+    },
+    //公告列表跳详情
+    goNoticeDetail(item){
+      this.$router.push({path:'/home-h5/corporatenotice/detail',query:{id:item.id}});
+    },
+    // 活动列表跳详情
+    activityDetail(item){
+      this.$router.push({name:'activityDetail',params:{...item}});
     }
+
   },
   watch: {
     $route(newVal, oldVal) {
@@ -467,10 +525,11 @@ html {
                  padding: 6px 0;
                  border-bottom: 1px dotted #C7C7C7;
                  .notice-item-text{
-                     width: 80%;
+                     width: 50%;
                  }
                  .notice-item-time{
-                     width: 20%;
+                     width: 50%;
+                     text-align: right;
                  }
              }
          }

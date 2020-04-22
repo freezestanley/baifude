@@ -3,7 +3,7 @@
         <h1>{{newsDetailData.title}}</h1>
         <p>{{`发布时间:${newsDetailData.publishTime}`}}</p>
         <div v-html="newsDetailData.content"></div>
-        <div class="enclosure">
+        <div class="enclosure" v-if="enclosureData.length>0">
             <p>附件</p>
             <div v-for="(item,index) in enclosureData" :key="index" class="enclosure-item" @click="downLoad(item)">
                 {{item.attachmentName}}
