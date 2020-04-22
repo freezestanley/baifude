@@ -39,7 +39,7 @@ export default {
             }else if(index == 3){
                 path = '/home-h5/corporatenotice';
             }
-            this.$router.push({path:path,query:""});
+            this.$router.push({path:path});
         }
     }
 }
