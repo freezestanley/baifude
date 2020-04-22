@@ -34,74 +34,137 @@ export default new Router({
       path: "/home-h5",
       component:HomeWrap,
       children:[{
-         path: '',
-         name: 'home',
-         component: Home
+        path: '',
+        name: 'home',
+        component: Home,
+        meta: {
+          title: "百福德首页"
+        },
+      },{
+        path: "corporatenews",
+        name: "corporateNews",
+        component:CorporateNews,
+        meta: {
+          title: "企业新闻"
+        },
+      },{
+        path: "corporatenews/newsdetail",
+        name: "newsDetail",
+        component:NewsDetail,
+        meta: {
+          title: "企业新闻详情"
+        }
+      },{
+        path: "corporateactivity",
+        name: "corporateActivity",
+        component:CorporateActivity,
+        meta: {
+          title: "企业活动"
+        }
+      },{
+        path: "corporateactivity/activitydetail",
+        name: "activityDetail",
+        component:CorporateActivityDetail,
+        meta: {
+          title: "活动详情"
+        }
+      },
+      {
+        path: "corporatenotice",
+        name: "corporateNotice",
+        component:CorporateNotice,
+        meta: {
+          title: "企业公告"
+        }
+      },
+      {
+        path: "corporatenotice/detail",
+        name: "noticeDetail",
+        component:NoticeDetail,
+        meta: {
+          title: "企业公告详情"
+        }
+      },
+      {
+        path: "staffsurvey",
+        name: "staffSurvey",
+        component:StaffSurvey,
+        meta: {
+          title: "员工调研"
+        }
+      },
+      {
+        path: "staffsurvey/detail",
+        name: "staffDetail",
+        component:StaffDetail,
+        meta: {
+          title: "员工调研详情"
+        }
       }]
     },
-    {
-      path: "/corporatenews",
-      name: "corporateNews",
-      component:CorporateNews,
-      meta: {
-        title: "企业新闻"
-      },
-    },
-    {
-      path: "/corporatenews/newsdetail",
-      name: "newsDetail",
-      component:NewsDetail,
-      meta: {
-        title: "企业新闻详情"
-      }
-    },
-    {
-      path: "/corporateactivity",
-      name: "corporateActivity",
-      component:CorporateActivity,
-      meta: {
-        title: "企业活动"
-      }
-    },{
-      path: "/corporateactivity/activitydetail",
-      name: "activityDetail",
-      component:CorporateActivityDetail,
-      meta: {
-        title: "活动详情"
-      }
-    },
-    {
-      path: "/corporatenotice",
-      name: "corporateNotice",
-      component:CorporateNotice,
-      meta: {
-        title: "企业公告"
-      }
-    },
-    {
-      path: "/corporatenotice/detail",
-      name: "noticeDetail",
-      component:NoticeDetail,
-      meta: {
-        title: "企业公告详情"
-      }
-    },
-    {
-      path: "/staffsurvey",
-      name: "staffSurvey",
-      component:StaffSurvey,
-      meta: {
-        title: "员工调研"
-      }
-    },
-    {
-      path: "/staffsurvey/detail",
-      name: "staffDetail",
-      component:StaffDetail,
-      meta: {
-        title: "员工调研详情"
-      }
-    },
+    // {
+    //   path: "/corporatenews",
+    //   name: "corporateNews",
+    //   component:CorporateNews,
+    //   meta: {
+    //     title: "企业新闻"
+    //   },
+    // },
+    // {
+    //   path: "/corporatenews/newsdetail",
+    //   name: "newsDetail",
+    //   component:NewsDetail,
+    //   meta: {
+    //     title: "企业新闻详情"
+    //   }
+    // },
+    // {
+    //   path: "/corporateactivity",
+    //   name: "corporateActivity",
+    //   component:CorporateActivity,
+    //   meta: {
+    //     title: "企业活动"
+    //   }
+    // },{
+    //   path: "/corporateactivity/activitydetail",
+    //   name: "activityDetail",
+    //   component:CorporateActivityDetail,
+    //   meta: {
+    //     title: "活动详情"
+    //   }
+    // },
+    // {
+    //   path: "/corporatenotice",
+    //   name: "corporateNotice",
+    //   component:CorporateNotice,
+    //   meta: {
+    //     title: "企业公告"
+    //   }
+    // },
+    // {
+    //   path: "/corporatenotice/detail",
+    //   name: "noticeDetail",
+    //   component:NoticeDetail,
+    //   meta: {
+    //     title: "企业公告详情"
+    //   }
+    // },
+    // {
+    //   path: "/staffsurvey",
+    //   name: "staffSurvey",
+    //   component:StaffSurvey,
+    //   meta: {
+    //     title: "员工调研"
+    //   }
+    // },
+    // {
+    //   path: "/staffsurvey/detail",
+    //   name: "staffDetail",
+    //   component:StaffDetail,
+    //   meta: {
+    //     title: "员工调研详情"
+    //   }
+    // },
     {
       path: "/",
       redirect: "/home-h5"

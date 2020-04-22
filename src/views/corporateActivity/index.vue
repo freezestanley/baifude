@@ -27,7 +27,7 @@ export default {
   },
     methods:{
         activityDetail(){
-            this.$router.push({path:'/corporateactivity/activitydetail',query:''});
+            this.$router.push({path:'/home-h5/corporateactivity/activitydetail',query:''});
         },
       goTodetail(item){
           console.log("item---===",item)

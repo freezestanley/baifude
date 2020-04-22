@@ -74,7 +74,7 @@ export default {
     },
     goToDetail(item) {
       this.$router.push({
-        path: "/corporatenews/newsdetail",
+        path: "/home-h5/corporatenews/newsdetail",
         query: { id: item.id }
       });
     },
