@@ -47,99 +47,17 @@
                <div class="cancle-btn">取消报名</div>
            </div>
         </div>
-        <van-popup v-model="showPopup" position="bottom" >
-            <div class="wrapActivity">
-                <div class="title">填写报名信息</div>
-                <div class="formContanier">
-                    <van-form @submit="onSubmit" :show-error="false">
-                        <van-field
-                            v-model="activityData.username"
-                            label="姓名:"
-                            placeholder="请输入姓名"
-                            :rules="[{ required: true, message: '请输入姓名' },{ validator, message: '请输入正确内容' }]"
-                            class="frameInput"
-                        />
-                        <van-field
-                            v-model="activityData.phone"
-                            label="手机号码:"
-                            placeholder="请输入手机号码"
-                            :rules="[{ required: true, message: '请输入手机号码' }]"
-                            class="frameInput"
-                        />
-                        <van-field
-                            v-model="activityData.age"
-                            label="年龄:"
-                            placeholder="请输入年龄"
-                            :rules="[{ required: true, message: '请输入年龄' }]"
-                            class="frameInput"
-                        />
-                        <van-field
-                            v-model="activityData.number"
-                            label="参与人数:"
-                            placeholder="请输入参与人数"
-                            :rules="[{ required: true, message: '请输入参与人数' }]"
-                            class="frameInput"
-                        />
-                        <van-field
-                            readonly
-                            clickable
-                            name="calendar"
-                            :value="activityData.date"
-                            label="出生日期:"
-                            placeholder="yyyy/mm/dd"
-                            @click="showCalendar = true"
-                            :rules="[{ required: true, message: '请选择出生日期' }]"
-                            class="frameInput"
-                        />
-                        <van-calendar :max-date="new Date('2030/01/01')" v-model="showCalendar" @confirm="onConfirm" />
-                        <van-field name="radio" label="性别">
-                            <template #input>
-                                <van-radio-group v-model="activityData.gender" direction="horizontal">
-                                <van-radio name="1">男</van-radio>
-                                <van-radio name="2">女</van-radio>
-                                </van-radio-group>
-                            </template>
-                        </van-field>
-                        <van-field name="checkboxGroup" label="参与环节:" :rules="[{ required: true, message: '请选择内容' }]">
-                            <template #input>
-                                <van-checkbox-group  v-model="activityData.checkBackTracking" >
-                                <van-checkbox class="margin_bt7" name="1" shape="square">飞机</van-checkbox>
-                                <van-checkbox class="margin_bt7" name="2" shape="square">火车</van-checkbox>
-                                <van-checkbox class="margin_bt7" name="3" shape="square">自驾</van-checkbox>
-                                <van-checkbox class="margin_bt7" name="4" shape="square">大巴</van-checkbox>
-                                </van-checkbox-group>
-                            </template>
-                        </van-field>
-                        <van-field name="uploader" label="一寸照片:">
-                            <template #input>
-                                <van-uploader>
-                                    <van-button icon="photo" type="primary">上传</van-button>
-                                </van-uploader>
-                            </template>
-                        </van-field>
-                        <van-field name="uploader" label="一寸照片:" readonly>
-                            <template #input>
-                                <van-image src="http://devimg.dongfangfuli.com/2020/01/22/c55fe89912fc17c8dde8111a3474ecbeeae2d0377c20e0cfd05493fac02a9cff.jpg" />
-                            </template>
-                        </van-field>
-                        <div class="detail-footer">
-                            <div class="ensure-btn" @click="gotoSignUp">报名</div>
-                            <div class="cancle-btn" @click="closeSignUp">关闭</div>
-                        </div>
-                    </van-form>
-                </div>
-            </div>
-        </van-popup>
+        <Fields ref="fields"></Fields>
     </section>
 </template>
 <script>
 import {queryActivityList,activity_queryActivityDetail} from '@/assets/apis/home'
+import Fields from './components/field'
 export default {
   data(){
     return{
         paramsData:this.$route.params,
         showPopup: false,
-        showCalendar: false,
         infoData:{
             "activityName":"马拉松",
             "activityTarget":"全体员工",
@@ -174,14 +92,7 @@ export default {
         return /1/.test(val);
     },
     gotoSignUp(){
-        this.showPopup = true;
-    },
-    closeSignUp(){
-        this.showPopup = false;
-    },
-    onConfirm(date){
-        this.activityData.date = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
-        this.showCalendar = false;
+        this.$refs.fields.showPopup = true;
     },
     async queryActivityListMethod(params){
         let res = await queryActivityList(params);
@@ -198,6 +109,9 @@ export default {
         });
       }
     }
+  },
+  components: {
+      Fields
   }
 
 }
@@ -259,6 +173,7 @@ export default {
         }
         .formContanier{
             margin-top: 20px;
+            background: #fff;
         }
     }
 }
