@@ -51,6 +51,14 @@ function activity_queryActivityDetail(params) {
   return sendPostNew(queryActivityDetailApi, 'get',params, true);
 }
 
+/**
+ * 获取企业新闻banner
+ * @param { JSON } params 请求的参数
+ */
+function newsConf_list(params) {
+  const newsConfListApi = "/cms/front/newsConf/list";
+  return sendPostNew(newsConfListApi, 'get',params, true);
+}
 export {
     queryActivityList,
     submitActivity,
@@ -58,4 +66,5 @@ export {
   news_getNewsFrontDetail,
   activity_queryActivitiyPage,
   activity_queryActivityDetail,
+  newsConf_list,
 }
