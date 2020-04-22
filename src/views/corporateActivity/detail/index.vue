@@ -53,6 +53,7 @@
 import {activity_entryCancel,activity_queryActivityDetail} from '@/assets/apis/home'
 import Fields from './components/field'
 import utilRes from "@/assets/utils/resResult";
+import { Dialog } from 'vant';
 export default {
   data(){
     return{
@@ -72,7 +73,17 @@ export default {
         this.$refs.fields.showPopup = true;
     },
     cancelSignUp(){
-        this.activity_entryCancel();
+        Dialog.confirm({
+            title: '活动确认',
+            message: '是否取消活动报名',
+        })
+        .then(() => {
+           this.activity_entryCancel();
+        })
+        .catch(() => {
+            // on cancel
+        });
+        
     },
     //查询活动详情
     async activity_queryActivityDetail() {
@@ -97,7 +108,7 @@ export default {
       let params={activityId:this.id}
       let res = await activity_entryCancel(params);
       if (utilRes.successCheck(res)) {
-        this.list = res.data.listObj;
+        this.activity_queryActivityDetail();
       } else {
         this.$message({
           type: "error",
