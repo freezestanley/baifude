@@ -127,7 +127,7 @@ export default {
   created() {
     const union = getQueryString("union");
 
-    this.isLogin(union);
+    // this.isLogin(union);
     this.getNotice(union);
     this.getData(union);
     this.getCityList();
