@@ -3,8 +3,8 @@
         <div class="wrapActivity">
             <div class="formContanier">
                 <div class="title">填写报名信息</div>
-                <van-form v-if="controlList.length>0"  @submit="onSubmit" :show-error="false">
-                    <div  v-for="(item,index) in controlList" :key="index">
+                <van-form v-if="activityData.controlList.length>0"  @submit="onSubmit" :show-error="false">
+                    <div  v-for="(item,index) in activityData.controlList" :key="index">
                         <van-field v-if="item.optionsType==3 && item.optionsName=='姓名'"
                             v-model="activityData.username"
                             label="姓名:"
@@ -80,86 +80,83 @@
     </van-popup>    
 </template>
 <script>
-import {queryActivityList,activity_queryActivityDetail} from '@/assets/apis/home'
+import {queryActivityList,activity_queryActivityForm} from '@/assets/apis/home'
+import utilRes from "@/assets/utils/resResult";
 export default {
   data(){
     return{
         showPopup: false,
         showCalendar: false,
         activityData:{
-            username:"", //您的姓名
-            phone:"", //手机号
-            age:"",  
-            personNum:"", //参与人数
-            date:"", //出生日期
-            checkBackTracking:[],
-            gender:"" //性别
+            controlList: [
+                {
+                    "activityOptionsId": 1,
+                    "optionsName": "姓名",
+                    "optionsType": 3,
+                    "optionsValue":""
+                },
+                {
+                    "activityOptionsId": 2,
+                    "optionsName": "手机号",
+                    "optionsType": 3,
+                    "optionsValue":""
+                },
+                {
+                    "activityOptionsId": 3,
+                    "applyOptionMap": {
+                        "0": "男",
+                        "1": "女"
+                    },
+                    "optionsName": "性别",
+                    "optionsType": 1,
+                    "optionsValue":""
+                },
+                {
+                    "activityOptionsId": 4,
+                    "applyOptionMap": {
+                        "0": "汽车",
+                        "1": "轮船",
+                        "2": "飞机",
+                        "3": "火车"
+                    },
+                    "optionsName": "方式",
+                    "optionsType": 2,
+                    "optionsValue":""
+                },
+                {
+                    "activityOptionsId": 4,
+                    "applyOptionMap": {
+                    },
+                    "optionsName": "日期",
+                    "optionsType": 4,
+                    "optionsValue":""
+                },
+                {
+                    "activityOptionsId": 5,
+                    "applyOptionMap": {
+                    },
+                    "optionsName": "一寸照片",
+                    "optionsType": 5,
+                    "optionsValue":"http://devimg.dongfangfuli.com/2020/01/22/c55fe89912fc17c8dde8111a3474ecbeeae2d0377c20e0cfd05493fac02a9cff.jpg"
+                },
+                {
+                    "activityOptionsId": 6,
+                    "applyOptionMap": {
+                    },
+                    "optionsName": "上传照片",
+                    "optionsType": 6,
+                    "optionsValue":""
+                }
+            ]
         },
-        controlList: [
-            {
-                "activityOptionsId": 1,
-                "optionsName": "姓名",
-                "optionsType": 3,
-                "optionsValue":""
-            },
-            {
-                "activityOptionsId": 2,
-                "optionsName": "手机号",
-                "optionsType": 3,
-                "optionsValue":""
-            },
-            {
-                "activityOptionsId": 3,
-                "applyOptionMap": {
-                    "0": "男",
-                    "1": "女"
-                },
-                "optionsName": "性别",
-                "optionsType": 1,
-                "optionsValue":""
-            },
-            {
-                "activityOptionsId": 4,
-                "applyOptionMap": {
-                    "0": "汽车",
-                    "1": "轮船",
-                    "2": "飞机",
-                    "3": "火车"
-                },
-                "optionsName": "方式",
-                "optionsType": 2,
-                "optionsValue":""
-            },
-            {
-                "activityOptionsId": 4,
-                "applyOptionMap": {
-                },
-                "optionsName": "日期",
-                "optionsType": 4,
-                "optionsValue":""
-            },
-            {
-                "activityOptionsId": 5,
-                "applyOptionMap": {
-                },
-                "optionsName": "一寸照片",
-                "optionsType": 5,
-                "optionsValue":"http://devimg.dongfangfuli.com/2020/01/22/c55fe89912fc17c8dde8111a3474ecbeeae2d0377c20e0cfd05493fac02a9cff.jpg"
-            },
-            {
-                "activityOptionsId": 6,
-                "applyOptionMap": {
-                },
-                "optionsName": "上传照片",
-                "optionsType": 6,
-                "optionsValue":""
-            }
-        ]
+    
     }
   },
   created(){
     let params = {userId:321};
-    this.queryActivityListMethod(params);
+    
+    //查询活动表单
+    this.activity_queryActivityForm();
   },
   methods:{
     onSubmit(){
@@ -181,17 +178,31 @@ export default {
     async queryActivityListMethod(params){
         let res = await queryActivityList(params);
     },
-    async activity_queryActivityDetail() {
-      let params={currentPage:1,itemsPerPage:10}
-      let res = await activity_queryActivityDetail(params);
-      if (utilRes.successCheck(res)) {
-        this.list = res.data.listObj;
-      } else {
-        this.$message({
-          type: "error",
-          message: res.errMsg ? res.errMsg : "调用接口失败!"
-        });
-      }
+    //查询活动表单
+    async activity_queryActivityForm(){
+        let params={};
+        let res = await activity_queryActivityForm(params);
+        if(utilRes.successCheck(res)){
+            this.activityData = res.data;
+        }else{
+            this.$message({
+                type: "error",
+                message: res.errMsg ? res.errMsg : "调用接口失败!"
+            });
+        }
+    },
+    //活动报名提交
+    async activity_activityEntry(){
+        let params={};
+        let res = await activity_activityEntry(params);
+        if(utilRes.successCheck(res)){
+            this.activityData = res.data;
+        }else{
+            this.$message({
+                type: "error",
+                message: res.errMsg ? res.errMsg : "调用接口失败!"
+            });
+        }
     }
   },
   

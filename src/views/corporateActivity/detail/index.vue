@@ -44,15 +44,16 @@
            </div>
            <div class="detail-footer">
                <div class="ensure-btn" @click="gotoSignUp">我要报名</div>
-               <div class="cancle-btn">取消报名</div>
+               <div class="cancle-btn" @click="cancelSignUp">取消报名</div>
            </div>
         </div>
         <Fields ref="fields"></Fields>
     </section>
 </template>
 <script>
-import {queryActivityList,activity_queryActivityDetail} from '@/assets/apis/home'
+import {activity_entryCancel,activity_queryActivityDetail} from '@/assets/apis/home'
 import Fields from './components/field'
+import utilRes from "@/assets/utils/resResult";
 export default {
   data(){
     return{
@@ -81,25 +82,33 @@ export default {
     }
   },
   created(){
-    let params = {userId:321};
-    this.queryActivityListMethod(params);
+    this.activity_queryActivityDetail();
+    
   },
   methods:{
-    onSubmit(){
-        console.log(this.activityData);
-    },
-    validator(val) {
-        return /1/.test(val);
-    },
     gotoSignUp(){
         this.$refs.fields.showPopup = true;
     },
-    async queryActivityListMethod(params){
-        let res = await queryActivityList(params);
+    cancelSignUp(){
+        this.activity_entryCancel();
     },
+    //查询活动详情
     async activity_queryActivityDetail() {
       let params={currentPage:1,itemsPerPage:10}
       let res = await activity_queryActivityDetail(params);
+      if (utilRes.successCheck(res)) {
+        this.list = res.data.listObj;
+      } else {
+        this.$message({
+          type: "error",
+          message: res.errMsg ? res.errMsg : "调用接口失败!"
+        });
+      }
+    },
+    //活动取消操作
+    async activity_entryCancel() {
+      let params={}
+      let res = await activity_entryCancel(params);
       if (utilRes.successCheck(res)) {
         this.list = res.data.listObj;
       } else {
