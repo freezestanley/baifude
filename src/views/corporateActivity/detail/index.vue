@@ -42,7 +42,7 @@
                    <div class="info-item-desc">{{infoData.content}}</div>
                </div>
            </div>
-            <div class="btn-wrap">
+            <div class="btn-wrap" @click="handle">
                 <van-button :disabled="isdisabled" class="detail-footer">{{parseType(infoData.entryStatus)}}</van-button>
             </div>
         </div>
@@ -108,11 +108,18 @@ export default {
     parseType(type) {
       switch (type) {
         case 'CANNOT_ENTRY': return '无法报名';
-        case 'TO_ENTRY ': return '我要报名';
+        case 'TO_ENTRY': return '我要报名';
         case 'CANCEL_ENTRY': return '取消报名';
         case 'QUOTE_FULL': return '名额已满';
         case 'OVER': return '已结束';
       }
+    },
+    handle(){
+        if(this.infoData.entryStatus == 'TO_ENTRY'){
+          this.gotoSignUp();
+        }else if(this.infoData.entryStatus == 'CANCEL_ENTRY'){
+          this.cancelSignUp();
+        }
     },
   },
   components: {
