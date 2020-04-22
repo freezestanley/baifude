@@ -60,15 +60,6 @@ export default {
         paramsData:this.$route.params,
         showPopup: false,
         infoData:{},//基本信息存储对象
-        activityData:{
-            username:"", //您的姓名
-            phone:"", //手机号
-            age:"",  
-            personNum:"", //参与人数
-            date:"", //出生日期
-            checkBackTracking:[],
-            gender:"" //性别
-        },
         isdisabled:false,//按钮是否置灰
     }
   },
