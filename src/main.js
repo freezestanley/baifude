@@ -29,7 +29,10 @@ import {
   Uploader,
   Image,
   Radio,
-  RadioGroup
+  RadioGroup,
+  Swipe,
+  SwipeItem,
+  PullRefresh
 } from "vant";
 Vue.use(Search);
 Vue.use(Icon);
@@ -49,6 +52,9 @@ Vue.use(Uploader);
 Vue.use(Image);
 Vue.use(Radio);
 Vue.use(RadioGroup);
+Vue.use(Swipe);
+Vue.use(SwipeItem);
+Vue.use(PullRefresh);
 router.beforeEach((to, from, next) => {
   next();
   const { meta } = to;
