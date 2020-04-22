@@ -78,6 +78,15 @@ function activity_entryCancel(params){
   return sendPostNew(activityEntryApi,'post',params,true);
 }
 
+/**
+ * 活动上传文件
+ * @param {JSON} params 
+ */
+function activity_uploadFile(params){
+  const uploadFileApi = "/file/uploadFile";
+  return sendPostNew(uploadFileApi,'post',params,false);
+}
+
 
 /**
  * 获取企业新闻banner
@@ -97,5 +106,6 @@ export {
   newsConf_list,
   activity_queryActivityForm,
   activity_activityEntry,
-  activity_entryCancel
+  activity_entryCancel,
+  activity_uploadFile
 }

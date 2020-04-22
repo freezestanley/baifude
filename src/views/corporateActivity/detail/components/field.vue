@@ -62,9 +62,9 @@
                                 <van-image :src="item.optionsValue" />
                             </template>
                         </van-field>
-                        <van-field v-if="item.optionsType==6" name="uploader" :label="item.optionsName+':'">
+                        <van-field v-if="item.optionsType==5" name="uploader" :label="item.optionsName+':'">
                             <template #input>
-                                <van-uploader>
+                                <van-uploader :after-read="afteRead">
                                     <van-button icon="photo" type="primary">上传</van-button>
                                 </van-uploader>
                             </template>
@@ -80,7 +80,7 @@
     </van-popup>    
 </template>
 <script>
-import {queryActivityList,activity_queryActivityForm} from '@/assets/apis/home'
+import {activity_queryActivityForm,activity_activityEntry,activity_uploadFile} from '@/assets/apis/home'
 import utilRes from "@/assets/utils/resResult";
 export default {
   data(){
@@ -159,6 +159,12 @@ export default {
     this.activity_queryActivityForm();
   },
   methods:{
+    afteRead(file){
+        let params = {
+            file:file.content
+        }
+        this.activity_uploadFile(params);
+    },
     onSubmit(){
         console.log(this.activityData);
     },
@@ -175,9 +181,8 @@ export default {
         this.activityData.date = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
         this.showCalendar = false;
     },
-    async queryActivityListMethod(params){
-        let res = await queryActivityList(params);
-    },
+
+    
     //查询活动表单
     async activity_queryActivityForm(){
         let params={};
@@ -195,6 +200,18 @@ export default {
     async activity_activityEntry(){
         let params={};
         let res = await activity_activityEntry(params);
+        if(utilRes.successCheck(res)){
+            this.activityData = res.data;
+        }else{
+            this.$message({
+                type: "error",
+                message: res.errMsg ? res.errMsg : "调用接口失败!"
+            });
+        }
+    },
+    //文件提交
+    async activity_uploadFile(params){
+        let res = await activity_uploadFile(params);
         if(utilRes.successCheck(res)){
             this.activityData = res.data;
         }else{
