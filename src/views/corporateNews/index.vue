@@ -3,7 +3,7 @@
     <!--<div class="news-banner">-->
     <!---->
     <!--</div>-->
-    <Banner></Banner>
+    <Banner :data="bannerList" @goToDetail="goToDetail"></Banner>
     <div class="news-cont">
       <Tab :tabList="tabList" :tabIndex="tabIndex" @changeTab="changeTab">
         <template slot="name1">
@@ -31,7 +31,7 @@
 import Tab from "./components/nav";
 import NewsItem from "./components/newsItem";
 import Banner from "./components/banner";
-import { newsListPage } from "@/assets/apis/home";
+import { newsListPage,newsConf_list } from "@/assets/apis/home";
 import utilRes from "@/assets/utils/resResult";
 
 export default {
@@ -48,58 +48,8 @@ export default {
         { index: 0, name: "企业新闻", key: "name1" },
         { index: 1, name: "活动风采", key: "name2" }
       ],
-      data: [
-        {
-          id: 2,
-          type: 1,
-          categoryId: 2,
-          title: "新闻标题2",
-          content:
-            "新闻内容内容我和我的祖国一刻也不能分割无论我走到哪里都流出一首赞歌我歌唱每一座高山我歌唱每一条河袅袅炊烟小小村落路上一道辙啦新闻内容内容我和我的祖国一刻也不能分割无论我走到哪里都流出一首赞歌我歌唱每一座高山我歌唱每一条河袅袅炊烟小小村落路上一道辙啦",
-          picture:
-            "https://img3.mukewang.com/szimg/5e8d3f4a08c81ed506000338-360-202.jpg"
-        },
-        {
-          id: 15,
-          type: 1,
-          categoryId: 9,
-          title: "通知标题15",
-          content:
-            "新闻内容内容我和我的祖国一刻也不能分割无论我走到哪里都流出一首赞歌我歌唱每一座高山我歌唱每一条河袅袅炊烟小小村落路上一道辙啦新闻内容内容我和我的祖国一刻也不能分割无论我走到哪里都流出一首赞歌我歌唱每一座高山我歌唱每一条河袅袅炊烟小小村落路上一道辙啦",
-          picture:
-            "https://img3.mukewang.com/szimg/5e8d3f4a08c81ed506000338-360-202.jpg"
-        }
-      ], //新闻列表数据
-      activeData: [
-        {
-          id: 1,
-          type: 1,
-          categoryId: 2,
-          title: "新闻标题2",
-          content:
-            "新闻内容内容我和我的祖国一刻也不能分割无论我走到哪里都流出一首赞歌我歌唱每一座高山我歌唱每一条河袅袅炊烟小小村落路上一道辙啦新闻内容内容我和我的祖国一刻也不能分割无论我走到哪里都流出一首赞歌我歌唱每一座高山我歌唱每一条河袅袅炊烟小小村落路上一道辙啦",
-          picture:
-            "https://img3.mukewang.com/szimg/5e95524508fe369f06000338-360-202.jpg"
-        },
-        {
-          id: 1,
-          type: 1,
-          categoryId: 2,
-          title: "新闻标题2",
-          content:
-            "新闻内容内容我和我的祖国一刻也不能分割无论我走到哪里都流出一首赞歌我歌唱每一座高山我歌唱每一条河袅袅炊烟小小村落路上一道辙啦新闻内容内容我和我的祖国一刻也不能分割无论我走到哪里都流出一首赞歌我歌唱每一座高山我歌唱每一条河袅袅炊烟小小村落路上一道辙啦",
-          picture:
-            "https://img3.mukewang.com/szimg/5e95524508fe369f06000338-360-202.jpg"
-        }
-        // {
-        //   "id": 1,
-        //   "type": 1,
-        //   "categoryId": 2,
-        //   "title": "新闻标题2",
-        //   "content": "新闻内容内容我和我的祖国一刻也不能分割无论我走到哪里都流出一首赞歌我歌唱每一座高山我歌唱每一条河袅袅炊烟小小村落路上一道辙啦新闻内容内容我和我的祖国一刻也不能分割无论我走到哪里都流出一首赞歌我歌唱每一座高山我歌唱每一条河袅袅炊烟小小村落路上一道辙啦",
-        //   "picture": "https://img3.mukewang.com/szimg/5e95524508fe369f06000338-360-202.jpg",
-        // },
-      ], //活动风采数据
+      data:[], //新闻列表数据
+      bannerList:[],//banner数组
       page: 1,//请求第几页
       pageSize: 10,//每页请求的数量
       total: 0,//总共的数据条数
@@ -108,6 +58,7 @@ export default {
   created() {
     let params = { type: 1, categoryId: 1 };
     this.queryNewsList(params);
+    this.queryNewsBanner();
   },
   methods: {
     //tab切换事件
@@ -128,6 +79,10 @@ export default {
       });
     },
     async queryNewsList(params) {
+      let pageParams = {
+        page:this.page,
+
+      }
       let res = await newsListPage(params);
       if (utilRes.successCheck(res)) {
         this.data = res.data.listObj;
@@ -137,6 +92,22 @@ export default {
           message: res.errMsg ? res.errMsg : "调用接口失败!"
         });
       }
+    },
+    async queryNewsBanner() {
+      let res = await newsConf_list();
+      if (utilRes.successCheck(res)) {
+        this.bannerList=res.data;
+        console.log("this.banner-----",this.bannerList)
+      } else {
+        this.$message({
+          type: "error",
+          message: res.errMsg ? res.errMsg : "调用接口失败!"
+        });
+      }
+    },
+    onLoad() {
+      this.page++;
+      this.queryNewsList();
     }
   }
 };

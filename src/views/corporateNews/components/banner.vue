@@ -1,14 +1,15 @@
 <template>
-    <div class="newsBanner">
+    <div class="newsBanner" >
         <div class="swiper-container">
             <div class="swiper-wrapper">
                 <div
-                        v-for="item in bannerList"
+                        v-for="item in data"
                         :key="item.id"
                         class="swiper-slide"
+                        @click="goToDetail(item)"
                 >
                     <a>
-                        <img :src="item.url" />
+                        <img :src="item.picture" />
                     </a>
                 </div>
             </div>
@@ -21,18 +22,20 @@
   import Swiper from "swiper";
   export default {
     name: "banner",
-    data(){
-      return{
-        bannerList:[
-            {id:1,url:"https://image.dongfangfuli.com/2020/03/06/afb9c24dec39529743df70263646950fcb6e182847f734eb54bffec6b3e9f3e6.jpg"},
-            {id:2,url:"https://image.dongfangfuli.com/2020/03/06/35e7e327db62108061c59f7cdc8f3fbf1763f692a3ce0ef12245c858241f3d7b.jpg"},
-            {id:3,url:"https://image.dongfangfuli.com/2019/09/24/22f2c097a80046b3775a0dc0372d7a39c589ab07c6f9bc84f865bcc9a9e4b086.jpg"},
-        ]
-      }
+    props:{
+      data: {
+        type: Array,
+        default: function () {
+          return []
+        }
+      },
+    },
+    created(){
+      this.creatSwiper();
     },
     methods: {
       creatSwiper() {
-        if (this.bannerList.length > 1) {
+        if (this.data.length > 1) {
           new Swiper(".newsBanner .swiper-container", {
             autoplay: true,
             loop: true,
@@ -44,11 +47,14 @@
             }
           });
         }
-      }
+      },
+      goToDetail(item){
+        this.$emit('goToDetail', item);
+      },
     },
-    mounted() {
-      this.creatSwiper();
-    }
+    // mounted() {
+    //   this.creatSwiper();
+    // }
   };
 </script>
 
