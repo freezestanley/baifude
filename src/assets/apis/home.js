@@ -79,12 +79,12 @@ function activity_entryCancel(params){
 }
 
 /**
- * 活动上传文件
+ * 活动上传图片
  * @param {JSON} params 
  */
 function activity_uploadFile(params){
-  const uploadFileApi = "/file/uploadFile";
-  return sendPostNew(uploadFileApi,'post',params,false);
+  const uploadFileApi = "https://admin1d0dev.dongfangfuli.com/user/file/upload";
+  return sendPostNew(uploadFileApi,'post',params,true);
 }
 
 

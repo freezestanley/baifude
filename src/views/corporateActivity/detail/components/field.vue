@@ -64,9 +64,10 @@
                         </van-field>
                         <van-field v-if="item.optionsType==5" name="uploader" :label="item.optionsName+':'">
                             <template #input>
-                                <van-uploader :after-read="afteRead">
+                                <!-- <van-uploader :after-read="afteRead">
                                     <van-button icon="photo" type="primary">上传</van-button>
-                                </van-uploader>
+                                </van-uploader> -->
+                                <van-button icon="photo" type="primary" @click="uploadMethod">上传</van-button>
                             </template>
                         </van-field>
                     </div>
@@ -75,6 +76,7 @@
                         <div class="cancle-btn" @click="closeSignUp">关闭</div>
                     </div>
                 </van-form>
+                <input type="file" ref="uploadInput" multiple style="display:none"  @change="changeInput">
             </div>
         </div>
     </van-popup>    
@@ -161,9 +163,24 @@ export default {
   methods:{
     afteRead(file){
         let params = {
-            file:file.content
+            // file:this.convertBase64UrlToBlob(file.content)
         }
-        this.activity_uploadFile(params);
+        // this.activity_uploadFile(params);
+    },
+    uploadMethod(){
+        this.$refs.uploadInput.click();
+    },
+    changeInput(e){
+      let $target = e.target || e.srcElement
+      let file = $target.files[0]
+      if (!file) {
+        return
+      }
+      let formData = new FormData();
+      formData.append('file', file);
+      console.log(file);
+      this.activity_uploadFile(formData);
+
     },
     onSubmit(){
         console.log(this.activityData);
@@ -180,6 +197,18 @@ export default {
     onConfirm(date){
         this.activityData.date = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
         this.showCalendar = false;
+    },
+    convertBase64UrlToBlob(urlData) {
+        var bytes = window.atob(urlData.split(',')[1]); //去掉url的头，并转换为byte
+        //处理异常,将ascii码小于0的转换为大于0
+        var ab = new ArrayBuffer(bytes.length);
+        var ia = new Uint8Array(ab);
+        for (var i = 0; i < bytes.length; i++) {
+            ia[i] = bytes.charCodeAt(i);
+        }
+        return new Blob([ab], {
+            type: 'image/png'
+        });
     },
 
     
