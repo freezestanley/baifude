@@ -9,7 +9,7 @@ import { getQueryString, detect } from "@/assets/utils";
 
 export default {
   created() {
-    this.redirect();
+    // this.redirect();
   },
   methods: {
     redirect() {
