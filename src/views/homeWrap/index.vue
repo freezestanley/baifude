@@ -253,6 +253,11 @@ export default {
             //       import(`@/views/${unionConf.body.styleCode}/footArea`)
             //   });
             // }
+            this.fords.push({
+              data: null,
+              comp: () =>
+                  import(`@/views/${unionConf.body.styleCode}/footArea`)
+            });
 
             // 缓存工会商城配置
             if (unionMallConf) {
