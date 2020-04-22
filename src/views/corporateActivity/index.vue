@@ -30,8 +30,7 @@ export default {
             this.$router.push({path:'/home-h5/corporateactivity/activitydetail',query:''});
         },
       goTodetail(item){
-          console.log("item---===",item)
-        this.$router.push({name:'activityDetail',params:{...item}});
+        this.$router.push({path:'/home-h5/corporateactivity/activitydetail',query:{id:item.id}});
       },
       async activity_queryActivitiyPage() {
         let params={currentPage:1,itemsPerPage:10}

@@ -2,49 +2,49 @@
     <section class="page">
         <div class="activity-detail">
            <div class="activity-detail-pic">
-               <img :src="paramsData.pic" alt="">
+               <img :src="infoData.picture" alt="">
            </div>
            <div class="activity-detail-info">
                <div class="detail-info-item">
                    <div class="info-item-lable">活动名称</div>
-                   <div class="info-item-desc">{{infoData.activityName}}</div>
+                   <div class="info-item-desc">{{infoData.title}}</div>
                </div>
                <div class="detail-info-item">
                    <div class="info-item-lable">活动对象</div>
-                   <div class="info-item-desc">{{infoData.activityTarget}}</div>
+                   <div class="info-item-desc">{{infoData.scopeTypeName}}</div>
                </div>
                <div class="detail-info-item">
                    <div class="info-item-lable">报名时间</div>
-                   <div class="info-item-desc">{{infoData.registerTime}}</div>
+                   <div class="info-item-desc">{{infoData.entryTime}}</div>
                </div>
                <div class="detail-info-item">
                    <div class="info-item-lable">活动时间</div>
-                   <div class="info-item-desc">{{infoData.activeTime}}</div>
+                   <div class="info-item-desc">{{infoData.activityTime}}</div>
                </div>
                <div class="detail-info-item">
                    <div class="info-item-lable">活动地点</div>
-                   <div class="info-item-desc">{{infoData.activePlace}}</div>
+                   <div class="info-item-desc">{{infoData.address}}</div>
                </div>
                <div class="detail-info-item">
                    <div class="info-item-lable">活动费用</div>
-                   <div class="info-item-desc">{{infoData.activeCost}}</div>
+                   <div class="info-item-desc">{{infoData.cost}}</div>
                </div>
                <div class="detail-info-item">
                    <div class="info-item-lable">活动名额</div>
-                   <div class="info-item-desc">{{infoData.activeNum}}</div>
+                   <div class="info-item-desc">{{infoData.quota}}</div>
                </div>
                <div class="detail-info-item">
                    <div class="info-item-lable">已报名人数</div>
-                   <div class="info-item-desc">{{infoData.registeNum}}</div>
+                   <div class="info-item-desc">{{infoData.attendnum}}</div>
                </div>
                <div class="detail-info-item">
                    <div class="info-item-lable">活动描述</div>
-                   <div class="info-item-desc">{{infoData.activeDesc}}</div>
+                   <div class="info-item-desc">{{infoData.content}}</div>
                </div>
            </div>
            <div class="detail-footer">
-               <div class="ensure-btn" @click="gotoSignUp">我要报名</div>
-               <div class="cancle-btn" @click="cancelSignUp">取消报名</div>
+               <div class="ensure-btn" @click="gotoSignUp">{{}}</div>
+               <!--<div class="cancle-btn" @click="cancelSignUp">取消报名</div>-->
            </div>
         </div>
         <Fields ref="fields"></Fields>
@@ -57,19 +57,10 @@ import utilRes from "@/assets/utils/resResult";
 export default {
   data(){
     return{
+        id:this.$route.query.id,
         paramsData:this.$route.params,
         showPopup: false,
-        infoData:{
-            "activityName":"马拉松",
-            "activityTarget":"全体员工",
-            "registerTime":"2020-3-30 9:00:00-2020-3-31 18:00:00",
-            "activeTime":"2020-4-1 9:00:00-2020-4-1 18:00:00",
-            "activePlace":"上海市长宁区来福士",
-            "activeCost":"免费",
-            "activeNum":"不限",
-            "registeNum":"40",
-            "activeDesc":"为了响应全民健身的号召，加强员工身体素质，特别组织了马拉松活动，欢迎大家积极踊跃报名参加~",
-        },
+        infoData:{},//基本信息存储对象
         activityData:{
             username:"", //您的姓名
             phone:"", //手机号
@@ -78,7 +69,8 @@ export default {
             date:"", //出生日期
             checkBackTracking:[],
             gender:"" //性别
-        }
+        },
+        btnStatus:false,//按钮是否置灰
     }
   },
   created(){
@@ -94,10 +86,10 @@ export default {
     },
     //查询活动详情
     async activity_queryActivityDetail() {
-      let params={currentPage:1,itemsPerPage:10}
+      let params={id:this.id}
       let res = await activity_queryActivityDetail(params);
       if (utilRes.successCheck(res)) {
-        this.list = res.data.listObj;
+        this.infoData = res.data;
       } else {
         this.$message({
           type: "error",
@@ -152,23 +144,16 @@ export default {
         }
     }
     .detail-footer{
-        margin-top: 40px;
-        width: 100%;
+        margin: 40px auto 0;
+        width: 90%;
         height: 40px;
-        display: flex;
-        justify-content: center;
+        line-height: 40px;
         font-size: 14px;
-        .ensure-btn,.cancle-btn{
-            width: 100px;
-            height: 40px;
-            line-height: 40px;
-            text-align: center;
-            color: #fff;
-            background: palevioletred;
-            margin: 0 10px;
-            border: 1px solid #a1526c;
-            border-radius: 3px;
-        }
+        color: #fff;
+        background: palevioletred;
+        border: 1px solid #a1526c;
+        border-radius: 3px;
+        text-align: center;
 
     }
 
