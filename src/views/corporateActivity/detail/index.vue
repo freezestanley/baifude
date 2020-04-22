@@ -46,7 +46,7 @@
                 <van-button :disabled="isdisabled" class="detail-footer">{{parseType(infoData.entryStatus)}}</van-button>
             </div>
         </div>
-        <Fields ref="fields"></Fields>
+        <Fields ref="fields" @queryActivityDetail="activity_queryActivityDetail"></Fields>
     </section>
 </template>
 <script>

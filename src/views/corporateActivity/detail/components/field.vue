@@ -230,6 +230,7 @@ export default {
     async activity_activityEntry(params){
         let res = await activity_activityEntry(params);
         if(utilRes.successCheck(res)){
+            this.$emit('queryActivityDetail');
             this.showPopup = false;
         }else{
             this.$message({
