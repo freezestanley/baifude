@@ -34,11 +34,11 @@
                                 :value="item.optionsValue"
                                 :label="item.optionsName+':'"
                                 placeholder="yyyy/mm/dd"
-                                @click="showCalendar = true"
+                                @click="findDate(item)"
                                 :rules="[{ required: true, message: '请选择出生日期' }]"
                                 class="frameInput"
                             />
-                            <van-calendar :max-date="new Date('2030/01/01')" v-model="showCalendar" @confirm="onConfirm(data,item)" />
+                            <van-calendar :max-date="new Date('2030/01/01')" v-model="showCalendar" @confirm="onConfirm" />
                         </template>
                         <van-field v-if="item.optionsType==1" name="radio" :label="item.optionsName+''">
                             <template #input>
@@ -88,68 +88,69 @@ export default {
   data(){
     return{
         activityId:this.$route.query.id, //活动id
-        showPopup: false,
+        dateItem:"", //保存选择时间的对象 
+        showPopup: true,
         showCalendar: false,
         activityData:{
             controlList: [
-                // {
-                //     "activityOptionsId": 1,
-                //     "optionsName": "姓名",
-                //     "optionsType": 3,
-                //     "optionsValue":""
-                // },
-                // {
-                //     "activityOptionsId": 2,
-                //     "optionsName": "手机号",
-                //     "optionsType": 3,
-                //     "optionsValue":""
-                // },
-                // {
-                //     "activityOptionsId": 3,
-                //     "applyOptionMap": {
-                //         "0": "男",
-                //         "1": "女"
-                //     },
-                //     "optionsName": "性别",
-                //     "optionsType": 1,
-                //     "optionsValue":""
-                // },
-                // {
-                //     "activityOptionsId": 4,
-                //     "applyOptionMap": {
-                //         "0": "汽车",
-                //         "1": "轮船",
-                //         "2": "飞机",
-                //         "3": "火车"
-                //     },
-                //     "optionsName": "方式",
-                //     "optionsType": 2,
-                //     "optionsValue":""
-                // },
-                // {
-                //     "activityOptionsId": 4,
-                //     "applyOptionMap": {
-                //     },
-                //     "optionsName": "日期",
-                //     "optionsType": 4,
-                //     "optionsValue":""
-                // },
-                // {
-                //     "activityOptionsId": 5,
-                //     "applyOptionMap": {
-                //     },
-                //     "optionsName": "一寸照片",
-                //     "optionsType": 5,
-                //     "optionsValue":"http://devimg.dongfangfuli.com/2020/01/22/c55fe89912fc17c8dde8111a3474ecbeeae2d0377c20e0cfd05493fac02a9cff.jpg"
-                // },
-                // {
-                //     "activityOptionsId": 6,
-                //     "applyOptionMap": {
-                //     },
-                //     "optionsName": "上传照片",
-                //     "optionsType": 6,
-                //     "optionsValue":""
-                // }
+                {
+                    "activityOptionsId": 1,
+                    "optionsName": "姓名",
+                    "optionsType": 3,
+                    "optionsValue":""
+                },
+                {
+                    "activityOptionsId": 2,
+                    "optionsName": "手机号",
+                    "optionsType": 3,
+                    "optionsValue":""
+                },
+                {
+                    "activityOptionsId": 3,
+                    "applyOptionMap": {
+                        "0": "男",
+                        "1": "女"
+                    },
+                    "optionsName": "性别",
+                    "optionsType": 1,
+                    "optionsValue":[]
+                },
+                {
+                    "activityOptionsId": 4,
+                    "applyOptionMap": {
+                        "0": "汽车",
+                        "1": "轮船",
+                        "2": "飞机",
+                        "3": "火车"
+                    },
+                    "optionsName": "方式",
+                    "optionsType": 2,
+                    "optionsValue":[]
+                },
+                {
+                    "activityOptionsId": 4,
+                    "applyOptionMap": {
+                    },
+                    "optionsName": "日期",
+                    "optionsType": 4,
+                    "optionsValue":""
+                },
+                {
+                    "activityOptionsId": 5,
+                    "applyOptionMap": {
+                    },
+                    "optionsName": "一寸照片",
+                    "optionsType": 5,
+                    "optionsValue":"http://devimg.dongfangfuli.com/2020/01/22/c55fe89912fc17c8dde8111a3474ecbeeae2d0377c20e0cfd05493fac02a9cff.jpg"
+                },
+                {
+                    "activityOptionsId": 6,
+                    "applyOptionMap": {
+                    },
+                    "optionsName": "上传照片",
+                    "optionsType": 6,
+                    "optionsValue":""
+                }
             ]
         },
     
@@ -184,6 +185,10 @@ export default {
     onSubmit(){
         console.log(this.activityData);
     },
+    findDate(item){
+        this.showCalendar = true;
+        this.dateItem = item;
+    },
     validator(val) {
         return true;
     },
@@ -196,7 +201,7 @@ export default {
         this.showPopup = false;
     },
     onConfirm(date){
-        this.activityData.date = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+        this.dateItem.optionsValue = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
         this.showCalendar = false;
     },
     convertBase64UrlToBlob(urlData) {
