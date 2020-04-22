@@ -1,21 +1,10 @@
 <template>
   <div class="page">
-    <Banner :bannerList="bannerList"></Banner>
+    <Banner :bannerList="bannerList" @clickBanner="clickBanner"></Banner>
     <div class="news-cont">
       <Tab :tabList="tabList" :tabIndex="tabIndex" @changeTab="changeTab">
         <template slot="name1">
-          <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
-            <van-list
-                    v-model="loading"
-                    :finished="finished"
-                    :immediate-check="false"
-                    finished-text="没有更多了"
-                    @load="onLoad"
-                    :offset="10"
-            >
               <NewsItem :newsData="newsData" @goToDetail="goToDetail"></NewsItem>
-            </van-list>
-          </van-pull-refresh>
         </template>
         <template slot="name2">
           <NewsItem :newsData="newsData" @goToDetail="goToDetail"></NewsItem>
@@ -80,15 +69,6 @@ export default {
         query: { id: item.id }
       });
     },
-    onRefresh() {
-      // 清空列表数据
-      this.finished = false;
-
-      // 重新加载数据
-      // 将 loading 设置为 true，表示处于加载状态
-      this.loading = true;
-      this.onLoad();
-    },
     async queryNewsList(param) {
       let params ={
         currentPage:this.currentPage,
@@ -97,17 +77,9 @@ export default {
       const obj ={...param,...params}
       let res = await newsListPage(obj);
       if (utilRes.successCheck(res)) {
-        let rows = res.data.listObj; //请求返回当页的列表
-        this.loading = false;
-        this.total = res.data.total;
-        if (rows == null ||rows.length === 0) {
-          // 加载结束
-          this.finished = true;
-          return;
-        }
-        this.newsData = this.newsData.concat(rows)
+        this.newsData = res.data.listObj; //请求返回当页的列表
       } else {
-        this.$message({
+        this.$notify({
           type: "error",
           message: res.errMsg ? res.errMsg : "调用接口失败!"
         });
@@ -115,24 +87,21 @@ export default {
     },
     async queryNewsBanner() {
       let res = await newsConf_list();
-      if(res.code == "0"){
+      if (utilRes.successCheck(res)) {
         this.bannerList=res.data;
+      } else {
+        this.$message({
+          type: "error",
+          message: res.errMsg ? res.errMsg : "调用接口失败!"
+        });
       }
-      // if (utilRes.successCheck(res)) {
-      //   this.bannerList=res.data;
-      //   console.log("bannerlist--===",this.bannerList)
-      // } else {
-      //   this.$message({
-      //     type: "error",
-      //     message: res.errMsg ? res.errMsg : "调用接口失败!"
-      //   });
-      // }
     },
-    onLoad() {
-      this.currentPage++;
-      console.log("上拉加载")
-      this.queryNewsList();
-    }
+    clickBanner(item){
+      this.$router.push({
+        path: "/home-h5/corporatenews/newsdetail",
+        query: { id: item.id }
+      });
+    },
   }
 };
 </script>

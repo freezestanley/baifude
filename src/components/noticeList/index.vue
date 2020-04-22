@@ -2,7 +2,7 @@
     <section class="notice-wrap">
         <div class="notice-item" v-for="(item,index) in data" :key="index" @click="goToDetail(item)">
             <div class="notice-title">{{item.title}}</div>
-            <div class="notice-data">{{item.time}}</div>
+            <div class="notice-date">{{item.publishTime}}</div>
         </div>
     </section>
 </template>
@@ -42,8 +42,8 @@
     text-overflow: ellipsis; /*以省略号...显示*/
     white-space: nowrap; /*强制不换行*/
     }
-    .notice-data{
-        width: 80px;
+    .notice-date{
+        width: 40%;
         text-align: right;
     }
 
