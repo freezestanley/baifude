@@ -31,13 +31,13 @@ export default {
         gotoActivity(index){
             let path = "";
             if(index == 0){
-                path = '/corporatenews';
+                path = '/home-h5/corporatenews';
             }else if(index == 1){
-                path = '/corporateactivity';
+                path = '/home-h5/corporateactivity';
             }else if(index == 2){
-                path = '/staffsurvey';
+                path = '/home-h5/staffsurvey';
             }else if(index == 3){
-                path = '/corporatenotice';
+                path = '/home-h5/corporatenotice';
             }
             this.$router.push({path:path,query:""});
         }
