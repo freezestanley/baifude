@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 const Home = () => import('@/views/home/index').then(m => m.default)
+const HomeWrap = () => import('@/views/homeWrap/index').then(m => m.default)
 const CorporateNews = () => import('@/views/corporateNews/index').then(m => m.default)
 const CorporateActivity = () => import('@/views/corporateActivity/index')
 const CorporateActivityDetail = () => import('@/views/corporateActivity/detail/index')
@@ -31,15 +32,12 @@ export default new Router({
     },
     {
       path: "/home-h5",
-      name: "home",
-      component:Home,
-      meta: {
-        title: "百福得首页"
-      },
-    },
-    {
-      path: "/",
-      redirect: "/home-h5"
+      component:HomeWrap,
+      children:[{
+         path: '',
+         name: 'home',
+         component: Home
+      }]
     },
     {
       path: "/corporatenews",
@@ -104,5 +102,13 @@ export default new Router({
         title: "员工调研详情"
       }
     },
+    {
+      path: "/",
+      redirect: "/home-h5"
+    },
+    {
+      path: "*",
+      redirect: "/home-h5"
+    }
   ]
 });

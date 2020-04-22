@@ -1,48 +1,23 @@
 <template>
-  <div class="wrap">
-    <div class="container">
-      <ActivityNav :activityNavData="activityNavData"></ActivityNav>
-        <!-- 企业新闻 -->
-      <div class="layout news" v-if="newsData.length>0">
-          <Title titleName="企业新闻" :titleMore="true" @goToNext="goToNext"></Title>
-          <NewsItem :newsData="newsData"></NewsItem>
-      </div>
-      <div class="layout activity" v-if="activityData.length>0">
-          <!--企业活动-->
-        <Title titleName="企业活动" :titleMore="true" @goToNext="goToNext"></Title>
-          <BusinessActivity :data="activityData"></BusinessActivity>
-      </div>
-        <!-- 活动风采 -->
-      <div class="layout elegance" v-if="newsData.length>0">
-         <Title titleName="活动风采" :titleMore="true" @goToNext="goToNext"></Title>
-         <NewsItem :newsData="newsData"></NewsItem>
-      </div>
-        <!-- 员工调研 -->
-        <div class="layout survey" v-if="newsData.length>0">
-            <Title titleName="员工调研" :titleMore="true" @goToNext="goToNext"></Title>
-           <div class="survey-wrap">
-               <p>疫情过后你会报复性消费吗</p>
-               <div class="survey-pic">
-                   <img :src="surveyObj.pic" alt="">
-               </div>
-           </div>
-        </div>
-        <!-- 企业公告 -->
-      <div class="layout notice" v-if="list.length>0">
-         <Title titleName="企业公告" :titleMore="true" @goToNext="goToNext"></Title>
-          <div class="notice-wrap">
-              <div class="notice-item" v-for="(item,index) in list" :key="index">
-                  <div class="notice-item-text">{{item.title}}</div>
-                  <div class="notice-item-time">{{item.time}}</div>
-              </div>
-          </div>
-      </div>
-        <!-- 精品推荐 -->
-      <div class="layout">
-         <Title titleName="精品推荐"></Title>
-          <Boutique :data="boutiqueData"></Boutique>
-      </div>
-    </div>
+  <div :class="styleCode === 'elite' ? 'bgGray' : 'commonBg'">
+    <!-- <notice
+      v-if="isShowUnionNotice"
+      :unionNoticeContent="unionNoticeContent"
+    ></notice> -->
+    <component
+      :is="ford.comp"
+      :content="ford.data"
+      v-for="(ford, index) of fords"
+      :key="index"
+    ></component>
+    <!-- 首页弹窗 -->
+    <homeShell></homeShell>
+    <!-- <LocationNotice
+      v-if="locationShow"
+      :locationCityName="locationCityName"
+      :locationCityId="locationCityId"
+    ></LocationNotice> -->
+    <router-view></router-view>
   </div>
 </template>
 
@@ -51,12 +26,6 @@ import axios from "axios";
 import { mapMutations } from "vuex";
 import { OK } from "@/assets/utils/constant";
 import { getQueryString, setCookie, getCookie } from "@/assets/utils";
-import BusinessActivity from '@/components/businessActivity/index'
-import Title from '@/components/moduleTtile/index'
-import NewsItem from '../corporateNews/components/newsItem'
-import Boutique from '@/components/boutique/index';
-import ActivityNav from '@/components/activitynav/index';
-
 
 export default {
   name: "home",
@@ -70,58 +39,13 @@ export default {
       locationCityName: "",
       locationCityId: "",
       isShowUnionNotice: false,
-      unionNoticeContent: "",
-      activityNavData:[
-        {
-          url:'https://img3.mukewang.com/szimg/5e8d3f4a08c81ed506000338-360-202.jpg',
-          instruct:'企业新闻'
-        },{
-          url:'https://image.dongfangfuli.com/2020/03/06/35e7e327db62108061c59f7cdc8f3fbf1763f692a3ce0ef12245c858241f3d7b.jpg',
-          instruct:'企业活动'
-        },
-        {
-          url:'https://img3.mukewang.com/szimg/5e8d3f4a08c81ed506000338-360-202.jpg',
-          instruct:'员工调研'
-        },{
-          url:'https://image.dongfangfuli.com/2020/03/06/35e7e327db62108061c59f7cdc8f3fbf1763f692a3ce0ef12245c858241f3d7b.jpg',
-          instruct:'企业公告'
-        }
-      ],  //活动导航栏
-      newsData:[
-          {
-        "id": 2,
-        "type": 1,
-        "categoryId": 2,
-        "title": "新闻标题2",
-        "content": "新闻内容内容我和我的祖国一刻也不能分割无论我走到哪里都流出一首赞歌我歌唱每一座高山我歌唱每一条河袅袅炊烟小小村落路上一道辙啦新闻内容内容我和我的祖国一刻也不能分割无论我走到哪里都流出一首赞歌我歌唱每一座高山我歌唱每一条河袅袅炊烟小小村落路上一道辙啦",
-        "picture": "https://img3.mukewang.com/szimg/5e8d3f4a08c81ed506000338-360-202.jpg"
-      }],//新闻数据
-      activityData:[
-        {"pic":"https://img3.mukewang.com/szimg/5e8d3f4a08c81ed506000338-360-202.jpg","text":"瑜伽活动","time":"2020.04-2020.06","status":"报名中"},
-        {"pic":"https://img3.mukewang.com/szimg/5e8d3f4a08c81ed506000338-360-202.jpg","text":"瑜伽活动","time":"2020.04-2020.06","status":"已结束"},
-        {"pic":"https://img3.mukewang.com/szimg/5e8d3f4a08c81ed506000338-360-202.jpg","text":"瑜伽活动","time":"2020.04-2020.06","status":"报名中"},
-      ],//企业活动数据
-      list:[
-        {id:1,"title":"2019年度优秀员工名单","time":"2020-04-13"},
-        {id:2,"title":"2019年度优秀员工名单","time":"2020-04-13"},
-        {id:3,"title":"2019年度优秀员工名单","time":"2020-04-13"},
-        {id:4,"title":"2019年度优秀员工名单","time":"2020-04-13"},
-        {id:5,"title":"2019年度优秀员工名单","time":"2020-04-13"},
-        {id:6,"title":"2019年度优秀员工名单","time":"2020-04-13"},
-      ],
-      boutiqueData:[
-          {"pic":"https://image.dongfangfuli.com/2020/03/06/afb9c24dec39529743df70263646950fcb6e182847f734eb54bffec6b3e9f3e6.jpg"},
-      ],
-      surveyObj:{
-        "pic":"https://image.dongfangfuli.com/2020/03/06/35e7e327db62108061c59f7cdc8f3fbf1763f692a3ce0ef12245c858241f3d7b.jpg"
-      }
+      unionNoticeContent: ""
     };
   },
   components: {
     homeShell: () => import("../../components/homeShell"),
     LocationNotice: () => import("../../components/locationNotice"),
-    notice: () => import("../../components/notice"),
-    Title,NewsItem,BusinessActivity,Boutique,ActivityNav
+    notice: () => import("../../components/notice")
   },
 
   created() {
@@ -375,32 +299,35 @@ export default {
         });
     },
     getPopUpShow() {
-    
-    },
-
-    goToNext(item){
-      if(item == "企业新闻"){
-        this.$router.push({
-          path: "/corporatenews",
-        });
-      }else if(item == "企业活动"){
-        this.$router.push({
-          path: "/corporateactivity",
-        });
-      }else if(item == "活动风采"){
-        this.$router.push({
-          path: "/corporatenews",
-        });
-      }else if(item == "企业公告"){
-        this.$router.push({
-          path: "/corporatenotice",
-        });
-      }else if(item == "员工调研"){
-        this.$router.push({
-          path: "/staffsurvey",
-        });
-      }
-
+      // if (!this.popUp) {
+      //   return false;
+      // }
+      // let name = "homeActivity" + this.popUp.id;
+      // let hasCookie = getCookie(name);
+      // let flag = true;
+      // if (hasCookie) {
+      //   flag = false;
+      // }
+      // if (!this.popUp.isShow) {
+      //   flag = false;
+      //   if (hasCookie) {
+      //     delCookie(name);
+      //   }
+      // }
+      // let now = Number(new Date());
+      // if (
+      //   now > Number(new Date(this.popUp.endTime)) ||
+      //   now < Number(new Date(this.popUp.startTime))
+      // ) {
+      //   flag = false;
+      //   // 已不再活动期限内，将多余cookie删除
+      //   if (hasCookie) {
+      //     delCookie(name);
+      //   }
+      // }
+      // if (flag) {
+      //   this.show = flag;
+      // }
     }
   },
   watch: {
@@ -454,40 +381,4 @@ html {
     padding-bottom: 117px;
   }
 }
-</style>
-<style lang="less" scoped>
-  .wrap{
-      font-size: 12px;
-      .layout{padding: 10px 10px 0;}
-     .notice{
-         .notice-wrap{
-             border-top: 1px dotted #C7C7C7;
-             .notice-item{
-                 display: flex;
-                 padding: 6px 0;
-                 border-bottom: 1px dotted #C7C7C7;
-                 .notice-item-text{
-                     width: 80%;
-                 }
-                 .notice-item-time{
-                     width: 20%;
-                 }
-             }
-         }
-
-     }
-     .survey{
-         .survey-wrap{
-             .survey-pic{
-                 width: 100%;
-                 height: 120px;
-                 img{
-                     width: 100%;
-                     height: 100%;
-                     display: block;
-                 }
-             }
-         }
-     }
-  }
 </style>
