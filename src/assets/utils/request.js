@@ -3,6 +3,7 @@ import axios from "axios";
 import { OK } from "./constant";
 import qs from "qs";
 import { Notify } from "vant";
+import Url from 'url-parse'
 
 Vue.use(Notify);
 
@@ -18,8 +19,10 @@ if (NODE_ENV === "production") {
     mallAPI = "/mallapi";
   }
 } else {
-  appAPI = "http://10.8.3.17/gw/app";
-  mallAPI = "http://10.8.3.17/mallapi";
+  // appAPI = "http://10.8.3.17/gw/app";
+  // mallAPI = "http://10.8.3.17/mallapi";
+  appAPI = "/gw/app";
+  mallAPI = "/mallapi";
 }
 
 /**
@@ -89,5 +92,63 @@ export function sendPost(url, params, immediate) {
     Notify(err.message);
   });
 }
+
+/**
+ * 封装获取数据的请求方法
+ * @param  { String }  url    接口路径
+ * @param  { Object }  params 请求的参数
+ * @param  { Boolean } immediate 区别mallAPI和appAPI接口
+ * @return { Promise }
+ */
+export function sendPostNew(url,type='post', params, immediate) {
+  return _axios({
+    url: type==='post'?url:mixUrl(url,params),
+    method: type,
+    data: params,
+    baseURL: '',
+    transformRequest: [
+      function(data) {
+        return immediate
+          ? qs.stringify(data, { allowDots: true })
+          : JSON.stringify(data);
+      }
+    ],
+    headers: {
+      "Content-Type": immediate
+        ? "application/x-www-form-urlencoded"
+        : "application/json"
+    },
+    timeout: 6000,
+    withCredentials: true
+  }).catch(err => {
+    Notify(err.message);
+  });
+}
+
+/**
+ * 合并url&querystring
+ * @type {String} url 链接
+ * @type {Object} data queryString参数
+ * @type {Boolean} cache 是否经过本地缓存
+ */
+function mixUrl(url, data = {}, cache = false) {
+  url = new Url(url)
+  let query = url.query
+
+  if (!cache) {
+    data['_'] = Date.now()
+  }
+
+  Object.keys(data).forEach(key => {
+    let seperator = query ? '&' : '?'
+    query += `${seperator}${key}=${encodeURIComponent(data[key])}`
+  })
+
+  url.set('query', query)
+
+  return url.href
+}
+
+
 
 export { _axios, _axios_req, _axios_res };

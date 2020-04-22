@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="notice_warp">
+    <!-- <div class="notice_warp">
       <van-notice-bar
         v-if="mallUnionConf.openNotice && notice.noticeContent"
         :text="notice.noticeContent"
@@ -11,21 +11,24 @@
         class="noticeBar"
       />
       <img class="notice" src="../../assets/images/elite/icon_notice.png" alt />
-    </div>
-
-    <head-area id="js-head"></head-area>
-    <!-- 滑动到一定距离之后出现 -->
-    <div v-show="flag">
-      <head-top></head-top>
-    </div>
-    <!-- Banner -->
-    <banner v-if="mallUnionConf.tnewsRecommendImageDtos.length > 0"></banner>
-    <!-- 信息栏 -->
+    </div> -->
     <news
       v-if="unionConf.newsOpen === 1 && mallUnionConf.tnewsDtos.length != 0"
     ></news>
+
+    <head-area id="js-head"></head-area>
+    <!-- 滑动到一定距离之后出现 -->
+    <div v-show="flag&&showHeadNav">
+      <head-top></head-top>
+    </div>
+    <!-- Banner -->
+    <banner v-if="mallUnionConf.tnewsRecommendImageDtos.length > 0 && showBanner"></banner>
+    <!-- 信息栏 -->
+    <!-- <news
+      v-if="unionConf.newsOpen === 1 && mallUnionConf.tnewsDtos.length != 0"
+    ></news> -->
     <!-- 金刚区 -->
-    <nav-area></nav-area>
+    <!-- <nav-area></nav-area> -->
   </div>
 </template>
 
@@ -34,14 +37,30 @@ import { mapState } from "vuex";
 import navArea from "./navArea";
 import headArea from "./headArea";
 import headTop from "./headArea/HeadTop.vue";
-import news from "./news";
+import news from "./news/newIndex.vue";
 import banner from "./banner";
 export default {
   name: "elegance",
   data() {
     return {
-      flag: false
+      flag: false,
+      showBanner: false,
+      showHeadNav: false
     };
+  },
+  created(){
+    this.showBanner = this.$route.meta.showBanner;
+    this.showHeadNav = this.$route.meta.showHeadNav;
+  },
+  watch: {
+    $route: {
+      handler: function(val, oldVal){
+         let {meta} = val;
+         this.showBanner = meta.showBanner;
+         this.showHeadNav = meta.showHeadNav;
+      },
+      deep: true
+    }
   },
   computed: {
     ...mapState({

@@ -2,11 +2,11 @@ const path = require("path");
 const webpack = require("webpack");
 const AddAssetHtmlPlugin = require("add-asset-html-webpack-plugin");
 const { env } = process;
-const publicPath = env.VUE_APP_PUBLIC_PATH;
+const { DEV_SERVER } = require("./config");
 
 module.exports = {
-  publicPath: env.NODE_ENV === "development" ? "/" : publicPath",
-  outputDir: env.outputDir,
+  publicPath: env.NODE_ENV === "development" ? "/" : `${env.publicPath}/home-h5/`,
+  outputDir: 'dist/home-h5',
   assetsDir: "assets",
   pluginOptions: {
     "style-resources-loader": {
@@ -25,9 +25,9 @@ module.exports = {
         // dll文件位置
         filepath: path.resolve(__dirname, "./public/vendor/*.js"),
         // dll 引用路径
-        publicPath: "./vendor",
+        publicPath: (env.NODE_ENV === "development" ? "/" : `${env.publicPath}/home-h5/`) + "vendor",
         // dll最终输出的目录
-        outputPath: "./vendor"
+        outputPath: "./vendor",
       })
     ];
     const exts = {
@@ -37,5 +37,6 @@ module.exports = {
       config.plugins = [...config.plugins, ...plugins];
       config.externals = { ...config.externals, ...exts };
     }
-  }
+  },
+  devServer: DEV_SERVER
 };

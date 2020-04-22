@@ -19,7 +19,20 @@ import {
   Lazyload,
   Dialog,
   NoticeBar,
-  Toast
+  Toast,
+  List,
+  Form,
+  Button,
+  Field,
+  CheckboxGroup,
+  Calendar,
+  Uploader,
+  Image,
+  Radio,
+  RadioGroup,
+  Swipe,
+  SwipeItem,
+  PullRefresh
 } from "vant";
 Vue.use(Search);
 Vue.use(Icon);
@@ -29,7 +42,19 @@ Vue.use(Lazyload);
 Vue.use(Dialog);
 Vue.use(NoticeBar);
 Vue.use(Toast);
-
+Vue.use(List);
+Vue.use(Form);
+Vue.use(Button);
+Vue.use(Field);
+Vue.use(CheckboxGroup);
+Vue.use(Calendar);
+Vue.use(Uploader);
+Vue.use(Image);
+Vue.use(Radio);
+Vue.use(RadioGroup);
+Vue.use(Swipe);
+Vue.use(SwipeItem);
+Vue.use(PullRefresh);
 router.beforeEach((to, from, next) => {
   next();
   const { meta } = to;
