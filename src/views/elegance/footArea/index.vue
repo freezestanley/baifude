@@ -72,14 +72,14 @@ export default {
           pageUrl: this.bavUrl.homePageUrl
         },
         {
+          name: "福利商城",
+          enName: "benefits",
+          pageUrl: this.bavUrl.cardCenterUrl
+        },
+        {
           name: "购物车",
           enName: "car",
           pageUrl: this.bavUrl.shoppingCartUrl
-        },
-        {
-          name: "福利",
-          enName: "benefits",
-          pageUrl: this.bavUrl.cardCenterUrl
         },
         {
           name: "我的",
@@ -129,7 +129,7 @@ export default {
       font-size: 30px;
     }
     .footer {
-      width: 40px;
+      width: 50px;
       text-align: center;
       color: #888;
       img {
