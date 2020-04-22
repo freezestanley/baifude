@@ -6,21 +6,21 @@
                 <van-form v-if="activityData.controlList.length>0"  @submit="onSubmit" :show-error="false">
                     <div  v-for="(item,index) in activityData.controlList" :key="index">
                         <van-field v-if="item.optionsType==3 && item.optionsName=='姓名'"
-                            v-model="activityData.username"
+                            v-model="item.optionsValue"
                             label="姓名:"
                             placeholder="请输入姓名"
                             :rules="[{ required: true, message: '请输入姓名' },{ validator, message: '请输入正确内容' }]"
                             class="frameInput"
                         />
                         <van-field v-if="item.optionsType==3 && item.optionsName=='手机号'"
-                            v-model="activityData.phone"
+                            v-model="item.optionsValue"
                             label="手机号码:"
                             placeholder="请输入手机号码"
                             :rules="[{ required: true, message: '请输入手机号码' }]"
                             class="frameInput"
                         />
                         <van-field v-if="item.optionsType==3 && item.optionsName!='手机号' && item.optionsName!='姓名'"
-                            v-model="activityData.age"
+                            v-model="item.optionsValue"
                             :label="item.optionsName+':'"
                             :placeholder="'请输入'+item.optionsName"
                             :rules="[{ required: true, message: '请输入'+item.optionsName }]"
@@ -31,14 +31,14 @@
                                 readonly
                                 clickable
                                 name="calendar"
-                                :value="activityData.date"
+                                :value="item.optionsValue"
                                 :label="item.optionsName+':'"
                                 placeholder="yyyy/mm/dd"
                                 @click="showCalendar = true"
                                 :rules="[{ required: true, message: '请选择出生日期' }]"
                                 class="frameInput"
                             />
-                            <van-calendar :max-date="new Date('2030/01/01')" v-model="showCalendar" @confirm="onConfirm(item)" />
+                            <van-calendar :max-date="new Date('2030/01/01')" v-model="showCalendar" @confirm="onConfirm(data,item)" />
                         </template>
                         <van-field v-if="item.optionsType==1" name="radio" :label="item.optionsName+''">
                             <template #input>
@@ -51,7 +51,7 @@
                          v-if="item.optionsType==2"
                          name="checkboxGroup" :label="item.optionsName+':'" :rules="[{ required: true, message: '请选择内容' }]">
                             <template #input>
-                                <van-checkbox-group  v-model="activityData.checkBackTracking" >
+                                <van-checkbox-group  v-model="item.optionsValue" >
                                     <van-checkbox v-for="(value, key, index) in item.applyOptionMap" class="margin_bt7" :name="key" :key="index" shape="square">{{value}}</van-checkbox>
                                 </van-checkbox-group>
                             </template>
@@ -87,76 +87,75 @@ import utilRes from "@/assets/utils/resResult";
 export default {
   data(){
     return{
+        activityId:this.$route.query.id, //活动id
         showPopup: false,
         showCalendar: false,
         activityData:{
             controlList: [
-                {
-                    "activityOptionsId": 1,
-                    "optionsName": "姓名",
-                    "optionsType": 3,
-                    "optionsValue":""
-                },
-                {
-                    "activityOptionsId": 2,
-                    "optionsName": "手机号",
-                    "optionsType": 3,
-                    "optionsValue":""
-                },
-                {
-                    "activityOptionsId": 3,
-                    "applyOptionMap": {
-                        "0": "男",
-                        "1": "女"
-                    },
-                    "optionsName": "性别",
-                    "optionsType": 1,
-                    "optionsValue":""
-                },
-                {
-                    "activityOptionsId": 4,
-                    "applyOptionMap": {
-                        "0": "汽车",
-                        "1": "轮船",
-                        "2": "飞机",
-                        "3": "火车"
-                    },
-                    "optionsName": "方式",
-                    "optionsType": 2,
-                    "optionsValue":""
-                },
-                {
-                    "activityOptionsId": 4,
-                    "applyOptionMap": {
-                    },
-                    "optionsName": "日期",
-                    "optionsType": 4,
-                    "optionsValue":""
-                },
-                {
-                    "activityOptionsId": 5,
-                    "applyOptionMap": {
-                    },
-                    "optionsName": "一寸照片",
-                    "optionsType": 5,
-                    "optionsValue":"http://devimg.dongfangfuli.com/2020/01/22/c55fe89912fc17c8dde8111a3474ecbeeae2d0377c20e0cfd05493fac02a9cff.jpg"
-                },
-                {
-                    "activityOptionsId": 6,
-                    "applyOptionMap": {
-                    },
-                    "optionsName": "上传照片",
-                    "optionsType": 6,
-                    "optionsValue":""
-                }
+                // {
+                //     "activityOptionsId": 1,
+                //     "optionsName": "姓名",
+                //     "optionsType": 3,
+                //     "optionsValue":""
+                // },
+                // {
+                //     "activityOptionsId": 2,
+                //     "optionsName": "手机号",
+                //     "optionsType": 3,
+                //     "optionsValue":""
+                // },
+                // {
+                //     "activityOptionsId": 3,
+                //     "applyOptionMap": {
+                //         "0": "男",
+                //         "1": "女"
+                //     },
+                //     "optionsName": "性别",
+                //     "optionsType": 1,
+                //     "optionsValue":""
+                // },
+                // {
+                //     "activityOptionsId": 4,
+                //     "applyOptionMap": {
+                //         "0": "汽车",
+                //         "1": "轮船",
+                //         "2": "飞机",
+                //         "3": "火车"
+                //     },
+                //     "optionsName": "方式",
+                //     "optionsType": 2,
+                //     "optionsValue":""
+                // },
+                // {
+                //     "activityOptionsId": 4,
+                //     "applyOptionMap": {
+                //     },
+                //     "optionsName": "日期",
+                //     "optionsType": 4,
+                //     "optionsValue":""
+                // },
+                // {
+                //     "activityOptionsId": 5,
+                //     "applyOptionMap": {
+                //     },
+                //     "optionsName": "一寸照片",
+                //     "optionsType": 5,
+                //     "optionsValue":"http://devimg.dongfangfuli.com/2020/01/22/c55fe89912fc17c8dde8111a3474ecbeeae2d0377c20e0cfd05493fac02a9cff.jpg"
+                // },
+                // {
+                //     "activityOptionsId": 6,
+                //     "applyOptionMap": {
+                //     },
+                //     "optionsName": "上传照片",
+                //     "optionsType": 6,
+                //     "optionsValue":""
+                // }
             ]
         },
     
     }
   },
   created(){
-    let params = {userId:321};
-    
     //查询活动表单
     this.activity_queryActivityForm();
   },
@@ -186,10 +185,12 @@ export default {
         console.log(this.activityData);
     },
     validator(val) {
-        return /1/.test(val);
+        return true;
     },
     gotoSignUp(){
-        this.showPopup = true;
+        let params = this.activityData;
+        this.activity_activityEntry(params);
+        
     },
     closeSignUp(){
         this.showPopup = false;
@@ -214,7 +215,7 @@ export default {
     
     //查询活动表单
     async activity_queryActivityForm(){
-        let params={};
+        let params={activityId:this.activityId};
         let res = await activity_queryActivityForm(params);
         if(utilRes.successCheck(res)){
             this.activityData = res.data;
@@ -226,11 +227,10 @@ export default {
         }
     },
     //活动报名提交
-    async activity_activityEntry(){
-        let params={};
+    async activity_activityEntry(params){
         let res = await activity_activityEntry(params);
         if(utilRes.successCheck(res)){
-            this.activityData = res.data;
+            this.showPopup = false;
         }else{
             this.$message({
                 type: "error",

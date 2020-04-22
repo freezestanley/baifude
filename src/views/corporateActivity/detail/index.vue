@@ -94,7 +94,7 @@ export default {
     },
     //活动取消操作
     async activity_entryCancel() {
-      let params={}
+      let params={activityId:this.id}
       let res = await activity_entryCancel(params);
       if (utilRes.successCheck(res)) {
         this.list = res.data.listObj;

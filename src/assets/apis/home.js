@@ -66,7 +66,7 @@ function activity_queryActivityForm(params){
  */
 function activity_activityEntry(params){
   const activityEntryApi = "/care/front/activity/activityEntry";
-  return sendPostNew(activityEntryApi,'post',params,true);
+  return sendPostNew(activityEntryApi,'post',params,false);
 }
 
 /**
