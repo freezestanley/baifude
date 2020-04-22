@@ -60,8 +60,8 @@ export default {
             top: 50%;
             transform: translate(-50%,-50%);
             .act_image{
-                height: 70px;
-                width: 70px;
+                height: 60px;
+                width: 60px;
                 border-radius: 50%;
             }
         }

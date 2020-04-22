@@ -90,7 +90,7 @@ export default {
       if (utilRes.successCheck(res)) {
         this.bannerList=res.data;
       } else {
-        this.$message({
+        this.$notify({
           type: "error",
           message: res.errMsg ? res.errMsg : "调用接口失败!"
         });
