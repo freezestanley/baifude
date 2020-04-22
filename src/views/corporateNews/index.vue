@@ -1,26 +1,24 @@
 <template>
   <div class="page">
-    <!--<div class="news-banner">-->
-    <!---->
-    <!--</div>-->
-    <Banner></Banner>
+    <Banner :bannerList="bannerList"></Banner>
     <div class="news-cont">
       <Tab :tabList="tabList" :tabIndex="tabIndex" @changeTab="changeTab">
         <template slot="name1">
-          <div></div>
-          <van-list
-                  v-model="loading"
-                  :finished="finished"
-                  :immediate-check="false"
-                  finished-text="没有更多了"
-                  @load="onLoad"
-                  :offset="10"
-          >
-            <NewsItem :newsData="data" @goToDetail="goToDetail"></NewsItem>
-          </van-list>
+          <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+            <van-list
+                    v-model="loading"
+                    :finished="finished"
+                    :immediate-check="false"
+                    finished-text="没有更多了"
+                    @load="onLoad"
+                    :offset="10"
+            >
+              <NewsItem :newsData="newsData" @goToDetail="goToDetail"></NewsItem>
+            </van-list>
+          </van-pull-refresh>
         </template>
         <template slot="name2">
-          <NewsItem :newsData="data" @goToDetail="goToDetail"></NewsItem>
+          <NewsItem :newsData="newsData" @goToDetail="goToDetail"></NewsItem>
         </template>
       </Tab>
     </div>
@@ -31,7 +29,7 @@
 import Tab from "./components/nav";
 import NewsItem from "./components/newsItem";
 import Banner from "./components/banner";
-import { newsListPage } from "@/assets/apis/home";
+import { newsListPage,newsConf_list } from "@/assets/apis/home";
 import utilRes from "@/assets/utils/resResult";
 
 export default {
@@ -48,72 +46,27 @@ export default {
         { index: 0, name: "企业新闻", key: "name1" },
         { index: 1, name: "活动风采", key: "name2" }
       ],
-      data: [
-        {
-          id: 2,
-          type: 1,
-          categoryId: 2,
-          title: "新闻标题2",
-          content:
-            "新闻内容内容我和我的祖国一刻也不能分割无论我走到哪里都流出一首赞歌我歌唱每一座高山我歌唱每一条河袅袅炊烟小小村落路上一道辙啦新闻内容内容我和我的祖国一刻也不能分割无论我走到哪里都流出一首赞歌我歌唱每一座高山我歌唱每一条河袅袅炊烟小小村落路上一道辙啦",
-          picture:
-            "https://img3.mukewang.com/szimg/5e8d3f4a08c81ed506000338-360-202.jpg"
-        },
-        {
-          id: 15,
-          type: 1,
-          categoryId: 9,
-          title: "通知标题15",
-          content:
-            "新闻内容内容我和我的祖国一刻也不能分割无论我走到哪里都流出一首赞歌我歌唱每一座高山我歌唱每一条河袅袅炊烟小小村落路上一道辙啦新闻内容内容我和我的祖国一刻也不能分割无论我走到哪里都流出一首赞歌我歌唱每一座高山我歌唱每一条河袅袅炊烟小小村落路上一道辙啦",
-          picture:
-            "https://img3.mukewang.com/szimg/5e8d3f4a08c81ed506000338-360-202.jpg"
-        }
-      ], //新闻列表数据
-      activeData: [
-        {
-          id: 1,
-          type: 1,
-          categoryId: 2,
-          title: "新闻标题2",
-          content:
-            "新闻内容内容我和我的祖国一刻也不能分割无论我走到哪里都流出一首赞歌我歌唱每一座高山我歌唱每一条河袅袅炊烟小小村落路上一道辙啦新闻内容内容我和我的祖国一刻也不能分割无论我走到哪里都流出一首赞歌我歌唱每一座高山我歌唱每一条河袅袅炊烟小小村落路上一道辙啦",
-          picture:
-            "https://img3.mukewang.com/szimg/5e95524508fe369f06000338-360-202.jpg"
-        },
-        {
-          id: 1,
-          type: 1,
-          categoryId: 2,
-          title: "新闻标题2",
-          content:
-            "新闻内容内容我和我的祖国一刻也不能分割无论我走到哪里都流出一首赞歌我歌唱每一座高山我歌唱每一条河袅袅炊烟小小村落路上一道辙啦新闻内容内容我和我的祖国一刻也不能分割无论我走到哪里都流出一首赞歌我歌唱每一座高山我歌唱每一条河袅袅炊烟小小村落路上一道辙啦",
-          picture:
-            "https://img3.mukewang.com/szimg/5e95524508fe369f06000338-360-202.jpg"
-        }
-        // {
-        //   "id": 1,
-        //   "type": 1,
-        //   "categoryId": 2,
-        //   "title": "新闻标题2",
-        //   "content": "新闻内容内容我和我的祖国一刻也不能分割无论我走到哪里都流出一首赞歌我歌唱每一座高山我歌唱每一条河袅袅炊烟小小村落路上一道辙啦新闻内容内容我和我的祖国一刻也不能分割无论我走到哪里都流出一首赞歌我歌唱每一座高山我歌唱每一条河袅袅炊烟小小村落路上一道辙啦",
-        //   "picture": "https://img3.mukewang.com/szimg/5e95524508fe369f06000338-360-202.jpg",
-        // },
-      ], //活动风采数据
-      page: 1,//请求第几页
-      pageSize: 10,//每页请求的数量
+      newsData:[], //新闻列表数据
+      bannerList:[],//banner数组
+      currentPage: 1,//请求第几页
+      itemsPerPage: 10,//每页请求的数量
       total: 0,//总共的数据条数
+      loading: false,
+      finished: false,
+      refreshing: false,
     };
   },
   created() {
-    let params = { type: 1, categoryId: 1 };
+    let params = {type:1,categoryId:1}
     this.queryNewsList(params);
+    this.queryNewsBanner();
   },
   methods: {
     //tab切换事件
     changeTab(tab) {
       this.tabIndex = tab.index;
-      let params = {}
+      let params = {};
+      this.newsData=[];
       if (tab.index == 1) {
         params = { type: 1, categoryId: 2 };
       }else {
@@ -123,20 +76,62 @@ export default {
     },
     goToDetail(item) {
       this.$router.push({
-        path: "/corporatenews/newsdetail",
+        path: "/home-h5/corporatenews/newsdetail",
         query: { id: item.id }
       });
     },
-    async queryNewsList(params) {
-      let res = await newsListPage(params);
+    onRefresh() {
+      // 清空列表数据
+      this.finished = false;
+
+      // 重新加载数据
+      // 将 loading 设置为 true，表示处于加载状态
+      this.loading = true;
+      this.onLoad();
+    },
+    async queryNewsList(param) {
+      let params ={
+        currentPage:this.currentPage,
+        itemsPerPage:this.itemsPerPage,
+      }
+      const obj ={...param,...params}
+      let res = await newsListPage(obj);
       if (utilRes.successCheck(res)) {
-        this.data = res.data.listObj;
+        let rows = res.data.listObj; //请求返回当页的列表
+        this.loading = false;
+        this.total = res.data.total;
+        if (rows == null ||rows.length === 0) {
+          // 加载结束
+          this.finished = true;
+          return;
+        }
+        this.newsData = this.newsData.concat(rows)
       } else {
         this.$message({
           type: "error",
           message: res.errMsg ? res.errMsg : "调用接口失败!"
         });
       }
+    },
+    async queryNewsBanner() {
+      let res = await newsConf_list();
+      if(res.code == "0"){
+        this.bannerList=res.data;
+      }
+      // if (utilRes.successCheck(res)) {
+      //   this.bannerList=res.data;
+      //   console.log("bannerlist--===",this.bannerList)
+      // } else {
+      //   this.$message({
+      //     type: "error",
+      //     message: res.errMsg ? res.errMsg : "调用接口失败!"
+      //   });
+      // }
+    },
+    onLoad() {
+      this.currentPage++;
+      console.log("上拉加载")
+      this.queryNewsList();
     }
   }
 };

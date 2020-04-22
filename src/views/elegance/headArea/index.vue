@@ -22,7 +22,7 @@
               <span class="arrow"></span>
             </div>
           </div>
-          <div class="search" v-if="isShowSearch" @click="goSearch">
+          <div class="search" v-if="isShowSearch&&showSearchBypage" @click="goSearch">
             <img
               class="searchImg"
               src="../../../assets/images/elegance/elegance_icon_search.png"
@@ -59,7 +59,21 @@ import { mapState } from "vuex";
 export default {
   name: "Header",
   data() {
-    return {};
+    return {
+      showSearchBypage: false
+    };
+  },
+  created(){
+    this.showSearchBypage = this.$route.meta.showSearch;
+  },
+  watch: {
+    $route: {
+      handler: function(val, oldVal){
+        let {meta} = val;
+        this.showSearchBypage = meta.showSearch ? meta.showSearch:false;
+      },
+      deep: true
+    }
   },
   computed: {
     ...mapState({
@@ -88,8 +102,7 @@ export default {
         "&returnUrl=" +
         encodeURIComponent(baseUrl);
     }
-  },
-  created() {}
+  }
 };
 </script>
 

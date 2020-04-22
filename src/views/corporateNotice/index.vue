@@ -53,7 +53,7 @@
         }, 1000);
       },
       goToDetail(item){
-        this.$router.push({path:'/corporatenotice/detail',query:{id:item.id}});
+        this.$router.push({path:'/home-h5/corporatenotice/detail',query:{id:item.id}});
         console.log("item111",item)
       }
     },
