@@ -18,11 +18,11 @@
 
     <head-area id="js-head"></head-area>
     <!-- 滑动到一定距离之后出现 -->
-    <div v-show="flag">
+    <div v-show="flag&&showHeadNav">
       <head-top></head-top>
     </div>
     <!-- Banner -->
-    <banner v-if="mallUnionConf.tnewsRecommendImageDtos.length > 0"></banner>
+    <banner v-if="mallUnionConf.tnewsRecommendImageDtos.length > 0 && showBanner"></banner>
     <!-- 信息栏 -->
     <!-- <news
       v-if="unionConf.newsOpen === 1 && mallUnionConf.tnewsDtos.length != 0"
@@ -43,8 +43,24 @@ export default {
   name: "elegance",
   data() {
     return {
-      flag: false
+      flag: false,
+      showBanner: false,
+      showHeadNav: false
     };
+  },
+  created(){
+    this.showBanner = this.$route.meta.showBanner;
+    this.showHeadNav = this.$route.meta.showHeadNav;
+  },
+  watch: {
+    $route: {
+      handler: function(val, oldVal){
+         let {meta} = val;
+         this.showBanner = meta.showBanner;
+         this.showHeadNav = meta.showHeadNav;
+      },
+      deep: true
+    }
   },
   computed: {
     ...mapState({

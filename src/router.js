@@ -38,14 +38,18 @@ export default new Router({
         name: 'home',
         component: Home,
         meta: {
-          title: "百福德首页"
+          title: "百福德首页",
+          showBanner: true,  //是否展示轮播图banner
+          showSearch: true,  //是否展示搜索图标(搜索功能)
+          showHeadNav: true  //页面超出滑动是否浮动展示头部内容
         },
       },{
         path: "corporatenews",
         name: "corporateNews",
         component:CorporateNews,
         meta: {
-          title: "企业新闻"
+          title: "企业新闻",
+          showSearch: true,  //是否展示搜索图标(搜索功能)
         },
       },{
         path: "corporatenews/newsdetail",
@@ -59,7 +63,8 @@ export default new Router({
         name: "corporateActivity",
         component:CorporateActivity,
         meta: {
-          title: "企业活动"
+          title: "企业活动",
+          showSearch: true,  //是否展示搜索图标(搜索功能)
         }
       },{
         path: "corporateactivity/activitydetail",
@@ -74,7 +79,8 @@ export default new Router({
         name: "corporateNotice",
         component:CorporateNotice,
         meta: {
-          title: "企业公告"
+          title: "企业公告",
+          showSearch: true,  //是否展示搜索图标(搜索功能)
         }
       },
       {
@@ -90,7 +96,8 @@ export default new Router({
         name: "staffSurvey",
         component:StaffSurvey,
         meta: {
-          title: "员工调研"
+          title: "员工调研",
+          showSearch: true,  //是否展示搜索图标(搜索功能)
         }
       },
       {
