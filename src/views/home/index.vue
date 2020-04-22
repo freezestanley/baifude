@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import { Toast } from 'vant'
 import axios from "axios";
 import { mapMutations } from "vuex";
 import { OK } from "@/assets/utils/constant";
@@ -385,9 +386,10 @@ export default {
           path: "/home-h5/corporatenotice",
         });
       }else if(item == "员工调研"){
-        this.$router.push({
-          path: "/home-h5/staffsurvey",
-        });
+        Toast('敬请期待')
+        // this.$router.push({
+        //   path: "/home-h5/staffsurvey",
+        // });
       }
 
     },

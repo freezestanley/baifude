@@ -9,7 +9,8 @@
     </div>
 </template>
 <script>
-export default {
+import { Toast } from 'vant'
+  export default {
     name: "index",
     data(){
         return {
@@ -35,7 +36,8 @@ export default {
             }else if(index == 1){
                 path = '/home-h5/corporateactivity';
             }else if(index == 2){
-                path = '/home-h5/staffsurvey';
+                Toast('敬请期待')
+                // path = '/home-h5/staffsurvey';
             }else if(index == 3){
                 path = '/home-h5/corporatenotice';
             }
