@@ -76,17 +76,17 @@ export default {
       unionNoticeContent: "",
       activityNavData:[
         {
-          url:'https://img3.mukewang.com/szimg/5e8d3f4a08c81ed506000338-360-202.jpg',
+          url:require("@/assets/images/home/news.png"),
           instruct:'企业新闻'
         },{
-          url:'https://image.dongfangfuli.com/2020/03/06/35e7e327db62108061c59f7cdc8f3fbf1763f692a3ce0ef12245c858241f3d7b.jpg',
+          url:require("@/assets/images/home/activity.png"),
           instruct:'企业活动'
         },
         {
-          url:'https://img3.mukewang.com/szimg/5e8d3f4a08c81ed506000338-360-202.jpg',
+          url:require("@/assets/images/home/employee_research.png"),
           instruct:'员工调研'
         },{
-          url:'https://image.dongfangfuli.com/2020/03/06/35e7e327db62108061c59f7cdc8f3fbf1763f692a3ce0ef12245c858241f3d7b.jpg',
+          url:require("@/assets/images/home/notice.png"),
           instruct:'企业公告'
         }
       ],  //活动导航栏
