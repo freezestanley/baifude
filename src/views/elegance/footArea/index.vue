@@ -30,6 +30,7 @@
 
 <script>
 import { mapState } from "vuex";
+import Url from 'url-parse'
 export default {
   name: "footArea",
   data() {
@@ -44,7 +45,16 @@ export default {
       bavUrl: state => state.bavUrl
     })
   },
-  methods: {},
+  methods: {
+    buildMall(oriHost){
+      // const url = new Url(oriHost);
+      const localUrl = window.location.href;
+      const city = Url(localUrl, true).query.city || '';
+      // return url.origin + '/mall?city=' + city;
+      // // 临时写死
+      return `http://m.test04.com/union/xiaolang/mall?city=${city}`;
+    },
+  },
   created() {
     if (!this.unionConf.isShowShoppCart) {
       this.footerList = [
@@ -74,7 +84,7 @@ export default {
         {
           name: "福利商城",
           enName: "benefits",
-          pageUrl: this.bavUrl.cardCenterUrl
+          pageUrl: this.buildMall(this.bavUrl.cardCenterUrl)
         },
         {
           name: "购物车",

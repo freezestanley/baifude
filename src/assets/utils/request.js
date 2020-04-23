@@ -10,6 +10,11 @@ Vue.use(Notify);
 let appAPI, mallAPI;
 const { NODE_ENV, VUE_APP_FLAG } = process.env;
 
+//#########TETS AREA
+    // appAPI = `http://appzuul.test04.com`;
+    // mallAPI = `http://api.test04.com`;
+//########TEST END
+
 if (NODE_ENV === "production") {
   if (/test\d{2}$/g.test(VUE_APP_FLAG)) {
     appAPI = `http://appzuul.${VUE_APP_FLAG}.com`;
