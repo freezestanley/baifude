@@ -185,7 +185,7 @@ const router = new Router({
 });
 const checkLogin = async () => {
   const res = await user_checkLogin();
-  if(res.code !== '0'){
+  if(!res || res.code !== '0'){
     return false;
   }
   return true;
