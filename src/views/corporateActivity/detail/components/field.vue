@@ -92,66 +92,66 @@ export default {
         showPopup: false,
         showCalendar: false,
         activityData:{
-            controlList: [
-                {
-                    "activityOptionsId": 1,
-                    "optionsName": "姓名",
-                    "optionsType": 3,
-                    "optionsValue":""
-                },
-                {
-                    "activityOptionsId": 2,
-                    "optionsName": "手机号",
-                    "optionsType": 3,
-                    "optionsValue":""
-                },
-                {
-                    "activityOptionsId": 3,
-                    "applyOptionMap": {
-                        "0": "男",
-                        "1": "女"
-                    },
-                    "optionsName": "性别",
-                    "optionsType": 1,
-                    "optionsValue":[]
-                },
-                {
-                    "activityOptionsId": 4,
-                    "applyOptionMap": {
-                        "0": "汽车",
-                        "1": "轮船",
-                        "2": "飞机",
-                        "3": "火车"
-                    },
-                    "optionsName": "方式",
-                    "optionsType": 2,
-                    "optionsValue":[]
-                },
-                {
-                    "activityOptionsId": 4,
-                    "applyOptionMap": {
-                    },
-                    "optionsName": "日期",
-                    "optionsType": 4,
-                    "optionsValue":""
-                },
-                {
-                    "activityOptionsId": 5,
-                    "applyOptionMap": {
-                    },
-                    "optionsName": "一寸照片",
-                    "optionsType": 5,
-                    "optionsValue":"http://devimg.dongfangfuli.com/2020/01/22/c55fe89912fc17c8dde8111a3474ecbeeae2d0377c20e0cfd05493fac02a9cff.jpg"
-                },
-                {
-                    "activityOptionsId": 6,
-                    "applyOptionMap": {
-                    },
-                    "optionsName": "上传照片",
-                    "optionsType": 6,
-                    "optionsValue":""
-                }
-            ]
+            // controlList: [
+            //     {
+            //         "activityOptionsId": 1,
+            //         "optionsName": "姓名",
+            //         "optionsType": 3,
+            //         "optionsValue":""
+            //     },
+            //     {
+            //         "activityOptionsId": 2,
+            //         "optionsName": "手机号",
+            //         "optionsType": 3,
+            //         "optionsValue":""
+            //     },
+            //     {
+            //         "activityOptionsId": 3,
+            //         "applyOptionMap": {
+            //             "0": "男",
+            //             "1": "女"
+            //         },
+            //         "optionsName": "性别",
+            //         "optionsType": 1,
+            //         "optionsValue":[]
+            //     },
+            //     {
+            //         "activityOptionsId": 4,
+            //         "applyOptionMap": {
+            //             "0": "汽车",
+            //             "1": "轮船",
+            //             "2": "飞机",
+            //             "3": "火车"
+            //         },
+            //         "optionsName": "方式",
+            //         "optionsType": 2,
+            //         "optionsValue":[]
+            //     },
+            //     {
+            //         "activityOptionsId": 4,
+            //         "applyOptionMap": {
+            //         },
+            //         "optionsName": "日期",
+            //         "optionsType": 4,
+            //         "optionsValue":""
+            //     },
+            //     {
+            //         "activityOptionsId": 5,
+            //         "applyOptionMap": {
+            //         },
+            //         "optionsName": "一寸照片",
+            //         "optionsType": 5,
+            //         "optionsValue":"http://devimg.dongfangfuli.com/2020/01/22/c55fe89912fc17c8dde8111a3474ecbeeae2d0377c20e0cfd05493fac02a9cff.jpg"
+            //     },
+            //     {
+            //         "activityOptionsId": 6,
+            //         "applyOptionMap": {
+            //         },
+            //         "optionsName": "上传照片",
+            //         "optionsType": 6,
+            //         "optionsValue":""
+            //     }
+            // ]
         },
     
     }
