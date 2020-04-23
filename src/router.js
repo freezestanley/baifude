@@ -194,7 +194,7 @@ router.beforeEach(async (to, from, next) => {
   if(await checkLogin()){
     next();
   }else{
-    window.location.href = `http://xiaolang.test04.com/user/login?returnUrl=${location.href}`;
+    window.location.href = `http://corp.m.test04.com/union/xiaolang/user/login?returnUrl=${location.href}`;
   }
 });
 export default router;
