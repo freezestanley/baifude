@@ -31,11 +31,11 @@
                </div>
                <div class="detail-info-item">
                    <div class="info-item-lable">活动名额</div>
-                   <div class="info-item-desc">{{infoData.quota}}</div>
+                   <div class="info-item-desc">{{infoData.activityQuota}}</div>
                </div>
                <div class="detail-info-item">
                    <div class="info-item-lable">已报名人数</div>
-                   <div class="info-item-desc">{{infoData.attendnum}}</div>
+                   <div class="info-item-desc">{{infoData.attendNum}}</div>
                </div>
                <div class="detail-info-item">
                    <div class="info-item-lable">活动描述</div>
@@ -45,6 +45,7 @@
             <div class="btn-wrap" @click="handle">
                 <van-button :disabled="isdisabled" class="detail-footer">{{parseType(infoData.entryStatus)}}</van-button>
             </div>
+            <div v-if="infoData.remark" class="signRemark">{{infoData.remark}}</div>
         </div>
         <Fields ref="fields" @queryActivityDetail="activity_queryActivityDetail"></Fields>
     </section>
@@ -164,6 +165,11 @@ export default {
                 color: #666;
             }
         }
+        
+    }
+    .signRemark{
+        text-align: center;
+        color: red;
     }
     .btn-wrap{
         display: flex;
