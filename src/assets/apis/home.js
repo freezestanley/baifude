@@ -96,6 +96,14 @@ function newsConf_list(params) {
   const newsConfListApi = "/cms/front/newsConf/list";
   return sendPostNew(newsConfListApi, 'get',params, true);
 }
+
+/**
+ * 判断登录状态
+ * @param { JSON } params 请求的参数
+ */
+function user_checkLogin(params) {
+  return sendPostNew("/user/front/user/checkLogin", 'get', params, true);
+}
 export {
   queryActivityList,
   submitActivity,
@@ -107,5 +115,6 @@ export {
   activity_queryActivityForm,
   activity_activityEntry,
   activity_entryCancel,
-  activity_uploadFile
+  activity_uploadFile,
+  user_checkLogin
 }
