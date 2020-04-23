@@ -51,7 +51,7 @@ export default {
   created() {
     const union = getQueryString("union");
 
-    this.isLogin(union);
+    // this.isLogin(union);
     this.getNotice(union);
     this.getData(union);
     this.getCityList();
@@ -253,6 +253,11 @@ export default {
             //       import(`@/views/${unionConf.body.styleCode}/footArea`)
             //   });
             // }
+            this.fords.push({
+              data: null,
+              comp: () =>
+                  import(`@/views/${unionConf.body.styleCode}/footArea`)
+            });
 
             // 缓存工会商城配置
             if (unionMallConf) {
@@ -366,7 +371,7 @@ html {
 .commonBg {
   background-color: #fff;
   padding-bottom: 83px;
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 @supports (bottom: constant(safe-area-inset-bottom)) or
   (bottom: env(safe-area-inset-bottom)) {

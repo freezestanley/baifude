@@ -1,0 +1,378 @@
+<template>
+    <van-popup v-model="showPopup" position="bottom" >
+        <div class="wrapActivity">
+            <div class="formContanier">
+                <div class="title">填写报名信息</div>
+                <van-form v-if="activityData.controlList.length>0"  @submit="onSubmit" :show-error="false">
+                    <div  v-for="(item,index) in activityData.controlList" :key="index">
+                        <van-field v-if="item.optionsType==3 && item.optionsName=='姓名'"
+                            v-model="item.optionsValue"
+                            label="姓名:"
+                            placeholder="请输入姓名"
+                            :rules="[{ required: true, message: '请输入姓名' },{ validator, message: '请输入正确内容' }]"
+                            class="frameInput"
+                        />
+                        <van-field v-if="item.optionsType==3 && item.optionsName=='手机号'"
+                            v-model="item.optionsValue"
+                            label="手机号码:"
+                            placeholder="请输入手机号码"
+                            :rules="[{ required: true, message: '请输入手机号码' }]"
+                            class="frameInput"
+                        />
+                        <van-field v-if="item.optionsType==3 && item.optionsName!='手机号' && item.optionsName!='姓名'"
+                            v-model="item.optionsValue"
+                            :label="item.optionsName+':'"
+                            :placeholder="'请输入'+item.optionsName"
+                            :rules="[{ required: true, message: '请输入'+item.optionsName }]"
+                            class="frameInput"
+                        />
+                        <template v-if="item.optionsType==4">
+                            <van-field
+                                readonly
+                                clickable
+                                name="calendar"
+                                :value="item.optionsValue"
+                                :label="item.optionsName+':'"
+                                placeholder="yyyy/mm/dd"
+                                @click="findDate(item)"
+                                :rules="[{ required: true, message: '请选择出生日期' }]"
+                                class="frameInput"
+                            />
+                            <van-calendar :max-date="new Date('2030/01/01')" v-model="showCalendar" @confirm="onConfirm" />
+                        </template>
+                        <van-field v-if="item.optionsType==1" name="radio" :label="item.optionsName+''">
+                            <template #input>
+                                <van-radio-group v-model="item.optionsValue" direction="horizontal">
+                                    <van-radio :name="key" v-for="(value, key, index) in item.applyOptionMap" :key="index">{{value}}</van-radio>
+                                </van-radio-group>
+                            </template>
+                        </van-field>
+                        <van-field
+                         v-if="item.optionsType==2"
+                         name="checkboxGroup" :label="item.optionsName+':'" :rules="[{ required: true, message: '请选择内容' }]">
+                            <template #input>
+                                <van-checkbox-group  v-model="item.optionsValue" >
+                                    <van-checkbox v-for="(value, key, index) in item.applyOptionMap" class="margin_bt7" :name="key" :key="index" shape="square">{{value}}</van-checkbox>
+                                </van-checkbox-group>
+                            </template>
+                        </van-field>
+                        
+                        <van-field v-if="item.optionsType==5" name="uploader" :label="item.optionsName+':'" readonly>
+                            <template #input>
+                                <van-image :src="item.optionsValue" />
+                            </template>
+                        </van-field>
+                        <van-field v-if="item.optionsType==5" name="uploader" :label="item.optionsName+':'">
+                            <template #input>
+                                <div @click="uploadItem(index)">
+                                    <van-uploader :after-read="afteRead">
+                                        <van-button icon="photo" type="primary" >上传</van-button>
+                                    </van-uploader>
+                                </div>
+                                <!-- <van-button icon="photo" type="primary" @click="uploadMethod">上传</van-button> -->
+                            </template>
+                        </van-field>
+                    </div>
+                    <div class="detail-footer">
+                        <div class="ensure-btn" @click="gotoSignUp">报名</div>
+                        <div class="cancle-btn" @click="closeSignUp">关闭</div>
+                    </div>
+                </van-form>
+                <!-- <input type="file" ref="uploadInput" multiple style="display:none"  @change="changeInput"> -->
+            </div>
+        </div>
+    </van-popup>    
+</template>
+<script>
+import {activity_queryActivityForm,activity_activityEntry,activity_uploadFile} from '@/assets/apis/home'
+import utilRes from "@/assets/utils/resResult";
+export default {
+  data(){
+    return{
+        activityId:this.$route.query.id, //活动id
+        dateItem:"", //保存选择时间的对象
+        uploadImageItemIndex:"", //保存图片上传的对象
+        showPopup: false,
+        showCalendar: false,
+        activityData:{
+            // controlList: [
+            //     {
+            //         "activityOptionsId": 1,
+            //         "optionsName": "姓名",
+            //         "optionsType": 3,
+            //         "optionsValue":""
+            //     },
+            //     {
+            //         "activityOptionsId": 2,
+            //         "optionsName": "手机号",
+            //         "optionsType": 3,
+            //         "optionsValue":""
+            //     },
+            //     {
+            //         "activityOptionsId": 3,
+            //         "applyOptionMap": {
+            //             "0": "男",
+            //             "1": "女"
+            //         },
+            //         "optionsName": "性别",
+            //         "optionsType": 1,
+            //         "optionsValue":[]
+            //     },
+            //     {
+            //         "activityOptionsId": 4,
+            //         "applyOptionMap": {
+            //             "0": "汽车",
+            //             "1": "轮船",
+            //             "2": "飞机",
+            //             "3": "火车"
+            //         },
+            //         "optionsName": "方式",
+            //         "optionsType": 2,
+            //         "optionsValue":[]
+            //     },
+            //     {
+            //         "activityOptionsId": 4,
+            //         "applyOptionMap": {
+            //         },
+            //         "optionsName": "日期",
+            //         "optionsType": 4,
+            //         "optionsValue":""
+            //     },
+            //     {
+            //         "activityOptionsId": 5,
+            //         "applyOptionMap": {
+            //         },
+            //         "optionsName": "一寸照片",
+            //         "optionsType": 5,
+            //         "optionsValue":"http://devimg.dongfangfuli.com/2020/01/22/c55fe89912fc17c8dde8111a3474ecbeeae2d0377c20e0cfd05493fac02a9cff.jpg"
+            //     },
+            //     {
+            //         "activityOptionsId": 6,
+            //         "applyOptionMap": {
+            //         },
+            //         "optionsName": "上传照片",
+            //         "optionsType": 6,
+            //         "optionsValue":""
+            //     }
+            // ]
+        },
+    
+    }
+  },
+  created(){
+    //查询活动表单
+    this.activity_queryActivityForm();
+  },
+  methods:{
+    afteRead(file){
+        let formData = new FormData();
+        formData.append("file", file.file);
+        this.activity_uploadFile(formData);
+    },
+     // bae64转文件对象
+    dataURLtoFile (dataurl, filename) {
+      // 将base64转换为文件，dataurl为base64字符串，filename为文件名（必须带后缀名，如.jpg,.png）
+      var arr = dataurl.split(","); var mime = arr[0].match(/:(.*?);/)[1];
+      var bstr = atob(arr[1]); var n = bstr.length; var u8arr = new Uint8Array(n);
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+      return new File([u8arr], filename, { type: mime });
+    },
+    uploadMethod(){
+        this.$refs.uploadInput.click();
+    },
+    // changeInput(e){
+    //   let $target = e.target || e.srcElement
+    //   let file = $target.files[0]
+    //   if (!file) {
+    //     return
+    //   }
+    //   let formData = new FormData();
+    //   formData.append('file', file);
+    //   console.log(file);
+    //   this.activity_uploadFile(formData);
+
+    // },
+    uploadItem(index){
+        this.uploadImageItemIndex = index;
+    },
+    onSubmit(){
+        console.log(this.activityData);
+    },
+    findDate(item){
+        this.showCalendar = true;
+        this.dateItem = item;
+    },
+    validator(val) {
+        return true;
+    },
+    gotoSignUp(){
+        let params = this.activityData;
+        this.activity_activityEntry(params);
+        
+    },
+    closeSignUp(){
+        this.showPopup = false;
+    },
+    onConfirm(date){
+        this.dateItem.optionsValue = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+        this.showCalendar = false;
+    },
+    convertBase64UrlToBlob(urlData) {
+        var bytes = window.atob(urlData.split(',')[1]); //去掉url的头，并转换为byte
+        //处理异常,将ascii码小于0的转换为大于0
+        var ab = new ArrayBuffer(bytes.length);
+        var ia = new Uint8Array(ab);
+        for (var i = 0; i < bytes.length; i++) {
+            ia[i] = bytes.charCodeAt(i);
+        }
+        return new Blob([ab], {
+            type: 'image/png'
+        });
+    },
+
+    
+    //查询活动表单
+    async activity_queryActivityForm(){
+        let params={activityId:this.activityId};
+        let res = await activity_queryActivityForm(params);
+        if(utilRes.successCheck(res)){
+            this.activityData = res.data;
+        }else{
+            this.$message({
+                type: "error",
+                message: res.errMsg ? res.errMsg : "调用接口失败!"
+            });
+        }
+    },
+    //活动报名提交
+    async activity_activityEntry(params){
+        let res = await activity_activityEntry(params);
+        if(utilRes.successCheck(res)){
+            this.$emit('queryActivityDetail');
+            this.showPopup = false;
+        }else{
+            this.$message({
+                type: "error",
+                message: res.errMsg ? res.errMsg : "调用接口失败!"
+            });
+        }
+    },
+    //文件提交
+    async activity_uploadFile(params){
+        let res = await activity_uploadFile(params);
+        if(utilRes.successCheck(res)){
+            // this.$set(this.activityData[this.uploadImageItemIndex],'optionsValue',res.data.url);
+            this.activityData.controlList[this.uploadImageItemIndex].optionsValue = res.data.url
+            console.log(this.activityData.controlList);
+            // this.uploadImageItem.optionsValue = res.data.url;
+        }else{
+            this.$message({
+                type: "error",
+                message: res.errMsg ? res.errMsg : "调用接口失败!"
+            });
+        }
+    }
+  },
+  
+
+}
+</script>
+<style lang="less" scoped>
+.page{
+    font-size: 12px;
+    padding: 0 10px;
+    .activity-detail-pic{
+        width: 100%;
+        height:150px;
+        img{
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+    }
+    .activity-detail-info{
+        .detail-info-item{
+            display: flex;
+            padding: 10px 0;
+            .info-item-lable{
+                width: 20%;
+            }
+            .info-item-desc{
+                width: 80%;
+                color: #666;
+            }
+        }
+    }
+    .detail-footer{
+        margin-top: 40px;
+        width: 100%;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        font-size: 14px;
+        .ensure-btn,.cancle-btn{
+            width: 100px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            color: #fff;
+            background: palevioletred;
+            margin: 0 10px;
+            border: 1px solid #a1526c;
+            border-radius: 3px;
+        }
+
+    }
+
+    .wrapActivity{
+        .title{
+            margin: 0 10px;
+            text-align: left;
+            font-size: 23px;
+            line-height: 51px;
+            border-bottom: 1px solid black;
+        }
+        .formContanier{
+            margin-top: 20px;
+            background: #fff;
+        }
+    }
+}
+</style>
+
+<style lang="less">
+.wrapActivity{
+    input::-webkit-input-placeholder {
+       font-size: 12px;
+    }
+    .frameInput{
+        .van-field__body{
+            border: 1px solid #999999;
+            border-radius: 4px;
+        }
+    }
+    input{
+        padding-left: 5px;
+    }
+    .break_all{
+        &.van-cell{
+            display: block !important;
+        }
+        .van-field__label{
+            width: auto;
+        } 
+    }
+    .van-image__img{
+        display: block;
+        width: 56px;
+        height: 56px;
+    }
+    .margin_bt7{
+        margin-bottom: 7px;
+    }
+    
+    
+}
+</style>

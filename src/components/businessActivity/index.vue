@@ -2,16 +2,16 @@
     <section class="business-activity" ref="activity">
         <div class="swiper-container">
             <div class="swiper-wrapper">
-                <div class="item swiper-slide" v-for="(item,index) in data" :key="index">
+                <div class="item swiper-slide" v-for="(item,index) in data" :key="index" @click="activityDetail(item)">
                     <div class="pic">
-                        <img :src="item.pic" alt="">
+                        <img :src="item.picture" alt="">
                     </div>
                     <div class="text">
-                        <div>{{item.text}}</div>
-                        <div>{{item.time}}</div>
+                        <div>{{item.title}}</div>
+                        <div>{{item.activityTime}}</div>
                     </div>
                     <div class="btn">
-                        {{item.status}}
+                        {{item.controlValue}}
                     </div>
                 </div>
             </div>
@@ -33,23 +33,6 @@
       },
     },
     methods:{
-      // roll () {
-      //   const activity = this.$refs.activity
-      //   const activityTxt = activity.firstChild
-      //   const clientWidth = activity.clientWidth
-      //   const scrollWidth = activity.scrollWidth
-      //   activityTxt.style.position = 'relative'
-      //   let left = 0
-      //   function slide () {
-      //     left -= 1
-      //     // 当滚动条滚动了初始内容的宽度时滚动条回到最右端
-      //     if (Math.abs(left) > scrollWidth) {
-      //       left = clientWidth
-      //     }
-      //     activityTxt.style.left = `${ left }px`
-      //   }
-      //   this.time = setInterval(slide, 25)
-      // },
       creatSwiper() {
         if (this.data.length > 1) {
           new Swiper(".swiper-container", {
@@ -63,11 +46,13 @@
             },
           });
         }
+      },
+      activityDetail(item){
+        this.$emit('activityDetail',item)
       }
     },
     mounted() {
       this.creatSwiper();
-      // this.roll()
     }
   }
 </script>
@@ -98,9 +83,9 @@
         .btn{
             color: #fff;
             width: 60px;
-            height: 30px;
-            background: #05ab17;
-            line-height: 30px;
+            height: 25px;
+            background: #99496f;
+            line-height: 25px;
             text-align: center;
             margin: 10px 0 0 30px;
         }

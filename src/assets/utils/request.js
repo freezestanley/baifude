@@ -126,6 +126,29 @@ export function sendPostNew(url,type='post', params, immediate) {
 }
 
 /**
+ * 封装获取数据的请求方法
+ * @param  { String }  url    接口路径
+ * @param  { Object }  params 请求的参数
+ * @param  { Boolean } immediate 区别mallAPI和appAPI接口
+ * @return { Promise }
+ */
+export function sendUpload(url,type='post', params, immediate) {
+  return _axios({
+    url: type==='post'?url:mixUrl(url,params),
+    method: type,
+    data: params,
+    baseURL: '',
+    headers: {
+      "Content-Type": "multipart/form-data"
+    },
+    // timeout: 6000,
+    // withCredentials: true
+  }).catch(err => {
+    Notify(err.message);
+  });
+}
+
+/**
  * 合并url&querystring
  * @type {String} url 链接
  * @type {Object} data queryString参数

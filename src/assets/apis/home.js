@@ -1,4 +1,4 @@
-import { sendPostNew } from "../utils/request";
+import { sendPostNew, sendPost,sendUpload } from "../utils/request";
 
 
 /**
@@ -52,6 +52,43 @@ function activity_queryActivityDetail(params) {
 }
 
 /**
+ * 查询企业活动表单项
+ * @param { JSON} params 
+ */
+function activity_queryActivityForm(params){
+  const queryActivityFormApi = "/care/front/activity/queryActivityForm";
+  return sendPostNew(queryActivityFormApi,'get',params,true);
+}
+
+/**
+ * 活动报名提交
+ * @param {JSON} params 
+ */
+function activity_activityEntry(params){
+  const activityEntryApi = "/care/front/activity/activityEntry";
+  return sendPostNew(activityEntryApi,'post',params,false);
+}
+
+/**
+ * 活动取消报名
+ * @param {JSON} params 
+ */
+function activity_entryCancel(params){
+  const activityEntryApi = "/care/front/activity/entryCancel";
+  return sendPostNew(activityEntryApi,'post',params,true);
+}
+
+/**
+ * 活动上传图片
+ * @param {JSON} params 
+ */
+function activity_uploadFile(params){
+  const uploadFileApi = "/user/file/upload";
+  return sendUpload(uploadFileApi,'post',params);
+}
+
+
+/**
  * 获取企业新闻banner
  * @param { JSON } params 请求的参数
  */
@@ -60,11 +97,15 @@ function newsConf_list(params) {
   return sendPostNew(newsConfListApi, 'get',params, true);
 }
 export {
-    queryActivityList,
-    submitActivity,
-    newsListPage,
+  queryActivityList,
+  submitActivity,
+  newsListPage,
   news_getNewsFrontDetail,
   activity_queryActivitiyPage,
   activity_queryActivityDetail,
   newsConf_list,
+  activity_queryActivityForm,
+  activity_activityEntry,
+  activity_entryCancel,
+  activity_uploadFile
 }
