@@ -43,7 +43,7 @@
                         <van-field v-if="item.optionsType==1" name="radio" :label="item.optionsName+''">
                             <template #input>
                                 <van-radio-group v-model="item.optionsValue" direction="horizontal">
-                                    <van-radio :name="key" v-for="(value, key, index) in item.applyOptionMap" :key="index">{{value}}</van-radio>
+                                    <van-radio :name="key" v-for="(value, key, index) in item.applyOptionMap" :key="index">{{key}}</van-radio>
                                 </van-radio-group>
                             </template>
                         </van-field>
@@ -52,7 +52,7 @@
                          name="checkboxGroup" :label="item.optionsName+':'" :rules="[{ required: true, message: '请选择内容' }]">
                             <template #input>
                                 <van-checkbox-group  v-model="item.optionsValue" >
-                                    <van-checkbox v-for="(value, key, index) in item.applyOptionMap" class="margin_bt7" :name="key" :key="index" shape="square">{{value}}</van-checkbox>
+                                    <van-checkbox v-for="(value, key, index) in item.applyOptionMap" class="margin_bt7" :name="key" :key="index" shape="square">{{key}}</van-checkbox>
                                 </van-checkbox-group>
                             </template>
                         </van-field>
@@ -111,8 +111,8 @@ export default {
             //     {
             //         "activityOptionsId": 3,
             //         "applyOptionMap": {
-            //             "0": "男",
-            //             "1": "女"
+            //             "男": "男",
+            //             "女": "女"
             //         },
             //         "optionsName": "性别",
             //         "optionsType": 1,
@@ -121,10 +121,10 @@ export default {
             //     {
             //         "activityOptionsId": 4,
             //         "applyOptionMap": {
-            //             "0": "汽车",
-            //             "1": "轮船",
-            //             "2": "飞机",
-            //             "3": "火车"
+            //             "汽车": "汽车",
+            //             "轮船": "轮船",
+            //             "飞机": "飞机",
+            //             "火车": "火车"
             //         },
             //         "optionsName": "方式",
             //         "optionsType": 2,
@@ -208,7 +208,7 @@ export default {
         return true;
     },
     gotoSignUp(){
-        let params = this.activityData;
+        let params = JSON.parse(JSON.stringify(this.activityData));
         this.activity_activityEntry(params);
         
     },
@@ -248,6 +248,11 @@ export default {
     },
     //活动报名提交
     async activity_activityEntry(params){
+        params.controlList.map((item)=>{
+            if(item.optionsType==2 && Array.isArray(item.optionsValue)){
+               return item.optionsValue = item.optionsValue.join(',');
+            }
+        })
         let res = await activity_activityEntry(params);
         if(utilRes.successCheck(res)){
             this.$emit('queryActivityDetail');
