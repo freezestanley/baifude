@@ -59,16 +59,22 @@
             margin-left: 15px;
             overflow: hidden;
             .newItem-title{
-                font-size: 16px;
+                font-size: 14px;
                 font-weight: bold;
                 padding-bottom: 10px;
+                overflow : hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                word-break: break-all;
             }
             .newItem-cont{
                 padding: 0 10px 0 0;
                 overflow : hidden;
                 text-overflow: ellipsis;
                 display: -webkit-box;
-                -webkit-line-clamp: 5;
+                -webkit-line-clamp: 4;
                 -webkit-box-orient: vertical;
                 word-break: break-all;
             }
