@@ -2,7 +2,7 @@
     <section class="notice-wrap">
         <div class="notice-item" v-for="(item,index) in data" :key="index" @click="goToDetail(item)">
             <div class="notice-title">{{item.title}}</div>
-            <div class="notice-date">{{item.publishTime}}</div>
+            <div class="notice-date">{{item.publishDate}}</div>
         </div>
     </section>
 </template>
