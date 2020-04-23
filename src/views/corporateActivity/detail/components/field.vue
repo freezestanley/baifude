@@ -64,10 +64,12 @@
                         </van-field>
                         <van-field v-if="item.optionsType==5" name="uploader" :label="item.optionsName+':'">
                             <template #input>
-                                <!-- <van-uploader :after-read="afteRead">
-                                    <van-button icon="photo" type="primary">上传</van-button>
-                                </van-uploader> -->
-                                <van-button icon="photo" type="primary" @click="uploadMethod">上传</van-button>
+                                <div @click="uploadItem(index)">
+                                    <van-uploader :after-read="afteRead">
+                                        <van-button icon="photo" type="primary" >上传</van-button>
+                                    </van-uploader>
+                                </div>
+                                <!-- <van-button icon="photo" type="primary" @click="uploadMethod">上传</van-button> -->
                             </template>
                         </van-field>
                     </div>
@@ -76,7 +78,7 @@
                         <div class="cancle-btn" @click="closeSignUp">关闭</div>
                     </div>
                 </van-form>
-                <input type="file" ref="uploadInput" multiple style="display:none"  @change="changeInput">
+                <!-- <input type="file" ref="uploadInput" multiple style="display:none"  @change="changeInput"> -->
             </div>
         </div>
     </van-popup>    
@@ -88,7 +90,8 @@ export default {
   data(){
     return{
         activityId:this.$route.query.id, //活动id
-        dateItem:"", //保存选择时间的对象 
+        dateItem:"", //保存选择时间的对象
+        uploadImageItemIndex:"", //保存图片上传的对象
         showPopup: false,
         showCalendar: false,
         activityData:{
@@ -162,25 +165,37 @@ export default {
   },
   methods:{
     afteRead(file){
-        let params = {
-            // file:this.convertBase64UrlToBlob(file.content)
-        }
-        // this.activity_uploadFile(params);
+        let formData = new FormData();
+        formData.append("file", file.file);
+        this.activity_uploadFile(formData);
+    },
+     // bae64转文件对象
+    dataURLtoFile (dataurl, filename) {
+      // 将base64转换为文件，dataurl为base64字符串，filename为文件名（必须带后缀名，如.jpg,.png）
+      var arr = dataurl.split(","); var mime = arr[0].match(/:(.*?);/)[1];
+      var bstr = atob(arr[1]); var n = bstr.length; var u8arr = new Uint8Array(n);
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+      return new File([u8arr], filename, { type: mime });
     },
     uploadMethod(){
         this.$refs.uploadInput.click();
     },
-    changeInput(e){
-      let $target = e.target || e.srcElement
-      let file = $target.files[0]
-      if (!file) {
-        return
-      }
-      let formData = new FormData();
-      formData.append('file', file);
-      console.log(file);
-      this.activity_uploadFile(formData);
+    // changeInput(e){
+    //   let $target = e.target || e.srcElement
+    //   let file = $target.files[0]
+    //   if (!file) {
+    //     return
+    //   }
+    //   let formData = new FormData();
+    //   formData.append('file', file);
+    //   console.log(file);
+    //   this.activity_uploadFile(formData);
 
+    // },
+    uploadItem(index){
+        this.uploadImageItemIndex = index;
     },
     onSubmit(){
         console.log(this.activityData);
@@ -248,7 +263,10 @@ export default {
     async activity_uploadFile(params){
         let res = await activity_uploadFile(params);
         if(utilRes.successCheck(res)){
-            this.activityData = res.data;
+            // this.$set(this.activityData[this.uploadImageItemIndex],'optionsValue',res.data.url);
+            this.activityData.controlList[this.uploadImageItemIndex].optionsValue = res.data.url
+            console.log(this.activityData.controlList);
+            // this.uploadImageItem.optionsValue = res.data.url;
         }else{
             this.$message({
                 type: "error",

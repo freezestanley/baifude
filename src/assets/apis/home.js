@@ -1,4 +1,4 @@
-import { sendPostNew, sendPost } from "../utils/request";
+import { sendPostNew, sendPost,sendUpload } from "../utils/request";
 
 
 /**
@@ -83,8 +83,8 @@ function activity_entryCancel(params){
  * @param {JSON} params 
  */
 function activity_uploadFile(params){
-  const uploadFileApi = "https://admin1d0dev.dongfangfuli.com/user/file/upload";
-  return sendPostNew(uploadFileApi,'post',params,true);
+  const uploadFileApi = "/user/file/upload";
+  return sendUpload(uploadFileApi,'post',params);
 }
 
 
