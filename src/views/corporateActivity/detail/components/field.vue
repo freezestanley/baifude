@@ -89,7 +89,7 @@ export default {
     return{
         activityId:this.$route.query.id, //活动id
         dateItem:"", //保存选择时间的对象 
-        showPopup: true,
+        showPopup: false,
         showCalendar: false,
         activityData:{
             controlList: [
