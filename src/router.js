@@ -185,8 +185,7 @@ const router = new Router({
 });
 const checkLogin = async () => {
   const res = await user_checkLogin();
-  console.log(res);
-  if(res !== '0'){
+  if(res.code !== '0'){
     return false;
   }
   return true;
@@ -195,9 +194,7 @@ router.beforeEach(async (to, from, next) => {
   if(await checkLogin()){
     next();
   }else{
-    console.log("to:",to, location.href);
-    next();
-    // window.location.href = `http://xiaolang.test04.com/user/login?returnUrl=${location.href}`;
+    window.location.href = `http://xiaolang.test04.com/user/login?returnUrl=${location.href}`;
   }
 });
 export default router;
