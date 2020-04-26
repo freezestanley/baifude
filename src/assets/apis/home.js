@@ -1,4 +1,4 @@
-import { sendPostNew, sendPost,sendUpload } from "../utils/request";
+import { sendPostNew, sendUpload } from "../utils/request";
 
 
 /**

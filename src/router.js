@@ -190,11 +190,18 @@ const checkLogin = async () => {
   }
   return true;
 }
+const getLoginUrl = () => {
+  const firstPart = location.host.split('.')[0] || '';
+  const unionName = firstPart.split('-')[0] || '';
+  const loginPath = PUBLIC_LOGIN_URL.replace('%UNION%', unionName);
+  const loginUrl = loginPath + '?returnUrl=' + encodeURIComponent(window.location.href);
+  return loginUrl;
+}
 router.beforeEach(async (to, from, next) => {
   if(await checkLogin()){
     next();
   }else{
-    window.location.href = `http://corp.m.test04.com/union/xiaolang/user/login?returnUrl=${location.href}`;
+    window.location.href = getLoginUrl();
   }
 });
 export default router;

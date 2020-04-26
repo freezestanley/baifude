@@ -60,7 +60,6 @@ import ActivityNav from '@/components/activitynav/index';
 import { newsListPage,activity_queryActivitiyPage } from "@/assets/apis/home";
 import utilRes from "@/assets/utils/resResult";
 
-
 export default {
   name: "home",
   data() {

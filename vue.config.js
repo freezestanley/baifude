@@ -14,6 +14,12 @@ module.exports = {
       patterns: [path.resolve(__dirname, "./src/assets/styles/base/fn.less")]
     }
   },
+  chainWebpack: config => {
+    config.plugin('define').tap(args => {
+      args[0].PUBLIC_LOGIN_URL = JSON.stringify(env.loginUrl);
+      return args;
+    })
+  },
   configureWebpack: config => {
     const plugins = [
       new webpack.DllReferencePlugin({
