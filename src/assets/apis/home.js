@@ -39,7 +39,7 @@ function news_getNewsFrontDetail(params) {
  * @param { JSON } params 请求的参数
  */
 function activity_queryActivitiyPage(params) {
-  const queryActivitiyPageApi = "/care/front/activity/queryActivitiyPage";
+  const queryActivitiyPageApi = "/care/front/activity/queryActivityPage";
   return sendPostNew(queryActivitiyPageApi, 'get',params, true);
 }
 /**
