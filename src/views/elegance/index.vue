@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <!-- <div class="notice_warp">
-      <van-notice-bar
+    <div class="notice_warp">
+      <!-- <van-notice-bar
         v-if="mallUnionConf.openNotice && notice.noticeContent"
         :text="notice.noticeContent"
         left-icon
@@ -10,11 +10,14 @@
         color="#DD8815"
         class="noticeBar"
       />
-      <img class="notice" src="../../assets/images/elite/icon_notice.png" alt />
-    </div> -->
-    <news
+      <img class="notice" src="../../assets/images/elite/icon_notice.png" alt /> -->
+      <div class="noticeContent" v-if="mallUnionConf.openNotice && notice.noticeContent">
+        1234567890-=
+      </div>
+    </div>
+    <!-- <news
       v-if="unionConf.newsOpen === 1 && mallUnionConf.tnewsDtos.length != 0"
-    ></news>
+    ></news> -->
 
     <head-area id="js-head"></head-area>
     <!-- 滑动到一定距离之后出现 -->
@@ -130,6 +133,17 @@ img {
     height: 24px;
     top: 3px;
     left: 8px;
+  }
+  .noticeContent{
+    height: 28px;
+    padding: 0 10px;
+    margin-bottom: 10px;
+    line-height: 28px;
+    background:#FEF8D8;
+    font-size:11px;
+    font-family:PingFangSC-Medium,PingFang SC;
+    font-weight:500;
+    color:rgba(255,175,0,1)
   }
 }
 </style>
