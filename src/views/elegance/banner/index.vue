@@ -51,9 +51,11 @@ export default {
 <style lang="less" scoped>
 .eleganceBanner {
   background-color: #fff;
-  margin: 6px 3px 0;
-  height: 126px;
+  padding:10px 12px ;
+  /*margin: 6px 3px 0;*/
+  height: 170px;
   overflow: hidden;
+  border-radius: 4px;
   img,
   a {
     display: block;
@@ -66,7 +68,6 @@ export default {
     position: relative;
   }
   /deep/.swiper-container .swiper-slide {
-    border-radius: 8px 8px 0 0;
     display: block;
     width: 100%;
     height: 100%;

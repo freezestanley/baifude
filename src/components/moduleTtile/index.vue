@@ -37,18 +37,22 @@
 
 <style lang="less" scoped>
     .title {
-        font-size: 14px;
         display: flex;
-        line-height: 40px;
+        height: 50px;
         justify-content: space-between;
-    .title-name {
+    .title-item {
         flex: 1;
         font-weight: bold;
+        font-size: 20px;
+        color: #000;
+        line-height: 50px;
     }
     .title-more {
         flex: 1;
-        color: #a6a6a6;
+        color: #666666;
         text-align: right;
+        font-size: 12px;
+        line-height: 60px;
     }
     }
 </style>

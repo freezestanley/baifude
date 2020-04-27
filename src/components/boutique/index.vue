@@ -33,7 +33,6 @@
 
 <style lang="less" scoped>
 .boutique-wrap{
-    border-top: 1px dotted #C7C7C7;
     padding: 10px 0 0 0;
     .boutique-item{
         width: 100%;

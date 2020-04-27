@@ -1,6 +1,6 @@
 <template>
     <div class="newsBanner" >
-        <van-swipe class="my-swipe" :autoplay="2000" indicator-color="red" style="height: 100%;">
+        <van-swipe class="my-swipe" :autoplay="2000" indicator-color="white" style="height: 100%;">
             <van-swipe-item v-for="(item,index) in bannerList" :key="index" @click="clickBanner(item)">
                 <img :src="item.picture" />
             </van-swipe-item>

@@ -114,7 +114,7 @@ export default {
   .news-banner {
     height: 180px;
     width: 100%;
-    background: #01a523;
+    background: #4679A3;
     border-radius: 5px;
     margin: 10px 0;
   }

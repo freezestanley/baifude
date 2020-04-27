@@ -7,8 +7,8 @@
                         <img :src="item.picture" alt="">
                     </div>
                     <div class="text">
-                        <div>{{item.title}}</div>
-                        <div>{{item.activityTime}}</div>
+                        <div class="text-title">{{item.title}}</div>
+                        <div class="text-time">{{item.activityTime}}</div>
                     </div>
                     <div class="btn">
                         {{item.controlValue}}
@@ -37,7 +37,7 @@
         if (this.data.length > 1) {
           new Swiper(".swiper-container", {
             loop: true,
-            spaceBetween: 20,
+            // spaceBetween: 20,
             slidesPerView: 'auto',
             loopedSlides: 3,
             autoplay: {
@@ -59,19 +59,20 @@
 
 <style lang="less" scoped>
 .business-activity{
+    padding-left: 15px;
     font-size: 12px;
     display: flex;
     white-space:nowrap;
     overflow: hidden;
-    border-top: 1px dotted #C7C7C7;
-    padding: 10px 0 0 0;
     .item{
-        width: 120px;
+        /*padding-left: 15px;*/
+        width: 300px;
         height: auto;
-        margin-right: 10px;
+        /*margin-right: 10px;*/
+        position: relative;
         .pic{
-            width: 120px;
-            height:70px;
+            width: 300px;
+            height:150px;
             background: #05ab17;
             margin-bottom: 10px;
             img{
@@ -80,14 +81,33 @@
                 display: block;
             }
         }
+        .text{
+            width: 300px;
+            .text-title{
+                font-weight: bold;
+                color: #333333;
+                font-size: 16px;
+                white-space:nowrap;
+                text-overflow:ellipsis;
+                -o-text-overflow:ellipsis;
+                overflow: hidden;
+            }
+            .text-time{
+                color: #999999;
+                font-size: 12px;
+            }
+        }
         .btn{
             color: #fff;
             width: 60px;
             height: 25px;
-            background: #99496f;
+            background: #bfa07a;
             line-height: 25px;
             text-align: center;
-            margin: 10px 0 0 30px;
+            position: absolute;
+            top:0;
+            left:15px;
+            border-radius: 0 0 25px 0;
         }
     }
 }

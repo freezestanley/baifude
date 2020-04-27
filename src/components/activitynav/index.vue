@@ -2,8 +2,12 @@
     <div class="wrap">
       <div class="activity_container" v-for="(item,index) in activityNavData" :key="index">
           <div class="activity" @click="gotoActivity(index)">
-              <img class="act_image" :src="item.url" alt=""/>
-              <div class="instruction">{{item.instruct}}</div>
+              <div class="activity-icon">
+                  <img :src="item.url" alt="">
+              </div>
+              <div class="activity-title">{{item.instruct}}</div>
+              <!--<img class="act_image" :src="item.url" alt=""/>-->
+              <!--<div class="instruction">{{item.instruct}}</div>-->
           </div>
       </div>
     </div>
@@ -49,24 +53,44 @@ import { Toast } from 'vant'
 <style lang="less" scoped>
 .wrap{
     display: flex;
-    margin: 26px 0 0 0;
+    width: 100%;
     .activity_container{
         text-align: center;
         width: 25%;
-        height: 97px;
+        height: 80px;
         position: relative;
+        /*background: pink;*/
         .activity{
-            display: inline-block;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%,-50%);
-            .act_image{
-                height: 60px;
-                width: 60px;
-                border-radius: 50%;
+            margin-top: 10px;
+            .activity-icon{
+                width: 40px;
+                height: 40px;
+                margin: 0 auto;
+                img{
+                    width: 100%;
+                    height: 100%;
+                    display: block;
+                }
+            }
+            .activity-title{
+                color: #333;
             }
         }
+
+        /*.activity{*/
+            /*width: 40px;*/
+            /*height: 40px;*/
+            /*display: inline-block;*/
+            /*position: absolute;*/
+            /*left: 50%;*/
+            /*top: 50%;*/
+            /*transform: translate(-50%,-50%);*/
+            /*.act_image{*/
+                /*width: 100%;*/
+                /*height: 100%;*/
+                /*display: block;*/
+            /*}*/
+        /*}*/
     }
 }
 </style>

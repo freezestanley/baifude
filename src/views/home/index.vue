@@ -7,7 +7,7 @@
           <Title titleName="企业新闻" :titleMore="true" @goToNext="goToNext"></Title>
           <NewsItem :newsData="newsData" @goToDetail="goToDetail"></NewsItem>
       </div>
-      <div class="layout activity" v-if="activityData.length>0">
+      <div class="activity" v-if="activityData.length>0">
           <!--企业活动-->
         <Title titleName="企业活动" :titleMore="true" @goToNext="goToNext"></Title>
           <BusinessActivity :data="activityData" @activityDetail="activityDetail"></BusinessActivity>
@@ -34,6 +34,7 @@
               <div class="notice-item" v-for="(item,index) in list" :key="index" @click="goNoticeDetail(item)">
                   <div class="notice-item-text">{{item.title}}</div>
                   <div class="notice-item-time">{{item.publishTime}}</div>
+                  <div class="notice-item-styleCircle"></div>
               </div>
           </div>
       </div>
@@ -397,8 +398,11 @@ export default {
       const obj ={...param}
       let res = await newsListPage(obj);
       if (utilRes.successCheck(res)) {
-        if(res.data.listObj.length>0){
-          this.newsData.push(res.data.listObj[0]); //首页新闻取列表新闻里面的第一条
+        const list=res.data.listObj
+        if(list.length>=3){
+          this.newsData=list.slice(1,4); //首页新闻取列表新闻里面前三条
+        }else {
+          this.newsData = list
         }
       } else {
         this.$notify(res.errMsg);
@@ -409,8 +413,11 @@ export default {
       const obj ={...param}
       let res = await newsListPage(obj);
       if (utilRes.successCheck(res)) {
-        if(res.data.listObj.length>0){
-          this.styleData.push(res.data.listObj[0]); //首页新闻取列表新闻里面的第一条
+        const list = res.data.listObj
+        if(list.length>3){
+          this.styleData = list.slice(1,3); //首页新闻取列表新闻里面的第一条
+        }else{
+          this.styleData = list
         }
       } else {
         this.$notify(res.errMsg);
@@ -436,7 +443,12 @@ export default {
       const obj ={...params}
       let res = await newsListPage(obj);
       if (utilRes.successCheck(res)) {
-        this.list = res.data.listObj; //请求返回当页的列表
+        const listObj = res.data.listObj;
+        if(listObj.length>6){
+          this.list = listObj.slice(1,6)
+        }else {
+          this.list = listObj
+        }
       } else {
         this.$message({
           type: "error",
@@ -495,8 +507,9 @@ html {
   padding-bottom: 75px;
 }
 .commonBg {
-  background-color: #fff;
   padding-bottom: 83px;
+  background-color: #fff;
+  /*padding-bottom: 83px;*/
   /*overflow: hidden;*/
 }
 @supports (bottom: constant(safe-area-inset-bottom)) or
@@ -516,20 +529,44 @@ html {
 <style lang="less" scoped>
   .wrap{
       font-size: 12px;
-      .layout{padding: 10px 10px 0;}
+      .layout{padding: 10px 15px 0;}
      .notice{
          .notice-wrap{
-             border-top: 1px dotted #C7C7C7;
+             /*box-shadow:0px 0px 0px 10px #fafafa;*/
              .notice-item{
-                 display: flex;
-                 padding: 6px 0;
-                 border-bottom: 1px dotted #C7C7C7;
+                 /*display: flex;*/
+                 height: 70px;
+                 position: relative;
+                 padding-left: 20px;
+                 &::before{
+                     content: "";
+                     width: 6px;
+                     height: 6px;
+                     border: 1px solid #4679A3;
+                     border-radius: 50%;
+                     position: absolute;
+                     left:0;
+                     top:4px;
+                 }
+                 /*.notice-item-styleCircle{*/
+                     /*width: 1px;*/
+                     /*height: 60px;*/
+                     /*background: #E5E5E5;*/
+                     /*position: absolute;*/
+                     /*left:3px;*/
+                     /*top:12px;*/
+                 /*}*/
                  .notice-item-text{
-                     width: 50%;
+                     font-size: 14px;
+                     color: #333333;
+                     white-space:nowrap;
+                     text-overflow:ellipsis;
+                     overflow: hidden;
                  }
                  .notice-item-time{
-                     width: 50%;
-                     text-align: right;
+                     margin-top: 6px;
+                     font-size: 12px;
+                     color: #B2B2B2;
                  }
              }
          }

@@ -46,7 +46,8 @@
         .tab-bar{
             width: 100%;
             display: flex;
-            font-size: 16px;
+            font-size: 15px;
+            font-weight: bold;
             .tab-bar-item{
                 width: 80px;
                 height:40px;
@@ -57,8 +58,8 @@
                 margin-right: 15px;
             }
             .tabs-active{
-                color: #05ab17;
-                font-size: 18px;
+                color: #4679A3;
+                font-size: 16px;
             }
         }
         .tab-content{
