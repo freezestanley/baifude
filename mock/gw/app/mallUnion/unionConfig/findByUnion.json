@@ -28,7 +28,7 @@
       "isCardAccount": false,
       "isOpenPaypassword": false,
       "isRedirect": false,
-      "openNotice": false,
+      "openNotice": true,
       "openService": true,
       "webRedirectUrl": "",
       "h5RedirectUrl": "",

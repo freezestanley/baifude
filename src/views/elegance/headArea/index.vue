@@ -38,15 +38,15 @@
               alt
             />
           </div>
-          <div class="dialogContainer">
-            <img
+          <!-- <div class="dialogContainer">
+            <img 
               @click="goService"
               class="dialogImg"
               v-if="openService"
               src="../../../assets/images/elegance/dialog.svg"
               alt
             />
-          </div>
+          </div> -->
         </div>
       </div>
       
@@ -142,6 +142,7 @@ export default {
         // right: 10px;
         cursor: pointer;
         vertical-align: middle;
+        margin-bottom: 6px;
       }
     }
     .dialogContainer{
@@ -247,7 +248,7 @@ export default {
         }
       }
       .search {
-        width: 40px;
+        width: 26px;
         font-size: 14px;
         .searchImg {
           display: block;
