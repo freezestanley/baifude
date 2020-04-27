@@ -68,7 +68,7 @@
         /*padding-left: 15px;*/
         width: 300px;
         height: auto;
-        /*margin-right: 10px;*/
+        margin-right: 10px;
         position: relative;
         .pic{
             width: 300px;
@@ -106,7 +106,7 @@
             text-align: center;
             position: absolute;
             top:0;
-            left:15px;
+            left:0;
             border-radius: 0 0 25px 0;
         }
     }
