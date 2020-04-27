@@ -2,7 +2,7 @@
     <section class="page">
         <h1 class="contentCenter">{{newsDetailData.title}}</h1>
         <p class="contentCenter" v-if="newsDetailData.publishTime">{{`发布时间:${newsDetailData.publishTime}`}}</p>
-        <div v-html="newsDetailData.content"></div>
+        <div class="detail-html-style" v-html="newsDetailData.content"></div>
         <div class="enclosure" v-if="enclosureData.length>0">
             <p>附件</p>
             <div v-for="(item,index) in enclosureData" :key="index" class="enclosure-item" @click="downLoad(item)">

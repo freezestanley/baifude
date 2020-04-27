@@ -73,7 +73,6 @@
         .pic{
             width: 300px;
             height:150px;
-            background: #05ab17;
             margin-bottom: 10px;
             img{
                 width: 100%;

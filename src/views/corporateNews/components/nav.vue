@@ -48,6 +48,7 @@
             display: flex;
             font-size: 15px;
             font-weight: bold;
+            margin-bottom: 5px;
             .tab-bar-item{
                 width: 80px;
                 height:40px;

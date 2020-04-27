@@ -4,10 +4,10 @@
             <div class="activity-pic">
                 <img :src="item.picture" alt="">
             </div>
+            <div class="activity-desc">{{item.title}}</div>
             <div class="activity-text">
-                <div class="activity-desc">{{item.title}}</div>
-                <div class="activity-status" v-html="item.controlValue"></div>
             </div>
+            <div class="activity-status" v-html="item.controlValue"></div>
         </div>
     </section>
 </template>
@@ -35,31 +35,38 @@
 .activity-wrap{
     .activit-item{
         width: 100%;
-        height:200px;
+        /*height:200px;*/
+        position: relative;
         .activity-pic{
             width: 100%;
-            height:150px;
+            height:126px;
             img{
                 width: 100%;
                 height: 100%;
                 display: block;
             }
         }
-        .activity-text{
-            display: flex;
-            justify-content:space-around;
-            height: 50px;
-            line-height: 50px;
-            .activity-desc{
-                width: 80%;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-            }
-            .activity-status{
-                width: 20%;
-                text-align: right;
-            }
+        .activity-desc{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #000000;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .activity-status{
+            position: absolute;
+            left:0;
+            top:0;
+            width: 64px;
+            height: 24px;
+            line-height: 24px;
+            font-size: 12px;
+            color: #fff;
+            text-align: center;
+            background:#C6AA85 ;
+            border-radius: 0 0 10px 0;
         }
     }
 

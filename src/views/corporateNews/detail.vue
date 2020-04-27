@@ -2,7 +2,7 @@
     <section class="page">
         <h1 class="contentCenter">{{newsDetailData.title}}</h1>
         <p class="contentCenter" v-if="newsDetailData.publishTime">{{`发布时间:${newsDetailData.publishTime}`}}</p>
-        <div v-html="newsDetailData.content"></div>
+        <div class="detail-html-style" v-html="newsDetailData.content"></div>
     </section>
 </template>
 
@@ -46,4 +46,14 @@
       text-align: center;
     }
 }
+</style>
+<style lang="less">
+  .detail-html-style{
+      overflow: hidden;
+      *{
+          font-size: 13px;
+          color:#333333;
+          font-family: -apple-system-font, 'Helvetica Neue', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+      }
+  }
 </style>
