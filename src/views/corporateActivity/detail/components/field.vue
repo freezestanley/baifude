@@ -144,7 +144,7 @@ export default {
                     },
                     "optionsName": "方式",
                     "optionsType": 2,
-                    "optionsValue":""
+                    "optionsValue":[]
                 },
                 {
                     "activityOptionsId": 4,
@@ -273,17 +273,39 @@ export default {
             }
         })
 
+        let valid = true;
         //校验
         params.controlList.forEach((item,index) => {
-            console.log(item.optionsValue)
-            if(item.optionsType==1&&!item.optionsValue){
+            if(!valid){
+                return
+            }
+            if((item.optionsType==1||item.optionsType==2||item.optionsType==4)&&!item.optionsValue){
+                valid = false;
                 Toast.show({
                     content: '请选择'+item.optionsName,
                     isSuccess: false,
                     duration: 1000
                 });
+            }else if(item.optionsType==3 && !item.optionsValue){
+                valid = false;
+                Toast.show({
+                    content: '请填写'+item.optionsName,
+                    isSuccess: false,
+                    duration: 1000
+                });
+            }else if(item.optionsType==5 && !item.optionsValue){
+                valid = false;
+                Toast.show({
+                    content: '请上传'+item.optionsName,
+                    isSuccess: false,
+                    duration: 1000
+                });
             }
         });
+
+        if(!valid){
+            return
+        }
         let res = await activity_activityEntry(params);
         if(utilRes.successCheck(res)){
             this.$emit('queryActivityDetail');
