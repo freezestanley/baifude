@@ -36,7 +36,8 @@ export default {
           loop: true,
           spaceBetween: 20,
           pagination: {
-            el: ".elegance-swiper-pagination"
+            el: ".elegance-swiper-pagination",
+            type:"fraction",
           }
         });
       }
@@ -73,21 +74,21 @@ export default {
     height: 100%;
     overflow: hidden;
   }
-  /deep/.swiper-container .swiper-pagination-bullets {
-    bottom: -1px;
-  }
-  /deep/.swiper-container .swiper-pagination-bullet-active {
-    background-color: #fff !important;
-    width: 12px !important;
-    opacity: 1 !important;
-  }
-  /deep/.swiper-container .swiper-pagination-bullet {
-    width: 6px;
-    height: 1px;
-    margin: 0 2px;
-    border-radius: 1px;
-    background-color: #fff;
-    opacity: 0.5;
-  }
+  /*/deep/.swiper-container .swiper-pagination-bullets {*/
+    /*bottom: -1px;*/
+  /*}*/
+  /*/deep/.swiper-container .swiper-pagination-bullet-active {*/
+    /*background-color: #fff !important;*/
+    /*width: 12px !important;*/
+    /*opacity: 1 !important;*/
+  /*}*/
+  /*/deep/.swiper-container .swiper-pagination-bullet {*/
+    /*width: 6px;*/
+    /*height: 1px;*/
+    /*margin: 0 2px;*/
+    /*border-radius: 1px;*/
+    /*background-color: #fff;*/
+    /*opacity: 0.5;*/
+  /*}*/
 }
 </style>
