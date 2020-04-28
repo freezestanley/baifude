@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 import {user_checkLogin} from '@/assets/apis/home';
+import {getQueryString, setCookie, getCookie} from '@/assets/utils'; 
 const Home = () => import('@/views/home/index').then(m => m.default)
 const HomeWrap = () => import('@/views/homeWrap/index').then(m => m.default)
 const CorporateNews = () => import('@/views/corporateNews/index').then(m => m.default)
@@ -29,7 +30,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "oldHome" */ "./views/oldHome")
   },
   {
-    path: "/home-h5",
+    path: "/dbenefit/home-h5",
     component:HomeWrap,
     children:[{
       path: '',
@@ -171,12 +172,16 @@ const routes = [
   //   }
   // },
   {
+    path: "/dbenefit",
+    redirect: "/dbenefit/home-h5"
+  },
+  {
     path: "/",
-    redirect: "/home-h5"
+    redirect: "/dbenefit/home-h5"
   },
   {
     path: "*",
-    redirect: "/home-h5"
+    redirect: "/dbenefit/home-h5"
   }
 ];
 const router = new Router({
@@ -191,13 +196,19 @@ const checkLogin = async () => {
   return true;
 }
 const getLoginUrl = () => {
-  const firstPart = location.host.split('.')[0] || '';
-  const unionName = firstPart.split('-')[0] || '';
+  const unionName = getQueryString('union');
   const loginPath = PUBLIC_LOGIN_URL.replace('%UNION%', unionName);
   const loginUrl = loginPath + '?returnUrl=' + encodeURIComponent(window.location.href);
   return loginUrl;
 }
+const cookieCheck = () => {
+  const _lt = window.location.host.split('.');
+  const union = getQueryString('union');
+  const domain = [_lt.pop(), _lt.pop()].reverse().join('.');
+  setCookie('company', union, 30, { domain });
+};
 router.beforeEach(async (to, from, next) => {
+  cookieCheck();
   if(await checkLogin()){
     next();
   }else{

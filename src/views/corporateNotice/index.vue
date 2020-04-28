@@ -25,7 +25,7 @@
     },
     methods:{
       goToDetail(item){
-        this.$router.push({path:'/home-h5/corporatenotice/detail',query:{id:item.id}});
+        this.$router.push({path:'/dbenefit/home-h5/corporatenotice/detail',query:{id:item.id}});
       },
       async queryNewsList() {
         let params ={
