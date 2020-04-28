@@ -52,5 +52,6 @@
 .page{
     padding: 0 10px;
     font-size: 14px;
+    border-top:1px solid #E5E5E5;
 }
 </style>

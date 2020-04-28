@@ -9,7 +9,9 @@
       </div>
       <div class="activity" v-if="activityData.length>0">
           <!--企业活动-->
-        <Title titleName="企业活动" :titleMore="true" @goToNext="goToNext"></Title>
+          <div style="padding: 0 15px">
+              <Title titleName="企业活动" :titleMore="true" @goToNext="goToNext"></Title>
+          </div>
           <BusinessActivity :data="activityData" @activityDetail="activityDetail"></BusinessActivity>
       </div>
         <!-- 活动风采 -->
@@ -39,10 +41,13 @@
           </div>
       </div>
         <!-- 精品推荐 -->
-      <div class="layout">
+      <div class="layout" v-if="boutiqueData.length>0">
          <Title titleName="精品推荐"></Title>
           <Boutique :data="boutiqueData"></Boutique>
       </div>
+        <div class="section-last-tip">
+            <div class="section-last-text">已经到底啦</div>
+        </div>
     </div>
   </div>
 </template>
@@ -94,12 +99,11 @@ export default {
       activityData:[],//企业活动数据
       styleData:[],//活动风采数据
       list:[],//企业公告列表数据
-      boutiqueData:[
-          {"pic":"https://image.dongfangfuli.com/2020/03/06/afb9c24dec39529743df70263646950fcb6e182847f734eb54bffec6b3e9f3e6.jpg"},
-      ],
+      boutiqueData:[],//精品推荐数据对象
       surveyObj:{
         "pic":"https://image.dongfangfuli.com/2020/03/06/35e7e327db62108061c59f7cdc8f3fbf1763f692a3ce0ef12245c858241f3d7b.jpg"
-      }
+      },
+
     };
   },
   components: {
@@ -299,7 +303,15 @@ export default {
               this.$notify(unionConf.data.msg);
               return false;
             }
-
+            if(unionMoulds && unionMoulds.body){
+              const unionData = unionMoulds.body
+              for(let i=0;i<unionData.length;i++){
+                if(unionData[i].title == "精品推荐" || unionData[i].formatCode == "mportant"){
+                  this.boutiqueData = unionData[i].mouldContents
+                }
+              }
+            }
+            console.log("工会信息--",unionMoulds)
             // if (unionMoulds && unionMoulds.body) {
             //   unionMoulds.body.forEach(unionMod => {
             //     this.fords.push({
@@ -529,7 +541,10 @@ html {
 <style lang="less" scoped>
   .wrap{
       font-size: 12px;
-      .layout{padding: 10px 15px 0;}
+     .layout{padding: 10px 15px 0;}
+     .activity{
+
+     }
      .notice{
          .notice-wrap{
              /*box-shadow:0px 0px 0px 10px #fafafa;*/
@@ -585,5 +600,23 @@ html {
              }
          }
      }
+      .section-last-tip{
+          margin: 30px auto;
+          width: 199px;
+         border-bottom: 1px solid #E5E5E5;
+          position: relative;
+          .section-last-text{
+              position:absolute;
+              left:50%;
+              top:50%;
+              margin-top:-9px;
+              margin-left: -40px;
+              height: 18px;
+              width: 79px;
+              background: #fff;
+              color:#B2B2B2;
+              text-align: center;
+          }
+      }
   }
 </style>

@@ -1,6 +1,8 @@
 <template>
   <div class="page">
-    <Banner :bannerList="bannerList" @clickBanner="clickBanner"></Banner>
+    <div style="padding: 10px 12px">
+      <Banner :bannerList="bannerList" @clickBanner="clickBanner"></Banner>
+    </div>
     <div class="news-cont">
       <Tab :tabList="tabList" :tabIndex="tabIndex" @changeTab="changeTab">
         <template slot="name1">
@@ -119,7 +121,7 @@ export default {
     margin: 10px 0;
   }
   .news-cont {
-    padding: 0 10px;
+    padding: 0 15px ;
   }
 }
 </style>

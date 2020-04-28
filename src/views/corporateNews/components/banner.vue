@@ -29,14 +29,16 @@
 
 <style lang="less" scoped>
     .newsBanner {
-        margin: 18px 16px 0;
-        height: 150px;
+        /*margin: 18px 16px 0;*/
+        height: 126px;
         overflow: hidden;
+        border-radius: 4px;
         img,
         a {
             display: block;
             width: 100%;
             height: 100%;
+            border-radius: 4px;
         }
         .swiper-container {
             width: 100%;
