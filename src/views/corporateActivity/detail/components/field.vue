@@ -19,7 +19,6 @@
                             v-model="item.optionsValue"
                             :label="item.optionsName"
                             :placeholder="'请输入'+item.optionsName"
-                            :rules="[{ required: true, message: '请输入'+item.optionsName }]"
                             
                         />
                         <template v-if="item.optionsType==4">
@@ -29,9 +28,8 @@
                                 name="calendar"
                                 :value="item.optionsValue"
                                 :label="item.optionsName"
-                                placeholder="yyyy/mm/dd"
+                                placeholder="请选择日期"
                                 @click="findDate(item)"
-                                :rules="[{ required: true, message: '请选择出生日期' }]"
                             />
                             <van-calendar :max-date="new Date('2030/01/01')" v-model="showCalendar" @confirm="onConfirm" />
                         </template>
@@ -44,7 +42,7 @@
                         </van-field>
                         <van-field
                          v-if="item.optionsType==2"
-                         name="checkboxGroup" :label="item.optionsName" :rules="[{ required: true, message: '请选择内容' }]">
+                         name="checkboxGroup" :label="item.optionsName" >
                             <template #input>
                                 <van-checkbox-group  v-model="item.optionsValue" >
                                     <van-checkbox v-for="(value, key, index) in item.applyOptionMap" class="margin_bt7" :name="key" :key="index" shape="square">{{key}}</van-checkbox>
@@ -52,13 +50,19 @@
                             </template>
                         </van-field>
                         
-                        <van-field v-if="item.optionsType==5" name="uploader" :label="item.optionsName" readonly>
+                        <!-- <van-field v-if="item.optionsType==5" class="uploadImg" name="uploader" :label="item.optionsName" readonly>
                             <template #input>
                                 <van-image :src="item.optionsValue" />
                             </template>
-                        </van-field>
-                        <van-field v-if="item.optionsType==5" name="uploader" :label="item.optionsName">
-                            <template #input>
+                        </van-field> -->
+                        <van-field  class="uploadImg" v-if="item.optionsType==5" name="uploader" :label="item.optionsName">
+                            <template #input  v-if="item.optionsValue">
+                                <div class="img_container">
+                                    <van-image :src="item.optionsValue" />
+                                    <img class="img_close" src="../../../../../src/assets/images/elegance/img_close.png">
+                                </div>
+                            </template>
+                            <template #input  v-else>
                                 <div @click="uploadItem(index)">
                                     <van-uploader :after-read="afteRead">
                                         <van-button icon="photo" type="primary" >上传</van-button>
@@ -142,14 +146,14 @@ export default {
                     "optionsType": 5,
                     "optionsValue":"http://devimg.dongfangfuli.com/2020/01/22/c55fe89912fc17c8dde8111a3474ecbeeae2d0377c20e0cfd05493fac02a9cff.jpg"
                 },
-                {
-                    "activityOptionsId": 6,
-                    "applyOptionMap": {
-                    },
-                    "optionsName": "上传照片",
-                    "optionsType": 6,
-                    "optionsValue":""
-                }
+                // {
+                //     "activityOptionsId": 6,
+                //     "applyOptionMap": {
+                //     },
+                //     "optionsName": "上传照片",
+                //     "optionsType": 6,
+                //     "optionsValue":""
+                // }
             ]
         },
     
@@ -344,9 +348,34 @@ export default {
             margin-top: 20px;
             background: #fff;
         }
+        .uploadImg{
+            display: block !important;
+            .img_container{
+                position: relative;
+                .img_close{
+                    width:40/@rem;
+                    height:40/@rem;
+                    background:rgba(35,35,33,1);
+                    opacity:0.8;
+                    border-radius:20/@rem;
+                    position: absolute;
+                    right: -9px;
+                    top: -9px;
+                }
+            }
+        }
     }
     .wrapInput{
         border-bottom: 1px solid #E0E6ED;
+        &:last-child{
+            border-bottom: 0 solid #fff !important;
+        }
+        &:last-of-type{
+            border-bottom: 0 solid #fff !important;
+        }
+    }
+    .wrapInput:last-child{
+        border-bottom: 0 solid #fff !important;
     }
 }
 </style>
@@ -363,7 +392,7 @@ export default {
     .frameCheckBox{
         .van-field__value{
             text-align: left;
-            margin: 0 0 0 4px;
+            margin: 0 0 0 3px;
             .van-field__body{
                 display: inline-block;
                 
@@ -374,7 +403,7 @@ export default {
     .van-checkbox-group{
         display: flex;
         width: 100%;
-        margin: 20px 0 0 5px;
+        margin: 20px 0 0 0;
         flex-wrap: wrap;
     }
     input{
@@ -385,7 +414,7 @@ export default {
             line-height: 112/@rem;
             padding: 0 !important;
             .van-field__label{
-                width: 120/@rem !important;
+                width: 128/@rem !important;
                 font-size:30/@rem;
                 font-family:PingFangSC-Regular,PingFang SC;
                 font-weight:400;
@@ -405,8 +434,8 @@ export default {
     }
     .van-image__img{
         display: block;
-        width: 56px;
-        height: 56px;
+        width: 160/@rem;
+        height: 160/@rem;
     }
     .margin_bt7{
         margin-bottom: 7px;
