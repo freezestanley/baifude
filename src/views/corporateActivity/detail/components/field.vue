@@ -91,7 +91,11 @@
 <script>
 import {activity_queryActivityForm,activity_activityEntry,activity_uploadFile} from '@/assets/apis/home'
 import utilRes from "@/assets/utils/resResult";
+import Toast from "@/components/toast/toast"
 export default {
+  components: {
+        Toast
+  },
   data(){
     return{
         activityId:this.$route.query.id, //活动id
@@ -121,7 +125,7 @@ export default {
                     },
                     "optionsName": "性别",
                     "optionsType": 1,
-                    "optionsValue":[]
+                    "optionsValue":""
                 },
                 {
                     "activityOptionsId": 4,
@@ -140,7 +144,7 @@ export default {
                     },
                     "optionsName": "方式",
                     "optionsType": 2,
-                    "optionsValue":[]
+                    "optionsValue":""
                 },
                 {
                     "activityOptionsId": 4,
@@ -268,6 +272,18 @@ export default {
                return item.optionsValue = item.optionsValue.join(',');
             }
         })
+
+        //校验
+        params.controlList.forEach((item,index) => {
+            console.log(item.optionsValue)
+            if(item.optionsType==1&&!item.optionsValue){
+                Toast.show({
+                    content: '请选择'+item.optionsName,
+                    isSuccess: false,
+                    duration: 1000
+                });
+            }
+        });
         let res = await activity_activityEntry(params);
         if(utilRes.successCheck(res)){
             this.$emit('queryActivityDetail');
