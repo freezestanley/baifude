@@ -4,14 +4,14 @@
             <!--<div class="boutique-item" v-for="(item,index) in data" :key="index">-->
                 <!--<img :src="item.h5ImagePath" alt="">-->
             <!--</div>-->
-            <div class="boutique-wrap-left">
+            <div class="boutique-wrap-left" @click="jumpUrl(data[0].h5RedirectUrl)">
                 <img :src="data[0].h5ImagePath" alt="">
             </div>
             <div class="boutique-wrap-right">
-                <div class="boutique-wrap-smallPic">
+                <div class="boutique-wrap-smallPic" @click="jumpUrl(data[1].h5RedirectUrl)">
                     <img :src="data[1].h5ImagePath" alt="">
                 </div>
-                <div class="boutique-wrap-smallPic" style="margin-top: 8px">
+                <div class="boutique-wrap-smallPic" style="margin-top: 8px" @click="jumpUrl(data[2].h5RedirectUrl)">
                     <img :src="data[2].h5ImagePath" alt="">
                 </div>
             </div>
@@ -41,6 +41,11 @@
     },
     created(){
       console.log("data---====",this.data)
+    },
+    methods:{
+      jumpUrl(item){
+        window.location.href=item;
+      }
     },
   }
 </script>

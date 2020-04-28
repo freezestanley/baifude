@@ -4,9 +4,15 @@
         <p class="contentCenter" v-if="newsDetailData.publishTime">{{`发布时间:${newsDetailData.publishTime}`}}</p>
         <div class="detail-html-style" v-html="newsDetailData.content"></div>
         <div class="enclosure" v-if="enclosureData.length>0">
-            <p>附件</p>
+            <div class="enclosure-title">
+                附件
+                <span></span>
+            </div>
             <div v-for="(item,index) in enclosureData" :key="index" class="enclosure-item" @click="downLoad(item)">
-                {{item.attachmentName}}
+                <div>{{item.attachmentName}}</div>
+                <div class="attach-name-icon">
+                    <img :src="attachIcon" alt="">
+                </div>
             </div>
         </div>
     </section>
@@ -15,6 +21,7 @@
 <script>
   import { news_getNewsFrontDetail } from "@/assets/apis/home";
   import utilRes from "@/assets/utils/resResult";
+  import attachIcon from "@/assets/images/notice/attach-icon.png"
   export default {
     name: "detail",
     data(){
@@ -23,6 +30,7 @@
         newsDetailData:{
         },
         enclosureData:[],//附件数据
+        attachIcon:attachIcon,
       }
     },
     created(){
@@ -57,15 +65,47 @@
       text-align: center;
     }
     .enclosure{
-        width: inherit;
-        padding-top:5px;
-        padding-left: 10px;
-        height: 100px;
-        border: 1px solid #d0d0d0;
-        margin-top: 20px;
-        text-align: left;
+        /*width: inherit;*/
+        /*padding-top:5px;*/
+        /*padding-left: 10px;*/
+        /*margin-top: 20px;*/
+        /*text-align: left;*/
+        .enclosure-title{
+            height: 45px;
+            line-height: 45px;
+            border-bottom: 1px solid #E5E5E5;
+            position: relative;
+            color: #333333;
+            font-size: 14px;
+            padding-left: 25px;
+            font-weight: bold;
+            span{
+                display: block;
+                width: 16px;
+                height: 16px;
+                position: absolute;
+                left:0;
+                top:15px;
+            }
+        }
         .enclosure-item{
-            margin-bottom: 10px;
+            padding:5px 0 5px 40px;
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            position: relative;
+            .attach-name-icon{
+                width: 30px;
+                height: 30px;
+                position: absolute;
+                left:0;
+                top:5px;
+                img{
+                    width: 100%;
+                    height: 100%;
+                    display: block;
+                }
+            }
         }
     }
 }

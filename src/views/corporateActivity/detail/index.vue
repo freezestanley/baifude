@@ -5,10 +5,11 @@
                <img :src="infoData.picture" alt="">
            </div>
            <div class="activity-detail-info">
-               <div class="detail-info-item">
-                   <div class="info-item-lable">活动名称</div>
-                   <div class="info-item-desc">{{infoData.title}}</div>
-               </div>
+               <div class="activity-detail-title">{{infoData.title}}</div>
+               <!--<div class="detail-info-item">-->
+                   <!--<div class="info-item-lable">活动名称</div>-->
+                   <!--<div class="info-item-desc">{{infoData.title}}</div>-->
+               <!--</div>-->
                <div class="detail-info-item">
                    <div class="info-item-lable">活动对象</div>
                    <div class="info-item-desc">{{infoData.scopeTypeName}}</div>
@@ -37,15 +38,15 @@
                    <div class="info-item-lable">已报名人数</div>
                    <div class="info-item-desc">{{infoData.attendNum}}</div>
                </div>
-               <div class="detail-info-item">
-                   <div class="info-item-lable">活动描述</div>
-                   <div class="info-item-desc">{{infoData.content}}</div>
+               <div class="">
+                   <h4>活动描述</h4>
+                   <div class="detail-html-style" v-html="infoData.content"></div>
                </div>
            </div>
             <div class="btn-wrap" @click="handle">
-                <van-button :disabled="isdisabled" class="detail-footer">{{parseType(infoData.entryStatus)}}</van-button>
+                <van-button :disabled="isdisabled" class="detail-footer">{{infoData.controlValue}}</van-button>
             </div>
-            <div v-if="infoData.remark" class="signRemark">{{infoData.remark}}</div>
+            <!--<div v-if="infoData.remark" class="signRemark">{{infoData.remark}}</div>-->
         </div>
         <Fields ref="fields" @queryActivityDetail="activity_queryActivityDetail"></Fields>
     </section>
@@ -142,11 +143,10 @@ export default {
 </script>
 <style lang="less" scoped>
 .page{
-    font-size: 12px;
-    padding: 0 10px;
+    font-size: 15px;
     .activity-detail-pic{
         width: 100%;
-        height:150px;
+        height:170px;
         img{
             width: 100%;
             height: 100%;
@@ -154,18 +154,27 @@ export default {
         }
     }
     .activity-detail-info{
+        padding: 0 15px;
+        .activity-detail-title{
+            font-size: 19px;
+            color: #000000;
+            padding: 10px 0;
+            font-weight: bold;
+        }
         .detail-info-item{
             display: flex;
             padding: 10px 0;
+            justify-content: space-between;
             .info-item-lable{
                 width: 20%;
+                color: #85878C;
             }
             .info-item-desc{
+                text-align: right;
                 width: 80%;
-                color: #666;
+                color: #232321;
             }
         }
-        
     }
     .signRemark{
         text-align: center;

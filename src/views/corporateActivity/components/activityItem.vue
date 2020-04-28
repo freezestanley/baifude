@@ -33,9 +33,10 @@
 
 <style lang="less" scoped>
 .activity-wrap{
+    margin-top: 10px;
     .activit-item{
         width: 100%;
-        /*height:200px;*/
+        padding-bottom: 15px;
         position: relative;
         .activity-pic{
             width: 100%;

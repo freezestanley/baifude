@@ -27,6 +27,7 @@
         },
     data() {
       return {
+        comfrom:this.$route.query.comfrom,
         active: this.tabList[0].key,
       };
     },
