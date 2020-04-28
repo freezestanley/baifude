@@ -74,9 +74,16 @@ export default {
     height: 100%;
     overflow: hidden;
   }
-  /*/deep/.swiper-container .swiper-pagination-bullets {*/
-    /*bottom: -1px;*/
-  /*}*/
+  /deep/.swiper-container .swiper-pagination-fraction {
+    color: #fff;
+    font-size: 14px;
+    height: 25px;
+    line-height: 25px;
+    width: 50px;
+    background: #22303F;
+    left:86%;
+
+  }
   /*/deep/.swiper-container .swiper-pagination-bullet-active {*/
     /*background-color: #fff !important;*/
     /*width: 12px !important;*/
