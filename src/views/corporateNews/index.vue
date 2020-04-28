@@ -67,7 +67,7 @@ export default {
     },
     goToDetail(item) {
       this.$router.push({
-        path: "/home-h5/corporatenews/newsdetail",
+        path: "/dbenefit/home-h5/corporatenews/newsdetail",
         query: { id: item.id }
       });
     },
@@ -100,7 +100,7 @@ export default {
     },
     clickBanner(item){
       this.$router.push({
-        path: "/home-h5/corporatenews/newsdetail",
+        path: "/dbenefit/home-h5/corporatenews/newsdetail",
         query: { id: item.id }
       });
     },

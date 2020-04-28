@@ -1,12 +1,14 @@
 <template>
     <section class="page">
-        <h1 class="contentCenter">{{newsDetailData.title}}</h1>
-        <p class="contentCenter" v-if="newsDetailData.publishTime">{{`发布时间:${newsDetailData.publishTime}`}}</p>
+        <h1 class="news-detail-title">{{newsDetailData.title}}</h1>
+        <div class="contentCenter" v-if="newsDetailData.publishTime">{{`发布时间:${newsDetailData.publishTime}`}}</div>
         <div class="detail-html-style" v-html="newsDetailData.content"></div>
         <div class="enclosure" v-if="enclosureData.length>0">
             <div class="enclosure-title">
                 附件
-                <span></span>
+                <span>
+                    <img :src="attachTitleIcon" alt="">
+                </span>
             </div>
             <div v-for="(item,index) in enclosureData" :key="index" class="enclosure-item" @click="downLoad(item)">
                 <div>{{item.attachmentName}}</div>
@@ -22,6 +24,7 @@
   import { news_getNewsFrontDetail } from "@/assets/apis/home";
   import utilRes from "@/assets/utils/resResult";
   import attachIcon from "@/assets/images/notice/attach-icon.png"
+  import attachTitleIcon from "@/assets/images/notice/attach-title-icon.png"
   export default {
     name: "detail",
     data(){
@@ -30,7 +33,8 @@
         newsDetailData:{
         },
         enclosureData:[],//附件数据
-        attachIcon:attachIcon,
+        attachIcon:attachIcon,//附件内容图标
+        attachTitleIcon:attachTitleIcon,//附件标题图标
       }
     },
     created(){
@@ -62,14 +66,9 @@
     padding: 0 10px;
     font-size: 12px;
     .contentCenter{
-      text-align: center;
+        color: #999999;
     }
     .enclosure{
-        /*width: inherit;*/
-        /*padding-top:5px;*/
-        /*padding-left: 10px;*/
-        /*margin-top: 20px;*/
-        /*text-align: left;*/
         .enclosure-title{
             height: 45px;
             line-height: 45px;
@@ -84,8 +83,13 @@
                 width: 16px;
                 height: 16px;
                 position: absolute;
-                left:0;
+                left:2px;
                 top:15px;
+                img{
+                    width: 100%;
+                    height: 100%;
+                    display: block;
+                }
             }
         }
         .enclosure-item{

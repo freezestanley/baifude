@@ -1,7 +1,7 @@
 <template>
     <section class="page">
-        <h1 class="contentCenter">{{newsDetailData.title}}</h1>
-        <p class="contentCenter" v-if="newsDetailData.publishTime">{{`发布时间:${newsDetailData.publishTime}`}}</p>
+        <h1 class="news-detail-title">{{newsDetailData.title}}</h1>
+        <span class="news-detail-time" v-if="newsDetailData.publishTime">{{`发布时间:${newsDetailData.publishTime}`}}</span>
         <div class="detail-html-style" v-html="newsDetailData.content"></div>
     </section>
 </template>
@@ -42,8 +42,11 @@
 .page{
     padding: 0 10px;
     font-size: 12px;
-    .contentCenter{
-      text-align: center;
+    .news-detail-title{
+
+    }
+    .news-detail-time{
+        color: #999999;
     }
 }
 </style>
