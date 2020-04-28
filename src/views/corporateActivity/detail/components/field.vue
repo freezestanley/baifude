@@ -4,27 +4,23 @@
             <div class="formContanier">
                 <div class="title">填写报名信息</div>
                 <van-form v-if="activityData.controlList.length>0"  @submit="onSubmit" :show-error="false">
-                    <div  v-for="(item,index) in activityData.controlList" :key="index">
+                    <div class="wrapInput" style="margin:0 0.4rem"  v-for="(item,index) in activityData.controlList" :key="index">
                         <van-field v-if="item.optionsType==3 && item.optionsName=='姓名'"
                             v-model="item.optionsValue"
-                            label="姓名:"
+                            label="姓名"
                             placeholder="请输入姓名"
-                            :rules="[{ required: true, message: '请输入姓名' },{ validator, message: '请输入正确内容' }]"
-                            class="frameInput"
                         />
                         <van-field v-if="item.optionsType==3 && item.optionsName=='手机号'"
                             v-model="item.optionsValue"
-                            label="手机号码:"
+                            label="手机号"
                             placeholder="请输入手机号码"
-                            :rules="[{ required: true, message: '请输入手机号码' }]"
-                            class="frameInput"
                         />
                         <van-field v-if="item.optionsType==3 && item.optionsName!='手机号' && item.optionsName!='姓名'"
                             v-model="item.optionsValue"
-                            :label="item.optionsName+':'"
+                            :label="item.optionsName"
                             :placeholder="'请输入'+item.optionsName"
                             :rules="[{ required: true, message: '请输入'+item.optionsName }]"
-                            class="frameInput"
+                            
                         />
                         <template v-if="item.optionsType==4">
                             <van-field
@@ -32,15 +28,14 @@
                                 clickable
                                 name="calendar"
                                 :value="item.optionsValue"
-                                :label="item.optionsName+':'"
+                                :label="item.optionsName"
                                 placeholder="yyyy/mm/dd"
                                 @click="findDate(item)"
                                 :rules="[{ required: true, message: '请选择出生日期' }]"
-                                class="frameInput"
                             />
                             <van-calendar :max-date="new Date('2030/01/01')" v-model="showCalendar" @confirm="onConfirm" />
                         </template>
-                        <van-field v-if="item.optionsType==1" name="radio" :label="item.optionsName+''">
+                        <van-field class="frameCheckBox" v-if="item.optionsType==1" name="radio" :label="item.optionsName+''">
                             <template #input>
                                 <van-radio-group v-model="item.optionsValue" direction="horizontal">
                                     <van-radio :name="key" v-for="(value, key, index) in item.applyOptionMap" :key="index">{{key}}</van-radio>
@@ -49,7 +44,7 @@
                         </van-field>
                         <van-field
                          v-if="item.optionsType==2"
-                         name="checkboxGroup" :label="item.optionsName+':'" :rules="[{ required: true, message: '请选择内容' }]">
+                         name="checkboxGroup" :label="item.optionsName" :rules="[{ required: true, message: '请选择内容' }]">
                             <template #input>
                                 <van-checkbox-group  v-model="item.optionsValue" >
                                     <van-checkbox v-for="(value, key, index) in item.applyOptionMap" class="margin_bt7" :name="key" :key="index" shape="square">{{key}}</van-checkbox>
@@ -57,12 +52,12 @@
                             </template>
                         </van-field>
                         
-                        <van-field v-if="item.optionsType==5" name="uploader" :label="item.optionsName+':'" readonly>
+                        <van-field v-if="item.optionsType==5" name="uploader" :label="item.optionsName" readonly>
                             <template #input>
                                 <van-image :src="item.optionsValue" />
                             </template>
                         </van-field>
-                        <van-field v-if="item.optionsType==5" name="uploader" :label="item.optionsName+':'">
+                        <van-field v-if="item.optionsType==5" name="uploader" :label="item.optionsName">
                             <template #input>
                                 <div @click="uploadItem(index)">
                                     <van-uploader :after-read="afteRead">
@@ -92,69 +87,70 @@ export default {
         activityId:this.$route.query.id, //活动id
         dateItem:"", //保存选择时间的对象
         uploadImageItemIndex:"", //保存图片上传的对象
-        showPopup: false,
+        showPopup: true,
         showCalendar: false,
         activityData:{
-            // controlList: [
-            //     {
-            //         "activityOptionsId": 1,
-            //         "optionsName": "姓名",
-            //         "optionsType": 3,
-            //         "optionsValue":""
-            //     },
-            //     {
-            //         "activityOptionsId": 2,
-            //         "optionsName": "手机号",
-            //         "optionsType": 3,
-            //         "optionsValue":""
-            //     },
-            //     {
-            //         "activityOptionsId": 3,
-            //         "applyOptionMap": {
-            //             "男": "男",
-            //             "女": "女"
-            //         },
-            //         "optionsName": "性别",
-            //         "optionsType": 1,
-            //         "optionsValue":[]
-            //     },
-            //     {
-            //         "activityOptionsId": 4,
-            //         "applyOptionMap": {
-            //             "汽车": "汽车",
-            //             "轮船": "轮船",
-            //             "飞机": "飞机",
-            //             "火车": "火车"
-            //         },
-            //         "optionsName": "方式",
-            //         "optionsType": 2,
-            //         "optionsValue":[]
-            //     },
-            //     {
-            //         "activityOptionsId": 4,
-            //         "applyOptionMap": {
-            //         },
-            //         "optionsName": "日期",
-            //         "optionsType": 4,
-            //         "optionsValue":""
-            //     },
-            //     {
-            //         "activityOptionsId": 5,
-            //         "applyOptionMap": {
-            //         },
-            //         "optionsName": "一寸照片",
-            //         "optionsType": 5,
-            //         "optionsValue":"http://devimg.dongfangfuli.com/2020/01/22/c55fe89912fc17c8dde8111a3474ecbeeae2d0377c20e0cfd05493fac02a9cff.jpg"
-            //     },
-            //     {
-            //         "activityOptionsId": 6,
-            //         "applyOptionMap": {
-            //         },
-            //         "optionsName": "上传照片",
-            //         "optionsType": 6,
-            //         "optionsValue":""
-            //     }
-            // ]
+            controlList: [
+                {
+                    "activityOptionsId": 1,
+                    "optionsName": "姓名",
+                    "optionsType": 3,
+                    "optionsValue":""
+                },
+                {
+                    "activityOptionsId": 2,
+                    "optionsName": "手机号",
+                    "optionsType": 3,
+                    "optionsValue":""
+                },
+                {
+                    "activityOptionsId": 3,
+                    "applyOptionMap": {
+                        "男": "男",
+                        "女": "女"
+                    },
+                    "optionsName": "性别",
+                    "optionsType": 1,
+                    "optionsValue":[]
+                },
+                {
+                    "activityOptionsId": 4,
+                    "applyOptionMap": {
+                        "汽车": "汽车",
+                        "轮船": "轮船",
+                        "飞机": "飞机",
+                        "火车": "火车",
+                        "坦克":"坦克"
+                    },
+                    "optionsName": "方式",
+                    "optionsType": 2,
+                    "optionsValue":[]
+                },
+                {
+                    "activityOptionsId": 4,
+                    "applyOptionMap": {
+                    },
+                    "optionsName": "日期",
+                    "optionsType": 4,
+                    "optionsValue":""
+                },
+                {
+                    "activityOptionsId": 5,
+                    "applyOptionMap": {
+                    },
+                    "optionsName": "一寸照片",
+                    "optionsType": 5,
+                    "optionsValue":"http://devimg.dongfangfuli.com/2020/01/22/c55fe89912fc17c8dde8111a3474ecbeeae2d0377c20e0cfd05493fac02a9cff.jpg"
+                },
+                {
+                    "activityOptionsId": 6,
+                    "applyOptionMap": {
+                    },
+                    "optionsName": "上传照片",
+                    "optionsType": 6,
+                    "optionsValue":""
+                }
+            ]
         },
     
     }
@@ -285,6 +281,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+@rem: 75rem;
 .page{
     font-size: 12px;
     padding: 0 10px;
@@ -333,41 +330,78 @@ export default {
 
     .wrapActivity{
         .title{
-            margin: 0 10px;
-            text-align: left;
-            font-size: 23px;
-            line-height: 51px;
+            // margin: 0 10px;
+            text-align: center;
+            line-height: 88/@rem;
             border-bottom: 1px solid black;
+            font-size:32/@rem;
+            font-family:PingFangSC-Regular,PingFang SC;
+            font-weight:400;
+            color:rgba(51,51,51,1);
+            border-bottom: 1px solid #E0E6ED;
         }
         .formContanier{
             margin-top: 20px;
             background: #fff;
         }
     }
+    .wrapInput{
+        border-bottom: 1px solid #E0E6ED;
+    }
 }
 </style>
 
 <style lang="less">
+@rem: 75rem;
 .wrapActivity{
     input::-webkit-input-placeholder {
-       font-size: 12px;
+        font-size:30/@rem !important;
+        font-family:PingFangSC-Regular,PingFang SC;
+        font-weight:400;
+        color:rgba(213,216,219,1);
     }
-    .frameInput{
-        .van-field__body{
-            border: 1px solid #999999;
-            border-radius: 4px;
+    .frameCheckBox{
+        .van-field__value{
+            text-align: left;
+            margin: 0 0 0 4px;
+            .van-field__body{
+                display: inline-block;
+                
+            }
         }
+        
+    }
+    .van-checkbox-group{
+        display: flex;
+        width: 100%;
+        margin: 20px 0 0 5px;
+        flex-wrap: wrap;
     }
     input{
         padding-left: 5px;
     }
-    .break_all{
+    .van-field{
         &.van-cell{
-            display: block !important;
+            line-height: 112/@rem;
+            padding: 0 !important;
+            .van-field__label{
+                width: 120/@rem !important;
+                font-size:30/@rem;
+                font-family:PingFangSC-Regular,PingFang SC;
+                font-weight:400;
+                color:rgba(133,135,140,1);
+                margin-right: 56/@rem;
+                span{
+                    display: block;
+                    text-align: justify;
+                    text-justify: distribute-all-lines;
+                    text-align-last: justify;
+                }
+            }
         }
-        .van-field__label{
-            width: auto;
-        } 
+        // .van-field__label{
+        //     width: auto;
+        // } 
     }
     .van-image__img{
         display: block;
@@ -376,6 +410,7 @@ export default {
     }
     .margin_bt7{
         margin-bottom: 7px;
+        margin-left: 5px;
     }
     
     

@@ -211,31 +211,31 @@ export default {
     input::-webkit-input-placeholder {
        font-size: 12px;
     }
-    .frameInput{
-        .van-field__body{
-            border: 1px solid #999999;
-            border-radius: 4px;
-        }
-    }
-    input{
-        padding-left: 5px;
-    }
-    .break_all{
-        &.van-cell{
-            display: block !important;
-        }
-        .van-field__label{
-            width: auto;
-        } 
-    }
-    .van-image__img{
-        display: block;
-        width: 56px;
-        height: 56px;
-    }
-    .margin_bt7{
-        margin-bottom: 7px;
-    }
+    // .frameInput{
+    //     .van-field__body{
+    //         border: 1px solid #999999;
+    //         border-radius: 4px;
+    //     }
+    // }
+    // input{
+    //     padding-left: 5px;
+    // }
+    // .break_all{
+    //     &.van-cell{
+    //         display: block !important;
+    //     }
+    //     .van-field__label{
+    //         width: auto;
+    //     } 
+    // }
+    // .van-image__img{
+    //     display: block;
+    //     width: 56px;
+    //     height: 56px;
+    // }
+    // .margin_bt7{
+    //     margin-bottom: 7px;
+    // }
     
     
 }
