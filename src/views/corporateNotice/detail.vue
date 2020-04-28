@@ -6,7 +6,9 @@
         <div class="enclosure" v-if="enclosureData.length>0">
             <div class="enclosure-title">
                 附件
-                <span></span>
+                <span>
+                    <img :src="attachTitleIcon" alt="">
+                </span>
             </div>
             <div v-for="(item,index) in enclosureData" :key="index" class="enclosure-item" @click="downLoad(item)">
                 <div>{{item.attachmentName}}</div>
@@ -22,6 +24,7 @@
   import { news_getNewsFrontDetail } from "@/assets/apis/home";
   import utilRes from "@/assets/utils/resResult";
   import attachIcon from "@/assets/images/notice/attach-icon.png"
+  import attachTitleIcon from "@/assets/images/notice/attach-title-icon.png"
   export default {
     name: "detail",
     data(){
@@ -30,7 +33,8 @@
         newsDetailData:{
         },
         enclosureData:[],//附件数据
-        attachIcon:attachIcon,
+        attachIcon:attachIcon,//附件内容图标
+        attachTitleIcon:attachTitleIcon,//附件标题图标
       }
     },
     created(){
@@ -86,6 +90,11 @@
                 position: absolute;
                 left:0;
                 top:15px;
+                img{
+                    width: 100%;
+                    height: 100%;
+                    display: block;
+                }
             }
         }
         .enclosure-item{

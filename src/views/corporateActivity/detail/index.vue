@@ -94,7 +94,7 @@ export default {
       if (utilRes.successCheck(res)) {
         this.infoData = res.data;
         const {entryStatus} = res.data;
-        if(entryStatus == ("CANNOT_ENTRY" || "QUOTE_FULL" || "OVER")){
+        if(entryStatus == "CANNOT_ENTRY" || entryStatus == "QUOTE_FULL" || entryStatus == "OVER"){
           this.isdisabled=true;
         }
 
@@ -163,7 +163,7 @@ export default {
         }
         .detail-info-item{
             display: flex;
-            padding: 10px 0;
+            padding: 8px 0;
             justify-content: space-between;
             .info-item-lable,.info-item-desc{
             overflow: hidden; /*溢出隐藏*/
@@ -192,7 +192,7 @@ export default {
     }
     .detail-footer{
         margin-top: 25px;
-        width: 90%;
+        width: 345px;
         height: 44px;
         line-height: 44px;
         font-size: 16px;

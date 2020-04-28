@@ -198,7 +198,6 @@ const getLoginUrl = () => {
   return loginUrl;
 }
 router.beforeEach(async (to, from, next) => {
-  next();
   if(await checkLogin()){
     next();
   }else{
