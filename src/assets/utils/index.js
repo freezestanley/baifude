@@ -47,12 +47,12 @@ export function getQueryString(name) {
  * @param  {String} value
  * @param  {Number} day
  */
-export function setCookie(name, value, day) {
+export function setCookie(name, value, day, config = {}) {
   let str = name + "=" + encodeURIComponent(value);
   let exp = new Date();
   let domain = window.location.hostname;
   exp.setTime(exp.getTime() + day * 24 * 60 * 60 * 1000);
-  str += ";expires=" + exp.toGMTString() + ";path=/;domain=" + domain;
+  str += ";expires=" + exp.toGMTString() + ";path=/;domain=" + config.domain || domain;
   document.cookie = str;
 }
 

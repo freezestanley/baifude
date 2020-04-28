@@ -27,10 +27,10 @@ export default {
   },
     methods:{
         activityDetail(){
-            this.$router.push({path:'/home-h5/corporateactivity/activitydetail',query:''});
+            this.$router.push({path:'/dbenefit/home-h5/corporateactivity/activitydetail',query:''});
         },
       goTodetail(item){
-        this.$router.push({path:'/home-h5/corporateactivity/activitydetail',query:{id:item.id}});
+        this.$router.push({path:'/dbenefit/home-h5/corporateactivity/activitydetail',query:{id:item.id}});
       },
       async activity_queryActivitiyPage() {
         let params={currentPage:1,itemsPerPage:10}

@@ -370,24 +370,24 @@ export default {
     goToNext(item){
       if(item == "企业新闻"){
         this.$router.push({
-          path: "/home-h5/corporatenews",
+          path: "/dbenefit/home-h5/corporatenews",
         });
       }else if(item == "企业活动"){
         this.$router.push({
-          path: "/home-h5/corporateactivity",
+          path: "/dbenefit/home-h5/corporateactivity",
         });
       }else if(item == "活动风采"){
         this.$router.push({
-          path: "/home-h5/corporatenews",
+          path: "/dbenefit/home-h5/corporatenews",
         });
       }else if(item == "企业公告"){
         this.$router.push({
-          path: "/home-h5/corporatenotice",
+          path: "/dbenefit/home-h5/corporatenotice",
         });
       }else if(item == "员工调研"){
         Toast('敬请期待')
         // this.$router.push({
-        //   path: "/home-h5/staffsurvey",
+        //   path: "/dbenefit/home-h5/staffsurvey",
         // });
       }
 
@@ -446,17 +446,17 @@ export default {
     },
     goToDetail(item){
       this.$router.push({
-        path: "/home-h5/corporatenews/newsdetail",
+        path: "/dbenefit/home-h5/corporatenews/newsdetail",
         query: { id: item.id }
       });
     },
     //公告列表跳详情
     goNoticeDetail(item){
-      this.$router.push({path:'/home-h5/corporatenotice/detail',query:{id:item.id}});
+      this.$router.push({path:'/dbenefit/home-h5/corporatenotice/detail',query:{id:item.id}});
     },
     // 活动列表跳详情
     activityDetail(item){
-      this.$router.push({path:'/home-h5/corporateactivity/activitydetail',query:{id:item.id}});
+      this.$router.push({path:'/dbenefit/home-h5/corporateactivity/activitydetail',query:{id:item.id}});
       // this.$router.push({name:'activityDetail',params:{...item}});
     }
 
