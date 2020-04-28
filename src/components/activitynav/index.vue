@@ -38,7 +38,7 @@ import { Toast } from 'vant'
             if(index == 0){
                 path = '/dbenefit/home-h5/corporatenews';
             }else if(index == 1){
-                path = '/home-h5/corporateactivity';
+                path = '/dbenefit/home-h5/corporateactivity';
             }else if(index == 2){
                 Toast('敬请期待')
                 // path = '/dbenefit/home-h5/staffsurvey';

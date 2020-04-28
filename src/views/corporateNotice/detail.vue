@@ -1,7 +1,7 @@
 <template>
     <section class="page">
-        <h1 class="contentCenter">{{newsDetailData.title}}</h1>
-        <p class="contentCenter" v-if="newsDetailData.publishTime">{{`发布时间:${newsDetailData.publishTime}`}}</p>
+        <h1 class="news-detail-title">{{newsDetailData.title}}</h1>
+        <div class="contentCenter" v-if="newsDetailData.publishTime">{{`发布时间:${newsDetailData.publishTime}`}}</div>
         <div class="detail-html-style" v-html="newsDetailData.content"></div>
         <div class="enclosure" v-if="enclosureData.length>0">
             <div class="enclosure-title">
@@ -66,14 +66,9 @@
     padding: 0 10px;
     font-size: 12px;
     .contentCenter{
-      text-align: center;
+        color: #999999;
     }
     .enclosure{
-        /*width: inherit;*/
-        /*padding-top:5px;*/
-        /*padding-left: 10px;*/
-        /*margin-top: 20px;*/
-        /*text-align: left;*/
         .enclosure-title{
             height: 45px;
             line-height: 45px;
@@ -88,7 +83,7 @@
                 width: 16px;
                 height: 16px;
                 position: absolute;
-                left:0;
+                left:2px;
                 top:15px;
                 img{
                     width: 100%;
