@@ -309,11 +309,17 @@ export default {
         let res = await activity_activityEntry(params);
         if(utilRes.successCheck(res)){
             this.$emit('queryActivityDetail');
+            Toast.show({
+                content: '报名成功',
+                isSuccess: false,
+                duration: 2000
+            });
             this.showPopup = false;
         }else{
-            this.$message({
-                type: "error",
-                message: res.errMsg ? res.errMsg : "调用接口失败!"
+            Toast.show({
+                content: '调用接口失败',
+                isSuccess: false,
+                duration: 1000
             });
         }
     },
