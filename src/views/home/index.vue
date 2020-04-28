@@ -41,7 +41,7 @@
           </div>
       </div>
         <!-- 精品推荐 -->
-      <div class="layout">
+      <div class="layout" v-if="boutiqueData.length>0">
          <Title titleName="精品推荐"></Title>
           <Boutique :data="boutiqueData"></Boutique>
       </div>
@@ -306,12 +306,10 @@ export default {
             if(unionMoulds && unionMoulds.body){
               const unionData = unionMoulds.body
               for(let i=0;i<unionData.length;i++){
-                if(unionData[i].title == "极致诱惑"){
+                if(unionData[i].title == "精品推荐" || unionData[i].formatCode == "mportant"){
                   this.boutiqueData = unionData[i].mouldContents
                 }
               }
-              console.log("unionMoulds----",unionMoulds)
-              console.log("boutiqueData----====",this.boutiqueData)
             }
             console.log("工会信息--",unionMoulds)
             // if (unionMoulds && unionMoulds.body) {
