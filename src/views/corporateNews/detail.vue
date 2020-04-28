@@ -50,6 +50,10 @@
 <style lang="less">
   .detail-html-style{
       overflow: hidden;
+      img{
+          width: 100%;
+          display: block;
+      }
       *{
           font-size: 13px;
           color:#333333;

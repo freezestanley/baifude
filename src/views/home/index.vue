@@ -392,6 +392,7 @@ export default {
       }else if(item == "活动风采"){
         this.$router.push({
           path: "/home-h5/corporatenews",
+          query:{comfrom:1}
         });
       }else if(item == "企业公告"){
         this.$router.push({

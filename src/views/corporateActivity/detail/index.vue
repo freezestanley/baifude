@@ -5,10 +5,11 @@
                <img :src="infoData.picture" alt="">
            </div>
            <div class="activity-detail-info">
-               <div class="detail-info-item">
-                   <div class="info-item-lable">活动名称</div>
-                   <div class="info-item-desc">{{infoData.title}}</div>
-               </div>
+               <div class="activity-detail-title">{{infoData.title}}</div>
+               <!--<div class="detail-info-item">-->
+                   <!--<div class="info-item-lable">活动名称</div>-->
+                   <!--<div class="info-item-desc">{{infoData.title}}</div>-->
+               <!--</div>-->
                <div class="detail-info-item">
                    <div class="info-item-lable">活动对象</div>
                    <div class="info-item-desc">{{infoData.scopeTypeName}}</div>
@@ -37,15 +38,15 @@
                    <div class="info-item-lable">已报名人数</div>
                    <div class="info-item-desc">{{infoData.attendNum}}</div>
                </div>
-               <div class="detail-info-item">
-                   <div class="info-item-lable">活动描述</div>
-                   <div class="info-item-desc">{{infoData.content}}</div>
+               <div class="">
+                   <h4>活动描述</h4>
+                   <div class="detail-html-style" v-html="infoData.content"></div>
                </div>
            </div>
             <div class="btn-wrap" @click="handle">
-                <van-button :disabled="isdisabled" class="detail-footer">{{parseType(infoData.entryStatus)}}</van-button>
+                <van-button :disabled="isdisabled" class="detail-footer">{{infoData.controlValue}}</van-button>
             </div>
-            <div v-if="infoData.remark" class="signRemark">{{infoData.remark}}</div>
+            <!--<div v-if="infoData.remark" class="signRemark">{{infoData.remark}}</div>-->
         </div>
         <Fields ref="fields" @queryActivityDetail="activity_queryActivityDetail"></Fields>
     </section>
@@ -117,15 +118,15 @@ export default {
         });
       }
     },
-    parseType(type) {
-      switch (type) {
-        case 'CANNOT_ENTRY': return '无法报名';
-        case 'TO_ENTRY': return '我要报名';
-        case 'CANCEL_ENTRY': return '取消报名';
-        case 'QUOTE_FULL': return '名额已满';
-        case 'OVER': return '已结束';
-      }
-    },
+    // parseType(type) {
+    //   switch (type) {
+    //     case 'CANNOT_ENTRY': return '无法报名';
+    //     case 'TO_ENTRY': return '我要报名';
+    //     case 'CANCEL_ENTRY': return '取消报名';
+    //     case 'QUOTE_FULL': return '名额已满';
+    //     case 'OVER': return '已结束';
+    //   }
+    // },
     handle(){
         if(this.infoData.entryStatus == 'TO_ENTRY'){
           this.gotoSignUp();
@@ -142,11 +143,10 @@ export default {
 </script>
 <style lang="less" scoped>
 .page{
-    font-size: 12px;
-    padding: 0 10px;
+    font-size: 15px;
     .activity-detail-pic{
         width: 100%;
-        height:150px;
+        height:170px;
         img{
             width: 100%;
             height: 100%;
@@ -154,18 +154,32 @@ export default {
         }
     }
     .activity-detail-info{
+        padding: 0 15px;
+        .activity-detail-title{
+            font-size: 19px;
+            color: #000000;
+            padding: 10px 0;
+            font-weight: bold;
+        }
         .detail-info-item{
             display: flex;
             padding: 10px 0;
+            justify-content: space-between;
+            .info-item-lable,.info-item-desc{
+            overflow: hidden; /*溢出隐藏*/
+            text-overflow: ellipsis; /*以省略号...显示*/
+            white-space: nowrap; /*强制不换行*/}
             .info-item-lable{
-                width: 20%;
+                width: 25%;
+                color: #85878C;
             }
             .info-item-desc{
-                width: 80%;
-                color: #666;
+                text-align: right;
+                width: 73%;
+                color: #232321;
+
             }
         }
-        
     }
     .signRemark{
         text-align: center;
@@ -177,17 +191,16 @@ export default {
         justify-content: center;
     }
     .detail-footer{
-        margin-top: 40px;
+        margin-top: 25px;
         width: 90%;
-        height: 40px;
-        line-height: 40px;
-        font-size: 14px;
+        height: 44px;
+        line-height: 44px;
+        font-size: 16px;
+        font-weight: bold;
         color: #fff;
-        background: palevioletred;
-        border: 1px solid #a1526c;
-        border-radius: 3px;
+        background: #C6AA85;
+        border-radius: 4px;
         text-align: center;
-
     }
 
     .wrapActivity{

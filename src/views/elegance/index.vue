@@ -166,7 +166,7 @@ img {
     overflow:hidden;
     position: relative;
     &::before{
-      z-index: 9999;
+      z-index: 1;
       content: "";
       width: 15px;
       height:28px;
