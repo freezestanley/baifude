@@ -75,7 +75,7 @@ function activity_activityEntry(params){
  */
 function activity_entryCancel(params){
   const activityEntryApi = "/care/front/activity/entryCancel";
-  return sendPostNew(activityEntryApi,'post',params,true);
+  return sendPostNew(activityEntryApi,'post',params,false);
 }
 
 /**

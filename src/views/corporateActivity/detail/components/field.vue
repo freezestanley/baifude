@@ -101,67 +101,67 @@ export default {
         activityId:this.$route.query.id, //活动id
         dateItem:"", //保存选择时间的对象
         uploadImageItemIndex:"", //保存图片上传的对象
-        showPopup: true,
+        showPopup: false,
         showCalendar: false,
         activityData:{
             controlList: [
-                {
-                    "activityOptionsId": 1,
-                    "optionsName": "姓名",
-                    "optionsType": 3,
-                    "optionsValue":""
-                },
-                {
-                    "activityOptionsId": 2,
-                    "optionsName": "手机号",
-                    "optionsType": 3,
-                    "optionsValue":""
-                },
-                {
-                    "activityOptionsId": 3,
-                    "applyOptionMap": {
-                        "男": "男",
-                        "女": "女"
-                    },
-                    "optionsName": "性别",
-                    "optionsType": 1,
-                    "optionsValue":""
-                },
-                {
-                    "activityOptionsId": 4,
-                    "applyOptionMap": {
-                        "汽车": "汽车",
-                        "轮船": "轮船",
-                        "飞机": "飞机",
-                        "火车": "火车",
-                        "坦克":"坦克",
-                        "飞机1": "飞机1",
-                        "火车1": "火车1",
-                        "坦克1":"坦克1",
-                        "飞机1": "飞机1",
-                        "火车1": "火车1",
-                        "坦克1":"坦克1"
-                    },
-                    "optionsName": "方式",
-                    "optionsType": 2,
-                    "optionsValue":""
-                },
-                {
-                    "activityOptionsId": 4,
-                    "applyOptionMap": {
-                    },
-                    "optionsName": "日期",
-                    "optionsType": 4,
-                    "optionsValue":""
-                },
-                {
-                    "activityOptionsId": 5,
-                    "applyOptionMap": {
-                    },
-                    "optionsName": "一寸照片",
-                    "optionsType": 5,
-                    "optionsValue":"http://devimg.dongfangfuli.com/2020/01/22/c55fe89912fc17c8dde8111a3474ecbeeae2d0377c20e0cfd05493fac02a9cff.jpg"
-                },
+                // {
+                //     "activityOptionsId": 1,
+                //     "optionsName": "姓名",
+                //     "optionsType": 3,
+                //     "optionsValue":""
+                // },
+                // {
+                //     "activityOptionsId": 2,
+                //     "optionsName": "手机号",
+                //     "optionsType": 3,
+                //     "optionsValue":""
+                // },
+                // {
+                //     "activityOptionsId": 3,
+                //     "applyOptionMap": {
+                //         "男": "男",
+                //         "女": "女"
+                //     },
+                //     "optionsName": "性别",
+                //     "optionsType": 1,
+                //     "optionsValue":""
+                // },
+                // {
+                //     "activityOptionsId": 4,
+                //     "applyOptionMap": {
+                //         "汽车": "汽车",
+                //         "轮船": "轮船",
+                //         "飞机": "飞机",
+                //         "火车": "火车",
+                //         "坦克":"坦克",
+                //         "飞机1": "飞机1",
+                //         "火车1": "火车1",
+                //         "坦克1":"坦克1",
+                //         "飞机1": "飞机1",
+                //         "火车1": "火车1",
+                //         "坦克1":"坦克1"
+                //     },
+                //     "optionsName": "方式",
+                //     "optionsType": 2,
+                //     "optionsValue":[]
+                // },
+                // {
+                //     "activityOptionsId": 4,
+                //     "applyOptionMap": {
+                //     },
+                //     "optionsName": "日期",
+                //     "optionsType": 4,
+                //     "optionsValue":""
+                // },
+                // {
+                //     "activityOptionsId": 5,
+                //     "applyOptionMap": {
+                //     },
+                //     "optionsName": "一寸照片",
+                //     "optionsType": 5,
+                //     "optionsValue":"http://devimg.dongfangfuli.com/2020/01/22/c55fe89912fc17c8dde8111a3474ecbeeae2d0377c20e0cfd05493fac02a9cff.jpg"
+                // },
                 // {
                 //     "activityOptionsId": 6,
                 //     "applyOptionMap": {
@@ -181,6 +181,24 @@ export default {
   },
   methods:{
     afteRead(file){
+        let fileContent = file.file;
+        //首先判断是否是图片
+        if(!/\.(gif|jpg|jpeg|png|GIF|JPG|PNG|BMP)$/.test(file.type)){
+            Toast.show({
+                content: '请上传JPG、BMP、PNG、GIF格式图片',
+                isSuccess: false,
+                duration: 1000
+            });
+            return false;
+        }
+        if(imgSize>200*1024){
+            Toast.show({
+                content: '上传图片大于200K,请重新上传',
+                isSuccess: false,
+                duration: 1000
+            });
+            return false;
+        }
         let formData = new FormData();
         formData.append("file", file.file);
         this.activity_uploadFile(formData);
@@ -258,6 +276,11 @@ export default {
         let res = await activity_queryActivityForm(params);
         if(utilRes.successCheck(res)){
             this.activityData = res.data;
+            this.activityData.controlList.forEach((item,index)=>{
+                if(item.optionsType==2){
+                    item.optionsValue = ""; 
+                }
+            })
         }else{
             this.$message({
                 type: "error",
@@ -273,25 +296,60 @@ export default {
             }
         })
 
+        let valid = true;
         //校验
         params.controlList.forEach((item,index) => {
-            console.log(item.optionsValue)
-            if(item.optionsType==1&&!item.optionsValue){
+            if(!valid){
+                return
+            }
+            if((item.optionsType==1||item.optionsType==2||item.optionsType==4)&&!item.optionsValue){
+                valid = false;
                 Toast.show({
                     content: '请选择'+item.optionsName,
                     isSuccess: false,
                     duration: 1000
                 });
+            }else if(item.optionsType==3 && !item.optionsValue){
+                valid = false;
+                Toast.show({
+                    content: '请填写'+item.optionsName,
+                    isSuccess: false,
+                    duration: 1000
+                });
+            }else if(item.optionsType==5 && !item.optionsValue){
+                valid = false;
+                Toast.show({
+                    content: '请上传'+item.optionsName,
+                    isSuccess: false,
+                    duration: 1000
+                });
+            }else if(item.optionsType==3 && item.optionsName=="手机号" && !/^1[0-9]{10}$/.test(item.optionsName)){
+                valid = false;
+                Toast.show({
+                    content: '请填写正确格式的手机号',
+                    isSuccess: false,
+                    duration: 1000
+                });
             }
         });
+
+        if(!valid){
+            return
+        }
         let res = await activity_activityEntry(params);
         if(utilRes.successCheck(res)){
             this.$emit('queryActivityDetail');
+            Toast.show({
+                content: '报名成功',
+                isSuccess: false,
+                duration: 2000
+            });
             this.showPopup = false;
         }else{
-            this.$message({
-                type: "error",
-                message: res.errMsg ? res.errMsg : "调用接口失败!"
+            Toast.show({
+                content: '调用接口失败',
+                isSuccess: false,
+                duration: 1000
             });
         }
     },

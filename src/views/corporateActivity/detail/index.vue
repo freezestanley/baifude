@@ -56,6 +56,7 @@ import {activity_entryCancel,activity_queryActivityDetail} from '@/assets/apis/h
 import Fields from './components/field'
 import utilRes from "@/assets/utils/resResult";
 import { Dialog } from 'vant';
+import Toast from "@/components/toast/toast"
 export default {
   data(){
     return{
@@ -111,10 +112,16 @@ export default {
       let res = await activity_entryCancel(params);
       if (utilRes.successCheck(res)) {
         this.activity_queryActivityDetail();
+        Toast.show({
+            content: '取消报名成功',
+            isSuccess: false,
+            duration: 1000
+        });
       } else {
-        this.$message({
-          type: "error",
-          message: res.errMsg ? res.errMsg : "调用接口失败!"
+        Toast.show({
+            content: '取消报名失败',
+            isSuccess: false,
+            duration: 1000
         });
       }
     },
