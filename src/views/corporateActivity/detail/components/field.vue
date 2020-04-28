@@ -323,6 +323,13 @@ export default {
                     isSuccess: false,
                     duration: 1000
                 });
+            }else if(item.optionsType==3 && item.optionsName=="手机号" && !/^1[0-9]{10}$/.test(item.optionsName)){
+                valid = false;
+                Toast.show({
+                    content: '请填写正确格式的手机号',
+                    isSuccess: false,
+                    duration: 1000
+                });
             }
         });
 
