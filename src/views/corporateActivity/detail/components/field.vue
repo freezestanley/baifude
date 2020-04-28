@@ -1,10 +1,15 @@
 <template>
-    <van-popup v-model="showPopup" position="bottom" >
+    <div v-if="showPopup"  class="fillPopup">
         <div class="wrapActivity">
             <div class="formContanier">
-                <div class="title">填写报名信息</div>
+                <div>
+                    <div @click="closeSignUp" class="title">
+                        <img style="vertical-align: middle;" src="../../../../../src/assets/images/elegance/arrow_left.png" alt="">
+                        <span>填写报名信息</span>
+                    </div>
+                </div>
                 <van-form v-if="activityData.controlList.length>0"  @submit="onSubmit" :show-error="false">
-                    <div class="wrapInput" style="margin:0 0.4rem"  v-for="(item,index) in activityData.controlList" :key="index">
+                    <div class="wrapInput borderStyle" style="margin:0 0.4rem"  v-for="(item,index) in activityData.controlList" :key="index">
                         <van-field v-if="item.optionsType==3 && item.optionsName=='姓名'"
                             v-model="item.optionsValue"
                             label="姓名"
@@ -59,13 +64,14 @@
                             <template #input  v-if="item.optionsValue">
                                 <div class="img_container">
                                     <van-image :src="item.optionsValue" />
-                                    <img class="img_close" src="../../../../../src/assets/images/elegance/img_close.png">
+                                    <img @click="cancelUpload(item)" class="img_close" src="../../../../../src/assets/images/elegance/img_close.png">
                                 </div>
                             </template>
-                            <template #input  v-else>
+                            <template #input v-else>
                                 <div @click="uploadItem(index)">
                                     <van-uploader :after-read="afteRead">
-                                        <van-button icon="photo" type="primary" >上传</van-button>
+                                        <!-- <van-button icon="photo" type="primary" >上传</van-button> -->
+                                        <!-- <div></div> -->
                                     </van-uploader>
                                 </div>
                                 <!-- <van-button icon="photo" type="primary" @click="uploadMethod">上传</van-button> -->
@@ -73,14 +79,14 @@
                         </van-field>
                     </div>
                     <div class="detail-footer">
-                        <div class="ensure-btn" @click="gotoSignUp">报名</div>
-                        <div class="cancle-btn" @click="closeSignUp">关闭</div>
+                        <div class="ensure-btn" @click="gotoSignUp">立即报名</div>
+                        <!-- <div class="cancle-btn" @click="closeSignUp">关闭</div> -->
                     </div>
                 </van-form>
                 <!-- <input type="file" ref="uploadInput" multiple style="display:none"  @change="changeInput"> -->
             </div>
         </div>
-    </van-popup>    
+    </div>    
 </template>
 <script>
 import {activity_queryActivityForm,activity_activityEntry,activity_uploadFile} from '@/assets/apis/home'
@@ -124,7 +130,13 @@ export default {
                         "轮船": "轮船",
                         "飞机": "飞机",
                         "火车": "火车",
-                        "坦克":"坦克"
+                        "坦克":"坦克",
+                        "飞机1": "飞机1",
+                        "火车1": "火车1",
+                        "坦克1":"坦克1",
+                        "飞机1": "飞机1",
+                        "火车1": "火车1",
+                        "坦克1":"坦克1"
                     },
                     "optionsName": "方式",
                     "optionsType": 2,
@@ -194,6 +206,9 @@ export default {
     //   this.activity_uploadFile(formData);
 
     // },
+    cancelUpload(item){
+        item.optionsValue = "";
+    },
     uploadItem(index){
         this.uploadImageItemIndex = index;
     },
@@ -312,21 +327,20 @@ export default {
         }
     }
     .detail-footer{
-        margin-top: 40px;
+        margin: 88/@rem 0 88/@rem 0;
         width: 100%;
-        height: 40px;
+        height: 88px;
         display: flex;
         justify-content: center;
         font-size: 14px;
         .ensure-btn,.cancle-btn{
-            width: 100px;
-            height: 40px;
-            line-height: 40px;
+            width: 690/@rem;
+            height: 88/@rem;
+            border-radius:8/@rem;
+            line-height: 88/@rem;
             text-align: center;
             color: #fff;
-            background: palevioletred;
-            margin: 0 10px;
-            border: 1px solid #a1526c;
+            background:rgba(198,170,133,1);
             border-radius: 3px;
         }
 
@@ -343,9 +357,15 @@ export default {
             font-weight:400;
             color:rgba(51,51,51,1);
             border-bottom: 1px solid #E0E6ED;
+            position: relative;
+            img{
+                position: absolute;
+                left: 11px;
+                top: 13px; 
+            }
         }
         .formContanier{
-            margin-top: 20px;
+            height: 100%;
             background: #fff;
         }
         .uploadImg{
@@ -374,8 +394,23 @@ export default {
             border-bottom: 0 solid #fff !important;
         }
     }
-    .wrapInput:last-child{
-        border-bottom: 0 solid #fff !important;
+    .borderStyle:last-child{
+        border-bottom: #fff !important;
+    }
+    .fillPopup{
+        background: #fff;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        z-index: 20000;
+        overflow-y:scroll;
+        overflow-x:hidden;
+
     }
 }
 </style>
@@ -401,10 +436,11 @@ export default {
         
     }
     .van-checkbox-group{
-        display: flex;
+        // display: flex;
+        // flex-wrap: wrap;
         width: 100%;
         margin: 20px 0 0 0;
-        flex-wrap: wrap;
+        
     }
     input{
         padding-left: 5px;
@@ -440,6 +476,13 @@ export default {
     .margin_bt7{
         margin-bottom: 7px;
         margin-left: 5px;
+    }
+    .van-calendar__selected-day{
+        background-color: #C6AA85 !important;
+    }
+    .van-button--danger{
+        background-color: #C6AA85;
+        border: 0.026667rem solid #C6AA85;
     }
     
     
