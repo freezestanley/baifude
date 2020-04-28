@@ -258,6 +258,11 @@ export default {
         let res = await activity_queryActivityForm(params);
         if(utilRes.successCheck(res)){
             this.activityData = res.data;
+            this.activityData.controlList.forEach((item,index)=>{
+                if(item.optionsType==2){
+                    item.optionsValue = ""; 
+                }
+            })
         }else{
             this.$message({
                 type: "error",
