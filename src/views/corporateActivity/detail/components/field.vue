@@ -181,6 +181,24 @@ export default {
   },
   methods:{
     afteRead(file){
+        let fileContent = file.file;
+        //首先判断是否是图片
+        if(!/\.(gif|jpg|jpeg|png|GIF|JPG|PNG|BMP)$/.test(file.type)){
+            Toast.show({
+                content: '请上传JPG、BMP、PNG、GIF格式图片',
+                isSuccess: false,
+                duration: 1000
+            });
+            return false;
+        }
+        if(imgSize>200*1024){
+            Toast.show({
+                content: '上传图片大于200K,请重新上传',
+                isSuccess: false,
+                duration: 1000
+            });
+            return false;
+        }
         let formData = new FormData();
         formData.append("file", file.file);
         this.activity_uploadFile(formData);
