@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 import {user_checkLogin} from '@/assets/apis/home';
-import {setCookie, getCookie} from '@/assets/utils'; 
+import {getQueryString, setCookie, getCookie} from '@/assets/utils'; 
 const Home = () => import('@/views/home/index').then(m => m.default)
 const HomeWrap = () => import('@/views/homeWrap/index').then(m => m.default)
 const CorporateNews = () => import('@/views/corporateNews/index').then(m => m.default)
@@ -196,17 +196,10 @@ const checkLogin = async () => {
   return true;
 }
 const getLoginUrl = () => {
-  const firstPart = location.host.split('.')[0] || '';
-  const unionName = firstPart.split('-')[0] || '';
+  const unionName = getQueryString('union');
   const loginPath = PUBLIC_LOGIN_URL.replace('%UNION%', unionName);
   const loginUrl = loginPath + '?returnUrl=' + encodeURIComponent(window.location.href);
   return loginUrl;
-}
-const getQueryString = (name) => {
-  const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
-  const res = window.location.search.substr(1).match(reg);
-  if (res !== null) return window.decodeURIComponent(res[2]);
-  return '';
 }
 const cookieCheck = () => {
   const _lt = window.location.host.split('.');
