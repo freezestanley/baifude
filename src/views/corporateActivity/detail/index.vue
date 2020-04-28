@@ -118,15 +118,15 @@ export default {
         });
       }
     },
-    parseType(type) {
-      switch (type) {
-        case 'CANNOT_ENTRY': return '无法报名';
-        case 'TO_ENTRY': return '我要报名';
-        case 'CANCEL_ENTRY': return '取消报名';
-        case 'QUOTE_FULL': return '名额已满';
-        case 'OVER': return '已结束';
-      }
-    },
+    // parseType(type) {
+    //   switch (type) {
+    //     case 'CANNOT_ENTRY': return '无法报名';
+    //     case 'TO_ENTRY': return '我要报名';
+    //     case 'CANCEL_ENTRY': return '取消报名';
+    //     case 'QUOTE_FULL': return '名额已满';
+    //     case 'OVER': return '已结束';
+    //   }
+    // },
     handle(){
         if(this.infoData.entryStatus == 'TO_ENTRY'){
           this.gotoSignUp();
@@ -165,14 +165,19 @@ export default {
             display: flex;
             padding: 10px 0;
             justify-content: space-between;
+            .info-item-lable,.info-item-desc{
+            overflow: hidden; /*溢出隐藏*/
+            text-overflow: ellipsis; /*以省略号...显示*/
+            white-space: nowrap; /*强制不换行*/}
             .info-item-lable{
-                width: 20%;
+                width: 25%;
                 color: #85878C;
             }
             .info-item-desc{
                 text-align: right;
-                width: 80%;
+                width: 73%;
                 color: #232321;
+
             }
         }
     }
@@ -186,17 +191,16 @@ export default {
         justify-content: center;
     }
     .detail-footer{
-        margin-top: 40px;
+        margin-top: 25px;
         width: 90%;
-        height: 40px;
-        line-height: 40px;
-        font-size: 14px;
+        height: 44px;
+        line-height: 44px;
+        font-size: 16px;
+        font-weight: bold;
         color: #fff;
-        background: palevioletred;
-        border: 1px solid #a1526c;
-        border-radius: 3px;
+        background: #C6AA85;
+        border-radius: 4px;
         text-align: center;
-
     }
 
     .wrapActivity{
