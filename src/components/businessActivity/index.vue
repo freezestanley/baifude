@@ -92,8 +92,20 @@
                 overflow: hidden;
             }
             .text-time{
+                /*padding-left: 20px;*/
                 color: #999999;
                 font-size: 12px;
+                /*position: relative;*/
+                /*&::before{*/
+                    /*content: "";*/
+                    /*width: 20px;*/
+                    /*height:20px;*/
+                    /*position: absolute;*/
+                    /*left:-2px;*/
+                    /*top:-1px;*/
+                    /*background: url("../../assets/images/home/clocksIcon.png") no-repeat center;*/
+                    /*background-size: 50%;*/
+                /*}*/
             }
         }
         .btn{

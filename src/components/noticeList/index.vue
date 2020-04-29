@@ -37,7 +37,7 @@
     .notice-item{
         width: 100%;
         box-sizing: border-box;
-        padding: 15px 0;
+        padding: 12px 0;
         border-bottom: 1px solid #E5E5E5;
         display: flex;
         justify-content: space-between;
@@ -58,7 +58,7 @@
     .notice-item-text{
         width: 295px;
         .notice-title{
-            margin-top: 5px;
+            margin-top: 7px;
             font-size: 14px;
             color: #333333;
             font-weight: bold;
@@ -70,7 +70,7 @@
             word-break: break-all;
         }
         .notice-cont{
-            margin-top: 5px;
+            margin-top: 7px;
             font-size: 12px;
             color: #999999;
             overflow: hidden; /*溢出隐藏*/
