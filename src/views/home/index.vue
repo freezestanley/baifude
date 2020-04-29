@@ -459,7 +459,7 @@ export default {
       if (utilRes.successCheck(res)) {
         const listObj = res.data.listObj;
         if(listObj.length>6){
-          this.list = listObj.slice(1,6)
+          this.list = listObj.slice(0,5)
         }else {
           this.list = listObj
         }
