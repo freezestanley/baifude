@@ -6,12 +6,16 @@
         :text="notice.noticeContent"
         left-icon
         mode="closeable"
-        background="#FEF8D8"
+        background="#fef8d8"
         color="#DD8815"
         class="noticeBar"
       />
       <img class="notice" src="../../assets/images/elite/icon_notice.png" alt /> -->
-      <div class="noticeContent" v-if="mallUnionConf.openNotice && notice.noticeContent" ref="notice">
+      <div
+        class="noticeContent"
+        v-if="mallUnionConf.openNotice && notice.noticeContent"
+        ref="notice"
+      >
         <span>{notice.noticeContent}</span>
       </div>
     </div>
@@ -21,11 +25,14 @@
 
     <head-area id="js-head"></head-area>
     <!-- 滑动到一定距离之后出现 -->
-    <div v-show="flag&&showHeadNav">
+    <div v-show="flag && showHeadNav">
       <head-top></head-top>
     </div>
     <!-- Banner -->
-    <banner v-if="mallUnionConf.tnewsRecommendImageDtos.length > 0 && showBanner"></banner>
+    <banner
+      v-if="mallUnionConf.tnewsRecommendImageDtos.length > 0 && showBanner"
+    >
+    </banner>
     <!-- 信息栏 -->
     <!-- <news
       v-if="unionConf.newsOpen === 1 && mallUnionConf.tnewsDtos.length != 0"
@@ -37,10 +44,10 @@
 
 <script>
 import { mapState } from "vuex";
-import navArea from "./navArea";
+// import navArea from "./navArea";
 import headArea from "./headArea";
 import headTop from "./headArea/HeadTop.vue";
-import news from "./news/newIndex.vue";
+// import news from "./news/newIndex.vue";
 import banner from "./banner";
 export default {
   name: "elegance",
@@ -51,16 +58,16 @@ export default {
       showHeadNav: false
     };
   },
-  created(){
+  created() {
     this.showBanner = this.$route.meta.showBanner;
     this.showHeadNav = this.$route.meta.showHeadNav;
   },
   watch: {
     $route: {
-      handler: function(val, oldVal){
-         let {meta} = val;
-         this.showBanner = meta.showBanner;
-         this.showHeadNav = meta.showHeadNav;
+      handler: function(val) {
+        let { meta } = val;
+        this.showBanner = meta.showBanner;
+        this.showHeadNav = meta.showHeadNav;
       },
       deep: true
     }
@@ -76,17 +83,17 @@ export default {
     })
   },
   components: {
-    navArea,
+    // navArea,
     headArea,
     headTop,
-    news,
+    // news,
     banner
   },
   mounted: function() {
     this.$nextTick(() => {
       window.addEventListener("scroll", this.handleScroll); // 监听（绑定）滚轮滚动事件
     });
-    this.roll()
+    this.roll();
   },
   methods: {
     handleScroll: function() {
@@ -97,23 +104,23 @@ export default {
       this.flag = scrollTop >= headHeight ? true : false;
     },
     //通知消息滚动
-    roll () {
-      const notice = this.$refs.notice
-      const noticeTxt = notice.firstChild
-      const clientWidth = notice.clientWidth
-      const scrollWidth = notice.scrollWidth
-      noticeTxt.style.position = 'relative'
-      let left = 0
-      function slide () {
-        left -= 1
+    roll() {
+      const notice = this.$refs.notice;
+      const noticeTxt = notice.firstChild;
+      const clientWidth = notice.clientWidth;
+      const scrollWidth = notice.scrollWidth;
+      noticeTxt.style.position = "relative";
+      let left = 0;
+      function slide() {
+        left -= 1;
         // 当滚动条滚动了初始内容的宽度时滚动条回到最右端
-        if (Math.abs(left) > scrollWidth+2) {
-          left = clientWidth
+        if (Math.abs(left) > scrollWidth + 2) {
+          left = clientWidth;
         }
-        noticeTxt.style.left = `${ left }px`
+        noticeTxt.style.left = `${left}px`;
       }
-      this.time = setInterval(slide, 25)
-    },
+      this.time = setInterval(slide, 25);
+    }
   },
   beforeDestroy: function() {
     window.removeEventListener("scroll", this.handleScroll); //  离开页面清除（移除）滚轮滚动事件
@@ -153,27 +160,27 @@ img {
     top: 3px;
     left: 8px;
   }
-  .noticeContent{
+  .noticeContent {
     height: 28px;
     padding: 0 10px 0 15px;
     margin-bottom: 10px;
     line-height: 28px;
-    background:#FEF8D8;
-    font-size:11px;
-    font-family:PingFangSC-Medium,PingFang SC;
-    font-weight:500;
-    color:rgba(255,175,0,1);
-    overflow:hidden;
+    background: #fef8d8;
+    font-size: 11px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: rgba(255, 175, 0, 1);
+    overflow: hidden;
     position: relative;
-    &::before{
+    &::before {
       z-index: 1;
       content: "";
       width: 15px;
-      height:28px;
-      background: #FEF8D8;
+      height: 28px;
+      background: #fef8d8;
       position: absolute;
       left: 0;
-      top:0;
+      top: 0;
     }
   }
 }
