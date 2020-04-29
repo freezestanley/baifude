@@ -60,15 +60,19 @@ export default {
   methods: {
     //tab切换事件
     changeTab(tab) {
-      this.tabIndex = tab.index;
-      let params = {};
-      this.newsData=[];
-      if (tab.index == 1) {
-        params = { type: 1, categoryId: 2 };
-      }else {
-        params = { type: 1, categoryId: 1 };
-      }
-      this.queryNewsList(params);
+      this.$router.push({
+        name: 'corporateNews',
+        query: { type: tab.index + 1 }
+      })
+      // this.tabIndex = tab.index;
+      // let params = {};
+      // this.newsData=[];
+      // if (tab.index == 1) {
+      //   params = { type: 1, categoryId: 2 };
+      // }else {
+      //   params = { type: 1, categoryId: 1 };
+      // }
+      // this.queryNewsList(params);
     },
     goToDetail(item) {
       this.$router.push({

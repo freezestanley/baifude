@@ -181,9 +181,9 @@ export default {
   },
   methods:{
     afteRead(file){
-        let fileContent = file.file;
+        const fileContent = file.file;
         //首先判断是否是图片
-        if(!/\.(gif|jpg|jpeg|png|GIF|JPG|PNG|BMP)$/.test(file.type)){
+        if(!/.(gif|jpg|jpeg|png|GIF|JPG|PNG|BMP)$/.test(fileContent.type)){
             Toast.show({
                 content: '请上传JPG、BMP、PNG、GIF格式图片',
                 isSuccess: false,
@@ -191,7 +191,7 @@ export default {
             });
             return false;
         }
-        if(imgSize>200*1024){
+        if(fileContent.size>200*1024){
             Toast.show({
                 content: '上传图片大于200K,请重新上传',
                 isSuccess: false,
@@ -199,8 +199,8 @@ export default {
             });
             return false;
         }
-        let formData = new FormData();
-        formData.append("file", file.file);
+        const formData = new FormData();
+        formData.append("file", fileContent);
         this.activity_uploadFile(formData);
     },
      // bae64转文件对象
@@ -235,7 +235,7 @@ export default {
         this.uploadImageItemIndex = index;
     },
     onSubmit(){
-        console.log(this.activityData);
+        // console.log(this.activityData);
     },
     findDate(item){
         this.showCalendar = true;
@@ -278,7 +278,7 @@ export default {
             this.activityData = res.data;
             this.activityData.controlList.forEach((item,index)=>{
                 if(item.optionsType==2){
-                    item.optionsValue = ""; 
+                    item.optionsValue = []; 
                 }
             })
         }else{
@@ -359,7 +359,7 @@ export default {
         if(utilRes.successCheck(res)){
             // this.$set(this.activityData[this.uploadImageItemIndex],'optionsValue',res.data.url);
             this.activityData.controlList[this.uploadImageItemIndex].optionsValue = res.data.url
-            console.log(this.activityData.controlList);
+            // console.log(this.activityData.controlList);
             // this.uploadImageItem.optionsValue = res.data.url;
         }else{
             this.$message({
