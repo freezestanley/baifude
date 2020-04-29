@@ -12,7 +12,7 @@
       />
       <img class="notice" src="../../assets/images/elite/icon_notice.png" alt /> -->
       <div class="noticeContent" v-if="mallUnionConf.openNotice && notice.noticeContent" ref="notice">
-        <span>1234567890-=12121212132139103902390239</span>
+        <span>{notice.noticeContent}</span>
       </div>
     </div>
     <!-- <news

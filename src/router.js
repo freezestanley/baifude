@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import {user_checkLogin} from '@/assets/apis/home';
 import {getQueryString, setCookie, getCookie} from '@/assets/utils'; 
+import Url from 'url-parse'
 const Home = () => import('@/views/home/index').then(m => m.default)
 const HomeWrap = () => import('@/views/homeWrap/index').then(m => m.default)
 const CorporateNews = () => import('@/views/corporateNews/index').then(m => m.default)
@@ -207,10 +208,58 @@ const cookieCheck = () => {
   const domain = [_lt.pop(), _lt.pop()].reverse().join('.');
   setCookie('company', union, 30, { domain });
 };
+const  mixUrl = (url, data = {}, cache = false) => {
+  url = new Url(url)
+  let query = url.query
+
+  if (!cache) {
+    data['_'] = Date.now()
+  }
+
+  Object.keys(data).forEach(key => {
+    let seperator = query ? '&' : '?'
+    query += `${seperator}${key}=${encodeURIComponent(data[key])}`
+  })
+
+  url.set('query', query)
+
+  return url.href
+};
+const attachParam = (params, next, to, from) => {
+  let queryItems = {}
+  Object.keys(params).forEach(key => {
+    let type = typeof params[key]
+    if (
+      ((type == 'object' && params[key].debug) || type == 'string') &&
+      typeof to.query[key] === 'undefined' &&
+      from.query[key]
+    ) {
+      queryItems[key] = from.query[key]
+    }
+  })
+  if (Object.keys(queryItems).length > 0) {
+    next(
+      mixUrl(
+        to.fullPath,
+        queryItems, true
+      ).replace(location.origin, '')
+    )
+  } else {
+    next()
+  }
+}
 router.beforeEach(async (to, from, next) => {
   cookieCheck();
   if(await checkLogin()){
-    next();
+    // next();
+  // }
+    if(to.path == from.path || from.path == '/'){
+      next();
+    }
+    attachParam({
+      union: 'union',
+      city: 'city' 
+    }, next, to, from);
   }else{
     window.location.href = getLoginUrl();
   }

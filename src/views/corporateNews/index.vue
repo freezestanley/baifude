@@ -48,6 +48,11 @@ export default {
     };
   },
   created() {
+    if(this.$route.query.type == 2){
+      this.tabIndex = 1;
+    }else{
+      this.tabIndex = 0;
+    }
     let params = {type:1,categoryId:1}
     this.queryNewsList(params);
     this.queryNewsBanner();
