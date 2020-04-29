@@ -4,6 +4,14 @@
       v-if="isShowUnionNotice"
       :unionNoticeContent="unionNoticeContent"
     ></notice> -->
+    <div class="returnPage" v-if="!showBanner ">
+      <van-nav-bar
+              :title=meatTitle
+              left-text=""
+              left-arrow
+              @click-left="$router.back()"
+      />
+    </div>
     <component
       :is="ford.comp"
       :content="ford.data"
@@ -39,7 +47,10 @@ export default {
       locationCityName: "",
       locationCityId: "",
       isShowUnionNotice: false,
-      unionNoticeContent: ""
+      unionNoticeContent: "",
+      meatTitle:this.$route.meta.title,
+      showBanner:this.$route.meta.showBanner,
+
     };
   },
   components: {
@@ -340,6 +351,8 @@ export default {
       if (newVal.query.city !== oldVal.query.city) {
         this.getCityList();
       }
+      this.meatTitle = newVal.meta.title
+      this.showBanner = newVal.meta.showBanner
     },
     locationShow(newValue) {
       if (newValue) {
@@ -355,7 +368,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="less">
 body,
 html {
   padding: 0;
@@ -384,6 +397,15 @@ html {
   }
   .commonBg {
     padding-bottom: 117px;
+  }
+}
+.returnPage{
+  .van-nav-bar__left{
+    left: -10px;
+    .van-icon-arrow-left::before{
+      font-size: 20px;
+      color:#333333;
+    }
   }
 }
 </style>

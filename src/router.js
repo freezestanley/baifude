@@ -55,7 +55,7 @@ const routes = [
       name: "newsDetail",
       component:NewsDetail,
       meta: {
-        title: "企业新闻详情"
+        title: "新闻详情"
       }
     },{
       path: "corporateactivity",
@@ -87,7 +87,7 @@ const routes = [
       name: "noticeDetail",
       component:NoticeDetail,
       meta: {
-        title: "企业公告详情"
+        title: "公告详情"
       }
     },
     {

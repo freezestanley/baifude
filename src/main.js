@@ -12,6 +12,7 @@ import "amfe-flexible";
 
 // 按需引入vant组件
 import {
+  NavBar,
   Search,
   Icon,
   Popup,
@@ -34,6 +35,7 @@ import {
   SwipeItem,
   PullRefresh
 } from "vant";
+Vue.use(NavBar);
 Vue.use(Search);
 Vue.use(Icon);
 Vue.use(Popup);

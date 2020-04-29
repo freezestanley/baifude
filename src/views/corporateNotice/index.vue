@@ -1,7 +1,15 @@
 <template>
-   <div class="page" ref="page">
-        <NoticeList :data="list" @goToDetail="goToDetail"></NoticeList>
-   </div>
+    <section>
+        <!--<van-nav-bar-->
+                <!--title="企业公告"-->
+                <!--left-text=""-->
+                <!--left-arrow-->
+                <!--@click-left="$router.back()"-->
+        <!--/>-->
+        <div class="page" ref="page">
+            <NoticeList :data="list" @goToDetail="goToDetail"></NoticeList>
+        </div>
+    </section>
 </template>
 
 <script>
