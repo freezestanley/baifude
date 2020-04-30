@@ -6,14 +6,23 @@
         v-for="(tab, index) in footerList"
         :key="index"
         :href="tab.pageUrl"
+        @click="gotoPath(tab)"
       >
-        <i
+        <!-- <i
           :class="
             index == 0
               ? 'iconfont elegance-' + tab.enName + '__selected'
               : 'iconfont elegance-' + tab.enName + '__normal'
           "
           :style="index == 0 ? { color: unionConf.colour } : {}"
+        ></i> -->
+        <i
+          :class="
+            index == 0?(currentPageIndex==0?'iconfont elegance-' + tab.enName + '__selected':'iconfont elegance-' + tab.enName + '__normal')
+            : index == 1?(currentPageIndex==1?'iconfont elegance-' + tab.enName + '__selected':'iconfont elegance-' + tab.enName + '__normal'):'iconfont elegance-' + tab.enName + '__normal'
+          "
+          :style="index == 0 ? (currentPageIndex==0?{ color: unionConf.colour }:{})
+          : index == 1?(currentPageIndex==1?{ color: unionConf.colour }:{}):{}"
         ></i>
         <div class="nameWrap">
           <div v-if="!isBilingual" :class="index == 0 ? 'name on' : 'name'">
@@ -35,14 +44,15 @@ export default {
   name: "footArea",
   data() {
     return {
-      footerList: []
+      footerList: [],
+      currentPageIndex:0  //默认为当前主页
     };
   },
   computed: {
     ...mapState({
       unionConf: state => state.unionConf,
       isBilingual: state => state.mallUnionConf.isBilingual,
-      bavUrl: state => state.bavUrl
+      bavUrl: state => state.bavUrl,
     })
   },
   methods: {
@@ -54,14 +64,48 @@ export default {
       // // 临时写死
       return `http://m.test04.com/union/xiaolang/mall?city=${city}`;
     },
+    gotoPath(tab){
+      if(tab.enName == 'home'){
+        this.$router.push({
+          path:'/dbenefit/home-h5'+window.location.search
+        });
+      }else if(tab.enName == 'benefits'){
+        this.$router.push({
+          path:'/dbenefit/home-h5/welfaremall'+window.location.search
+        });
+      }
+    }
+  },
+  watch: {
+    $route: {
+      handler: function(val) {
+        let { name } = val;
+        if(name=='welfaremall'){
+          this.currentPageIndex = 1;
+        }else{
+          this.currentPageIndex = 0;
+        }
+          },
+          deep: true
+        }
   },
   created() {
+    if(this.$route.name=='welfaremall'){
+      this.currentPageIndex = 1;
+    }else{
+      this.currentPageIndex = 0;
+    }
     if (!this.unionConf.isShowShoppCart) {
       this.footerList = [
+        // {
+        //   name: "主页",
+        //   enName: "home",
+        //   pageUrl: this.bavUrl.homePageUrl
+        // },
         {
           name: "主页",
           enName: "home",
-          pageUrl: this.bavUrl.homePageUrl
+          pageUrl: "javascript:void(0);"
         },
         {
           name: "福利",
@@ -76,15 +120,25 @@ export default {
       ];
     } else {
       this.footerList = [
+        // {
+        //   name: "主页",
+        //   enName: "home",
+        //   pageUrl: this.bavUrl.homePageUrl
+        // },
+        // {
+        //   name: "福利商城",
+        //   enName: "benefits",
+        //   pageUrl: this.buildMall(this.bavUrl.cardCenterUrl)
+        // },
         {
           name: "主页",
           enName: "home",
-          pageUrl: this.bavUrl.homePageUrl
+          pageUrl: "javascript:void(0);"
         },
         {
           name: "福利商城",
           enName: "benefits",
-          pageUrl: this.buildMall(this.bavUrl.cardCenterUrl)
+          pageUrl: "javascript:void(0);"
         },
         {
           name: "购物车",
