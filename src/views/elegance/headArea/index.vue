@@ -14,7 +14,7 @@
               <router-link
                 tag="span"
                 class="cityName"
-                :to="{ path: 'cityList', query: { city: cid } }"
+                :to="{ path: '/cityList', query: { city: cid } }"
                 >{{ cityName }}</router-link
               >
             </span>
