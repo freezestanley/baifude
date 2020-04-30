@@ -16,7 +16,7 @@
         v-if="mallUnionConf.openNotice && notice.noticeContent"
         ref="notice"
       >
-        <span>{notice.noticeContent}</span>
+        <span>{{notice.noticeContent}}</span>
       </div>
     </div>
     <!-- <news
