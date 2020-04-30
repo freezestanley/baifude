@@ -8,13 +8,21 @@
         :href="tab.pageUrl"
         @click="gotoPath(tab)"
       >
-        <i
+        <!-- <i
           :class="
             index == 0
               ? 'iconfont elegance-' + tab.enName + '__selected'
               : 'iconfont elegance-' + tab.enName + '__normal'
           "
           :style="index == 0 ? { color: unionConf.colour } : {}"
+        ></i> -->
+        <i
+          :class="
+            index == 0?(currentPageIndex==0?'iconfont elegance-' + tab.enName + '__selected':'iconfont elegance-' + tab.enName + '__normal')
+            : index == 1?(currentPageIndex==1?'iconfont elegance-' + tab.enName + '__selected':'iconfont elegance-' + tab.enName + '__normal'):'iconfont elegance-' + tab.enName + '__normal'
+          "
+          :style="index == 0 ? (currentPageIndex==0?{ color: unionConf.colour }:{})
+          : index == 1?(currentPageIndex==1?{ color: unionConf.colour }:{}):{}"
         ></i>
         <div class="nameWrap">
           <div v-if="!isBilingual" :class="index == 0 ? 'name on' : 'name'">
@@ -36,14 +44,15 @@ export default {
   name: "footArea",
   data() {
     return {
-      footerList: []
+      footerList: [],
+      currentPageIndex:0  //默认为当前主页
     };
   },
   computed: {
     ...mapState({
       unionConf: state => state.unionConf,
       isBilingual: state => state.mallUnionConf.isBilingual,
-      bavUrl: state => state.bavUrl
+      bavUrl: state => state.bavUrl,
     })
   },
   methods: {
@@ -67,7 +76,25 @@ export default {
       }
     }
   },
+  watch: {
+    $route: {
+      handler: function(val) {
+        let { name } = val;
+        if(name=='welfaremall'){
+          this.currentPageIndex = 1;
+        }else{
+          this.currentPageIndex = 0;
+        }
+          },
+          deep: true
+        }
+  },
   created() {
+    if(this.$route.name=='welfaremall'){
+      this.currentPageIndex = 1;
+    }else{
+      this.currentPageIndex = 0;
+    }
     if (!this.unionConf.isShowShoppCart) {
       this.footerList = [
         // {
