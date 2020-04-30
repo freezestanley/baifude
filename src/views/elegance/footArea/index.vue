@@ -1,5 +1,5 @@
 <template>
-  <div class="footerBottom">
+  <div class="footerBottom" v-if="showHeadNav">
     <div class="show">
       <a
         class="footer"
@@ -45,7 +45,8 @@ export default {
   data() {
     return {
       footerList: [],
-      currentPageIndex:0  //默认为当前主页
+      currentPageIndex:0,  //默认为当前主页
+      showHeadNav: false
     };
   },
   computed: {
@@ -87,9 +88,17 @@ export default {
         }
           },
           deep: true
-        }
+      },
+      $route: {
+      handler: function(val) {
+          let { meta } = val;
+          this.showHeadNav = meta.showHeadNav;
+        },
+        deep: true
+      }
   },
   created() {
+    this.showHeadNav = this.$route.meta.showHeadNav;
     if(this.$route.name=='welfaremall'){
       this.currentPageIndex = 1;
     }else{
