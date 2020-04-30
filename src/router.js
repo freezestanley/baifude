@@ -46,7 +46,7 @@ const routes = [
         name: "home",
         component: Home,
         meta: {
-          title: "百福德首页",
+          title: "百福得首页",
           //是否展示轮播图banner
           showBanner: true,
           //是否展示搜索图标(搜索功能)
