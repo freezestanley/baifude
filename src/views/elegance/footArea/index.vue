@@ -6,6 +6,7 @@
         v-for="(tab, index) in footerList"
         :key="index"
         :href="tab.pageUrl"
+        @click="gotoPath(tab)"
       >
         <i
           :class="
@@ -54,14 +55,30 @@ export default {
       // // 临时写死
       return `http://m.test04.com/union/xiaolang/mall?city=${city}`;
     },
+    gotoPath(tab){
+      if(tab.enName == 'home'){
+        this.$router.push({
+          path:'/dbenefit/home-h5'+window.location.search
+        });
+      }else if(tab.enName == 'benefits'){
+        this.$router.push({
+          path:'/dbenefit/home-h5/welfaremall'+window.location.search
+        });
+      }
+    }
   },
   created() {
     if (!this.unionConf.isShowShoppCart) {
       this.footerList = [
+        // {
+        //   name: "主页",
+        //   enName: "home",
+        //   pageUrl: this.bavUrl.homePageUrl
+        // },
         {
           name: "主页",
           enName: "home",
-          pageUrl: this.bavUrl.homePageUrl
+          pageUrl: "javascript:void(0);"
         },
         {
           name: "福利",
@@ -76,15 +93,25 @@ export default {
       ];
     } else {
       this.footerList = [
+        // {
+        //   name: "主页",
+        //   enName: "home",
+        //   pageUrl: this.bavUrl.homePageUrl
+        // },
+        // {
+        //   name: "福利商城",
+        //   enName: "benefits",
+        //   pageUrl: this.buildMall(this.bavUrl.cardCenterUrl)
+        // },
         {
           name: "主页",
           enName: "home",
-          pageUrl: this.bavUrl.homePageUrl
+          pageUrl: "javascript:void(0);"
         },
         {
           name: "福利商城",
           enName: "benefits",
-          pageUrl: this.buildMall(this.bavUrl.cardCenterUrl)
+          pageUrl: "javascript:void(0);"
         },
         {
           name: "购物车",
