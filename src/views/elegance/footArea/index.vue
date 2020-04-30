@@ -78,23 +78,17 @@ export default {
     }
   },
   watch: {
-    $route: {
-      handler: function(val) {
-        let { name } = val;
-        if(name=='welfaremall'){
-          this.currentPageIndex = 1;
-        }else{
-          this.currentPageIndex = 0;
-        }
-          },
-          deep: true
-      },
       $route: {
-      handler: function(val) {
-          let { meta } = val;
-          this.showHeadNav = meta.showHeadNav;
-        },
-        deep: true
+        handler: function(val) {
+            let { name,meta } = val;
+            this.showHeadNav = meta.showHeadNav;
+            if(name=='welfaremall'){
+              this.currentPageIndex = 1;
+            }else{
+              this.currentPageIndex = 0;
+            }
+          },
+            deep: true
       }
   },
   created() {
