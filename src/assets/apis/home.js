@@ -104,6 +104,25 @@ function newsConf_list(params) {
 function user_checkLogin(params) {
   return sendPostNew("/user/front/user/checkLogin", 'get', params, true);
 }
+
+
+/**
+ * 查询福利商城信息
+ *  @param { JSON } params 请求的参数
+ */
+function user_findUsableList(params) {
+  return sendPostNew("http://appzuul.test04.com/mallUnion/unionMallConfig/findUsableList", 'post', params, false);
+}
+
+
+/**
+ * 查询列表项
+ *  @param { JSON } params 请求的参数
+ */
+function menu_list(params){
+  return sendPostNew("http://api.test04.com/user/menu/list", 'post', params, true);
+}
+
 export {
   queryActivityList,
   submitActivity,
@@ -116,5 +135,7 @@ export {
   activity_activityEntry,
   activity_entryCancel,
   activity_uploadFile,
-  user_checkLogin
+  user_checkLogin,
+  user_findUsableList,
+  menu_list
 }

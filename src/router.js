@@ -20,6 +20,8 @@ const NoticeDetail = () =>
   import("@/views/corporateNotice/detail").then(m => m.default);
 const StaffDetail = () =>
   import("@/views/staffSurvey/detail").then(m => m.default);
+const WelfareMall = () =>
+  import("@/views/welfareMall/index").then(m => m.default);  
 Vue.use(Router);
 
 const routes = [
@@ -125,6 +127,14 @@ const routes = [
         component: StaffDetail,
         meta: {
           title: "员工调研详情"
+        }
+      },
+      {
+        path: "welfaremall",
+        name: "welfaremall",
+        component: WelfareMall,
+        meta: {
+          title: "福利商城"
         }
       }
     ]
@@ -265,24 +275,25 @@ const attachParam = (params, next, to, from) => {
   }
 };
 router.beforeEach(async (to, from, next) => {
-  cookieCheck();
-  if (await checkLogin()) {
-    // next();
-    // }
-    if (to.path == from.path || from.path == "/") {
-      next();
-    }
-    attachParam(
-      {
-        union: "union",
-        city: "city"
-      },
-      next,
-      to,
-      from
-    );
-  } else {
-    window.location.href = getLoginUrl();
-  }
+  // cookieCheck();
+  // if (await checkLogin()) {
+  //   // next();
+  //   // }
+  //   if (to.path == from.path || from.path == "/") {
+  //     next();
+  //   }
+  //   attachParam(
+  //     {
+  //       union: "union",
+  //       city: "city"
+  //     },
+  //     next,
+  //     to,
+    // } else {
+  //     from
+  //   );
+  //   window.location.href = getLoginUrl();
+  // }
+  next();
 });
 export default router;
