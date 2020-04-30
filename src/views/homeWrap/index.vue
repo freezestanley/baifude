@@ -4,7 +4,7 @@
       v-if="isShowUnionNotice"
       :unionNoticeContent="unionNoticeContent"
     ></notice> -->
-    <div class="returnPage" v-if="!showBanner ">
+    <div class="returnPage" v-if="!showHeadNav">
       <van-nav-bar
               :title=meatTitle
               left-text=""
@@ -49,7 +49,7 @@ export default {
       isShowUnionNotice: false,
       unionNoticeContent: "",
       meatTitle:this.$route.meta.title,
-      showBanner:this.$route.meta.showBanner,
+      showHeadNav:this.$route.meta.showHeadNav,
 
     };
   },

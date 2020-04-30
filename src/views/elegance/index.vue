@@ -13,7 +13,7 @@
       <img class="notice" src="../../assets/images/elite/icon_notice.png" alt /> -->
       <div
         class="noticeContent"
-        v-show="mallUnionConf.openNotice && notice.noticeContent && this.$route.meta.title == '百福得首页'"
+        v-show="mallUnionConf.openNotice && notice.noticeContent && showHeadNav"
         ref="notice"
       >
         <span>{{notice.noticeContent}}</span>
@@ -23,7 +23,7 @@
       v-if="unionConf.newsOpen === 1 && mallUnionConf.tnewsDtos.length != 0"
     ></news> -->
 
-    <head-area id="js-head" v-if="this.$route.meta.title == '百福得首页'"></head-area>
+    <head-area id="js-head" v-if="showHeadNav"></head-area>
     <!-- 滑动到一定距离之后出现 -->
     <div v-show="flag && showHeadNav">
       <head-top></head-top>

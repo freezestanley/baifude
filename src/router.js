@@ -64,7 +64,7 @@ const routes = [
         meta: {
           title: "企业新闻",
           //是否展示搜索图标(搜索功能)
-          showSearch: true
+          // showSearch: true
         }
       },
       {
@@ -82,7 +82,7 @@ const routes = [
         meta: {
           title: "企业活动",
           //是否展示搜索图标(搜索功能)
-          showSearch: true
+          // showSearch: true
         }
       },
       {
@@ -100,7 +100,7 @@ const routes = [
         meta: {
           title: "企业公告",
           //是否展示搜索图标(搜索功能)
-          showSearch: true
+          // showSearch: true
         }
       },
       {
@@ -118,7 +118,7 @@ const routes = [
         meta: {
           title: "员工调研",
           //是否展示搜索图标(搜索功能)
-          showSearch: true
+          // showSearch: true
         }
       },
       {
@@ -134,7 +134,13 @@ const routes = [
         name: "welfaremall",
         component: WelfareMall,
         meta: {
-          title: "福利商城"
+          title: "福利商城",
+          //是否展示轮播图banner
+          // showBanner: true,
+          //是否展示搜索图标(搜索功能)
+          showSearch: true,
+          //页面超出滑动是否浮动展示头部内容
+          showHeadNav: true
         }
       }
     ]
