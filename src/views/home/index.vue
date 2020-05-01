@@ -65,6 +65,7 @@ import Boutique from '@/components/boutique/index';
 import ActivityNav from '@/components/activitynav/index';
 import { newsListPage,activity_queryActivitiyPage } from "@/assets/apis/home";
 import utilRes from "@/assets/utils/resResult";
+import { parseQueryString } from "@/assets/utils/request";
 
 export default {
   name: "home",
@@ -381,23 +382,26 @@ export default {
     },
     // 点击更多跳转相对应列表页
     goToNext(item){
+      let urlParams = parseQueryString(window.location.search);
       if(item == "企业新闻"){
         this.$router.push({
           name: "corporateNews",
-          query: { type: '1' }
+          query: { type: '1',...urlParams}
         });
       }else if(item == "企业活动"){
         this.$router.push({
-          path: "/dbenefit/home-h5/corporateactivity"+window.location.search,
+          name: "corporateActivity",
+          query: {...urlParams}
         });
       }else if(item == "活动风采"){
         this.$router.push({
           name: "corporateNews",
-          query: { type: '2' }
+          query: { type: '2',...urlParams}
         });
       }else if(item == "企业公告"){
         this.$router.push({
-          path: "/dbenefit/home-h5/corporatenotice"+window.location.search,
+          name: "corporateNotice",
+          query: {...urlParams}
         });
       }else if(item == "员工调研"){
         Toast('敬请期待')
