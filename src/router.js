@@ -209,7 +209,7 @@ const routes = [
   //   }
   // },
   {
-    path: "/dbenefit",
+    path: "/newbfd",
     redirect: "/newbfd/home-h5"
   },
   {
