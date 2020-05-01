@@ -9,7 +9,7 @@
               :title=meatTitle
               left-text=""
               left-arrow
-              @click-left="$router.go(-1)"
+              @click-left="gotoBack"
       />
     </div>
     <component
@@ -34,6 +34,7 @@ import axios from "axios";
 import { mapMutations } from "vuex";
 import { OK } from "@/assets/utils/constant";
 import { getQueryString, setCookie, getCookie } from "@/assets/utils";
+import { parseQueryString } from "@/assets/utils/request";
 
 export default {
   name: "home",
@@ -85,6 +86,20 @@ export default {
       let cityName = position.city.replace("市", "");
       this.locationCityName = cityName;
       this.getCityId(cityName);
+    },
+    gotoBack(){
+      let urlParams = parseQueryString(window.location.search);
+      console.log(this.$route)
+      if(this.$route.name == "corporateNews"){
+        //如果是企业新闻直接跳转到首页-不用tab切换
+        this.$router.push({
+          name:"home",
+          query: {...urlParams}
+        })
+      }else{
+        this.$router.go(-1);
+      }
+      
     },
     errorMsg() {
       console.log("定位失败");
