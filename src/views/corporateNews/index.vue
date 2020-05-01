@@ -53,7 +53,7 @@ export default {
     }else{
       this.tabIndex = 0;
     }
-    let params = {type:1,categoryId:1}
+    let params = {type:1,categoryId:this.$route.query.type}
     this.queryNewsList(params);
     this.queryNewsBanner();
   },
