@@ -1,5 +1,6 @@
 <template>
     <section class="activity-wrap">
+      <scroller style="top: 44px" :on-refresh="refresh" :on-infinite="infinite">
         <div class="activit-item" v-for="(item,index) in data" :key="index" @click="goToDetail(item)">
             <div class="activity-pic">
                 <img :src="item.picture" alt="">
@@ -9,23 +10,53 @@
             </div>
             <div class="activity-status" v-html="item.controlValue"></div>
         </div>
+      </scroller>
     </section>
 </template>
 
 <script>
   export default {
     name: "activityItem",
+    data() {
+      return {
+        top: 1,
+        bottom: 20,
+      }
+    },
     props:{
       data: {
         type: Array,
         default: function () {
           return []
-        }
+        },
       },
+      isEnd: {
+        type: Boolean,
+        default: false
+      }
     },
     methods:{
       goToDetail(item){
         this.$emit("goToDetail",item)
+      },
+      refresh(done){
+        setTimeout(() => {
+          this.$emit('refresh');
+          done()
+        }, 500)
+      },
+      infinite(done){
+        if(this.isEnd) {
+          this.bottom = this.bottom + 10;
+          done();
+        } else {
+          setTimeout(() => {
+            var start = this.bottom + 1
+            this.$emit('infinite');
+            this.bottom = this.bottom + 10
+            done()
+          }, 500)
+        }
       }
     },
   }
