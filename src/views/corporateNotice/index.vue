@@ -33,7 +33,7 @@
     },
     methods:{
       goToDetail(item){
-        this.$router.push({path:'/newbfd/home-h5/corporatenotice/detail',query:{id:item.id}});
+        this.$router.push({path:'/newbfd/home-h5/corporatenotice/detail'+window.location.search,query:{id:item.id}});
       },
       async queryNewsList() {
         let params ={

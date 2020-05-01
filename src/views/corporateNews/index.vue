@@ -81,7 +81,7 @@ export default {
     },
     goToDetail(item) {
       this.$router.push({
-        path: "/newbfd/home-h5/corporatenews/newsdetail",
+        path: "/newbfd/home-h5/corporatenews/newsdetail"+window.location.search,
         query: { id: item.id }
       });
     },
@@ -114,7 +114,7 @@ export default {
     },
     clickBanner(item){
       this.$router.push({
-        path: "/newbfd/home-h5/corporatenews/newsdetail",
+        path: "/newbfd/home-h5/corporatenews/newsdetail"+window.location.search,
         query: { id: item.id }
       });
     },

@@ -476,17 +476,17 @@ export default {
     },
     goToDetail(item){
       this.$router.push({
-        path: "/newbfd/home-h5/corporatenews/newsdetail",
+        path: "/newbfd/home-h5/corporatenews/newsdetail"+window.location.search,
         query: { id: item.id }
       });
     },
     //公告列表跳详情
     goNoticeDetail(item){
-      this.$router.push({path:'/newbfd/home-h5/corporatenotice/detail',query:{id:item.id}});
+      this.$router.push({path:'/newbfd/home-h5/corporatenotice/detail'+window.location.search,query:{id:item.id}});
     },
     // 活动列表跳详情
     activityDetail(item){
-      this.$router.push({path:'/newbfd/home-h5/corporateactivity/activitydetail',query:{id:item.id}});
+      this.$router.push({path:'/newbfd/home-h5/corporateactivity/activitydetail'+window.location.search,query:{id:item.id}});
       // this.$router.push({name:'activityDetail',params:{...item}});
     }
 

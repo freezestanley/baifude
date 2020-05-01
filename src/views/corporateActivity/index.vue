@@ -29,10 +29,10 @@ export default {
   },
   methods:{
     activityDetail(){
-      this.$router.push({path:'/newbfd/home-h5/corporateactivity/activitydetail',query:''});
+      this.$router.push({path:'/newbfd/home-h5/corporateactivity/activitydetail'+window.location.search,query:''});
     },
     goTodetail(item){
-      this.$router.push({path:'/newbfd/home-h5/corporateactivity/activitydetail',query:{id:item.id}});
+      this.$router.push({path:'/newbfd/home-h5/corporateactivity/activitydetail'+window.location.search,query:{id:item.id}});
     },
     refresh(){
       this.currentPage = 1;
