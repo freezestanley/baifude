@@ -352,7 +352,9 @@ export default {
         this.getCityList();
       }
       this.meatTitle = newVal.meta.title
+
       this.showBanner = newVal.meta.showBanner
+      this.showHeadNav = newVal.meta.showHeadNav
     },
     locationShow(newValue) {
       if (newValue) {

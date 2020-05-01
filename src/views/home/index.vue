@@ -388,7 +388,7 @@ export default {
         });
       }else if(item == "企业活动"){
         this.$router.push({
-          path: "/newbfd/home-h5/corporateactivity",
+          path: "corporateactivity",
         });
       }else if(item == "活动风采"){
         this.$router.push({
@@ -397,7 +397,7 @@ export default {
         });
       }else if(item == "企业公告"){
         this.$router.push({
-          path: "/newbfd/home-h5/corporatenotice",
+          path: "corporatenotice",
         });
       }else if(item == "员工调研"){
         Toast('敬请期待')

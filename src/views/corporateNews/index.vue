@@ -6,7 +6,7 @@
     <div class="news-cont">
       <Tab :tabList="tabList" :tabIndex="tabIndex" @changeTab="changeTab">
         <template slot="name1">
-              <NewsItem :newsData="newsData" @goToDetail="goToDetail"></NewsItem>
+          <NewsItem :newsData="newsData" @goToDetail="goToDetail"></NewsItem>
         </template>
         <template slot="name2">
           <NewsItem :newsData="newsData" @goToDetail="goToDetail"></NewsItem>

@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "amfe-flexible";
+import VueScroller from 'vue-scroller';
 import * as apis from "./assets/apis";
 
 Vue.prototype.apis = apis;
@@ -57,6 +58,7 @@ Vue.use(RadioGroup);
 Vue.use(Swipe);
 Vue.use(SwipeItem);
 Vue.use(PullRefresh);
+Vue.use(VueScroller);
 router.beforeEach((to, from, next) => {
   next();
   const { meta } = to;
