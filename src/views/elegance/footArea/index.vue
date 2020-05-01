@@ -68,11 +68,11 @@ export default {
     gotoPath(tab){
       if(tab.enName == 'home'){
         this.$router.push({
-          path:'/dbenefit/home-h5'+window.location.search
+          path:'/newbfd/home-h5'+window.location.search
         });
       }else if(tab.enName == 'benefits'){
         this.$router.push({
-          path:'/dbenefit/home-h5/welfaremall'+window.location.search
+          path:'/newbfd/home-h5/welfaremall'+window.location.search
         });
       }
     }

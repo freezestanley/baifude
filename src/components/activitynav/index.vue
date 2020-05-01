@@ -36,14 +36,14 @@ import { Toast } from 'vant'
         gotoActivity(index){
             let path = "";
             if(index == 0){
-                path = '/dbenefit/home-h5/corporatenews';
+                path = '/newbfd/home-h5/corporatenews';
             }else if(index == 1){
-                path = '/dbenefit/home-h5/corporateactivity';
+                path = '/newbfd/home-h5/corporateactivity';
             }else if(index == 2){
                 Toast('敬请期待')
-                // path = '/dbenefit/home-h5/staffsurvey';
+                // path = '/newbfd/home-h5/staffsurvey';
             }else if(index == 3){
-                path = '/dbenefit/home-h5/corporatenotice';
+                path = '/newbfd/home-h5/corporatenotice';
             }
             this.$router.push({path:path});
         }

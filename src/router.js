@@ -40,7 +40,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "oldHome" */ "./views/oldHome")
   },
   {
-    path: "/dbenefit/home-h5",
+    path: "/newbfd/home-h5",
     component: HomeWrap,
     children: [
       {
@@ -209,16 +209,16 @@ const routes = [
   //   }
   // },
   {
-    path: "/dbenefit",
-    redirect: "/dbenefit/home-h5"
+    path: "/newbfd",
+    redirect: "/newbfd/home-h5"
   },
   {
     path: "/",
-    redirect: "/dbenefit/home-h5"
+    redirect: "/newbfd/home-h5"
   },
   {
     path: "*",
-    redirect: "/dbenefit/home-h5"
+    redirect: "/newbfd/home-h5"
   }
 ];
 const router = new Router({
