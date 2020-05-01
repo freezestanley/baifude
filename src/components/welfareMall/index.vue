@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="welfare_wrap">
-      <a  :href="item.url" v-for="(item,index) in welfareMallDataList" :key="index">
+      <a  :href="item.h5Url" v-for="(item,index) in welfareMallDataList" :key="index">
         <div class="welfare_info">
           <div class="welfare">
             <img :src="item.h5ImagePath" alt="">
