@@ -9,7 +9,7 @@
               :title=meatTitle
               left-text=""
               left-arrow
-              @click-left="$router.back()"
+              @click-left="$router.go(-1)"
       />
     </div>
     <component

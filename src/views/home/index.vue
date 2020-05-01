@@ -418,7 +418,7 @@ export default {
       if (utilRes.successCheck(res)) {
         const list=res.data.listObj
         if(list.length>=3){
-          this.newsData=list.slice(1,4); //首页新闻取列表新闻里面前三条
+          this.newsData=list.slice(0,3); //首页新闻取列表新闻里面前三条
         }else {
           this.newsData = list
         }
@@ -433,7 +433,7 @@ export default {
       if (utilRes.successCheck(res)) {
         const list = res.data.listObj
         if(list.length>3){
-          this.styleData = list.slice(1,3); //首页新闻取列表新闻里面的第一条
+          this.styleData = list.slice(0,2); //首页新闻取列表新闻里面的第一条
         }else{
           this.styleData = list
         }

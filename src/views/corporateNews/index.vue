@@ -57,6 +57,11 @@ export default {
     this.queryNewsList(params);
     this.queryNewsBanner();
   },
+  watch: {
+    $route(){
+      this.userId= this.$route.query.id
+    }
+  },
   methods: {
     //tab切换事件
     changeTab(tab) {
@@ -64,15 +69,15 @@ export default {
         name: 'corporateNews',
         query: { type: tab.index + 1 }
       })
-      // this.tabIndex = tab.index;
-      // let params = {};
-      // this.newsData=[];
-      // if (tab.index == 1) {
-      //   params = { type: 1, categoryId: 2 };
-      // }else {
-      //   params = { type: 1, categoryId: 1 };
-      // }
-      // this.queryNewsList(params);
+      this.tabIndex = tab.index;
+      let params = {};
+      this.newsData=[];
+      if (tab.index == 1) {
+        params = { type: 1, categoryId: 2 };
+      }else {
+        params = { type: 1, categoryId: 1 };
+      }
+      this.queryNewsList(params);
     },
     goToDetail(item) {
       this.$router.push({
