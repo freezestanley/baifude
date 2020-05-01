@@ -22,7 +22,7 @@ import NewsItem from "./components/newsItem";
 import Banner from "./components/banner";
 import { newsListPage,newsConf_list } from "@/assets/apis/home";
 import utilRes from "@/assets/utils/resResult";
-
+import { parseQueryString } from "@/assets/utils/request";
 export default {
   name: "index",
   components: {
@@ -45,9 +45,11 @@ export default {
       loading: false,
       finished: false,
       refreshing: false,
+      urlParams: {},
     };
   },
   created() {
+    this.urlParams = parseQueryString(window.location.search);
     if(this.$route.query.type == 2){
       this.tabIndex = 1;
     }else{
@@ -58,16 +60,21 @@ export default {
     this.queryNewsBanner();
   },
   watch: {
-    $route(){
-      this.userId= this.$route.query.id
-    }
+    // $route: {
+    //   handler: function(val) {
+    //     this.urlParams = parseQueryString(window.location.search);
+    //     console.log(this.urlParams);
+    //   },
+    //   deep: true
+    // }
   },
   methods: {
     //tab切换事件
     changeTab(tab) {
+      this.urlParams = parseQueryString(window.location.search);
       this.$router.push({
         name: 'corporateNews',
-        query: { type: tab.index + 1 }
+        query: { type: tab.index + 1,...this.urlParams }
       })
       this.tabIndex = tab.index;
       let params = {};
