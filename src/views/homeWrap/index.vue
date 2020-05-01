@@ -89,7 +89,6 @@ export default {
     },
     gotoBack(){
       let urlParams = parseQueryString(window.location.search);
-      console.log(this.$route)
       if(this.$route.name == "corporateNews"){
         //如果是企业新闻直接跳转到首页-不用tab切换
         this.$router.push({
