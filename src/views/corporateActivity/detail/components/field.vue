@@ -36,7 +36,7 @@
                             placeholder="请选择日期"
                             @click="findDate(item)"
                             />
-                      <van-calendar :max-date="new Date('2030/01/01')" v-model="showCalendar" @confirm="onConfirm" />
+                      <van-calendar :min-date="new Date('1900/01/01')" :max-date="new Date('2030/01/01')" v-model="showCalendar" @confirm="onConfirm" />
                   </template>
                   <van-field class="frameCheckBox" v-if="item.optionsType==1" name="radio" :label="item.optionsName+''">
                     <template #input>
