@@ -1,6 +1,7 @@
 <template>
-    <section class="notice-wrap">
-        <div class="notice-item" v-for="(item,index) in data" :key="index" @click="goToDetail(item)">
+    <section class="notice-wrap" >
+      <scroller ref="my_scroller" style="top: 46px"  :on-refresh="refresh" :on-infinite="infinite">
+        <div  class="notice-item" v-for="(item,index) in data" :key="index" @click="goToDetail(item)">
             <div class="notice-item-time">
                 <div class="item-time-date">{{item.publishDay}}</div>
                 <div class="item-time-month">{{`${(item.publishMonth).replace(/\b(0+)/gi,"")}月`}}</div>
@@ -10,12 +11,19 @@
                 <div class="notice-cont">{{item.content}}</div>
             </div>
         </div>
+      </scroller>    
     </section>
 </template>
 
 <script>
   export default {
     name: "NoticeList",
+    data(){
+      return {
+        // top: 1,
+        // bottom: 20
+      }
+    },
     props:{
       data: {
         type: Array,
@@ -27,13 +35,38 @@
     methods:{
       goToDetail(item){
         this.$emit('goToDetail', item);
-      }
+      },
+      refresh(done){
+        console.log("refresh")
+        setTimeout(() => {
+          this.$emit('refresh');
+          done()
+        }, 500)
+      },
+      infinite(done){
+        console.log("infinite");
+        console.log('111111',this.data);
+        setTimeout(() => {
+          this.$emit('infinite',done);
+          // done()
+        }, 500)
+        // this.$emit('infinite',done);
+        // if(this.isEnd) {
+        //   done();
+        // } else {
+        //   setTimeout(() => {
+        //     this.$emit('infinite',done);
+        //     done()
+        //   }, 100)
+        // }
+      },
     },
   }
 </script>
 
 <style lang="less" scoped>
 .notice-wrap{
+    margin-top: 46px;
     .notice-item{
         width: 100%;
         box-sizing: border-box;

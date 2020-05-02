@@ -416,6 +416,9 @@ html {
   }
 }
 .returnPage{
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
   .van-nav-bar__left{
     left: -10px;
     .van-icon-arrow-left::before{
