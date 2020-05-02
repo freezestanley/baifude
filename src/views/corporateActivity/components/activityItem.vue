@@ -68,9 +68,10 @@
 .activity-wrap{
     margin-top: 46px;
     .activit-item{
-        width: 100%;
-        padding-bottom: 15px;
+        width: 345px;
+        padding-bottom:15px;
         position: relative;
+        margin: 0 auto;
         .activity-pic{
             width: 100%;
             height:126px;
