@@ -72,15 +72,17 @@ export default {
     //tab切换事件
     changeTab(tab) {
       this.urlParams = parseQueryString(window.location.search);
+      // this.$refs.newsListNode.$refs.my_scroller.finishInfinite(false);
       this.$router.push({
         path: 'corporateNews',
-        query: { type: tab.index + 1,...this.urlParams }
+        query: { ...this.urlParams,type: tab.index + 1}
       })
+    
       this.tabIndex = tab.index;
       let params = {};
       this.newsData=[];
       this.total=0;
-      this.currentPage= 0
+      this.currentPage= 1;
       if (tab.index == 1) {
         params = { type: 1, categoryId: 2 };
       }else {
@@ -128,9 +130,11 @@ export default {
       }
       const obj ={...param,...params}
       let res = await newsListPage(obj);
-      if (utilRes.successCheck(res)) {
+      if (utilRes.successCheck(res)&&(res.data.total!=0)) {
         //this.newsData = res.data.listObj; //请求返回当页的列表
         this.newsData = JSON.parse(JSON.stringify(this.newsData)).concat(res.data.listObj);
+        console.log(this.newsData);
+        this.total = res.data.total;
         if(typeof done === "function"){
           done();
         }
