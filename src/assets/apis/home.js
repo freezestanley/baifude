@@ -111,7 +111,7 @@ function user_checkLogin(params) {
  *  @param { JSON } params 请求的参数
  */
 function user_findUsableList(params) {
-  return sendPostNew("http://appzuul.test04.com/mallUnion/unionMallConfig/findUsableList", 'post', params, false);
+  return sendPostNew("/gw/app/mallUnion/unionMallConfig/findUsableList", 'post', params, false);
 }
 
 
