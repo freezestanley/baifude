@@ -11,10 +11,6 @@
                    <!--<div class="info-item-desc">{{infoData.title}}</div>-->
                <!--</div>-->
                <div class="detail-info-item">
-                   <div class="info-item-lable">活动对象</div>
-                   <div class="info-item-desc">{{infoData.scopeTypeName}}</div>
-               </div>
-               <div class="detail-info-item">
                    <div class="info-item-lable">报名时间</div>
                    <div class="info-item-desc">{{infoData.entryTime}}</div>
                </div>
@@ -31,12 +27,16 @@
                    <div class="info-item-desc">{{infoData.cost}}</div>
                </div>
                <div class="detail-info-item">
+                   <div class="info-item-lable">活动对象</div>
+                   <div class="info-item-desc">{{infoData.scopeTypeName}}</div>
+               </div>
+               <div class="detail-info-item">
                    <div class="info-item-lable">活动名额</div>
                    <div class="info-item-desc">{{infoData.activityQuota}}</div>
                </div>
                <div class="detail-info-item">
                    <div class="info-item-lable">已报名人数</div>
-                   <div class="info-item-desc">{{infoData.attendNum}}</div>
+                   <div class="info-item-desc">{{infoData.attendNum}}人</div>
                </div>
                <div class="">
                    <h4>活动描述</h4>
@@ -151,6 +151,9 @@ export default {
 <style lang="less" scoped>
 .page{
     font-size: 15px;
+    .activity-detail{
+        margin-top: 46px;
+    }
     .activity-detail-pic{
         width: 100%;
         height:170px;
