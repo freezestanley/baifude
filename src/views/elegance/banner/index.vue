@@ -1,5 +1,5 @@
 <template>
-  <div class="eleganceBanner">
+  <div class="eleganceBanner1">
     <div class="swiper-container">
       <div class="swiper-wrapper">
         <div
@@ -31,7 +31,7 @@ export default {
   methods: {
     creatSwiper() {
       if (this.mallUnionConf.tnewsRecommendImageDtos.length > 1) {
-        new Swiper(".eleganceBanner .swiper-container", {
+        new Swiper(".eleganceBanner1 .swiper-container", {
           autoplay: true,
           loop: true,
           spaceBetween: 20,
@@ -50,7 +50,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.eleganceBanner {
+.eleganceBanner1 {
   background-color: #fff;
   padding:10px 12px ;
   /*margin: 6px 3px 0;*/
