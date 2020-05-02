@@ -68,12 +68,12 @@ export default {
     height: 100%;
     position: relative;
   }
-  /deep/.swiper-container .swiper-slide {
-    display: block;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-  }
+  /*/deep/.swiper-container .swiper-slide {*/
+    /*display: block;*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*overflow: hidden;*/
+  /*}*/
   /deep/.swiper-container .swiper-pagination-fraction {
     color: #fff;
     font-size: 14px;
