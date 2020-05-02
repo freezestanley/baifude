@@ -70,7 +70,7 @@
     .notice-item{
         width: 100%;
         box-sizing: border-box;
-        padding: 12px 0;
+        padding: 12px 15px;
         border-bottom: 1px solid #E5E5E5;
         display: flex;
         justify-content: space-between;
