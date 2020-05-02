@@ -131,7 +131,6 @@ img {
     }
     .arrowWrap {
       width: 7px;
-      height:7px;
       overflow: hidden;
       .arrow {
         .setArrow(
