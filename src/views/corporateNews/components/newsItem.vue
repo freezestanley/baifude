@@ -55,11 +55,12 @@
     height:auto;
     .newItem-wrap{
         height: 75px;
-        width: 100%;
+        width: 351px;
         display: flex;
         font-size: 12px;
         margin-bottom: 16px;
         justify-content: space-between;
+        margin: 50px auto 0 auto;
         .newItem-wrap-right{
             width: 100px;
             height: 75px;

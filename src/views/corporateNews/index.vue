@@ -1,6 +1,7 @@
 <template>
   <div class="page">
-    <div style="padding: 10px 12px">
+    <div style="height:50px;width: 100%;"></div>
+    <div>
       <Banner :bannerList="bannerList" @clickBanner="clickBanner"></Banner>
     </div>
     <div class="news-cont">
@@ -177,6 +178,7 @@ export default {
   }
   .news-cont {
     padding: 0 15px ;
+    overflow: hidden;
   }
 }
 </style>
