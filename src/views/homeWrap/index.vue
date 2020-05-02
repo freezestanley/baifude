@@ -61,8 +61,11 @@ export default {
   },
 
   created() {
+    let urlParams = parseQueryString(window.location.href);
+    if(urlParams.type == 2 && this.$route.meta.title=='新闻详情'){
+      this.meatTitle = "活动详情";
+    }
     const union = getQueryString("union");
-
     // this.isLogin(union);
     this.getNotice(union);
     this.getData(union);
@@ -362,11 +365,15 @@ export default {
   },
   watch: {
     $route(newVal, oldVal) {
+      let urlParams = parseQueryString(window.location.search);
       if (newVal.query.city !== oldVal.query.city) {
         this.getCityList();
       }
-      this.meatTitle = newVal.meta.title
-
+      if(urlParams.type == 2 && newVal.meta.title=='新闻详情'){
+        this.meatTitle = "活动详情";
+      }else{
+        this.meatTitle = newVal.meta.title;
+      }
       this.showBanner = newVal.meta.showBanner
       this.showHeadNav = newVal.meta.showHeadNav
     },
