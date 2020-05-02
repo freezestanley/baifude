@@ -68,7 +68,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .page{
-    padding: 0 15px;
+    padding: 45px 15px 0;
     font-size: 14px;
 }
 </style>
