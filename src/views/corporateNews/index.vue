@@ -6,10 +6,10 @@
     <div class="news-cont">
       <Tab :tabList="tabList" :tabIndex="tabIndex" @changeTab="changeTab">
         <template slot="name1">
-          <NewsItem :newsData="newsData" @goToDetail="goToDetail"></NewsItem>
+          <NewsItem ref="newsListNode" @refresh="refresh" @infinite="infinite" :newsData="newsData" @goToDetail="goToDetail"></NewsItem>
         </template>
         <template slot="name2">
-          <NewsItem :newsData="newsData" @goToDetail="goToDetail"></NewsItem>
+          <NewsItem ref="newsListNode" @refresh="refresh" @infinite="infinite" :newsData="newsData" @goToDetail="goToDetail"></NewsItem>
         </template>
       </Tab>
     </div>
@@ -39,7 +39,7 @@ export default {
       ],
       newsData:[], //新闻列表数据
       bannerList:[],//banner数组
-      currentPage: 1,//请求第几页
+      currentPage: 0,//请求第几页
       itemsPerPage: 10,//每页请求的数量
       total: 0,//总共的数据条数
       loading: false,
@@ -49,14 +49,14 @@ export default {
     };
   },
   created() {
-    this.urlParams = parseQueryString(window.location.search);
-    if(this.$route.query.type == 2){
-      this.tabIndex = 1;
-    }else{
-      this.tabIndex = 0;
-    }
-    let params = {type:1,categoryId:this.$route.query.type}
-    this.queryNewsList(params);
+    // this.urlParams = parseQueryString(window.location.search);
+    // if(this.$route.query.type == 2){
+    //   this.tabIndex = 1;
+    // }else{
+    //   this.tabIndex = 0;
+    // }
+    // let params = {type:1,categoryId:this.$route.query.type}
+    // this.queryNewsList(params);
     this.queryNewsBanner();
   },
   watch: {
@@ -73,12 +73,14 @@ export default {
     changeTab(tab) {
       this.urlParams = parseQueryString(window.location.search);
       this.$router.push({
-        name: 'corporateNews',
+        path: 'corporateNews',
         query: { type: tab.index + 1,...this.urlParams }
       })
       this.tabIndex = tab.index;
       let params = {};
       this.newsData=[];
+      this.total=0;
+      this.currentPage= 0
       if (tab.index == 1) {
         params = { type: 1, categoryId: 2 };
       }else {
@@ -86,13 +88,40 @@ export default {
       }
       this.queryNewsList(params);
     },
+    refresh(done){
+      this.currentPage = 1;
+      this.total = 0;
+      this.newsData = [];
+      if(this.$route.query.type == 2){
+        this.tabIndex = 1;
+      }else{
+        this.tabIndex = 0;
+      }
+      let params = {type:1,categoryId:this.$route.query.type}
+      this.queryNewsList(params,done);
+    },
+    infinite(done){
+      if(this.$route.query.type == 2){
+        this.tabIndex = 1;
+      }else{
+        this.tabIndex = 0;
+      }
+      let params = {type:1,categoryId:this.$route.query.type}
+      this.currentPage += 1;
+      this.queryNewsList(params,done);
+    },
     goToDetail(item) {
       this.$router.push({
         path: "/newbfd/home-h5/corporatenews/newsdetail"+window.location.search,
         query: { id: item.id }
       });
     },
-    async queryNewsList(param) {
+    async queryNewsList(param,done) {
+      console.log('queryNewsList',this.total,this.newsData.length);
+      if(this.newsData.length!=0 && this.total <= this.newsData.length){
+        this.$refs.newsListNode.$refs.my_scroller.finishInfinite(true);
+        return;
+      };
       let params ={
         currentPage:this.currentPage,
         itemsPerPage:this.itemsPerPage,
@@ -100,12 +129,13 @@ export default {
       const obj ={...param,...params}
       let res = await newsListPage(obj);
       if (utilRes.successCheck(res)) {
-        this.newsData = res.data.listObj; //请求返回当页的列表
+        //this.newsData = res.data.listObj; //请求返回当页的列表
+        this.newsData = JSON.parse(JSON.stringify(this.newsData)).concat(res.data.listObj);
+        if(typeof done === "function"){
+          done();
+        }
       } else {
-        this.$notify({
-          type: "error",
-          message: res.errMsg ? res.errMsg : "调用接口失败!"
-        });
+        this.$refs.newsListNode.$refs.my_scroller.finishInfinite(true);
       }
     },
     async queryNewsBanner() {

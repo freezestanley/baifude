@@ -60,7 +60,7 @@ import { OK } from "@/assets/utils/constant";
 import { getQueryString, setCookie, getCookie } from "@/assets/utils";
 import BusinessActivity from '@/components/businessActivity/index'
 import Title from '@/components/moduleTtile/index'
-import NewsItem from '../corporateNews/components/newsItem'
+import NewsItem from '../corporateNews/components/newsItemIndex'
 import Boutique from '@/components/boutique/index';
 import ActivityNav from '@/components/activitynav/index';
 import { newsListPage,activity_queryActivitiyPage } from "@/assets/apis/home";

@@ -1,6 +1,5 @@
 <template>
     <section class="newItem">
-      <scroller ref="my_scroller" style="top: 191px"  :on-refresh="refresh" :on-infinite="infinite">
         <div class="newItem-wrap" v-for="(item,index) in newsData" :key="index" @click="goToDetail(item)">
             <div class="newItem-wrap-left">
                 <div class="newItem-title">{{item.title}}</div>
@@ -11,7 +10,6 @@
                 <img :src="item.picture"/>
             </div>
         </div>
-      </scroller>      
     </section>
 </template>
 
@@ -31,21 +29,6 @@
       goToDetail(item){
         this.$emit('goToDetail', item);
       },
-      refresh(done){
-        console.log("refresh")
-        setTimeout(() => {
-          this.$emit('refresh',done);
-          // done()
-        }, 500)
-      },
-      infinite(done){
-        console.log("infinite");
-        console.log('111111',this.newsData);
-        setTimeout(() => {
-          this.$emit('infinite',done);
-          // done()
-        }, 500)
-      }
     },
   }
 </script>
