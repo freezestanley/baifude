@@ -106,8 +106,8 @@
             }
         }
     }
-    .newItem-wrap:nth-child(0){
-      margin: 0.333333rem 0 0 0;
+    .newItem-wrap:first-of-type{
+      margin: 0.333333rem 0 0 0 !important;
     }
 }
 </style>
