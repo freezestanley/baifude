@@ -15,7 +15,7 @@
           <BusinessActivity :data="activityData" @activityDetail="activityDetail"></BusinessActivity>
       </div>
         <!-- 活动风采 -->
-      <div class="layout elegance" v-if="newsData.length>0">
+      <div class="layout elegance" v-if="styleData.length>0">
          <Title titleName="活动风采" :titleMore="true" @goToNext="goToNext"></Title>
          <NewsItem :newsData="styleData" @goToDetail="goToDetail"></NewsItem>
       </div>
@@ -433,7 +433,7 @@ export default {
       if (utilRes.successCheck(res)) {
         const list = res.data.listObj
         if(list.length>3){
-          this.styleData = list.slice(0,2); //首页新闻取列表新闻里面的第一条
+          this.styleData = list.slice(0,2);
         }else{
           this.styleData = list
         }
