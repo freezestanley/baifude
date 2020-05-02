@@ -386,7 +386,7 @@ export default {
       if(item == "企业新闻"){
         this.$router.push({
           name: "corporateNews",
-          query: { type: '1',...urlParams}
+          query: { ...urlParams,type: '1'}
         });
       }else if(item == "企业活动"){
         this.$router.push({
@@ -396,7 +396,7 @@ export default {
       }else if(item == "活动风采"){
         this.$router.push({
           name: "corporateNews",
-          query: { type: '2',...urlParams}
+          query: { ...urlParams,type: '2'}
         });
       }else if(item == "企业公告"){
         this.$router.push({
