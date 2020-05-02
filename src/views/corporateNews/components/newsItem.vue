@@ -1,6 +1,6 @@
 <template>
     <section class="newItem">
-      <scroller ref="my_scroller" style="top: 206px"  :on-refresh="refresh" :on-infinite="infinite">
+      <scroller ref="my_scroller" style="top: 221px"  :on-refresh="refresh" :on-infinite="infinite">
         <div class="newItem-wrap" v-for="(item,index) in newsData" :key="index" @click="goToDetail(item)">
             <div class="newItem-wrap-left">
                 <div class="newItem-title">{{item.title}}</div>
@@ -105,6 +105,9 @@
                 }
             }
         }
+    }
+    .newItem-wrap:nth-child(0){
+      margin: 0.333333rem 0 0 0;
     }
 }
 </style>
