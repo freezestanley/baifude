@@ -53,14 +53,14 @@
 <style lang="less" scoped>
 .newItem{
     height:auto;
+    margin-top: 10px;
     .newItem-wrap{
         height: 75px;
         width: 351px;
         display: flex;
         font-size: 12px;
-        margin-bottom: 16px;
         justify-content: space-between;
-        margin: 50px auto 0 auto;
+        margin:0 auto 16px auto;
         .newItem-wrap-right{
             width: 100px;
             height: 75px;
