@@ -1,6 +1,6 @@
 <template>
     <section class="activity-wrap">
-      <scroller ref="my_scroller" style="top: 44px" :on-refresh="refresh" :on-infinite="infinite">
+      <scroller ref="my_scroller" style="top: 47px" :on-refresh="refresh" :on-infinite="infinite">
         <div class="activit-item" v-for="(item,index) in data" :key="index" @click="goToDetail(item)">
             <div class="activity-pic">
                 <img :src="item.picture" alt="">
@@ -66,7 +66,7 @@
 
 <style lang="less" scoped>
 .activity-wrap{
-    margin-top: 46px;
+    // margin-top: 61px;
     .activit-item{
         width: 345px;
         padding-bottom:15px;
