@@ -150,7 +150,12 @@ function cms_researchSubmit(params) {
  * @param { JSON } params 请求的参数
  */
 function cms_researchUserDetail(params) {
-  return sendPostNew("/cms/front/research/user/detail", "get", params, true);
+  return sendPostNew(
+    "/cms/front/research/individual/detail",
+    "get",
+    params,
+    true
+  );
 }
 /**
  * 提交调研问卷
