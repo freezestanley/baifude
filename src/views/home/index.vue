@@ -35,14 +35,23 @@
         <NewsItem :newsData="styleData" @goToDetail="goToDetail"></NewsItem>
       </div>
       <!-- 员工调研 -->
-      <div class="layout survey" v-if="newsData.length > 0">
+      <div class="layout survey" v-if="researchList.title">
         <Title
           titleName="员工调研"
           :titleMore="true"
           @goToNext="goToNext"
         ></Title>
-        <div class="survey-wrap">
-          <p>疫情过后你会报复性消费吗</p>
+        <div
+          class="survey-wrap"
+          @click="
+            () =>
+              $router.push({
+                name: 'staffDetail',
+                params: { id: researchList.id }
+              })
+          "
+        >
+          <p>{{ researchList.title }}</p>
           <div class="survey-pic">
             <img :src="surveyObj.pic" alt="" />
           </div>
@@ -91,7 +100,11 @@ import Title from "@/components/moduleTtile/index";
 import NewsItem from "../corporateNews/components/newsItemIndex";
 import Boutique from "@/components/boutique/index";
 import ActivityNav from "@/components/activitynav/index";
-import { newsListPage, activity_queryActivitiyPage } from "@/assets/apis/home";
+import {
+  newsListPage,
+  activity_queryActivitiyPage,
+  cms_researchList
+} from "@/assets/apis/home";
 import utilRes from "@/assets/utils/resResult";
 import { parseQueryString } from "@/assets/utils/request";
 
@@ -134,7 +147,8 @@ export default {
       surveyObj: {
         pic:
           "https://image.dongfangfuli.com/2020/03/06/35e7e327db62108061c59f7cdc8f3fbf1763f692a3ce0ef12245c858241f3d7b.jpg"
-      }
+      },
+      researchList: {} // 员工调研
     };
   },
   components: {
@@ -159,6 +173,7 @@ export default {
     this.queryActiveStyleList({ type: 1, categoryId: 2 }); //活动风采
     this.activity_queryActivitiyPage(); //企业活动
     this.queryNoticeList(); //企业公告
+    this.queryResearchList(); // 员工调研
   },
   methods: {
     ...mapMutations(["updateState"]),
@@ -507,20 +522,18 @@ export default {
       }
     },
     // 员工调研
-    async dy() {
+    async queryResearchList() {
       let params = {
         currentPage: 1,
-        itemsPerPage: 10,
-        type: 2
+        itemsPerPage: 1, // 取第一条
+        status: 2
       };
       const obj = { ...params };
-      let res = await newsListPage(obj);
+      let res = await cms_researchList(obj);
       if (utilRes.successCheck(res)) {
-        const listObj = res.data.listObj;
-        if (listObj.length > 6) {
-          this.list = listObj.slice(0, 5);
-        } else {
-          this.list = listObj;
+        const { listObj } = res.data;
+        if (listObj.length > 0) {
+          this.researchList = listObj[0];
         }
       } else {
         this.$message({
