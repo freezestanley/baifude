@@ -108,19 +108,22 @@ export default {
     roll() {
       const notice = this.$refs.notice;
       const noticeTxt = notice.firstChild;
+      //消息区域宽度
       const clientWidth = notice.clientWidth;
-      const scrollWidth = notice.scrollWidth;
+      //滚动内容宽度
+      const scrollWidth = noticeTxt.getBoundingClientRect().width;     
+      
       noticeTxt.style.position = "relative";
       let left = 0;
       function slide() {
         left -= 1;
         // 当滚动条滚动了初始内容的宽度时滚动条回到最右端
-        if (Math.abs(left) > scrollWidth) {
+        if (left < 0 && Math.abs(left) > scrollWidth) {
           left = clientWidth;
         }
         noticeTxt.style.left = `${left}px`;
       }
-      this.time = setInterval(slide, 25);
+      this.time = setInterval(slide, 60);
     }
   },
   beforeDestroy: function() {
