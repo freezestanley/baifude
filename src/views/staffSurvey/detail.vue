@@ -1,124 +1,238 @@
 <template>
-    <div>
-        <div class="wrap">
-            <div class="title">企业员工返岗调查表</div>
-            <div class="formContanier">
-                <van-form @submit="onSubmit" :show-error="false">
-                    <van-field
-                        v-model="activityData.username"
-                        label="您的姓名:"
-                        placeholder="请输入内容"
-                        :rules="[{ required: true, message: '请输入内容' },{ validator, message: '请输入正确内容' }]"
-                        class="frameInput"
-                    />
-                    <van-field
-                        v-model="activityData.part"
-                        label="部门:"
-                        placeholder="请输入内容"
-                        :rules="[{ required: true, message: '请输入内容' }]"
-                        class="frameInput"
-                    />
-                    <van-field
-                        v-model="activityData.date"
-                        label="预计返岗日期:"
-                        placeholder="请输入内容"
-                        :rules="[{ required: true, message: '请输入内容' }]"
-                        class="frameInput"
-                    />
-                    <van-field
-                        v-model="activityData.area"
-                        label="您所在的地区:"
-                        placeholder="请输入内容"
-                        :rules="[{ required: true, message: '请输入内容' }]"
-                        class="frameInput"
-                    />
-                    <van-field class="break_all" name="checkboxGroup" label="返岗交通方式" :rules="[{ required: true, message: '请选择内容' }]">
-                        <template #input>
-                            <van-checkbox-group v-model="activityData.checkBackTracking" direction="horizontal">
-                            <van-checkbox name="1" shape="square">飞机</van-checkbox>
-                            <van-checkbox name="2" shape="square">火车</van-checkbox>
-                            <van-checkbox name="3" shape="square">自驾</van-checkbox>
-                            <van-checkbox name="4" shape="square">大巴</van-checkbox>
-                            </van-checkbox-group>
-                        </template>
-                    </van-field>
-                    <van-field
-                        v-model="activityData.area"
-                        label="是否需要公司提供疫情相关帮助，如有，请详细说明"
-                        placeholder="请输入内容"
-                        type="textarea"
-                        class="frameInput break_all"
-                    />
-                    <div style="width: 80px;text-align:center;margin:30px auto" >
-                        <van-button round block type="info" size="small" native-type="submit">
-                        提交
-                        </van-button>
-                    </div>
-                </van-form>
+  <section class="page">
+    <div class="survey-detail" v-if="!endStatus">
+      <div class="survey-detail-header">
+        <div class="survey-detail-title">
+          <div class="survey-detail-l">
+            <div class="title">{{ detail.title }}</div>
+            <div class="date" v-if="detail.startTime">
+              {{
+                `${detail.startTime.split(" ")[0]} 至 ${
+                  detail.endTime.split(" ")[0]
+                }`
+              }}
             </div>
+          </div>
+          <!-- <div class="survey-detail-r">“</div> -->
         </div>
-        
+        <div class="desc">
+          {{ detail.description }}
+        </div>
+      </div>
+      <div class="survey-detail-content">
+        <custom-from :questionList="questionList" @onSubmit="onSubmit" />
+      </div>
     </div>
+    <div class="end-survey" v-else>
+      <img :src="overdueIcon" alt="" />
+      <div class="overdue-text">该调研已过期</div>
+    </div>
+  </section>
 </template>
 <script>
-export default {
-    data(){
-        return {
-            activityData:{
-                username:"", //您的姓名
-                part:"", //部门
-                date:"", //预计返岗日期
-                area:"",
-                checkBackTracking:[],
-            }
-        }
+import {
+  cms_researchGet,
+  cms_researchSubmit,
+  cms_researchUserDetail
+} from "@/assets/apis/home";
+import utilRes from "@/assets/utils/resResult";
+import customFrom from "./components/customFrom";
+import Toast from "@/components/toast/toast";
+import overdueIcon from "@/assets/images/survey/overdue-icon.png";
 
-    },
-    methods:{
-        onSubmit(){
-            console.log(this.activityData);
-        },
-        validator(val) {
-            return /1/.test(val);
-        }
+export default {
+  components: {
+    "custom-from": customFrom
+  },
+  data() {
+    return {
+      detail: {
+        questionList: []
+      },
+      questionList: [],
+      endStatus: false,
+      overdueIcon: overdueIcon // 过期图标
+    };
+  },
+  async created() {
+    this.researchGet();
+  },
+  computed: {
+    id() {
+      return this.$route.params.id;
     }
-}
+  },
+  methods: {
+    async researchGet() {
+      let params = { id: this.id };
+      const obj = { ...params };
+      let res = await cms_researchGet(obj);
+      if (utilRes.successCheck(res)) {
+        this.detail = res.data; //请求返回当页的列表
+        if (this.detail.questionList.length > 0) {
+          const { participateStatus } = res.data;
+          if (
+            this.detail.endTime &&
+            new Date(this.detail.endTime) - new Date() <= 0
+          ) {
+            this.endStatus = true;
+            return false;
+          }
+          if (participateStatus === 1) {
+            // 已参与
+            this.getParticipateDetail(this.id);
+          }
+          this.questionList = this.detail.questionList.map(item => {
+            // 添加字段
+            switch (item.type) {
+              //   case 1: // 单选
+              //     return { ...item, optionsValue: "" };
+              case 2: // 多选
+                return { ...item, optionsValue: [] };
+              //   case 3: // 文本
+              //     return { ...item, optionsValue: "" };
+              default:
+                return { ...item, optionsValue: "" };
+            }
+          });
+        }
+      } else {
+        this.$message({
+          type: "error",
+          message: res.errMsg ? res.errMsg : "调用接口失败!"
+        });
+      }
+    },
+    // 获取已参与详情
+    async getParticipateDetail(researchId) {
+      // ---pp
+      let res = await cms_researchUserDetail({ researchId });
+      console.log("res", res);
+      if (utilRes.successCheck(res)) {
+        console.log("success", res);
+      } else {
+        this.$message({
+          type: "error",
+          message: res.errMsg ? res.errMsg : "调用接口失败!"
+        });
+      }
+    },
+    async onSubmit(formObj) {
+      let params = {
+        researchId: this.detail.id
+      };
+      params.questions = formObj.map(item => {
+        const itemObj = {
+          researchQuestionId: item.id,
+          type: item.type
+        };
+        // 添加字段
+        switch (item.type) {
+          case 1: // 单选
+            itemObj.researchQuestionOptionId = item.optionsValue;
+            break;
+          case 2: // 多选
+            itemObj.researchQuestionOptionIdList = item.optionsValue;
+            break;
+          default:
+            // 文本
+            itemObj.text = item.optionsValue;
+            break;
+        }
+        return itemObj;
+      });
+      let resData = await cms_researchSubmit(params);
+      const { data: res } = resData;
+      if (utilRes.successCheck(resData)) {
+        Toast.show({
+          content: "参与调研成功",
+          isSuccess: false,
+          duration: 1000
+        });
+        setTimeout(() => {
+          this.$router.go(-1);
+        }, 1000);
+      } else {
+        Toast.show({
+          content: res.errMsg || "调用接口失败",
+          isSuccess: false,
+          duration: 1000
+        });
+      }
+    }
+  }
+};
 </script>
 <style lang="less" scoped>
-.wrap{
-    .title{
-        text-align: center;
-        font-size: 23px;
-        line-height: 51px;
+.page {
+  font-size: 15px;
+  padding: 20px 15px;
+  .survey-detail {
+    .survey-detail-header {
+      position: relative;
+      .survey-detail-title {
+        .survey-detail-l {
+          .title {
+            font-size: 18px; //28
+            width: 85%;
+            font-weight: 800;
+            color: rgba(0, 0, 0, 1);
+            line-height: 1.5;
+          }
+          .date {
+            margin: 8px 0;
+            font-size: 15px;
+            line-height: 20px;
+            color: #666666;
+          }
+        }
+        .survey-detail-r {
+          position: absolute;
+          right: 0;
+          top: 30px;
+          bottom: 0;
+          margin: auto 0;
+          width: 60px;
+          height: 60px;
+          font-size: 120px;
+          font-weight: normal;
+          color: rgba(0, 0, 0, 1);
+          line-height: 138px;
+          background: linear-gradient(
+            249deg,
+            rgba(70, 121, 163, 1) 0%,
+            rgba(70, 121, 163, 0) 100%
+          );
+          transform: rotate(180deg);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+      }
+      .desc {
+        font-size: 12px;
+        font-weight: 400;
+        color: rgba(153, 153, 153, 1);
+        line-height: 17px;
+        margin: 2px 0;
+      }
     }
-    .formContanier{
-        margin-top: 20px;
+    .survey-detail-content {
+      margin-top: 10px;
     }
-}
-</style>
-<style lang="less">
-.wrap{
-    input::-webkit-input-placeholder {
-       font-size: 12px;
+  }
+  .end-survey {
+    padding: 100px 0;
+    height: 100%;
+    img {
+      width: 100%;
     }
-    .frameInput{
-        // .van-field__body{
-        //     border: 1px solid #999999;
-        //     border-radius: 4px;
-        // }
+    .overdue-text {
+      text-align: center;
+      font-size: 15px;
+      font-weight: 300;
+      color: rgba(153, 153, 153, 1);
+      line-height: 26px;
     }
-    input{
-        padding-left: 5px;
-    }
-    .break_all{
-        // &.van-cell{
-        //     display: block !important;
-        // }
-        // .van-field__label{
-        //     width: auto;
-        // } 
-    }
-    
-    
+  }
 }
 </style>
