@@ -1,6 +1,6 @@
 <template>
     <section class="page">
-        <Activity :data="list" :isEnd="isEnd" @goToDetail="goTodetail" @refresh="refresh" @infinite="infinite"></Activity>
+        <Activity ref="activityListNode" :data="list" :isEnd="isEnd" @goToDetail="goTodetail" @refresh="refresh" @infinite="infinite"></Activity>
     </section>
 </template>
 
@@ -12,7 +12,7 @@ export default {
   data(){
     return {
       list:[],
-      currentPage: 1,
+      currentPage: 0,
       totol: 0
     }
   },
@@ -25,39 +25,41 @@ export default {
     }
   },
   created(){
-      this.activity_queryActivitiyPage()
+      // this.activity_queryActivitiyPage()
   },
   methods:{
     activityDetail(){
-      this.$router.push({path:'/newbfd/home-h5/corporateactivity/activitydetail',query:''});
+      this.$router.push({path:'/newbfd/home-h5/corporateactivity/activitydetail'+window.location.search,query:''});
     },
     goTodetail(item){
-      this.$router.push({path:'/newbfd/home-h5/corporateactivity/activitydetail',query:{id:item.id}});
+      this.$router.push({path:'/newbfd/home-h5/corporateactivity/activitydetail'+window.location.search,query:{id:item.id}});
     },
-    refresh(){
+    refresh(done){
       this.currentPage = 1;
       this.total = 0;
       this.list = [];
-      this.activity_queryActivitiyPage();
+      this.activity_queryActivitiyPage(done);
     },
-    infinite(){
-      if(!this.isEnd) {
-        this.currentPage += 1;
-        this.activity_queryActivitiyPage();
-      }
+    infinite(done){
+      this.currentPage += 1;
+      this.activity_queryActivitiyPage(done);
     },
-    async activity_queryActivitiyPage() {
+    async activity_queryActivitiyPage(done) {
+      if(this.list.length!=0 && this.total <= this.list.length){
+        this.$refs.activityListNode.$refs.my_scroller.finishInfinite(true);
+        return;
+      };
       let params= {currentPage:this.currentPage, itemsPerPage:10};
       let res = await activity_queryActivitiyPage(params);
       if (utilRes.successCheck(res)) {
-        this.total = res.data.total || this.total;
-        const newList = res.data.listObj || [];
-        this.list = [...this.list, ...newList];
+        // this.total = res.data.total || this.total;
+        // const newList = res.data.listObj || [];
+        // this.list = [...this.list, ...newList];
+        this.list = JSON.parse(JSON.stringify(this.list)).concat(res.data.listObj); //请求返回当页的列表
+        this.total = res.data.total;
+        done();
       } else {
-        this.$message({
-          type: "error",
-          message: res.errMsg ? res.errMsg : "调用接口失败!"
-        });
+        this.$refs.noticeListNode.$refs.my_scroller.finishInfinite(true);
       }
     }
 
@@ -66,7 +68,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .page{
-    padding: 0 15px;
+    padding: 45px 15px 0;
     font-size: 14px;
 }
 </style>

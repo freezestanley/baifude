@@ -1,6 +1,6 @@
 <template>
     <section class="activity-wrap">
-      <scroller style="top: 44px" :on-refresh="refresh" :on-infinite="infinite">
+      <scroller ref="my_scroller" style="top: 47px" :on-refresh="refresh" :on-infinite="infinite">
         <div class="activit-item" v-for="(item,index) in data" :key="index" @click="goToDetail(item)">
             <div class="activity-pic">
                 <img :src="item.picture" alt="">
@@ -30,10 +30,10 @@
           return []
         },
       },
-      isEnd: {
-        type: Boolean,
-        default: false
-      }
+      // isEnd: {
+      //   type: Boolean,
+      //   default: false
+      // }
     },
     methods:{
       goToDetail(item){
@@ -41,22 +41,24 @@
       },
       refresh(done){
         setTimeout(() => {
-          this.$emit('refresh');
-          done()
+          this.$emit('refresh',done);
         }, 500)
       },
       infinite(done){
-        if(this.isEnd) {
-          this.bottom = this.bottom + 10;
-          done();
-        } else {
-          setTimeout(() => {
-            var start = this.bottom + 1
-            this.$emit('infinite');
-            this.bottom = this.bottom + 10
-            done()
-          }, 500)
-        }
+        setTimeout(() => {
+          this.$emit('infinite',done);
+        }, 500)
+        // if(this.isEnd) {
+        //   this.bottom = this.bottom + 10;
+        //   done();
+        // } else {
+        //   setTimeout(() => {
+        //     var start = this.bottom + 1
+        //     this.$emit('infinite');
+        //     this.bottom = this.bottom + 10
+        //     done()
+        //   }, 500)
+        // }
       }
     },
   }
@@ -64,11 +66,12 @@
 
 <style lang="less" scoped>
 .activity-wrap{
-    margin-top: 10px;
+    // margin-top: 61px;
     .activit-item{
-        width: 100%;
-        padding-bottom: 15px;
+        width: 345px;
+        padding-bottom:15px;
         position: relative;
+        margin: 0 auto;
         .activity-pic{
             width: 100%;
             height:126px;

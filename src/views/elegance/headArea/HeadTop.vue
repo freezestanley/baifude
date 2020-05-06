@@ -120,7 +120,7 @@ export default {
       }
       .arrowWrap {
         width: 8px;
-        height: 4px;
+        height: 8px;
         margin-top: 17px;
         overflow: hidden;
         .arrow {

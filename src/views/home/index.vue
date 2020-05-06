@@ -15,7 +15,7 @@
           <BusinessActivity :data="activityData" @activityDetail="activityDetail"></BusinessActivity>
       </div>
         <!-- 活动风采 -->
-      <div class="layout elegance" v-if="newsData.length>0">
+      <div class="layout elegance" v-if="styleData.length>0">
          <Title titleName="活动风采" :titleMore="true" @goToNext="goToNext"></Title>
          <NewsItem :newsData="styleData" @goToDetail="goToDetail"></NewsItem>
       </div>
@@ -60,7 +60,7 @@ import { OK } from "@/assets/utils/constant";
 import { getQueryString, setCookie, getCookie } from "@/assets/utils";
 import BusinessActivity from '@/components/businessActivity/index'
 import Title from '@/components/moduleTtile/index'
-import NewsItem from '../corporateNews/components/newsItem'
+import NewsItem from '../corporateNews/components/newsItemIndex'
 import Boutique from '@/components/boutique/index';
 import ActivityNav from '@/components/activitynav/index';
 import { newsListPage,activity_queryActivitiyPage } from "@/assets/apis/home";
@@ -386,7 +386,7 @@ export default {
       if(item == "企业新闻"){
         this.$router.push({
           name: "corporateNews",
-          query: { type: '1',...urlParams}
+          query: { ...urlParams,type: '1'}
         });
       }else if(item == "企业活动"){
         this.$router.push({
@@ -396,7 +396,7 @@ export default {
       }else if(item == "活动风采"){
         this.$router.push({
           name: "corporateNews",
-          query: { type: '2',...urlParams}
+          query: { ...urlParams,type: '2'}
         });
       }else if(item == "企业公告"){
         this.$router.push({
@@ -433,7 +433,7 @@ export default {
       if (utilRes.successCheck(res)) {
         const list = res.data.listObj
         if(list.length>3){
-          this.styleData = list.slice(0,2); //首页新闻取列表新闻里面的第一条
+          this.styleData = list.slice(0,2);
         }else{
           this.styleData = list
         }
@@ -476,17 +476,17 @@ export default {
     },
     goToDetail(item){
       this.$router.push({
-        path: "/newbfd/home-h5/corporatenews/newsdetail",
+        path: "/newbfd/home-h5/corporatenews/newsdetail"+window.location.search,
         query: { id: item.id }
       });
     },
     //公告列表跳详情
     goNoticeDetail(item){
-      this.$router.push({path:'/newbfd/home-h5/corporatenotice/detail',query:{id:item.id}});
+      this.$router.push({path:'/newbfd/home-h5/corporatenotice/detail'+window.location.search,query:{id:item.id}});
     },
     // 活动列表跳详情
     activityDetail(item){
-      this.$router.push({path:'/newbfd/home-h5/corporateactivity/activitydetail',query:{id:item.id}});
+      this.$router.push({path:'/newbfd/home-h5/corporateactivity/activitydetail'+window.location.search,query:{id:item.id}});
       // this.$router.push({name:'activityDetail',params:{...item}});
     }
 

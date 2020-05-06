@@ -1,4 +1,4 @@
-import { sendPostNew, sendUpload } from "../utils/request";
+import { sendPostNew, sendUpload, sendPost } from "../utils/request";
 
 /**
  * 获取新闻信息
@@ -108,12 +108,7 @@ function user_checkLogin(params) {
  *  @param { JSON } params 请求的参数
  */
 function user_findUsableList(params) {
-  return sendPostNew(
-    "http://appzuul.test04.com/mallUnion/unionMallConfig/findUsableList",
-    "post",
-    params,
-    false
-  );
+  return sendPost("/mallUnion/unionMallConfig/findUsableList", params);
 }
 
 /**

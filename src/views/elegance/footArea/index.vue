@@ -160,6 +160,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@rem:75rem;
 .clearfix:after {
   content: ".";
   display: block;
@@ -196,7 +197,7 @@ export default {
       font-size: 30px;
     }
     .footer {
-      width: 50px;
+      width: 119/@rem;
       text-align: center;
       color: #888;
       img {

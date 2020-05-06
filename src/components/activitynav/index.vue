@@ -14,6 +14,7 @@
 </template>
 <script>
 import { Toast } from 'vant'
+import { parseQueryString } from "@/assets/utils/request";
   export default {
     name: "index",
     data(){
@@ -34,6 +35,10 @@ import { Toast } from 'vant'
     },
     methods:{
         gotoActivity(index){
+            let urlParams = parseQueryString(window.location.search);
+            if(urlParams.type){
+                urlParams.type = 1;  
+            }
             let path = "";
             if(index == 0){
                 path = '/newbfd/home-h5/corporatenews';
@@ -45,7 +50,7 @@ import { Toast } from 'vant'
             }else if(index == 3){
                 path = '/newbfd/home-h5/corporatenotice';
             }
-            this.$router.push({path:path});
+            this.$router.push({path:path,query:{...urlParams}});
         }
     }
 }

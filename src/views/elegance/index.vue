@@ -55,7 +55,8 @@ export default {
     return {
       flag: false,
       showBanner: false,
-      showHeadNav: false
+      showHeadNav: false,
+      time:null,
     };
   },
   created() {
@@ -114,7 +115,7 @@ export default {
       function slide() {
         left -= 1;
         // 当滚动条滚动了初始内容的宽度时滚动条回到最右端
-        if (Math.abs(left) > scrollWidth + 2) {
+        if (Math.abs(left) > scrollWidth) {
           left = clientWidth;
         }
         noticeTxt.style.left = `${left}px`;
@@ -124,6 +125,8 @@ export default {
   },
   beforeDestroy: function() {
     window.removeEventListener("scroll", this.handleScroll); //  离开页面清除（移除）滚轮滚动事件
+    clearInterval(this.time);
+    this.time = null;
   }
 };
 </script>

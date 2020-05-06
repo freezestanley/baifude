@@ -50,6 +50,7 @@
             font-size: 15px;
             font-weight: bold;
             margin-bottom: 5px;
+            background-color: white;
             .tab-bar-item{
                 width: 80px;
                 height:40px;
@@ -58,6 +59,8 @@
                 color: #333;
                 cursor:pointer;
                 margin-right: 15px;
+                background-color: white;
+                overflow: hidden;
             }
             .tabs-active{
                 color: #4679A3;

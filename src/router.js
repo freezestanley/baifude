@@ -300,6 +300,18 @@ router.beforeEach(async (to, from, next) => {
   //   );
   //   window.location.href = getLoginUrl();
   // }
-  next();
+  cookieCheck();
+  if(await checkLogin()){
+    if(to.path == from.path || from.path == '/'){
+      next();
+    }
+    attachParam({
+      union: 'union',
+      city: 'city' 
+    }, next, to, from);
+  }else{
+    window.location.href = getLoginUrl();
+  }
+  // next();
 });
 export default router;

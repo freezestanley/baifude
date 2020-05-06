@@ -10,17 +10,17 @@
         </div>
         <van-form v-if="activityData.controlList.length>0"  @submit="onSubmit" :show-error="false">
           <div class="wrapInput borderStyle" style="margin:0 0.4rem"  v-for="(item,index) in activityData.controlList" :key="index">
-            <van-field v-if="item.optionsType==3 && item.optionsName=='姓名'"
+            <van-field class="inputStyle" v-if="item.optionsType==3 && item.optionsName=='姓名'"
                        v-model="item.optionsValue"
                        label="姓名"
                        placeholder="请输入姓名"
                        />
-              <van-field v-if="item.optionsType==3 && item.optionsName=='手机号'"
+              <van-field class="inputStyle" v-if="item.optionsType==3 && item.optionsName=='手机号'"
                          v-model="item.optionsValue"
                          label="手机号"
                          placeholder="请输入手机号码"
                          />
-                <van-field v-if="item.optionsType==3 && item.optionsName!='手机号' && item.optionsName!='姓名'"
+                <van-field class="inputStyle" v-if="item.optionsType==3 && item.optionsName!='手机号' && item.optionsName!='姓名'"
                            v-model="item.optionsValue"
                            :label="item.optionsName"
                            :placeholder="'请输入'+item.optionsName"
@@ -461,6 +461,7 @@ export default {
   }
   .wrapInput{
     border-bottom: 1px solid #E0E6ED;
+    
     &:last-child{
       border-bottom: 0 solid #fff !important;
     }
@@ -557,6 +558,20 @@ export default {
   .van-button--danger{
     background-color: #C6AA85;
     border: 0.026667rem solid #C6AA85;
+  }
+  .wrapInput{
+    .inputStyle{
+      .van-cell__value{
+        text-align: left;
+        .van-field__body{
+          display: inline-block;
+          .van-field__control{
+            line-height: 26px !important;
+            height: 26px;
+          }
+        }
+      }
+    }
   }
 
 
