@@ -1,13 +1,12 @@
-import { sendPostNew, sendUpload, sendPost} from "../utils/request";
-
+import { sendPostNew, sendUpload, sendPost } from "../utils/request";
 
 /**
  * 获取新闻信息
  * @param { JSON } params 请求的参数
  */
 function queryActivityList(params) {
-    const activityListApi = "/care/queryActivityList";
-    return sendPostNew(activityListApi,'get', params, true);
+  const activityListApi = "/care/queryActivityList";
+  return sendPostNew(activityListApi, "get", params, true);
 }
 
 /**
@@ -15,8 +14,8 @@ function queryActivityList(params) {
  * @param { JSON } params 请求的参数
  */
 function submitActivity(params) {
-    const cityListApi = "/care/submitActivity";
-    return sendPostNew(cityListApi, 'post',params, true);
+  const cityListApi = "/care/submitActivity";
+  return sendPostNew(cityListApi, "post", params, true);
 }
 /**
  * 获取企业新闻列表
@@ -24,7 +23,7 @@ function submitActivity(params) {
  */
 function newsListPage(params) {
   const newslistPageApi = "/cms/front/news/listPage";
-  return sendPostNew(newslistPageApi, 'post',params, false);
+  return sendPostNew(newslistPageApi, "post", params, false);
 }
 /**
  * 获取新闻详情
@@ -32,7 +31,7 @@ function newsListPage(params) {
  */
 function news_getNewsFrontDetail(params) {
   const getNewsFrontDetailApi = "/cms/front/news/getNewsFrontDetail";
-  return sendPostNew(getNewsFrontDetailApi, 'get',params, true);
+  return sendPostNew(getNewsFrontDetailApi, "get", params, true);
 }
 /**
  * 获取企业活动列表
@@ -40,7 +39,7 @@ function news_getNewsFrontDetail(params) {
  */
 function activity_queryActivitiyPage(params) {
   const queryActivitiyPageApi = "/care/front/activity/queryActivityPage";
-  return sendPostNew(queryActivitiyPageApi, 'get',params, true);
+  return sendPostNew(queryActivitiyPageApi, "get", params, true);
 }
 /**
  * 获取企业活动详情
@@ -48,45 +47,44 @@ function activity_queryActivitiyPage(params) {
  */
 function activity_queryActivityDetail(params) {
   const queryActivityDetailApi = "/care/front/activity/queryActivityDetail";
-  return sendPostNew(queryActivityDetailApi, 'get',params, true);
+  return sendPostNew(queryActivityDetailApi, "get", params, true);
 }
 
 /**
  * 查询企业活动表单项
- * @param { JSON} params 
+ * @param { JSON} params
  */
-function activity_queryActivityForm(params){
+function activity_queryActivityForm(params) {
   const queryActivityFormApi = "/care/front/activity/queryActivityForm";
-  return sendPostNew(queryActivityFormApi,'get',params,true);
+  return sendPostNew(queryActivityFormApi, "get", params, true);
 }
 
 /**
  * 活动报名提交
- * @param {JSON} params 
+ * @param {JSON} params
  */
-function activity_activityEntry(params){
+function activity_activityEntry(params) {
   const activityEntryApi = "/care/front/activity/activityEntry";
-  return sendPostNew(activityEntryApi,'post',params,false);
+  return sendPostNew(activityEntryApi, "post", params, false);
 }
 
 /**
  * 活动取消报名
- * @param {JSON} params 
+ * @param {JSON} params
  */
-function activity_entryCancel(params){
+function activity_entryCancel(params) {
   const activityEntryApi = "/care/front/activity/entryCancel";
-  return sendPostNew(activityEntryApi,'post',params,false);
+  return sendPostNew(activityEntryApi, "post", params, false);
 }
 
 /**
  * 活动上传图片
- * @param {JSON} params 
+ * @param {JSON} params
  */
-function activity_uploadFile(params){
+function activity_uploadFile(params) {
   const uploadFileApi = "/user/file/upload";
-  return sendUpload(uploadFileApi,'post',params);
+  return sendUpload(uploadFileApi, "post", params);
 }
-
 
 /**
  * 获取企业新闻banner
@@ -94,7 +92,7 @@ function activity_uploadFile(params){
  */
 function newsConf_list(params) {
   const newsConfListApi = "/cms/front/newsConf/list";
-  return sendPostNew(newsConfListApi, 'get',params, true);
+  return sendPostNew(newsConfListApi, "get", params, true);
 }
 
 /**
@@ -102,9 +100,8 @@ function newsConf_list(params) {
  * @param { JSON } params 请求的参数
  */
 function user_checkLogin(params) {
-  return sendPostNew("/user/front/user/checkLogin", 'get', params, true);
+  return sendPostNew("/user/front/user/checkLogin", "get", params, true);
 }
-
 
 /**
  * 查询福利商城信息
@@ -114,13 +111,53 @@ function user_findUsableList(params) {
   return sendPost("/mallUnion/unionMallConfig/findUsableList", params);
 }
 
-
 /**
  * 查询列表项
  *  @param { JSON } params 请求的参数
  */
-function menu_list(params){
-  return sendPostNew("http://api.test04.com/user/menu/list", 'post', params, true);
+function menu_list(params) {
+  return sendPostNew(
+    "http://api.test04.com/user/menu/list",
+    "post",
+    params,
+    true
+  );
+}
+
+/**
+ * 工会获取调研列表
+ * @param { JSON } params 请求的参数
+ */
+function cms_researchList(params) {
+  return sendPostNew("/cms/front/research/list", "get", params, true);
+}
+/**
+ * 获取调研问卷(未解答)
+ * @param { JSON } params 请求的参数
+ */
+function cms_researchGet(params) {
+  return sendPostNew("/cms/front/research/get", "post", params, true);
+}
+/**
+ * 提交调研问卷
+ * @param { JSON } params 请求的参数
+ */
+function cms_researchSubmit(params) {
+  return sendPostNew("/cms/front/research/submit", "post", params);
+}
+/**
+ * 员工参与过的问卷列表详情
+ * @param { JSON } params 请求的参数
+ */
+function cms_researchUserDetail(params) {
+  return sendPostNew("/cms/front/research/user/detail", "get", params, true);
+}
+/**
+ * 提交调研问卷
+ * @param { JSON } params 请求的参数
+ */
+function cms_researchUserList(params) {
+  return sendPostNew("/cms/front/research/user/list", "post", params);
 }
 
 export {
@@ -137,5 +174,10 @@ export {
   activity_uploadFile,
   user_checkLogin,
   user_findUsableList,
-  menu_list
-}
+  menu_list,
+  cms_researchList,
+  cms_researchGet,
+  cms_researchSubmit,
+  cms_researchUserList,
+  cms_researchUserDetail
+};
