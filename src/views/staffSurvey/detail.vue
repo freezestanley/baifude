@@ -166,9 +166,10 @@ export default {
 <style lang="less" scoped>
 .page {
   font-size: 15px;
-  padding: 20px 15px;
+  padding: 40px 15px 0;
   .survey-detail {
     .survey-detail-header {
+      margin: 10px 0;
       position: relative;
       .survey-detail-title {
         .survey-detail-l {
