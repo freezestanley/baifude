@@ -1,5 +1,6 @@
 <template>
   <div class="page">
+    <div style="height:50px;width: 100%;"></div>
     <Banner :bannerList="bannerList" @clickBanner="clickBanner"></Banner>
     <SurveyItem
       :surveyData="listObj"
@@ -106,7 +107,7 @@ export default {
 
 <style lang="less" scoped>
 .page {
-  padding: 40px 10px 0;
+  padding: 0 10px;
   font-size: 14px;
 }
 </style>
