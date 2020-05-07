@@ -146,7 +146,7 @@ export default {
       boutiqueData: [], //精品推荐数据对象
       surveyObj: {
         pic:
-          "https://image.dongfangfuli.com/2020/03/06/35e7e327db62108061c59f7cdc8f3fbf1763f692a3ce0ef12245c858241f3d7b.jpg"
+          "http://devimg.dongfangfuli.com/bfd/2020-05-02/276d7252c2cdf98f2fcafb58e902ac91.png"
       },
       researchList: {} // 员工调研
     };
