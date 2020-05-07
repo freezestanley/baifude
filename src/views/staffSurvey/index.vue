@@ -106,7 +106,7 @@ export default {
 
 <style lang="less" scoped>
 .page {
-  padding: 0 10px;
+  padding: 40px 10px 0;
   font-size: 14px;
 }
 </style>

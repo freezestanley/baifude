@@ -78,10 +78,7 @@ export default {
             this.endStatus = true;
             return false;
           }
-          if (participateStatus === 1) {
-            // 已参与
-            this.getParticipateDetail(this.id);
-          }
+
           this.questionList = this.detail.questionList.map(item => {
             // 添加字段
             switch (item.type) {
@@ -95,6 +92,10 @@ export default {
                 return { ...item, optionsValue: "" };
             }
           });
+          if (participateStatus === 1) {
+            // 已参与
+            this.getParticipateDetail(this.id);
+          }
         }
       } else {
         this.$message({
@@ -105,11 +106,32 @@ export default {
     },
     // 获取已参与详情
     async getParticipateDetail(researchId) {
-      // ---pp
       let res = await cms_researchUserDetail({ researchId });
-      console.log("res", res);
       if (utilRes.successCheck(res)) {
-        console.log("success", res);
+        const { questions } = res.data;
+        if (questions && questions.length > 0) {
+          questions.map(item => {
+            //this.questionList =
+            for (let i = 0; this.questionList.length > i; i++) {
+              if (item.id === this.questionList[i].id) {
+                switch (item.type) {
+                  case 1: // 单选
+                    this.questionList[i].optionsValue =
+                      item.selectedOptionIds[0];
+                    break;
+                  case 2: // 多选
+                    this.questionList[i].optionsValue = item.selectedOptionIds;
+                    break;
+                  case 3: // 文本
+                    this.questionList[i].optionsValue = item.text;
+                    break;
+                  default:
+                    this.questionList[i].optionsValue = item.text;
+                }
+              }
+            }
+          });
+        }
       } else {
         this.$message({
           type: "error",
@@ -166,9 +188,10 @@ export default {
 <style lang="less" scoped>
 .page {
   font-size: 15px;
-  padding: 20px 15px;
+  padding: 40px 15px 0;
   .survey-detail {
     .survey-detail-header {
+      margin: 10px 0;
       position: relative;
       .survey-detail-title {
         .survey-detail-l {

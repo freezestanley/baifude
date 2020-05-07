@@ -2,68 +2,109 @@
   <div class="wrap">
     <div class="container">
       <ActivityNav :activityNavData="activityNavData"></ActivityNav>
-        <!-- 企业新闻 -->
-      <div class="layout news" v-if="newsData.length>0">
-          <Title titleName="企业新闻" :titleMore="true" @goToNext="goToNext"></Title>
-          <NewsItem :newsData="newsData" @goToDetail="goToDetail"></NewsItem>
+      <!-- 企业新闻 -->
+      <div class="layout news" v-if="newsData.length > 0">
+        <Title
+          titleName="企业新闻"
+          :titleMore="true"
+          @goToNext="goToNext"
+        ></Title>
+        <NewsItem :newsData="newsData" @goToDetail="goToDetail"></NewsItem>
       </div>
-      <div class="activity" v-if="activityData.length>0">
-          <!--企业活动-->
-          <div style="padding: 0 15px">
-              <Title titleName="企业活动" :titleMore="true" @goToNext="goToNext"></Title>
-          </div>
-          <BusinessActivity :data="activityData" @activityDetail="activityDetail"></BusinessActivity>
-      </div>
-        <!-- 活动风采 -->
-      <div class="layout elegance" v-if="styleData.length>0">
-         <Title titleName="活动风采" :titleMore="true" @goToNext="goToNext"></Title>
-         <NewsItem :newsData="styleData" @goToDetail="goToDetail"></NewsItem>
-      </div>
-        <!-- 员工调研 -->
-        <div class="layout survey" v-if="newsData.length>0">
-            <Title titleName="员工调研" :titleMore="true" @goToNext="goToNext"></Title>
-           <div class="survey-wrap">
-               <p>疫情过后你会报复性消费吗</p>
-               <div class="survey-pic">
-                   <img :src="surveyObj.pic" alt="">
-               </div>
-           </div>
+      <div class="activity" v-if="activityData.length > 0">
+        <!--企业活动-->
+        <div style="padding: 0 15px">
+          <Title
+            titleName="企业活动"
+            :titleMore="true"
+            @goToNext="goToNext"
+          ></Title>
         </div>
-        <!-- 企业公告 -->
-      <div class="layout notice" v-if="list.length>0">
-         <Title titleName="企业公告" :titleMore="true" @goToNext="goToNext"></Title>
-          <div class="notice-wrap">
-              <div class="notice-item" v-for="(item,index) in list" :key="index" @click="goNoticeDetail(item)">
-                  <div class="notice-item-text">{{item.title}}</div>
-                  <div class="notice-item-time">{{item.publishTime}}</div>
-                  <div class="notice-item-styleCircle"></div>
-              </div>
+        <BusinessActivity
+          :data="activityData"
+          @activityDetail="activityDetail"
+        ></BusinessActivity>
+      </div>
+      <!-- 活动风采 -->
+      <div class="layout elegance" v-if="styleData.length > 0">
+        <Title
+          titleName="活动风采"
+          :titleMore="true"
+          @goToNext="goToNext"
+        ></Title>
+        <NewsItem :newsData="styleData" @goToDetail="goToDetail"></NewsItem>
+      </div>
+      <!-- 员工调研 -->
+      <div class="layout survey" v-if="researchList.title">
+        <Title
+          titleName="员工调研"
+          :titleMore="true"
+          @goToNext="goToNext"
+        ></Title>
+        <div
+          class="survey-wrap"
+          @click="
+            () =>
+              $router.push({
+                name: 'staffDetail',
+                params: { id: researchList.id }
+              })
+          "
+        >
+          <p>{{ researchList.title }}</p>
+          <div class="survey-pic">
+            <img :src="surveyObj.pic" alt="" />
           </div>
-      </div>
-        <!-- 精品推荐 -->
-      <div class="layout" v-if="boutiqueData.length>0">
-         <Title titleName="精品推荐"></Title>
-          <Boutique :data="boutiqueData"></Boutique>
-      </div>
-        <div class="section-last-tip">
-            <div class="section-last-text">已经到底啦</div>
         </div>
+      </div>
+      <!-- 企业公告 -->
+      <div class="layout notice" v-if="list.length > 0">
+        <Title
+          titleName="企业公告"
+          :titleMore="true"
+          @goToNext="goToNext"
+        ></Title>
+        <div class="notice-wrap">
+          <div
+            class="notice-item"
+            v-for="(item, index) in list"
+            :key="index"
+            @click="goNoticeDetail(item)"
+          >
+            <div class="notice-item-text">{{ item.title }}</div>
+            <div class="notice-item-time">{{ item.publishTime }}</div>
+            <div class="notice-item-styleCircle"></div>
+          </div>
+        </div>
+      </div>
+      <!-- 精品推荐 -->
+      <div class="layout" v-if="boutiqueData.length > 0">
+        <Title titleName="精品推荐"></Title>
+        <Boutique :data="boutiqueData"></Boutique>
+      </div>
+      <div class="section-last-tip">
+        <div class="section-last-text">已经到底啦</div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { Toast } from 'vant'
+import { Toast } from "vant";
 import axios from "axios";
 import { mapMutations } from "vuex";
 import { OK } from "@/assets/utils/constant";
 import { getQueryString, setCookie, getCookie } from "@/assets/utils";
-import BusinessActivity from '@/components/businessActivity/index'
-import Title from '@/components/moduleTtile/index'
-import NewsItem from '../corporateNews/components/newsItemIndex'
-import Boutique from '@/components/boutique/index';
-import ActivityNav from '@/components/activitynav/index';
-import { newsListPage,activity_queryActivitiyPage } from "@/assets/apis/home";
+import BusinessActivity from "@/components/businessActivity/index";
+import Title from "@/components/moduleTtile/index";
+import NewsItem from "../corporateNews/components/newsItemIndex";
+import Boutique from "@/components/boutique/index";
+import ActivityNav from "@/components/activitynav/index";
+import {
+  newsListPage,
+  activity_queryActivitiyPage,
+  cms_researchList
+} from "@/assets/apis/home";
 import utilRes from "@/assets/utils/resResult";
 import { parseQueryString } from "@/assets/utils/request";
 
@@ -80,38 +121,45 @@ export default {
       locationCityId: "",
       isShowUnionNotice: false,
       unionNoticeContent: "",
-      activityNavData:[
+      activityNavData: [
         {
-          url:require("@/assets/images/home/news.png"),
-          instruct:'企业新闻'
-        },{
-          url:require("@/assets/images/home/activity.png"),
-          instruct:'企业活动'
+          url: require("@/assets/images/home/news.png"),
+          instruct: "企业新闻"
         },
         {
-          url:require("@/assets/images/home/employee_research.png"),
-          instruct:'员工调研'
-        },{
-          url:require("@/assets/images/home/notice.png"),
-          instruct:'企业公告'
+          url: require("@/assets/images/home/activity.png"),
+          instruct: "企业活动"
+        },
+        {
+          url: require("@/assets/images/home/employee_research.png"),
+          instruct: "员工调研"
+        },
+        {
+          url: require("@/assets/images/home/notice.png"),
+          instruct: "企业公告"
         }
-      ],  //活动导航栏
-      newsData:[],//新闻数据
-      activityData:[],//企业活动数据
-      styleData:[],//活动风采数据
-      list:[],//企业公告列表数据
-      boutiqueData:[],//精品推荐数据对象
-      surveyObj:{
-        "pic":"https://image.dongfangfuli.com/2020/03/06/35e7e327db62108061c59f7cdc8f3fbf1763f692a3ce0ef12245c858241f3d7b.jpg"
+      ], //活动导航栏
+      newsData: [], //新闻数据
+      activityData: [], //企业活动数据
+      styleData: [], //活动风采数据
+      list: [], //企业公告列表数据
+      boutiqueData: [], //精品推荐数据对象
+      surveyObj: {
+        pic:
+          "https://image.dongfangfuli.com/2020/03/06/35e7e327db62108061c59f7cdc8f3fbf1763f692a3ce0ef12245c858241f3d7b.jpg"
       },
-
+      researchList: {} // 员工调研
     };
   },
   components: {
     homeShell: () => import("../../components/homeShell"),
     LocationNotice: () => import("../../components/locationNotice"),
     notice: () => import("../../components/notice"),
-    Title,NewsItem,BusinessActivity,Boutique,ActivityNav
+    Title,
+    NewsItem,
+    BusinessActivity,
+    Boutique,
+    ActivityNav
   },
 
   created() {
@@ -121,11 +169,11 @@ export default {
     this.getNotice(union);
     this.getData(union);
     this.getCityList();
-    this.queryNewsList({type:1,categoryId:1});//企业新闻
-    this.queryActiveStyleList({type:1,categoryId:2});//活动风采
-    this.activity_queryActivitiyPage();//企业活动
-    this.queryNoticeList();//企业公告
-
+    this.queryNewsList({ type: 1, categoryId: 1 }); //企业新闻
+    this.queryActiveStyleList({ type: 1, categoryId: 2 }); //活动风采
+    this.activity_queryActivitiyPage(); //企业活动
+    this.queryNoticeList(); //企业公告
+    this.queryResearchList(); // 员工调研
   },
   methods: {
     ...mapMutations(["updateState"]),
@@ -304,15 +352,18 @@ export default {
               this.$notify(unionConf.data.msg);
               return false;
             }
-            if(unionMoulds && unionMoulds.body){
-              const unionData = unionMoulds.body
-              for(let i=0;i<unionData.length;i++){
-                if(unionData[i].title == "精品推荐" || unionData[i].formatCode == "mportant"){
-                  this.boutiqueData = unionData[i].mouldContents
+            if (unionMoulds && unionMoulds.body) {
+              const unionData = unionMoulds.body;
+              for (let i = 0; i < unionData.length; i++) {
+                if (
+                  unionData[i].title == "精品推荐" ||
+                  unionData[i].formatCode == "mportant"
+                ) {
+                  this.boutiqueData = unionData[i].mouldContents;
                 }
               }
             }
-            console.log("工会信息--",unionMoulds)
+            console.log("工会信息--", unionMoulds);
             // if (unionMoulds && unionMoulds.body) {
             //   unionMoulds.body.forEach(unionMod => {
             //     this.fords.push({
@@ -377,50 +428,46 @@ export default {
           });
         });
     },
-    getPopUpShow() {
-    
-    },
+    getPopUpShow() {},
     // 点击更多跳转相对应列表页
-    goToNext(item){
+    goToNext(item) {
       let urlParams = parseQueryString(window.location.search);
-      if(item == "企业新闻"){
+      if (item == "企业新闻") {
         this.$router.push({
           name: "corporateNews",
-          query: { ...urlParams,type: '1'}
+          query: { ...urlParams, type: "1" }
         });
-      }else if(item == "企业活动"){
+      } else if (item == "企业活动") {
         this.$router.push({
           name: "corporateActivity",
-          query: {...urlParams}
+          query: { ...urlParams }
         });
-      }else if(item == "活动风采"){
+      } else if (item == "活动风采") {
         this.$router.push({
           name: "corporateNews",
-          query: { ...urlParams,type: '2'}
+          query: { ...urlParams, type: "2" }
         });
-      }else if(item == "企业公告"){
+      } else if (item == "企业公告") {
         this.$router.push({
           name: "corporateNotice",
-          query: {...urlParams}
+          query: { ...urlParams }
         });
-      }else if(item == "员工调研"){
-        Toast('敬请期待')
-        // this.$router.push({
-        //   path: "/newbfd/home-h5/staffsurvey",
-        // });
+      } else if (item == "员工调研") {
+        this.$router.push({
+          path: "/newbfd/home-h5/staffsurvey"
+        });
       }
-
     },
     //企业新闻列表接口
     async queryNewsList(param) {
-      const obj ={...param}
+      const obj = { ...param };
       let res = await newsListPage(obj);
       if (utilRes.successCheck(res)) {
-        const list=res.data.listObj
-        if(list.length>=3){
-          this.newsData=list.slice(0,3); //首页新闻取列表新闻里面前三条
-        }else {
-          this.newsData = list
+        const list = res.data.listObj;
+        if (list.length >= 3) {
+          this.newsData = list.slice(0, 3); //首页新闻取列表新闻里面前三条
+        } else {
+          this.newsData = list;
         }
       } else {
         this.$notify(res.errMsg);
@@ -428,14 +475,14 @@ export default {
     },
     //活动风采列表接口
     async queryActiveStyleList(param) {
-      const obj ={...param}
+      const obj = { ...param };
       let res = await newsListPage(obj);
       if (utilRes.successCheck(res)) {
-        const list = res.data.listObj
-        if(list.length>3){
-          this.styleData = list.slice(0,2);
-        }else{
-          this.styleData = list
+        const list = res.data.listObj;
+        if (list.length > 3) {
+          this.styleData = list.slice(0, 2);
+        } else {
+          this.styleData = list;
         }
       } else {
         this.$notify(res.errMsg);
@@ -443,7 +490,7 @@ export default {
     },
     //企业活动列表接口
     async activity_queryActivitiyPage() {
-      let params={currentPage:1,itemsPerPage:10}
+      let params = { currentPage: 1, itemsPerPage: 10 };
       let res = await activity_queryActivitiyPage(params);
       if (utilRes.successCheck(res)) {
         this.activityData = res.data.listObj;
@@ -453,19 +500,19 @@ export default {
     },
     //企业公告列表
     async queryNoticeList() {
-      let params ={
-        currentPage:1,
-        itemsPerPage:10,
-        type:2,
-      }
-      const obj ={...params}
+      let params = {
+        currentPage: 1,
+        itemsPerPage: 10,
+        type: 2
+      };
+      const obj = { ...params };
       let res = await newsListPage(obj);
       if (utilRes.successCheck(res)) {
         const listObj = res.data.listObj;
-        if(listObj.length>6){
-          this.list = listObj.slice(0,5)
-        }else {
-          this.list = listObj
+        if (listObj.length > 6) {
+          this.list = listObj.slice(0, 5);
+        } else {
+          this.list = listObj;
         }
       } else {
         this.$message({
@@ -474,22 +521,51 @@ export default {
         });
       }
     },
-    goToDetail(item){
+    // 员工调研
+    async queryResearchList() {
+      let params = {
+        currentPage: 1,
+        itemsPerPage: 1, // 取第一条
+        status: 2
+      };
+      const obj = { ...params };
+      let res = await cms_researchList(obj);
+      if (utilRes.successCheck(res)) {
+        const { listObj } = res.data;
+        if (listObj.length > 0) {
+          this.researchList = listObj[0];
+        }
+      } else {
+        this.$message({
+          type: "error",
+          message: res.errMsg ? res.errMsg : "调用接口失败!"
+        });
+      }
+    },
+    goToDetail(item) {
       this.$router.push({
-        path: "/newbfd/home-h5/corporatenews/newsdetail"+window.location.search,
+        path:
+          "/newbfd/home-h5/corporatenews/newsdetail" + window.location.search,
         query: { id: item.id }
       });
     },
     //公告列表跳详情
-    goNoticeDetail(item){
-      this.$router.push({path:'/newbfd/home-h5/corporatenotice/detail'+window.location.search,query:{id:item.id}});
+    goNoticeDetail(item) {
+      this.$router.push({
+        path: "/newbfd/home-h5/corporatenotice/detail" + window.location.search,
+        query: { id: item.id }
+      });
     },
     // 活动列表跳详情
-    activityDetail(item){
-      this.$router.push({path:'/newbfd/home-h5/corporateactivity/activitydetail'+window.location.search,query:{id:item.id}});
+    activityDetail(item) {
+      this.$router.push({
+        path:
+          "/newbfd/home-h5/corporateactivity/activitydetail" +
+          window.location.search,
+        query: { id: item.id }
+      });
       // this.$router.push({name:'activityDetail',params:{...item}});
     }
-
   },
   watch: {
     $route(newVal, oldVal) {
@@ -545,84 +621,84 @@ html {
 }
 </style>
 <style lang="less" scoped>
-  .wrap{
-      font-size: 12px;
-     .layout{padding: 10px 15px 0;}
-     .activity{
-
-     }
-     .notice{
-         .notice-wrap{
-             /*box-shadow:0px 0px 0px 10px #fafafa;*/
-             .notice-item{
-                 /*display: flex;*/
-                 height: 70px;
-                 position: relative;
-                 padding-left: 20px;
-                 &::before{
-                     content: "";
-                     width: 6px;
-                     height: 6px;
-                     border: 1px solid #4679A3;
-                     border-radius: 50%;
-                     position: absolute;
-                     left:0;
-                     top:4px;
-                 }
-                 /*.notice-item-styleCircle{*/
-                     /*width: 1px;*/
-                     /*height: 60px;*/
-                     /*background: #E5E5E5;*/
-                     /*position: absolute;*/
-                     /*left:3px;*/
-                     /*top:12px;*/
-                 /*}*/
-                 .notice-item-text{
-                     font-size: 14px;
-                     color: #333333;
-                     white-space:nowrap;
-                     text-overflow:ellipsis;
-                     overflow: hidden;
-                 }
-                 .notice-item-time{
-                     margin-top: 6px;
-                     font-size: 12px;
-                     color: #B2B2B2;
-                 }
-             }
-         }
-
-     }
-     .survey{
-         .survey-wrap{
-             .survey-pic{
-                 width: 100%;
-                 height: 120px;
-                 img{
-                     width: 100%;
-                     height: 100%;
-                     display: block;
-                 }
-             }
-         }
-     }
-      .section-last-tip{
-          margin: 30px auto;
-          width: 199px;
-         border-bottom: 1px solid #E5E5E5;
-          position: relative;
-          .section-last-text{
-              position:absolute;
-              left:50%;
-              top:50%;
-              margin-top:-9px;
-              margin-left: -40px;
-              height: 18px;
-              width: 79px;
-              background: #fff;
-              color:#B2B2B2;
-              text-align: center;
-          }
-      }
+.wrap {
+  font-size: 12px;
+  .layout {
+    padding: 10px 15px 0;
   }
+  .activity {
+  }
+  .notice {
+    .notice-wrap {
+      /*box-shadow:0px 0px 0px 10px #fafafa;*/
+      .notice-item {
+        /*display: flex;*/
+        height: 70px;
+        position: relative;
+        padding-left: 20px;
+        &::before {
+          content: "";
+          width: 6px;
+          height: 6px;
+          border: 1px solid #4679a3;
+          border-radius: 50%;
+          position: absolute;
+          left: 0;
+          top: 4px;
+        }
+        /*.notice-item-styleCircle{*/
+        /*width: 1px;*/
+        /*height: 60px;*/
+        /*background: #E5E5E5;*/
+        /*position: absolute;*/
+        /*left:3px;*/
+        /*top:12px;*/
+        /*}*/
+        .notice-item-text {
+          font-size: 14px;
+          color: #333333;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+        .notice-item-time {
+          margin-top: 6px;
+          font-size: 12px;
+          color: #b2b2b2;
+        }
+      }
+    }
+  }
+  .survey {
+    .survey-wrap {
+      .survey-pic {
+        width: 100%;
+        height: 120px;
+        img {
+          width: 100%;
+          height: 100%;
+          display: block;
+        }
+      }
+    }
+  }
+  .section-last-tip {
+    margin: 30px auto;
+    width: 199px;
+    border-bottom: 1px solid #e5e5e5;
+    position: relative;
+    .section-last-text {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-top: -9px;
+      margin-left: -40px;
+      height: 18px;
+      width: 79px;
+      background: #fff;
+      color: #b2b2b2;
+      text-align: center;
+    }
+  }
+}
 </style>

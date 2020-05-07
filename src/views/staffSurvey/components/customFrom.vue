@@ -192,6 +192,7 @@ export default {
       }
     }
     /deep/.van-field__body {
+      padding-left: 10px;
       input {
         border-bottom: 1px solid #e0e6ed;
       }
