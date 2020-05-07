@@ -54,7 +54,8 @@
   .detail-html-style{
       overflow: hidden;
       img{
-          width: 100%;
+          width: 100% !important;
+          height:100% !important;
           display: block;
       }
       *{
