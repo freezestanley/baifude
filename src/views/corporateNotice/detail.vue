@@ -63,7 +63,7 @@
 
 <style lang="less" scoped>
 .page{
-    padding: 40px 10px 0;
+    padding: 10px 10px 0;
     font-size: 12px;
     .contentCenter{
         color: #999999;

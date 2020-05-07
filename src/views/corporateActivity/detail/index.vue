@@ -152,7 +152,7 @@ export default {
 .page{
     font-size: 15px;
     .activity-detail{
-        margin-top: 46px;
+        margin-top: 26px;
     }
     .activity-detail-pic{
         width: 100%;
