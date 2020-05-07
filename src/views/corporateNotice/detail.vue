@@ -114,3 +114,18 @@
     }
 }
 </style>
+<style lang="less">
+    .detail-html-style{
+        overflow: hidden;
+        img{
+            width: 100% !important;
+            height:100% !important;
+            display: block;
+        }
+        *{
+            font-size: 13px;
+            color:#333333;
+            font-family: -apple-system-font, 'Helvetica Neue', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+        }
+    }
+</style>
