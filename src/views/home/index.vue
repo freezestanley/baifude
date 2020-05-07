@@ -41,17 +41,18 @@
           :titleMore="true"
           @goToNext="goToNext"
         ></Title>
-        <div
-          class="survey-wrap"
-          @click="
-            () =>
-              $router.push({
-                name: 'staffDetail',
-                params: { id: researchList.id }
-              })
-          "
-        >
-          <p>{{ researchList.title }}</p>
+        <div class="survey-wrap">
+          <p
+            @click="
+              () =>
+                $router.push({
+                  name: 'staffDetail',
+                  params: { id: researchList.id }
+                })
+            "
+          >
+            {{ researchList.title }}
+          </p>
           <div class="survey-pic">
             <img :src="surveyObj.pic" alt="" />
           </div>
