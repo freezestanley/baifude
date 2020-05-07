@@ -31,7 +31,7 @@
     .newsBanner {
         height: 126px;
         overflow: hidden;
-        border-radius: 20px;
+        /*border-radius: 20px;*/
         img,
         a {
             display: block;
