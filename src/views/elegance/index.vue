@@ -159,6 +159,12 @@ img {
   position: relative;
   // padding-left: 20px;
   background-color: #ffefef;
+  span{
+    display: inline-block;
+    height: 28px;
+    font-size: 12px;
+    white-space:nowrap;
+  }
   .notice {
     position: absolute;
     width: 24px;
