@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <div style="height:50px;width: 100%;"></div>
+    <div style="height:20px;width: 100%;"></div>
     <div v-if="bannerList.length>0">
       <Banner :bannerList="bannerList" @clickBanner="clickBanner"></Banner>
     </div>

@@ -78,7 +78,7 @@
 
 <style lang="less" scoped>
 .page{
-    padding: 40px 10px 0;
+    padding: 20px 10px 0;
     font-size: 14px;
     border-top:1px solid #E5E5E5;
 }
