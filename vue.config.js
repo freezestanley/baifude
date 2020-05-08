@@ -4,6 +4,7 @@ const AddAssetHtmlPlugin = require("add-asset-html-webpack-plugin");
 const { env } = process;
 const { DEV_SERVER } = require("./config");
 
+console.log('loginUrl:', env.loginUrl);
 module.exports = {
   publicPath: env.NODE_ENV === "development" ? "/" : `${env.publicPath}/home-h5/`,
   outputDir: 'dist/home-h5',
