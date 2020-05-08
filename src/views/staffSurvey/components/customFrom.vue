@@ -123,6 +123,10 @@ export default {
     display: flex;
     justify-content: center;
     font-size: 16px;
+    position: fixed;
+    bottom: 14px;
+    left: 0;
+    right: 0;
     .ensure-btn,
     .cancle-btn {
       width: 690 / @rem;
@@ -131,7 +135,7 @@ export default {
       line-height: 88 / @rem;
       text-align: center;
       color: #fff;
-      background: #4679a3;
+      background: #c6aa85;
       border-radius: 3px;
     }
   }
