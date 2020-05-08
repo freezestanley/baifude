@@ -26,10 +26,12 @@ export default {
       let parseUrlObj = parseQueryString(window.location.search);
       let params={
         "union":"xiaolang",
-        // "city":"145"
+        "city":"145"
       }
       params.union = parseUrlObj.union;
-      params.city = parseUrlObj.city;
+      if(parseUrlObj.city){
+        params.city = parseUrlObj.city;
+      }
       let res = await user_findUsableList(params);
       if (utilRes.successCheck(res)) {
         this.welfareMallDataList = res.body;

@@ -56,7 +56,10 @@
             </van-field>
           </div>
           <div class="detail-footer">
-            <div class="ensure-btn" @click="gotoSignUp">提 交</div>
+            <div v-if="startStatus" class="ensure-btn dis-btn">
+              {{ startTime }} 开始
+            </div>
+            <div v-else class="ensure-btn" @click="gotoSignUp">提 交</div>
           </div>
         </van-form>
       </div>
@@ -66,11 +69,14 @@
 <script>
 export default {
   name: "customFrom",
-  props: ["questionList"],
+  props: ["questionList", "startTime"],
   data() {
-    return {
-      test: []
-    };
+    return {};
+  },
+  computed: {
+    startStatus() {
+      return this.startTime && new Date(this.startTime) - new Date() > 0;
+    }
   },
   methods: {
     onSubmit() {},
@@ -117,6 +123,10 @@ export default {
     display: flex;
     justify-content: center;
     font-size: 16px;
+    position: fixed;
+    bottom: 14px;
+    left: 0;
+    right: 0;
     .ensure-btn,
     .cancle-btn {
       width: 690 / @rem;
@@ -125,7 +135,7 @@ export default {
       line-height: 88 / @rem;
       text-align: center;
       color: #fff;
-      background: #4679a3;
+      background: #c6aa85;
       border-radius: 3px;
     }
   }

@@ -100,7 +100,10 @@ export default {
     this.$nextTick(() => {
       window.addEventListener("scroll", this.handleScroll); // 监听（绑定）滚轮滚动事件
     });
-    this.roll();
+    this.$nextTick(()=>{
+      this.roll();
+    });
+    // this.roll();
   },
   methods: {
     handleScroll: function() {
@@ -205,7 +208,7 @@ img {
   .left_arrow{
     position: absolute;
     text-align: center;
-    z-index: 1000;
+    z-index: 999;
     right: 0;
     height: 28px;
     width: 30px;
