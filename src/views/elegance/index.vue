@@ -100,7 +100,10 @@ export default {
     this.$nextTick(() => {
       window.addEventListener("scroll", this.handleScroll); // 监听（绑定）滚轮滚动事件
     });
-    this.roll();
+    this.$nextTick(()=>{
+      this.roll();
+    });
+    // this.roll();
   },
   methods: {
     handleScroll: function() {
