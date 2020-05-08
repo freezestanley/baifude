@@ -205,7 +205,7 @@ img {
   .left_arrow{
     position: absolute;
     text-align: center;
-    z-index: 1000;
+    z-index: 999;
     right: 0;
     height: 28px;
     width: 30px;
