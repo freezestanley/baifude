@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <div style="height:50px;width: 100%;"></div>
+    <div style="height:21px;width: 100%;"></div>
     <Banner :bannerList="bannerList" @clickBanner="clickBanner"></Banner>
     <SurveyItem
       :surveyData="listObj"
@@ -67,8 +67,8 @@ export default {
     async queryResearchList(fn) {
       let params = {
         currentPage: this.currentPage,
-        itemsPerPage: this.itemsPerPage,
-        status: 2
+        itemsPerPage: this.itemsPerPage
+        // status: 2
       };
       const obj = { ...params };
       let res = await cms_researchList(obj);
@@ -107,7 +107,7 @@ export default {
 
 <style lang="less" scoped>
 .page {
-  padding: 0 10px;
+  padding: 0px 10px 0;
   font-size: 14px;
 }
 </style>
