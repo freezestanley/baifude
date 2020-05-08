@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <div style="height:50px;width: 100%;"></div>
+    <div style="height:21px;width: 100%;"></div>
     <Banner :bannerList="bannerList" @clickBanner="clickBanner"></Banner>
     <SurveyItem
       :surveyData="listObj"
