@@ -67,8 +67,8 @@ export default {
     async queryResearchList(fn) {
       let params = {
         currentPage: this.currentPage,
-        itemsPerPage: this.itemsPerPage,
-        status: 2
+        itemsPerPage: this.itemsPerPage
+        // status: 2
       };
       const obj = { ...params };
       let res = await cms_researchList(obj);
