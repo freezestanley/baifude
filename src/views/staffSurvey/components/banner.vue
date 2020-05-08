@@ -41,7 +41,6 @@ export default {
   height: 126px;
   overflow: hidden;
   border-radius: 4px;
-  margin-top: 15px;
   img,
   a {
     display: block;

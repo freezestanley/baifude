@@ -1,5 +1,6 @@
 <template>
   <section class="page">
+    <div style="height:50px;width: 100%;"></div>
     <div class="survey-detail" v-if="!endStatus">
       <div class="survey-detail-header">
         <div class="survey-detail-title">
@@ -20,7 +21,11 @@
         </div>
       </div>
       <div class="survey-detail-content">
-        <custom-from :questionList="questionList" @onSubmit="onSubmit" />
+        <custom-from
+          :questionList="questionList"
+          :startTime="startTime"
+          @onSubmit="onSubmit"
+        />
       </div>
     </div>
     <div class="end-survey" v-else>
@@ -50,6 +55,7 @@ export default {
         questionList: []
       },
       questionList: [],
+      startTime: false,
       endStatus: false,
       overdueIcon: overdueIcon // 过期图标
     };
@@ -71,6 +77,7 @@ export default {
         this.detail = res.data; //请求返回当页的列表
         if (this.detail.questionList.length > 0) {
           const { participateStatus } = res.data;
+          // 已过期
           if (
             this.detail.endTime &&
             new Date(this.detail.endTime) - new Date() <= 0
@@ -78,6 +85,14 @@ export default {
             this.endStatus = true;
             return false;
           }
+          // 未开始
+          this.startTime = this.detail.startTime;
+          // if (
+          //   this.detail.startTime &&
+          //   new Date(this.detail.startTime) - new Date() > 0
+          // ) {
+          //   this.startStatus = true;
+          // }
 
           this.questionList = this.detail.questionList.map(item => {
             // 添加字段
@@ -188,7 +203,7 @@ export default {
 <style lang="less" scoped>
 .page {
   font-size: 15px;
-  padding: 40px 15px 0;
+  padding: 0 15px;
   .survey-detail {
     .survey-detail-header {
       margin: 10px 0;
