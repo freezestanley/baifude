@@ -216,8 +216,8 @@ export default {
           width: 30px;
         }
         .arrowWrap {
-          width: 8px;
-          height: 4px;
+          width: 7px;
+          height: 7px;
           margin-top: 17px;
           overflow: hidden;
           .arrow {
