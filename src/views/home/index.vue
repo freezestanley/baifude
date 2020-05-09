@@ -35,7 +35,7 @@
         <NewsItem :newsData="styleData" @goToDetail="goToDetail"></NewsItem>
       </div>
       <!-- 员工调研 -->
-      <div class="layout survey" v-if="researchList.title">
+      <div class="layout survey" v-if="temporaryStatus && researchList.title">
         <Title
           titleName="员工调研"
           :titleMore="true"
