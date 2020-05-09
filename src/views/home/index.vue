@@ -481,7 +481,7 @@ export default {
       let res = await newsListPage(obj);
       if (utilRes.successCheck(res)) {
         const list = res.data.listObj;
-        if (list.length > 3) {
+        if (list.length >= 3) {
           this.styleData = list.slice(0, 2);
         } else {
           this.styleData = list;

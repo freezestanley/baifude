@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="notice_warp" ref="noticeWarpNodes">
+    <div class="notice_warp" ref="noticeWarpNodes" v-show="mallUnionConf.openNotice && notice.noticeContent  && showHeadNav">
       <!-- <van-notice-bar
         v-if="mallUnionConf.openNotice && notice.noticeContent"
         :text="notice.noticeContent"
@@ -11,12 +11,11 @@
         class="noticeBar"
       />
       <img class="notice" src="../../assets/images/elite/icon_notice.png" alt /> -->
-      <div class="left_arrow" v-if="showNotice_arrow&&mallUnionConf.openNotice && notice.noticeContent && showHeadNav" ref="arrowNodes" @click="showDetail">
+      <div class="left_arrow" v-if="showNotice_arrow && mallUnionConf.openNotice && notice.noticeContent && showHeadNav" ref="arrowNodes" @click="showDetail">
         <div class="right"></div>
       </div>
       <div
         class="noticeContent"
-        v-show="mallUnionConf.openNotice && notice.noticeContent && showHeadNav"
         ref="notice"
       >
         <span :class="[isOpenNotice_detail?'noticeOpenShow':'noticeCloseShow']">{{notice.noticeContent}}</span>
