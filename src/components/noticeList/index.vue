@@ -20,6 +20,7 @@
     name: "NoticeList",
     data(){
       return {
+        isInit: true
         // top: 1,
         // bottom: 20
       }
@@ -37,19 +38,32 @@
         this.$emit('goToDetail', item);
       },
       refresh(done){
-        console.log("refresh")
-        setTimeout(() => {
-          this.$emit('refresh');
-          done()
-        }, 500)
+        if(this.isInit) {
+          this.isInit = false;
+          setTimeout(() => {
+            this.$emit('refresh');
+            done()
+          }, 50)
+        }else{
+          setTimeout(() => {
+            this.$emit('refresh');
+            done()
+          }, 300)
+        }
       },
       infinite(done){
-        console.log("infinite");
-        console.log('111111',this.data);
-        setTimeout(() => {
-          this.$emit('infinite',done);
-          // done()
-        }, 500)
+        if(this.isInit) {
+          this.isInit = false;
+          setTimeout(() => {
+            this.$emit('infinite',done);
+            // done()
+          }, 50)
+        }else{
+          setTimeout(() => {
+            this.$emit('infinite',done);
+            // done()
+          }, 300)
+        }
         // this.$emit('infinite',done);
         // if(this.isEnd) {
         //   done();

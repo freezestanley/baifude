@@ -54,7 +54,8 @@ const routes = [
           //是否展示搜索图标(搜索功能)
           showSearch: true,
           //页面超出滑动是否浮动展示头部内容
-          showHeadNav: true
+          showHeadNav: true,
+          keepAlive: true,
         }
       },
       {
@@ -65,6 +66,7 @@ const routes = [
           title: "企业新闻",
           //是否展示搜索图标(搜索功能)
           // showSearch: true
+          keepAlive: true,
         }
       },
       {
@@ -81,6 +83,7 @@ const routes = [
         component: CorporateActivity,
         meta: {
           title: "企业活动",
+          keepAlive: true,
           //是否展示搜索图标(搜索功能)
           // showSearch: true
         }
@@ -99,6 +102,7 @@ const routes = [
         component: CorporateNotice,
         meta: {
           title: "企业公告",
+          keepAlive: true,
           //是否展示搜索图标(搜索功能)
           // showSearch: true
         }
@@ -117,6 +121,7 @@ const routes = [
         component: StaffSurvey,
         meta: {
           title: "员工调研",
+          keepAlive: true,
           //是否展示搜索图标(搜索功能)
           // showSearch: true
         }
@@ -140,7 +145,8 @@ const routes = [
           //是否展示搜索图标(搜索功能)
           showSearch: true,
           //页面超出滑动是否浮动展示头部内容
-          showHeadNav: true
+          showHeadNav: true,
+          keepAlive: true,
         }
       }
     ]
@@ -223,7 +229,17 @@ const routes = [
 ];
 const router = new Router({
   mode: "history",
-  routes
+  routes,
+  scrollBehavior (to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      if (from.meta.keepAlive) {
+        from.meta.savedPosition = document.body.scrollTop
+      }
+      return { x: 0, y: to.meta.savedPosition || 0 }
+    }
+  }
 });
 const checkLogin = async () => {
   const res = await user_checkLogin();
