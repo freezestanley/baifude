@@ -83,7 +83,7 @@ const routes = [
         component: CorporateActivity,
         meta: {
           title: "企业活动",
-          keepAlive: true,
+          // keepAlive: true,
           //是否展示搜索图标(搜索功能)
           // showSearch: true
         }
