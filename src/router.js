@@ -297,6 +297,19 @@ const attachParam = (params, next, to, from) => {
   }
 };
 router.beforeEach(async (to, from, next) => {
+  // console.log("跳转页面:", to.name, from.name);
+  // to.meta.keepAlive = true;
+  // if (
+  //   from.name == 'newsDetail' && to.name == 'corporateNews' ||
+  //   from.name == 'activityDetail' && to.name == 'corporateActivity' ||
+  //   from.name == 'noticeDetail' && to.name == 'corporateNotice' ||
+  //   to.name == 'home'
+  // ) {
+  //   to.meta.keepAlive = true;
+  //   console.log('keepAlive', to.meta.keepAlive);
+  // } else {
+  //   to.meta.keepAlive = false;
+  // }
   // cookieCheck();
   // if (await checkLogin()) {
   //   // next();

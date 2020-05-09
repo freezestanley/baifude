@@ -19,6 +19,7 @@
 <script>
 import { Toast } from "vant";
 import { parseQueryString } from "@/assets/utils/request";
+import { custRedirect } from "@/assets/utils";
 export default {
   name: "index",
   data() {
@@ -55,7 +56,8 @@ export default {
       } else if (index == 3) {
         path = "/newbfd/home-h5/corporatenotice";
       }
-      this.$router.push({ path: path, query: { ...urlParams } });
+      custRedirect(path, { ...urlParams})
+      // this.$router.push({ path: path, query: { ...urlparams } });
     }
   }
 };
