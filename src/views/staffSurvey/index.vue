@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <div style="height:21px;width: 100%;"></div>
+    <div style="height: 1.226667rem;width: 100%;"></div>
     <Banner :bannerList="bannerList" @clickBanner="clickBanner"></Banner>
     <SurveyItem
       :surveyData="listObj"
@@ -112,5 +112,11 @@ export default {
 .page {
   padding: 0px 10px 0;
   font-size: 14px;
+  height: calc(100vh - 117px);
+  // display: flex;
+  // flex-direction: column;
+  .surveyItem {
+    flex: 1;
+  }
 }
 </style>

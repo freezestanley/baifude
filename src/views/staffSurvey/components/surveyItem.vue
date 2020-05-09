@@ -1,6 +1,10 @@
 <template>
   <section class="surveyItem">
-    <van-pull-refresh v-model="surveyData.refreshing" @refresh="onRefresh">
+    <van-pull-refresh
+      class="surveyItem-pull-refresh"
+      v-model="surveyData.refreshing"
+      @refresh="onRefresh"
+    >
       <van-list
         v-model="surveyData.loading"
         :finished="surveyData.finished"
@@ -62,6 +66,10 @@ export default {
 
 <style lang="less" scoped>
 .surveyItem {
+  height: 100%;
+  .surveyItem-pull-refresh {
+    height: 100%;
+  }
   .surveyItem-wrap {
     padding: 15px 0;
     border-bottom: 1px solid #e5e5e5;

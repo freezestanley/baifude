@@ -1,6 +1,6 @@
 <template>
   <section class="page">
-    <div style="height:50px;width: 100%;"></div>
+    <div style="height: 1.226667rem;width: 100%;"></div>
     <div class="survey-detail" v-if="!endStatus">
       <div class="survey-detail-header">
         <div class="survey-detail-title">
