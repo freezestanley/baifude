@@ -19,6 +19,7 @@
 <script>
 import { Toast } from "vant";
 import { parseQueryString } from "@/assets/utils/request";
+import { custRedirect } from "@/assets/utils";
 export default {
   name: "index",
   data() {
@@ -46,16 +47,16 @@ export default {
       let path = "";
       if (index == 0) {
         path = "/newbfd/home-h5/corporatenews";
-        urlParams.type=1;
+        urlParams.type = 1;
       } else if (index == 1) {
         path = "/newbfd/home-h5/corporateactivity";
       } else if (index == 2) {
-        Toast("敬请期待");
-        // path = "/newbfd/home-h5/staffsurvey";
+        path = "/newbfd/home-h5/staffsurvey";
       } else if (index == 3) {
         path = "/newbfd/home-h5/corporatenotice";
       }
-      this.$router.push({ path: path, query: { ...urlParams } });
+      custRedirect(path, { ...urlParams})
+      // this.$router.push({ path: path, query: { ...urlparams } });
     }
   }
 };

@@ -24,6 +24,7 @@ import Banner from "./components/banner";
 import { newsListPage,newsConf_list } from "@/assets/apis/home";
 import utilRes from "@/assets/utils/resResult";
 import { parseQueryString } from "@/assets/utils/request";
+import { custRedirect } from "@/assets/utils";
 export default {
   name: "index",
   components: {
@@ -74,10 +75,11 @@ export default {
     changeTab(tab) {
       this.urlParams = parseQueryString(window.location.search);
       // this.$refs.newsListNode.$refs.my_scroller.finishInfinite(false);
-      this.$router.push({
-        path: 'corporateNews',
-        query: { ...this.urlParams,type: tab.index + 1}
-      })
+      custRedirect('/newbfd/home-h5/corporatenews', { ...this.urlParams,type: tab.index + 1})
+      // this.$router.push({
+      //   path: 'corporateNews',
+      //   query: { ...this.urlParams,type: tab.index + 1}
+      // })
     
       this.tabIndex = tab.index;
       let params = {};
@@ -114,13 +116,14 @@ export default {
       this.queryNewsList(params,done);
     },
     goToDetail(item) {
-      this.$router.push({
-        path: "/newbfd/home-h5/corporatenews/newsdetail"+window.location.search,
-        query: { id: item.id }
-      });
+      custRedirect("/newbfd/home-h5/corporatenews/newsdetail"+window.location.search, { id: item.id })
+      // this.$router.push({
+      //   path: "/newbfd/home-h5/corporatenews/newsdetail"+window.location.search,
+      //   query: { id: item.id }
+      // });
     },
     async queryNewsList(param,done) {
-      console.log('queryNewsList',this.total,this.newsData.length);
+      // console.log('queryNewsList',this.total,this.newsData.length);
       if(this.newsData.length!=0 && this.total <= this.newsData.length){
         this.$refs.newsListNode.$refs.my_scroller.finishInfinite(true);
         return;
@@ -134,7 +137,7 @@ export default {
       if (utilRes.successCheck(res)&&(res.data.total!=0)) {
         //this.newsData = res.data.listObj; //请求返回当页的列表
         this.newsData = JSON.parse(JSON.stringify(this.newsData)).concat(res.data.listObj);
-        console.log(this.newsData);
+        // console.log(this.newsData);
         this.total = res.data.total;
         if(typeof done === "function"){
           done();
@@ -155,10 +158,11 @@ export default {
       }
     },
     clickBanner(item){
-      this.$router.push({
-        path: "/newbfd/home-h5/corporatenews/newsdetail"+window.location.search,
-        query: { id: item.id }
-      });
+      custRedirect("/newbfd/home-h5/corporatenews/newsdetail"+window.location.search, { id: item.id })
+      // this.$router.push({
+      //   path: "/newbfd/home-h5/corporatenews/newsdetail"+window.location.search,
+      //   query: { id: item.id }
+      // });
     },
   }
 };

@@ -5,11 +5,15 @@ import store from "./store";
 import "amfe-flexible";
 import VueScroller from 'vue-scroller';
 import * as apis from "./assets/apis";
+import VConsole from 'vconsole';
 
 Vue.prototype.apis = apis;
 
 // 引入阿里手淘团队发布的可伸缩布局方案
 import "amfe-flexible";
+if (process.env.NODE_ENV == 'development') {
+  new VConsole();
+}
 
 // 按需引入vant组件
 import {
