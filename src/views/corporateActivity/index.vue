@@ -71,6 +71,8 @@ export default {
 </script>
 <style lang="less" scoped>
 .page{
+    width: 100%;
+    height:100%;
     padding: 45px 15px 0;
     font-size: 14px;
 }

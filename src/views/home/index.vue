@@ -35,7 +35,7 @@
         <NewsItem :newsData="styleData" @goToDetail="goToDetail"></NewsItem>
       </div>
       <!-- 员工调研 -->
-      <div class="layout survey" v-if="temporaryStatus && researchList.title">
+      <div class="layout survey" v-if="researchList.title">
         <Title
           titleName="员工调研"
           :titleMore="true"
@@ -482,7 +482,7 @@ export default {
       let res = await newsListPage(obj);
       if (utilRes.successCheck(res)) {
         const list = res.data.listObj;
-        if (list.length > 3) {
+        if (list.length >= 3) {
           this.styleData = list.slice(0, 2);
         } else {
           this.styleData = list;

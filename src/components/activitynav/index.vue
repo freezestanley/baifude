@@ -47,12 +47,11 @@ export default {
       let path = "";
       if (index == 0) {
         path = "/newbfd/home-h5/corporatenews";
-        urlParams.type=1;
+        urlParams.type = 1;
       } else if (index == 1) {
         path = "/newbfd/home-h5/corporateactivity";
       } else if (index == 2) {
-        Toast("敬请期待");
-        // path = "/newbfd/home-h5/staffsurvey";
+        path = "/newbfd/home-h5/staffsurvey";
       } else if (index == 3) {
         path = "/newbfd/home-h5/corporatenotice";
       }

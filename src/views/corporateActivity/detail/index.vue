@@ -150,13 +150,14 @@ export default {
 </script>
 <style lang="less" scoped>
 .page{
+    padding-top: 20px;
     font-size: 15px;
     .activity-detail{
         margin-top: 26px;
     }
     .activity-detail-pic{
         width: 100%;
-        height:170px;
+        height:210px;
         img{
             width: 100%;
             height: 100%;
