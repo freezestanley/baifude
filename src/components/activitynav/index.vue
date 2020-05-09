@@ -50,7 +50,8 @@ export default {
       } else if (index == 1) {
         path = "/newbfd/home-h5/corporateactivity";
       } else if (index == 2) {
-        path = "/newbfd/home-h5/staffsurvey";
+        Toast("敬请期待");
+        // path = "/newbfd/home-h5/staffsurvey";
       } else if (index == 3) {
         path = "/newbfd/home-h5/corporatenotice";
       }
