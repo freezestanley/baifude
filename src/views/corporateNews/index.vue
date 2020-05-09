@@ -76,22 +76,23 @@ export default {
       this.urlParams = parseQueryString(window.location.search);
       // this.$refs.newsListNode.$refs.my_scroller.finishInfinite(false);
       custRedirect('/newbfd/home-h5/corporatenews', { ...this.urlParams,type: tab.index + 1})
+      return ;
       // this.$router.push({
       //   path: 'corporateNews',
       //   query: { ...this.urlParams,type: tab.index + 1}
       // })
     
-      this.tabIndex = tab.index;
-      let params = {};
-      this.newsData=[];
-      this.total=0;
-      this.currentPage= 1;
-      if (tab.index == 1) {
-        params = { type: 1, categoryId: 2 };
-      }else {
-        params = { type: 1, categoryId: 1 };
-      }
-      this.queryNewsList(params);
+      // this.tabIndex = tab.index;
+      // let params = {};
+      // this.newsData=[];
+      // this.total=0;
+      // this.currentPage= 1;
+      // if (tab.index == 1) {
+      //   params = { type: 1, categoryId: "2" };
+      // }else {
+      //   params = { type: 1, categoryId: "1" };
+      // }
+      // this.queryNewsList(params);
     },
     refresh(done){
       this.currentPage = 1;
