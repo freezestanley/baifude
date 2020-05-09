@@ -81,7 +81,10 @@ export default {
         this.currentPage++;
         this.total = res.data.total;
         // 没有数据关闭下拉
-        if (this.listObj.list.length >= this.total) {
+        if (
+          this.listObj.list.length >= this.total ||
+          this.listObj.list.length === 0
+        ) {
           this.listObj.finished = true;
         }
         this.listObj.loading = false;
