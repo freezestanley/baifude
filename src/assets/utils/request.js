@@ -26,8 +26,10 @@ if (NODE_ENV === "production") {
 } else {
   // appAPI = "http://10.8.3.17/gw/app";
   // mallAPI = "http://10.8.3.17/mallapi";
-  appAPI = "/gw/app";
-  mallAPI = "/mallapi";
+  // appAPI = "/gw/app";
+  // mallAPI = "/mallapi";
+    appAPI = `http://appzuul.test04.com`;
+    mallAPI = `http://api.test04.com`;
 }
 
 /**

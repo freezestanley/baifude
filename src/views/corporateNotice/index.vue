@@ -16,6 +16,8 @@
   import NoticeList from '@/components/noticeList/index';
   import { newsListPage } from "@/assets/apis/home";
   import utilRes from "@/assets/utils/resResult";
+  import { custRedirect } from "@/assets/utils";
+
   export default {
     name: "index",
     components:{
@@ -39,7 +41,8 @@
     },
     methods:{
       goToDetail(item){
-        this.$router.push({path:'/newbfd/home-h5/corporatenotice/detail'+window.location.search,query:{id:item.id}});
+        custRedirect('/newbfd/home-h5/corporatenotice/detail'+window.location.search,{id:item.id})
+        // this.$router.push({path:'/newbfd/home-h5/corporatenotice/detail'+window.location.search,query:{id:item.id}});
       },
       refresh(){
         this.currentPage = 1;

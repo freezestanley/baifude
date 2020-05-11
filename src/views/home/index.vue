@@ -43,13 +43,7 @@
         ></Title>
         <div class="survey-wrap">
           <p
-            @click="
-              () =>
-                $router.push({
-                  name: 'staffDetail',
-                  params: { id: researchList.id }
-                })
-            "
+            @click=" () => custRedirect('/newbfd/home-h5/staffsurvey/detail/' + researchList.id) "
           >
             {{ researchList.title }}
           </p>
@@ -108,11 +102,14 @@ import {
 } from "@/assets/apis/home";
 import utilRes from "@/assets/utils/resResult";
 import { parseQueryString } from "@/assets/utils/request";
+import { custRedirect } from "@/assets/utils";
 
 export default {
   name: "home",
   data() {
     return {
+      custRedirect,
+      temporaryStatus: false,
       locationShow: false,
       styleCode: "",
       fords: [],
@@ -364,7 +361,7 @@ export default {
                 }
               }
             }
-            console.log("工会信息--", unionMoulds);
+            // console.log("工会信息--", unionMoulds);
             // if (unionMoulds && unionMoulds.body) {
             //   unionMoulds.body.forEach(unionMod => {
             //     this.fords.push({
@@ -434,29 +431,34 @@ export default {
     goToNext(item) {
       let urlParams = parseQueryString(window.location.search);
       if (item == "企业新闻") {
-        this.$router.push({
-          name: "corporateNews",
-          query: { ...urlParams, type: "1" }
-        });
+        this.custRedirect('/newbfd/home-h5/corporatenews', { ...urlParams, type: "1" })
+        // this.$router.push({
+        //   name: "corporateNews",
+        //   query: { ...urlParams, type: "1" }
+        // });
       } else if (item == "企业活动") {
-        this.$router.push({
-          name: "corporateActivity",
-          query: { ...urlParams }
-        });
+        this.custRedirect('/newbfd/home-h5/corporateActivity', { ...urlParams })
+        // this.$router.push({
+        //   name: "corporateActivity",
+        //   query: { ...urlParams }
+        // });
       } else if (item == "活动风采") {
-        this.$router.push({
-          name: "corporateNews",
-          query: { ...urlParams, type: "2" }
-        });
+        this.custRedirect('/newbfd/home-h5/corporatenews', { ...urlParams, type: "2" })
+        // this.$router.push({
+        //   name: "corporateNews",
+        //   query: { ...urlParams, type: "2" }
+        // });
       } else if (item == "企业公告") {
-        this.$router.push({
-          name: "corporateNotice",
-          query: { ...urlParams }
-        });
+        this.custRedirect('/newbfd/home-h5/corporatenotice', { ...urlParams })
+        // this.$router.push({
+        //   name: "corporateNotice",
+        //   query: { ...urlParams }
+        // });
       } else if (item == "员工调研") {
-        this.$router.push({
-          path: "/newbfd/home-h5/staffsurvey"
-        });
+        this.custRedirect('/newbfd/home-h5/staffsurvey')
+        // this.$router.push({
+        //   path: "/newbfd/home-h5/staffsurvey"
+        // });
       }
     },
     //企业新闻列表接口
@@ -544,32 +546,35 @@ export default {
       }
     },
     goToDetail(item) {
-      this.$router.push({
-        path:
-          "/newbfd/home-h5/corporatenews/newsdetail" + window.location.search,
-        query: { id: item.id }
-      });
+      this.custRedirect("/newbfd/home-h5/corporatenews/newsdetail" + window.location.search, { id: item.id })
+      // this.$router.push({
+      //   path:
+      //     "/newbfd/home-h5/corporatenews/newsdetail" + window.location.search,
+      //   query: { id: item.id }
+      // });
     },
     //公告列表跳详情
     goNoticeDetail(item) {
-      this.$router.push({
-        path: "/newbfd/home-h5/corporatenotice/detail" + window.location.search,
-        query: { id: item.id }
-      });
+      this.custRedirect("/newbfd/home-h5/corporatenotice/detail" + window.location.search, { id: item.id })
+      // this.$router.push({
+      //   path: "/newbfd/home-h5/corporatenotice/detail" + window.location.search,
+      //   query: { id: item.id }
+      // });
     },
     // 活动列表跳详情
     activityDetail(item) {
-      this.$router.push({
-        path:
-          "/newbfd/home-h5/corporateactivity/activitydetail" +
-          window.location.search,
-        query: { id: item.id }
-      });
+      this.custRedirect("/newbfd/home-h5/corporateactivity/activitydetail" + window.location.search, { id: item.id })
+      // this.$router.push({
+      //   path:
+      //     "/newbfd/home-h5/corporateactivity/activitydetail" + window.location.search,
+      //   query: { id: item.id }
+      // });
       // this.$router.push({name:'activityDetail',params:{...item}});
     }
   },
   watch: {
     $route(newVal, oldVal) {
+      // console.log('isBack:', this.$router);
       if (newVal.query.city !== oldVal.query.city) {
         this.getCityList();
       }

@@ -4,7 +4,7 @@
         <div  class="notice-item" v-for="(item,index) in data" :key="index" @click="goToDetail(item)">
             <div class="notice-item-time">
                 <div class="item-time-date">{{item.publishDay}}</div>
-                <div class="item-time-month">{{`${(item.publishMonth).replace(/\b(0+)/gi,"")}月`}}</div>
+                <div v-if="item.publishMonth" class="item-time-month">{{`${(item.publishMonth).replace(/\b(0+)/gi,"")}月`}}</div>
             </div>
             <div class="notice-item-text">
                 <div class="notice-title">{{item.title}}</div>

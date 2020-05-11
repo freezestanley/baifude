@@ -8,6 +8,7 @@
 import Activity from './components/activityItem';
 import { activity_queryActivitiyPage } from "@/assets/apis/home";
 import utilRes from "@/assets/utils/resResult";
+import { custRedirect } from "@/assets/utils";
 export default {
   data(){
     return {
@@ -29,10 +30,12 @@ export default {
   },
   methods:{
     activityDetail(){
-      this.$router.push({path:'/newbfd/home-h5/corporateactivity/activitydetail'+window.location.search,query:''});
+      custRedirect('/newbfd/home-h5/corporateactivity/activitydetail'+window.location.search);
+      // this.$router.push({path:'/newbfd/home-h5/corporateactivity/activitydetail'+window.location.search,query:''});
     },
     goTodetail(item){
-      this.$router.push({path:'/newbfd/home-h5/corporateactivity/activitydetail'+window.location.search,query:{id:item.id}});
+      custRedirect('/newbfd/home-h5/corporateactivity/activitydetail'+window.location.search, {id:item.id});
+      // this.$router.push({path:'/newbfd/home-h5/corporateactivity/activitydetail'+window.location.search,query:{id:item.id}});
     },
     refresh(done){
       this.currentPage = 1;

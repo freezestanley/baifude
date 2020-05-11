@@ -1,5 +1,23 @@
 import Vue from "vue";
+import Url from 'url-parse';
 
+function mixUrl(url, data = {}, cache = false) {
+  url = new Url(url)
+  let query = url.query
+
+  if (!cache) {
+    data['_'] = Date.now()
+  }
+
+  Object.keys(data).forEach(key => {
+    let seperator = query ? '&' : '?'
+    query += `${seperator}${key}=${encodeURIComponent(data[key])}`
+  })
+
+  url.set('query', query)
+
+  return url.href
+}
 export const isServer = Vue.prototype.$isServer;
 
 /**
@@ -300,4 +318,9 @@ export function detect(ua) {
     browser: browser,
     os: os
   };
+}
+export function custRedirect(path, params = {}) {
+  const url = mixUrl(path,params);
+  // console.log('url:', url, path, params);
+  window.location.href = url;
 }
