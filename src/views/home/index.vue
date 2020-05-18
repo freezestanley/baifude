@@ -42,14 +42,19 @@
           @goToNext="goToNext"
         ></Title>
         <div class="survey-wrap">
-          <p
-            @click=" () => custRedirect('/newbfd/home-h5/staffsurvey/detail/' + researchList.id) "
-          >
-            {{ researchList.title }}
-          </p>
           <div class="survey-pic">
             <img :src="surveyObj.pic" alt="" />
           </div>
+          <p
+            @click="
+              () =>
+                custRedirect(
+                  '/newbfd/home-h5/staffsurvey/detail/' + researchList.id
+                )
+            "
+          >
+            {{ researchList.title }}
+          </p>
         </div>
       </div>
       <!-- 企业公告 -->
@@ -431,25 +436,33 @@ export default {
     goToNext(item) {
       let urlParams = parseQueryString(window.location.search);
       if (item == "企业新闻") {
-        this.custRedirect('/newbfd/home-h5/corporatenews', { ...urlParams, type: "1" })
+        this.custRedirect("/newbfd/home-h5/corporatenews", {
+          ...urlParams,
+          type: "1"
+        });
         // this.$router.push({
         //   name: "corporateNews",
         //   query: { ...urlParams, type: "1" }
         // });
       } else if (item == "企业活动") {
-        this.custRedirect('/newbfd/home-h5/corporateActivity', { ...urlParams })
+        this.custRedirect("/newbfd/home-h5/corporateActivity", {
+          ...urlParams
+        });
         // this.$router.push({
         //   name: "corporateActivity",
         //   query: { ...urlParams }
         // });
       } else if (item == "活动风采") {
-        this.custRedirect('/newbfd/home-h5/corporatenews', { ...urlParams, type: "2" })
+        this.custRedirect("/newbfd/home-h5/corporatenews", {
+          ...urlParams,
+          type: "2"
+        });
         // this.$router.push({
         //   name: "corporateNews",
         //   query: { ...urlParams, type: "2" }
         // });
       } else if (item == "企业公告") {
-        this.custRedirect('/newbfd/home-h5/corporatenotice', { ...urlParams })
+        this.custRedirect("/newbfd/home-h5/corporatenotice", { ...urlParams });
         // this.$router.push({
         //   name: "corporateNotice",
         //   query: { ...urlParams }
@@ -546,7 +559,10 @@ export default {
       }
     },
     goToDetail(item) {
-      this.custRedirect("/newbfd/home-h5/corporatenews/newsdetail" + window.location.search, { id: item.id })
+      this.custRedirect(
+        "/newbfd/home-h5/corporatenews/newsdetail" + window.location.search,
+        { id: item.id }
+      );
       // this.$router.push({
       //   path:
       //     "/newbfd/home-h5/corporatenews/newsdetail" + window.location.search,
@@ -555,7 +571,10 @@ export default {
     },
     //公告列表跳详情
     goNoticeDetail(item) {
-      this.custRedirect("/newbfd/home-h5/corporatenotice/detail" + window.location.search, { id: item.id })
+      this.custRedirect(
+        "/newbfd/home-h5/corporatenotice/detail" + window.location.search,
+        { id: item.id }
+      );
       // this.$router.push({
       //   path: "/newbfd/home-h5/corporatenotice/detail" + window.location.search,
       //   query: { id: item.id }
@@ -563,7 +582,11 @@ export default {
     },
     // 活动列表跳详情
     activityDetail(item) {
-      this.custRedirect("/newbfd/home-h5/corporateactivity/activitydetail" + window.location.search, { id: item.id })
+      this.custRedirect(
+        "/newbfd/home-h5/corporateactivity/activitydetail" +
+          window.location.search,
+        { id: item.id }
+      );
       // this.$router.push({
       //   path:
       //     "/newbfd/home-h5/corporateactivity/activitydetail" + window.location.search,
