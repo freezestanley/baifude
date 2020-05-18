@@ -24,6 +24,17 @@
             <van-field
               v-if="item.type === 3"
               v-model="item.optionsValue"
+              rows="2"
+              autosize
+              label="留言"
+              type="textarea"
+              maxlength="50"
+              placeholder="请输入"
+              show-word-limit
+            />
+            <van-field
+              v-if="item.type === 4"
+              v-model="item.optionsValue"
               placeholder="请输入"
             />
 
