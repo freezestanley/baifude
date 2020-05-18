@@ -455,7 +455,7 @@ export default {
         //   query: { ...urlParams }
         // });
       } else if (item == "员工调研") {
-        this.custRedirect('/newbfd/home-h5/staffsurvey')
+        this.custRedirect("/newbfd/home-h5/staffsurvey", { ...urlParams });
         // this.$router.push({
         //   path: "/newbfd/home-h5/staffsurvey"
         // });

@@ -24,6 +24,16 @@
             <van-field
               v-if="item.type === 3"
               v-model="item.optionsValue"
+              rows="2"
+              :autosize="{ maxHeight: 100, minHeight: 50 }"
+              type="textarea"
+              maxlength="50"
+              placeholder="请输入"
+              show-word-limit
+            />
+            <van-field
+              v-if="item.type === 4"
+              v-model="item.optionsValue"
               placeholder="请输入"
             />
 
@@ -203,7 +213,8 @@ export default {
     }
     /deep/.van-field__body {
       padding-left: 10px;
-      input {
+      input,
+      textarea {
         border-bottom: 1px solid #e0e6ed;
       }
     }
@@ -257,7 +268,7 @@ export default {
   }
   .van-field {
     &.van-cell {
-      line-height: 112 / @rem;
+      line-height: 60 / @rem;
       padding: 0 !important;
       .van-field__label {
         width: 128 / @rem !important;
