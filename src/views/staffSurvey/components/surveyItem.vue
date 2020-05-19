@@ -76,8 +76,8 @@ export default {
     .surveyItem-wrap-t {
       .title {
         font-size: 14px;
-        font-weight: 500;
-        color: rgba(51, 51, 51, 1);
+        font-weight: bold;
+        color: #333333;
         line-height: 22px;
         overflow: hidden;
         text-overflow: ellipsis;
