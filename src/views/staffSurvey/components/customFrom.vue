@@ -129,14 +129,16 @@ export default {
   .detail-footer {
     margin-top: 88 / @rem;
     width: 100%;
-    // height: 88px;
     display: flex;
     justify-content: center;
     font-size: 16px;
     position: fixed;
-    bottom: 14px;
+    bottom: 0;
     left: 0;
     right: 0;
+    background: #ffffff;
+    border-top: 1px solid #f4f4f4;
+    padding: 10px 0;
     .ensure-btn,
     .cancle-btn {
       width: 690 / @rem;
@@ -207,7 +209,7 @@ export default {
       }
       .wrap-header__r {
         font-size: 17px;
-        font-weight: 500;
+        font-weight: bold;
         margin-left: 4px;
       }
     }

@@ -30,7 +30,7 @@
     </div>
     <div class="end-survey" v-else>
       <img :src="overdueIcon" alt="" />
-      <div class="overdue-text">该调研已过期</div>
+      <div class="overdue-text">本次调研已经结束了，再去看看别的调研吧~</div>
     </div>
   </section>
 </template>

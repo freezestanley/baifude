@@ -45,14 +45,7 @@
           <div class="survey-pic">
             <img :src="surveyObj.pic" alt="" />
           </div>
-          <p
-            @click="
-              () =>
-                custRedirect(
-                  '/newbfd/home-h5/staffsurvey/detail/' + researchList.id
-                )
-            "
-          >
+          <p @click="redirectSurvey">
             {{ researchList.title }}
           </p>
         </div>
@@ -432,6 +425,15 @@ export default {
         });
     },
     getPopUpShow() {},
+    redirectSurvey() {
+      let urlParams = parseQueryString(window.location.search);
+      this.custRedirect(
+        "/newbfd/home-h5/staffsurvey/detail/" + this.researchList.id,
+        {
+          ...urlParams
+        }
+      );
+    },
     // 点击更多跳转相对应列表页
     goToNext(item) {
       let urlParams = parseQueryString(window.location.search);
