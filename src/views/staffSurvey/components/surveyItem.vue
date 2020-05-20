@@ -22,7 +22,7 @@
             <div class="title">{{ item.title }}</div>
           </div>
           <div class="surveyItem-wrap-b">
-            {{ item.createTime ? item.createTime.split(" ")[0] : "" }}
+            {{ item.releaseTime ? item.releaseTime.split(" ")[0] : "" }}
           </div>
         </div>
       </van-list>
