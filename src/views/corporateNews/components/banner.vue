@@ -2,7 +2,8 @@
     <div class="newsBanner" >
         <van-swipe class="my-swipe" :autoplay="2000" indicator-color="#4679A3" style="height: 100%;">
             <van-swipe-item v-for="(item,index) in bannerList" :key="index" @click="clickBanner(item)">
-                <img :src="item.picture" />
+                <!-- <img :src="item.picture" /> -->
+                <div :style="{background:`url(${item.picture}) no-repeat center`, backgroundSize: 'cover', height: '100%'}"></div>
             </van-swipe-item>
         </van-swipe>
     </div>
