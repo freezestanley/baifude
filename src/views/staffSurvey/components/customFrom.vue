@@ -24,17 +24,17 @@
             <van-field
               v-if="item.type === 3"
               v-model="item.optionsValue"
-              rows="2"
-              :autosize="{ maxHeight: 100, minHeight: 50 }"
+              rows="1"
+              :autosize="{ maxHeight: 100, minHeight: 30 }"
               type="textarea"
-              maxlength="50"
-              placeholder="请输入"
+              maxlength="100"
+              :placeholder="'请输入'+item.title"
               show-word-limit
             />
             <van-field
               v-if="item.type === 4"
               v-model="item.optionsValue"
-              placeholder="请输入"
+              :placeholder="'请输入'+item.title"
             />
 
             <van-field class="frameCheckBox" v-if="item.type == 1" name="radio">
@@ -77,6 +77,7 @@
   </div>
 </template>
 <script>
+import { Toast } from "vant";
 export default {
   name: "customFrom",
   props: ["questionList", "startTime"],
@@ -91,6 +92,25 @@ export default {
   methods: {
     onSubmit() {},
     gotoSignUp() {
+      console.log('this.questionList->调研',this.questionList);
+      let contents = "";
+      for(var i=0; i < this.questionList.length; i++){
+        if(this.questionList[i].type==1 && !this.questionList[i].optionsValue){
+          contents = "请选择"+this.questionList[i].title;
+          Toast(contents);
+          return;
+        }else if(this.questionList[i].type==2 && !this.questionList[i].optionsValue.length){
+          contents = "请选择"+this.questionList[i].title;
+          Toast(contents);
+          return;
+        }else if((this.questionList[i].type==3||this.questionList[i].type==4) && !this.questionList[i].optionsValue){
+          contents = "请输入"+this.questionList[i].title;
+          Toast(contents);
+          return;
+        }
+      }
+      
+      
       this.$emit("onSubmit", this.questionList);
     },
     PrefixZero(num, n) {

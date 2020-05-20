@@ -7,11 +7,14 @@
           <div class="survey-detail-l">
             <div class="title">{{ detail.title }}</div>
             <div class="date" v-if="detail.startTime">
-              {{
-                `${detail.startTime.split(" ")[0]} 至 ${
-                  detail.endTime.split(" ")[0]
-                }`
-              }}
+              <img class="surveyTimeImg" :src="surveyTimeIcon">
+              <span>
+                {{
+                  `${detail.startTime.split(" ")[0]} 至 ${
+                    detail.endTime.split(" ")[0]
+                  }`
+                }}
+              </span>
             </div>
           </div>
           <!-- <div class="survey-detail-r">“</div> -->
@@ -44,6 +47,7 @@ import utilRes from "@/assets/utils/resResult";
 import customFrom from "./components/customFrom";
 import Toast from "@/components/toast/toast";
 import overdueIcon from "@/assets/images/survey/overdue-icon.png";
+import surveyTimeIcon from "@/assets/images/survey/surveyTime.png";
 
 export default {
   components: {
@@ -57,7 +61,8 @@ export default {
       questionList: [],
       startTime: false,
       endStatus: false,
-      overdueIcon: overdueIcon // 过期图标
+      overdueIcon: overdueIcon, // 过期图标
+      surveyTimeIcon:surveyTimeIcon
     };
   },
   async created() {
@@ -210,6 +215,10 @@ export default {
       position: relative;
       .survey-detail-title {
         .survey-detail-l {
+          .surveyTimeImg{
+            height: 20px;
+            vertical-align: sub;
+          }
           .title {
             font-size: 18px; //28
             width: 85%;
