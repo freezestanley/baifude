@@ -86,7 +86,10 @@ export default {
   },
   computed: {
     startStatus() {
-      return this.startTime && new Date(this.startTime) - new Date() > 0;
+      return (
+        this.startTime &&
+        new Date(this.startTime.replace(/-/g, "/")) - new Date() > 0
+      );
     }
   },
   methods: {
