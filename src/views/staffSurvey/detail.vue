@@ -86,7 +86,7 @@ export default {
           // 已过期
           if (
             this.detail.endTime &&
-            new Date(this.detail.endTime) - new Date() <= 0
+            new Date(this.detail.endTime.replace(/-/g, "/")) - new Date() <= 0
           ) {
             this.endStatus = true;
             return false;
