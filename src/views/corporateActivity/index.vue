@@ -61,6 +61,7 @@ export default {
         this.list = JSON.parse(JSON.stringify(this.list)).concat(res.data.listObj); //请求返回当页的列表
         this.total = res.data.total;
         if(this.total == 0){
+          done();
           this.$refs.activityListNode.$refs.my_scroller.finishInfinite(true);
         }else{
           done();
