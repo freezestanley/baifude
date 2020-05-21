@@ -60,9 +60,13 @@ export default {
         // this.list = [...this.list, ...newList];
         this.list = JSON.parse(JSON.stringify(this.list)).concat(res.data.listObj); //请求返回当页的列表
         this.total = res.data.total;
-        done();
+        if(this.total == 0){
+          this.$refs.activityListNode.$refs.my_scroller.finishInfinite(true);
+        }else{
+          done();
+        }
       } else {
-        this.$refs.noticeListNode.$refs.my_scroller.finishInfinite(true);
+        this.$refs.activityListNode.$refs.my_scroller.finishInfinite(true);
       }
     }
 
