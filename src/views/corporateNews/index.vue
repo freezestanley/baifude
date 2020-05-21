@@ -7,10 +7,10 @@
     <div class="news-cont">
       <Tab :tabList="tabList" :tabIndex="tabIndex" @changeTab="changeTab">
         <template slot="name1">
-          <NewsItem ref="newsListNode" @refresh="refresh" @infinite="infinite" :newsData="newsData" @goToDetail="goToDetail"></NewsItem>
+          <NewsItem ref="newsListNode" @refresh="refresh" @infinite="infinite" :newsData="newsData" :bannerList="bannerList" @goToDetail="goToDetail"></NewsItem>
         </template>
         <template slot="name2">
-          <NewsItem ref="newsListNode" @refresh="refresh" @infinite="infinite" :newsData="newsData" @goToDetail="goToDetail"></NewsItem>
+          <NewsItem ref="newsListNode" @refresh="refresh" @infinite="infinite" :newsData="newsData" :bannerList="bannerList" @goToDetail="goToDetail"></NewsItem>
         </template>
       </Tab>
     </div>
