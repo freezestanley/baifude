@@ -95,17 +95,15 @@
             }
         }
         .enclosure-item{
-            padding:5px 0 5px 40px;
-            width: 100%;
-            height: 30px;
-            line-height: 30px;
+            padding:15px 0 10px 40px;
+            width: 90%;
             position: relative;
             .attach-name-icon{
                 width: 30px;
                 height: 30px;
                 position: absolute;
                 left:0;
-                top:5px;
+                top:10px;
                 img{
                     width: 100%;
                     height: 100%;
