@@ -1,7 +1,7 @@
 <template>
-    <section class="newItem">
-      <scroller ref="my_scroller" height="65%" style="top: 221px"  :on-refresh="refresh" :on-infinite="infinite">
-        <div class="newItem-wrap" v-for="(item,index) in newsData" :key="index" @click="goToDetail(item)">
+    <section class="newItem newsScrollWrap">
+      <scroller ref="my_scroller"  :height="height" :class="[bannerList.length>0?'top_banner_height':'top_nobanner_height']" :on-refresh="refresh" :on-infinite="infinite" :key="height">
+        <div class="newItem-wrap" v-for="(item,index) in newsData" :key="index" @click="goToDetail(item)" >
             <div class="newItem-wrap-left">
                 <div class="newItem-title">{{item.title}}</div>
                 <div class="newItem-date">{{item.publishDate}}</div>
@@ -11,7 +11,7 @@
                 <img :src="item.picture"/>
             </div>
         </div>
-      </scroller>      
+      </scroller>
     </section>
 </template>
 
@@ -25,6 +25,18 @@
           return []
         }
       },
+      bannerList: {
+        type: Array,
+        default: function () {
+          return []
+        }
+      },
+    },
+    data(){
+      return{
+        bannerHeight:'65%',
+        noBannerH:'85%',
+      }
     },
     methods:{
       //跳转详情页面操作
@@ -47,12 +59,27 @@
         }, 500)
       }
     },
+    computed:{
+      height:function () {
+        if(this.bannerList.length>0){
+          return this.bannerHeight;
+        }else{
+          return this.noBannerH;
+        }
+      },
+    }
   }
 </script>
 
 <style lang="less" scoped>
 .newItem{
     height:auto;
+    .top_banner_height{
+        top:221px;
+    }
+    .top_nobanner_height{
+        top:80px;
+    }
     .newItem-wrap{
         height: 75px;
         width: 351px;
