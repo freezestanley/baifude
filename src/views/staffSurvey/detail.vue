@@ -71,7 +71,7 @@ export default {
   },
   computed: {
     id() {
-      return this.$route.params.id;
+      return this.$route.query.id;
     }
   },
   methods: {

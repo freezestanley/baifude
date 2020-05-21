@@ -16,6 +16,8 @@ import Banner from "./components/banner";
 import SurveyItem from "./components/surveyItem";
 import { cms_researchList } from "@/assets/apis/home";
 import utilRes from "@/assets/utils/resResult";
+import { custRedirect } from "@/assets/utils";
+
 
 export default {
   name: "index",
@@ -99,10 +101,11 @@ export default {
       console.log(v);
     },
     goToDetail(item) {
-      this.$router.push({
-        name: "staffDetail",
-        params: { id: item.id }
-      });
+      custRedirect("/newbfd/home-h5/staffsurvey/detail"+window.location.search, { id: item.id })
+      // this.$router.push({
+      //   name: "staffDetail",
+      //   params: { id: item.id }
+      // });
     }
   }
 };
@@ -112,11 +115,11 @@ export default {
 .page {
   padding: 0px 10px 0;
   font-size: 14px;
-  height: calc(100vh - 117px);
-  // display: flex;
-  // flex-direction: column;
-  .surveyItem {
-    flex: 1;
-  }
+  // height: calc(100vh - 117px);
+  // // display: flex;
+  // // flex-direction: column;
+  // .surveyItem {
+  //   flex: 1;
+  // }
 }
 </style>
