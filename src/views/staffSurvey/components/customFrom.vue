@@ -92,7 +92,7 @@ export default {
   methods: {
     onSubmit() {},
     gotoSignUp() {
-      console.log('this.questionList->调研',this.questionList);
+      //console.log('this.questionList->调研',this.questionList);
       let contents = "";
       for(var i=0; i < this.questionList.length; i++){
         if(this.questionList[i].type==1 && !this.questionList[i].optionsValue){
