@@ -45,7 +45,8 @@ import {
 } from "@/assets/apis/home";
 import utilRes from "@/assets/utils/resResult";
 import customFrom from "./components/customFrom";
-import Toast from "@/components/toast/toast";
+// import Toast from "@/components/toast/toast";
+import { Toast } from "vant";
 import overdueIcon from "@/assets/images/survey/overdue-icon.png";
 import surveyTimeIcon from "@/assets/images/survey/surveyTime.png";
 
@@ -186,20 +187,17 @@ export default {
       let resData = await cms_researchSubmit(params);
       const { data: res } = resData;
       if (utilRes.successCheck(resData)) {
-        Toast.show({
-          content: "参与调研成功",
-          isSuccess: false,
-          duration: 1000
-        });
+        Toast("参与调研成功");
         setTimeout(() => {
           this.$router.go(-1);
         }, 1000);
       } else {
-        Toast.show({
-          content: res.errMsg || "调用接口失败",
-          isSuccess: false,
-          duration: 1000
-        });
+        // Toast.show({
+        //   content: res.errMsg || "调用接口失败",
+        //   isSuccess: false,
+        //   duration: 1000
+        // });
+        Toast(res.errMsg || "调用接口失败");
       }
     }
   }
