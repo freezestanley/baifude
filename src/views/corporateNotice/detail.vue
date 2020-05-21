@@ -45,8 +45,10 @@
         let params={id:this.id}
         let res = await news_getNewsFrontDetail(params);
         if (utilRes.successCheck(res)) {
-          this.newsDetailData = res.data;
-          this.enclosureData=res.data.attachmentList;
+          this.newsDetailData = res.data || {};
+          if(res.data && res.data.attachmentList){
+            this.enclosureData=res.data.attachmentList || [];
+          }
         } else {
           this.$message({
             type: "error",
