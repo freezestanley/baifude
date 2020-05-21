@@ -55,7 +55,7 @@ const routes = [
           showSearch: true,
           //页面超出滑动是否浮动展示头部内容
           showHeadNav: true,
-          keepAlive: true,
+          // keepAlive: true,
         }
       },
       {

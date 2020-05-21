@@ -41,6 +41,7 @@ import { mapMutations } from "vuex";
 import { OK } from "@/assets/utils/constant";
 import { getQueryString, setCookie, getCookie } from "@/assets/utils";
 import { parseQueryString } from "@/assets/utils/request";
+import { custRedirect } from "@/assets/utils";
 
 export default {
   name: "home",
@@ -97,13 +98,14 @@ export default {
       this.getCityId(cityName);
     },
     gotoBack(){
-      let urlParams = parseQueryString(window.location.search);
+      // let urlParams = parseQueryString(window.location.search);
       if(this.$route.name == "corporateNews"){
-        //如果是企业新闻直接跳转到首页-不用tab切换
-        this.$router.push({
-          name:"home",
-          query: {...urlParams}
-        })
+        // 如果是企业新闻直接跳转到首页-不用tab切换
+        // this.$router.push({
+        //   name:"home",
+        //   query: {...urlParams}
+        // })
+        custRedirect("/newbfd/home-h5"+window.location.search)
       }else{
         this.$router.go(-1);
       }
