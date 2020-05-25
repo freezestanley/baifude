@@ -8,6 +8,8 @@ const { DEV_SERVER } = require("./config");
 const fs = require("fs");
 const gitHEAD = fs.readFileSync('.git/HEAD', 'utf-8').trim(); // ref: refs/heads/develop
 const ref = gitHEAD.split(': ')[1]; // refs/heads/develop
+console.log('gitHEAD:', gitHEAD)
+console.log('ref:', ref);
 // const develop = gitHEAD.split('/')[2] // 环境：develop
 const gitVersion = fs.readFileSync('.git/' + ref, 'utf-8').trim(); // git版本号，例如：6ceb0ab5059d01fd444cf4e78467cc2dd1184a66
 
