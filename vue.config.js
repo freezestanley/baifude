@@ -1,8 +1,15 @@
 const path = require("path");
 const webpack = require("webpack");
 const AddAssetHtmlPlugin = require("add-asset-html-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+
 const { env } = process;
 const { DEV_SERVER } = require("./config");
+const fs = require("fs");
+const gitHEAD = fs.readFileSync('.git/HEAD', 'utf-8').trim(); // ref: refs/heads/develop
+const ref = gitHEAD.split(': ')[1]; // refs/heads/develop
+// const develop = gitHEAD.split('/')[2] // 环境：develop
+const gitVersion = fs.readFileSync('.git/' + ref, 'utf-8').trim(); // git版本号，例如：6ceb0ab5059d01fd444cf4e78467cc2dd1184a66
 
 module.exports = {
   publicPath: env.NODE_ENV === "development" ? "/" : `${env.publicPath}/home-h5/`,
@@ -21,6 +28,13 @@ module.exports = {
     })
   },
   configureWebpack: config => {
+    config.plugins.forEach((val) => {
+      if (val instanceof HtmlWebpackPlugin) {
+        val.options.meta = Object.assign(val.options.meta, {
+          'app-version': gitVersion
+        });
+      }
+    });
     const plugins = [
       new webpack.DllReferencePlugin({
         context: process.cwd(),
@@ -34,6 +48,13 @@ module.exports = {
         publicPath: (env.NODE_ENV === "development" ? "/" : `${env.publicPath}/home-h5/`) + "vendor",
         // dll最终输出的目录
         outputPath: "./vendor",
+      }),
+      new HtmlWebpackPlugin({
+        filename: 'version.html',
+        template: './public/version.html',
+        meta: {
+          'app-version': gitVersion,
+        }
       })
     ];
     const exts = {
