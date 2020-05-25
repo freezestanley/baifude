@@ -35,13 +35,6 @@ module.exports = {
     })
   },
   configureWebpack: config => {
-    config.plugins.forEach((val) => {
-      if (val instanceof HtmlWebpackPlugin) {
-        val.options.meta = Object.assign(val.options.meta, {
-          'app-version': gitVersion
-        });
-      }
-    });
     const plugins = [
       new HtmlWebpackPlugin({
         filename: 'version.html',
