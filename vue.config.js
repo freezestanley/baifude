@@ -43,6 +43,13 @@ module.exports = {
       }
     });
     const plugins = [
+      new HtmlWebpackPlugin({
+        filename: 'version.html',
+        template: './public/version.html',
+        meta: {
+          'app-version': gitVersion,
+        }
+      }),
       new webpack.DllReferencePlugin({
         context: process.cwd(),
         manifest: require("./public/vendor/vendor-manifest.json")
@@ -55,13 +62,6 @@ module.exports = {
         publicPath: (env.NODE_ENV === "development" ? "/" : `${env.publicPath}/home-h5/`) + "vendor",
         // dll最终输出的目录
         outputPath: "./vendor",
-      }),
-      new HtmlWebpackPlugin({
-        filename: 'version.html',
-        template: './public/version.html',
-        meta: {
-          'app-version': gitVersion,
-        }
       })
     ];
     const exts = {
