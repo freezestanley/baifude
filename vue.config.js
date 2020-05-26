@@ -19,21 +19,22 @@ console.log('gitHEAD:', gitHEAD)
 
 fs.writeFileSync('./public/version.html', `<h3>Version: ${gitVersion}</h3>`);
 var exec = require('child_process').exec;
-var cmd1 = `cat ./.git/logs/HEAD | grep -E ${gitVersion} -m 1 | awk '{print $5}'`;
 var cmd2 = `git name-rev --name-only HEAD`;
-exec(cmd1, function(error, stdout, stderr){
-  const ts = stdout.trim()+'000'-0;
-  const tmpDate = new Date(ts);
-  const y = tmpDate.getFullYear(), M = tmpDate.getMonth() + 1, d = tmpDate.getDate(), H = tmpDate.getHours(),
-    m = tmpDate.getMinutes(), s = tmpDate.getSeconds();
-  cDate = `${y}-${M}-${d} ${H}:${m}:${s}`;
-  // console.log('输出:', d, cDate);
-  const outputStr = `<h3>CommitTime: ${cDate}</h3>`;
-  fs.appendFileSync('./public/version.html', outputStr);
-});
+// 获取分支/tag号
 exec(cmd2,function(error, stdout, stderr){
-  const outputStr = `<h3>TagName: ${stdout.replace('tags/','')}</h3>`;
+  const outputStr = `<h3>Tag/Brand Name: ${stdout}</h3>`;
   fs.appendFileSync('./public/version.html', outputStr);
+  // var cmd1 = `cat ./.git/logs/refs/${stdout} | grep -E ${gitVersion} -m 1 | awk '{print $5}'`;
+  var cmd1 = `git log --pretty=format:"%cd" ${gitVersion} -1`;
+
+  exec(cmd1, function(error, stdout, stderr){
+    const tmpDate = new Date(stdout);
+    const y = tmpDate.getFullYear(), M = tmpDate.getMonth() + 1, d = tmpDate.getDate(), H = tmpDate.getHours(),
+      m = tmpDate.getMinutes(), s = tmpDate.getSeconds();
+    cDate = `${y}-${M}-${d} ${H}:${m}:${s}`;
+    const outputStr = `<h3>CommitTime: ${cDate}</h3>`;
+    fs.appendFileSync('./public/version.html', outputStr);
+  });
 });
 
 
