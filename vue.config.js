@@ -17,6 +17,7 @@ if(gitHEAD.match(/^[0-9a-z]+$/)){
 console.log('gitHEAD:', gitHEAD)
 console.log('ref:', ref);
 // const develop = gitHEAD.split('/')[2] // 环境：develop
+fs.writeFileSync('./public/version.html', gitVersion);
 
 module.exports = {
   publicPath: env.NODE_ENV === "development" ? "/" : `${env.publicPath}/home-h5/`,
@@ -44,13 +45,6 @@ module.exports = {
     });
 
     const plugins = [
-      new HtmlWebpackPlugin({
-        filename: 'version.html',
-        template: './public/version.html',
-        meta: {
-          'app-version': gitVersion,
-        },
-      }),
       new webpack.DllReferencePlugin({
         context: process.cwd(),
         manifest: require("./public/vendor/vendor-manifest.json")
