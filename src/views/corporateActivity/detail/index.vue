@@ -52,7 +52,7 @@
     </section>
 </template>
 <script>
-import {activity_entryCancel,activity_queryActivityDetail} from '@/assets/apis/home'
+import {activity_entryCancel,activity_queryActivityDetail,activity_queryActivityForm,activity_activityEntry} from '@/assets/apis/home'
 import Fields from './components/field'
 import utilRes from "@/assets/utils/resResult";
 import { Dialog } from 'vant';
@@ -65,6 +65,7 @@ export default {
         showPopup: false,
         infoData:{},//基本信息存储对象
         isdisabled:false,//按钮是否置灰
+        activityData:{}
     }
   },
   created(){
@@ -72,8 +73,16 @@ export default {
     
   },
   methods:{
-    gotoSignUp(){
-        this.$refs.fields.showPopup = true;
+    async gotoSignUp(){
+        await this.activity_queryActivityForm();
+        //有报名条件弹窗填写，没有报名条件直接报名成功
+        //console.log('this.activityData.controlList',this.activityData);
+        if(this.activityData.controlList && this.activityData.controlList.length>0){
+            this.$refs.fields.showPopup = true;
+        }else{
+            this.activity_activityEntry();
+        }
+        
     },
     cancelSignUp(){
         Dialog.confirm({
@@ -106,6 +115,27 @@ export default {
         });
       }
     },
+    //活动报名提交
+    async activity_activityEntry(){
+      let params={activityId:this.id,controlList:[]};
+      let res = await activity_activityEntry(params);
+      // console.log('报名成功',res);
+      if(utilRes.successCheck(res)){
+        this.activity_queryActivityDetail();
+        Toast.show({
+          content: '报名成功',
+          isSuccess: false,
+          duration: 2000
+        });
+        this.showPopup = false;
+      }else{
+        Toast.show({
+          content: res.data.errMsg ? res.data.errMsg : "调用接口失败!",
+          isSuccess: false,
+          duration: 1000
+        });
+      }
+    },
     //活动取消操作
     async activity_entryCancel() {
       let params={activityId:this.id}
@@ -122,6 +152,20 @@ export default {
             content: '取消报名失败',
             isSuccess: false,
             duration: 1000
+        });
+      }
+    },
+    //查询活动表单
+    async activity_queryActivityForm(){
+      let params={activityId:this.id};
+      let res = await activity_queryActivityForm(params);
+      if(utilRes.successCheck(res)){
+        this.activityData = res.data;
+        this.activityData.controlList = this.activityData.controlList?this.activityData.controlList:[];
+      }else{
+        this.$message({
+          type: "error",
+          message: res.errMsg ? res.errMsg : "调用接口失败!"
         });
       }
     },
