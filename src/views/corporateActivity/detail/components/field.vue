@@ -344,6 +344,7 @@ export default {
         return
       }
       let res = await activity_activityEntry(params);
+      // console.log('报名成功',res);
       if(utilRes.successCheck(res)){
         this.$emit('queryActivityDetail');
         Toast.show({
@@ -354,7 +355,7 @@ export default {
         this.showPopup = false;
       }else{
         Toast.show({
-          content: '调用接口失败',
+          content: res.data.errMsg ? res.data.errMsg : "调用接口失败!",
           isSuccess: false,
           duration: 1000
         });
