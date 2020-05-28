@@ -40,7 +40,7 @@
                   </template>
                   <van-field class="frameCheckBox" v-if="item.optionsType==1" name="radio" :label="item.optionsName+''">
                     <template #input>
-                      <van-radio-group v-model="item.optionsValue" direction="horizontal">
+                      <van-radio-group v-model="item.optionsValue">
                         <van-radio :name="key" v-for="(value, key, index) in item.applyOptionMap" :key="index">{{key}}</van-radio>
                       </van-radio-group>
                     </template>
@@ -514,7 +514,13 @@ export default {
       margin: 0 0 0 3px;
       .van-field__body{
         display: inline-block;
-
+        .van-field__control{
+            .van-radio-group{
+                .van-radio{
+                    margin-bottom: 10/@rem;
+                }
+            }
+        }
       }
     }
 

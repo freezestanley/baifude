@@ -225,8 +225,8 @@ export default {
                 color: #85878C;
             }
             .info-item-desc{
-                text-align: right;
-                width: 73%;
+                /*text-align: right;*/
+                max-width: 70%;
                 color: #232321;
 
             }
