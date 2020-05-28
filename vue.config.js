@@ -1,8 +1,43 @@
 const path = require("path");
 const webpack = require("webpack");
 const AddAssetHtmlPlugin = require("add-asset-html-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+
 const { env } = process;
 const { DEV_SERVER } = require("./config");
+const fs = require("fs");
+const gitHEAD = fs.readFileSync('.git/HEAD', 'utf-8').trim(); // ref: refs/heads/develop
+let ref, gitVersion, cDate, branch;
+if(gitHEAD.match(/^[0-9a-z]+$/)){
+  gitVersion = gitHEAD;
+}else{
+  ref = gitHEAD.split(': ')[1]; // refs/heads/develop
+  gitVersion = fs.readFileSync('.git/' + ref, 'utf-8').trim(); // git版本号，例如：6ceb0ab5059d01fd444cf4e78467cc2dd1184a66
+}
+console.log('gitHEAD:', gitHEAD)
+// console.log('ref:', ref);
+
+fs.writeFileSync('./public/version.html', `<h3>Version: ${gitVersion}</h3>`);
+var exec = require('child_process').exec;
+var cmd2 = `git name-rev --name-only HEAD`;
+// 获取分支/tag号
+exec(cmd2,function(error, stdout, stderr){
+  const outputStr = `<h3>Tag/Brand Name: ${stdout}</h3>`;
+  fs.appendFileSync('./public/version.html', outputStr);
+  // var cmd1 = `cat ./.git/logs/refs/${stdout} | grep -E ${gitVersion} -m 1 | awk '{print $5}'`;
+  var cmd1 = `git log --pretty=format:"%cd" ${gitVersion} -1`;
+
+  exec(cmd1, function(error, stdout, stderr){
+    const tmpDate = new Date(stdout);
+    const y = tmpDate.getFullYear(), M = tmpDate.getMonth() + 1, d = tmpDate.getDate(), H = tmpDate.getHours(),
+      m = tmpDate.getMinutes(), s = tmpDate.getSeconds();
+    cDate = `${y}-${M}-${d} ${H}:${m}:${s}`;
+    const outputStr = `<h3>CommitTime: ${cDate}</h3>`;
+    fs.appendFileSync('./public/version.html', outputStr);
+  });
+});
+
+
 
 module.exports = {
   publicPath: env.NODE_ENV === "development" ? "/" : `${env.publicPath}/home-h5/`,
@@ -21,6 +56,14 @@ module.exports = {
     })
   },
   configureWebpack: config => {
+    config.plugins.forEach((val) => {
+      if (val instanceof HtmlWebpackPlugin) {
+        val.options.meta = Object.assign(val.options.meta, {
+          'app-version': gitVersion
+        });
+      }
+    });
+
     const plugins = [
       new webpack.DllReferencePlugin({
         context: process.cwd(),
