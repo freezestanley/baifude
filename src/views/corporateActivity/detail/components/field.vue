@@ -330,6 +330,13 @@ export default {
             isSuccess: false,
             duration: 1000
           });
+        }else if(item.optionsType==3 && item.optionsName=="参加人数" && !/^[1-9]\d*$/.test(item.optionsValue)){
+          valid = false;
+          Toast.show({
+            content: '参加人数必须是正整数',
+            isSuccess: false,
+            duration: 1000
+          });
         }
       });
 
