@@ -37,9 +37,8 @@
         if (this.data.length > 1) {
           new Swiper(".swiper-container", {
             loop: true,
-            // spaceBetween: 20,
             slidesPerView: 'auto',
-            loopedSlides: 3,
+            // loopedSlides: 6,
             autoplay: {
               delay: 1500,
               disableOnInteraction: false,

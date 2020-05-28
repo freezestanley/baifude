@@ -20,7 +20,7 @@
                </div>
                <div class="detail-info-item">
                    <div class="info-item-lable">活动地点</div>
-                   <div class="info-item-desc">{{infoData.address}}</div>
+                   <div class="info-item-desc" v-if="infoData.activityType">{{infoData.activityType == 1?"线上活动，无活动地址":infoData.address}}</div>
                </div>
                <div class="detail-info-item">
                    <div class="info-item-lable">活动费用</div>
@@ -176,10 +176,6 @@ export default {
             display: flex;
             padding: 8px 0;
             justify-content: space-between;
-            .info-item-lable,.info-item-desc{
-            overflow: hidden; /*溢出隐藏*/
-            text-overflow: ellipsis; /*以省略号...显示*/
-            white-space: nowrap; /*强制不换行*/}
             .info-item-lable{
                 width: 25%;
                 color: #85878C;
