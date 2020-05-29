@@ -37,7 +37,8 @@ export function navList(params) {
 
 export function moduleList(params) {
   const moduleListApi = "/mallUnion/unionMould/findListByUnionAndPlatform";
-  return sendPostNew(moduleListApi, 'post', params);
+  // return sendPostNew(moduleListApi, 'post', params);
+  return sendPost(moduleListApi, params);
 }
 
 /**
