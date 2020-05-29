@@ -191,14 +191,14 @@ export default {
         });
         return false;
       }
-      if(fileContent.size>200*1024){
-        Toast.show({
-          content: '上传图片大于200K,请重新上传',
-          isSuccess: false,
-          duration: 1000
-        });
-        return false;
-      }
+      // if(fileContent.size>200*1024){
+      //   Toast.show({
+      //     content: '上传图片大于200K,请重新上传',
+      //     isSuccess: false,
+      //     duration: 1000
+      //   });
+      //   return false;
+      // }
       const formData = new FormData();
       formData.append("file", fileContent);
       this.activity_uploadFile(formData);
