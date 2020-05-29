@@ -40,7 +40,7 @@
                   </template>
                   <van-field class="frameCheckBox" v-if="item.optionsType==1" name="radio" :label="item.optionsName+''">
                     <template #input>
-                      <van-radio-group v-model="item.optionsValue" direction="horizontal">
+                      <van-radio-group v-model="item.optionsValue">
                         <van-radio :name="key" v-for="(value, key, index) in item.applyOptionMap" :key="index">{{key}}</van-radio>
                       </van-radio-group>
                     </template>
@@ -514,7 +514,13 @@ export default {
       margin: 0 0 0 3px;
       .van-field__body{
         display: inline-block;
-
+        .van-field__control{
+            .van-radio-group{
+                .van-radio{
+                    margin-bottom: 10/@rem;
+                }
+            }
+        }
       }
     }
 
@@ -523,29 +529,29 @@ export default {
     // display: flex;
     // flex-wrap: wrap;
     width: 100%;
-    margin: 20px 0 0 0;
+    /*margin: 20px 0 0 0;*/
 
-  }
-  input{
-    padding-left: 5px;
   }
   .van-field{
     &.van-cell{
-      line-height: 112/@rem;
+      display: block;
       padding: 0 !important;
       .van-field__label{
-        width: 128/@rem !important;
+        width: auto;
         font-size:30/@rem;
         font-family:PingFangSC-Regular,PingFang SC;
         font-weight:400;
         color:rgba(133,135,140,1);
-        margin-right: 56/@rem;
-        span{
-          display: block;
-          text-align: justify;
-          text-justify: distribute-all-lines;
-          text-align-last: justify;
-        }
+        margin: 10/@rem 0;
+        /*span{*/
+          /*display: block;*/
+          /*text-align: justify;*/
+          /*text-justify: distribute-all-lines;*/
+          /*text-align-last: justify;*/
+        /*}*/
+      }
+      .van-cell__value{
+        padding:10/@rem 0;
       }
     }
     // .van-field__label{
