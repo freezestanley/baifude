@@ -20,7 +20,7 @@
                </div>
                <div class="detail-info-item">
                    <div class="info-item-lable">活动地点</div>
-                   <div class="info-item-desc" v-if="infoData.activityType">{{infoData.activityType == 1?"线上活动，无活动地址":infoData.address}}</div>
+                   <div class="info-item-desc" v-if="infoData.activityType">{{infoData.activityType == 1?"线上活动，无活动地点":infoData.address}}</div>
                </div>
                <div class="detail-info-item">
                    <div class="info-item-lable">活动费用</div>
