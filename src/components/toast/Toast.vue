@@ -50,7 +50,7 @@ export default {
     z-index: 99999;
     position: fixed;
     font-size: .3rem;
-    width: 2.8rem;
+    /*width: 2.8rem;*/
     padding: .34rem;
     box-sizing: border-box;
     background: #000;
