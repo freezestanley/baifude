@@ -22,6 +22,8 @@ const StaffDetail = () =>
   import("@/views/staffSurvey/detail").then(m => m.default);
 const WelfareMall = () =>
   import("@/views/welfareMall/index").then(m => m.default);  
+const MallHome = () =>
+  import("@/views/mallHome/index").then(m => m.default);  
 Vue.use(Router);
 
 const routes = [
@@ -31,18 +33,26 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "cityList" */ "./components/cityList")
   },
-  {
-    path: "/oldhome",
-    name: "oldHome",
-    meta: {
-      title: "百福德H5首页"
-    },
-    component: () => import(/* webpackChunkName: "oldHome" */ "./views/oldHome")
-  },
+  // {
+  //   path: "/oldhome",
+  //   name: "oldHome",
+  //   meta: {
+  //     title: "百福德H5首页"
+  //   },
+  //   component: () => import([> webpackChunkName: "oldHome" <] "./views/oldHome")
+  // },
   {
     path: "/newbfd/home-h5",
     component: HomeWrap,
     children: [
+      {
+        path: "mall",
+        name: "mall",
+        meta: {
+          title: "百福德H5首页"
+        },
+        component: MallHome
+      },
       {
         path: "",
         name: "home",

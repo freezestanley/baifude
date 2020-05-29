@@ -1,4 +1,4 @@
-import { sendPost } from "../utils/request";
+import { sendPost, sendPostNew } from "../utils/request";
 
 /**
  * 获取城市列表
@@ -37,7 +37,7 @@ export function navList(params) {
 
 export function moduleList(params) {
   const moduleListApi = "/mallUnion/unionMould/findListByUnionAndPlatform";
-  return sendPost(moduleListApi, params);
+  return sendPostNew(moduleListApi, 'post', params);
 }
 
 /**
