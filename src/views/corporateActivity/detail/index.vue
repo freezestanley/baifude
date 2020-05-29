@@ -219,14 +219,14 @@ export default {
         .detail-info-item{
             display: flex;
             padding: 8px 0;
-            justify-content: space-between;
+            /*justify-content: space-between;*/
             .info-item-lable{
-                width: 25%;
+                width: 30%;
                 color: #85878C;
             }
             .info-item-desc{
                 /*text-align: right;*/
-                max-width: 70%;
+                width: 70%;
                 color: #232321;
 
             }

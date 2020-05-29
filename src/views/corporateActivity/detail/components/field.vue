@@ -46,13 +46,13 @@
                     </template>
                   </van-field>
                   <van-field
-                                               v-if="item.optionsType==2"
-                                               name="checkboxGroup" :label="item.optionsName" >
-                                               <template #input>
-                                                 <van-checkbox-group  v-model="item.optionsValue" >
-                                                   <van-checkbox v-for="(value, key, index) in item.applyOptionMap" class="margin_bt7" :name="key" :key="index" shape="square">{{key}}</van-checkbox>
-                                                 </van-checkbox-group>
-                                               </template>
+                     v-if="item.optionsType==2"
+                     name="checkboxGroup" :label="item.optionsName" >
+                     <template #input>
+                       <van-checkbox-group  v-model="item.optionsValue" >
+                         <van-checkbox v-for="(value, key, index) in item.applyOptionMap" class="margin_bt7" :name="key" :key="index" shape="square">{{key}}</van-checkbox>
+                       </van-checkbox-group>
+                     </template>
                   </van-field>
 
                   <!-- <van-field v-if="item.optionsType==5" class="uploadImg" name="uploader" :label="item.optionsName" readonly>
@@ -324,10 +324,10 @@ export default {
             isSuccess: false,
             duration: 1000
           });
-        }else if(item.optionsType==3 && item.optionsName=="手机号" && !/^1[0-9]{10}$/.test(item.optionsValue)){
+        }else if(item.optionsType==3 && item.optionsName=="手机号码" && !/^1[0-9]{10}$/.test(item.optionsValue)){
           valid = false;
           Toast.show({
-            content: '请填写正确格式的手机号',
+            content: '请填写正确格式的手机号码',
             isSuccess: false,
             duration: 1000
           });
@@ -588,7 +588,18 @@ export default {
       }
     }
   }
-
+  .van-checkbox{
+    align-items: flex-start;
+    .van-checkbox__icon{
+      margin-top: 2px;
+    }
+  }
+  .van-radio{
+    align-items: flex-start;
+    .van-radio__icon{
+      margin-top: 2px;
+    }
+  }
 
 }
 </style>
