@@ -66,6 +66,9 @@ export default {
     onRefresh() {
       this.$emit("onRefresh");
     }
+  },
+  created(){
+    console.log("surveyData----",this.surveyData)
   }
 };
 </script>
@@ -102,6 +105,7 @@ export default {
       padding-left: 0.4rem;
       display: flex;
       line-height: 32px;
+      justify-content: space-between;
       &::before {
         content: "";
         width: 0.16rem;
@@ -112,10 +116,9 @@ export default {
         top: 0.333333rem;
         border-radius: 50%;
       }
+      .surveyItem-time{}
       .surveyItem-status{
-        margin-left: 190px;
         color: #4679a3;
-        
         width: 77px;
         border: 1px solid #4679a3;
         text-align: center;
