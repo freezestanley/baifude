@@ -191,9 +191,9 @@ export default {
         });
         return false;
       }
-      if(fileContent.size>5000*1024){
+      if(fileContent.size>10000*1024){
         Toast.show({
-          content: '上传图片大于5M,请重新上传',
+          content: '上传图片大于10M,请重新上传',
           isSuccess: false,
           duration: 1000
         });
