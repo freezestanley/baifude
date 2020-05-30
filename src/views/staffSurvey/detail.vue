@@ -192,7 +192,7 @@ export default {
       if (utilRes.successCheck(resData)) {
         Toast("参与调研成功");
         setTimeout(() => {
-          this.$router.go(-1);
+          this.$router.push({name:'staffSurvey'});
         }, 1000);
       } else {
         // Toast.show({
