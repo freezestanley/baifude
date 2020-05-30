@@ -27,6 +27,7 @@
         <custom-from
           :questionList="questionList"
           :startTime="startTime"
+          :staffParticipateStatus="staffParticipateStatus"
           @onSubmit="onSubmit"
         />
       </div>
@@ -62,6 +63,7 @@ export default {
       questionList: [],
       startTime: false,
       endStatus: false,
+      staffParticipateStatus: 0, //0为为参与，1为已参与
       overdueIcon: overdueIcon, // 过期图标
       surveyTimeIcon:surveyTimeIcon
     };
@@ -83,6 +85,7 @@ export default {
         this.detail = res.data; //请求返回当页的列表
         if (this.detail.questionList.length > 0) {
           const { participateStatus } = res.data;
+          this.staffParticipateStatus = participateStatus;
           // 已过期
           if (
             this.detail.endTime &&
