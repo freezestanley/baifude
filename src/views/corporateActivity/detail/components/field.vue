@@ -193,7 +193,7 @@ export default {
       }
       if(fileContent.size>5000*1024){
         Toast.show({
-          content: '上传图片大于200K,请重新上传',
+          content: '上传图片大于5M,请重新上传',
           isSuccess: false,
           duration: 1000
         });
