@@ -52,7 +52,7 @@ export default {
       // loading: false,
       // finished: false,
       // refreshing: false
-      staffsurveyStatus: new Map([['2',"参与调研"],['3','已参与'],['5','调研结束']]),
+      staffsurveyStatus: new Map([['2',"参与调研"],['3','调研结束'],['5','已参与']]),
     };
   },
   methods: {
