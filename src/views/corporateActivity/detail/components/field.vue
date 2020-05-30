@@ -580,6 +580,7 @@ export default {
         text-align: left;
         .van-field__body{
           display: inline-block;
+          width: 100%;
           .van-field__control{
             line-height: 26px !important;
             height: 26px;
