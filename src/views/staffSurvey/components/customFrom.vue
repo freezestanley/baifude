@@ -30,11 +30,13 @@
               maxlength="100"
               :placeholder="'请输入'+item.title"
               show-word-limit
+              :disabled="staffParticipateStatus==1"
             />
             <van-field
               v-if="item.type === 4"
               v-model="item.optionsValue"
               :placeholder="'请输入'+item.title"
+              :disabled="staffParticipateStatus==1"
             />
 
             <van-field class="frameCheckBox" v-if="item.type == 1" name="radio">
@@ -44,6 +46,7 @@
                     v-for="(value, key, index) in item.options"
                     :name="value.id"
                     :key="index"
+                    :disabled="staffParticipateStatus==1"
                     >{{ value.optionValue }}</van-radio
                   >
                 </van-radio-group>
@@ -59,6 +62,7 @@
                     :name="value.id"
                     :key="index"
                     shape="square"
+                    :disabled="staffParticipateStatus==1"
                     >{{ value.optionValue }}</van-checkbox
                   >
                 </van-checkbox-group>
@@ -69,7 +73,10 @@
             <div v-if="startStatus" class="ensure-btn dis-btn">
               {{ startTime }} 开始
             </div>
-            <div v-else class="ensure-btn" @click="gotoSignUp">提 交</div>
+            <div v-else> 
+              <div v-if="staffParticipateStatus==1" class="cancle-btn participated">已参与</div>
+              <div v-else class="ensure-btn" @click="gotoSignUp">提 交</div>
+            </div>
           </div>
         </van-form>
       </div>
@@ -80,7 +87,7 @@
 import { Toast } from "vant";
 export default {
   name: "customFrom",
-  props: ["questionList", "startTime"],
+  props: ["questionList", "startTime","staffParticipateStatus"],
   data() {
     return {};
   },
@@ -172,6 +179,9 @@ export default {
       color: #fff;
       background: #c6aa85;
       border-radius: 3px;
+    }
+    .participated {
+      background: #999;
     }
   }
 

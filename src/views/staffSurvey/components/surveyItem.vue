@@ -22,7 +22,12 @@
             <div class="title">{{ item.title }}</div>
           </div>
           <div class="surveyItem-wrap-b">
-            {{ item.releaseTime ? item.releaseTime.split(" ")[0] : "" }}
+            <div class="surveyItem-time">
+              {{ item.releaseTime ? item.releaseTime.split(" ")[0] : "" }}
+            </div>
+            <div class="surveyItem-status">
+              <span>{{staffsurveyStatus.get(item.status+'')}}</span>
+            </div>
           </div>
         </div>
       </van-list>
@@ -47,6 +52,7 @@ export default {
       // loading: false,
       // finished: false,
       // refreshing: false
+      staffsurveyStatus: new Map([['2',"参与调研"],['3','调研结束'],['5','已参与']]),
     };
   },
   methods: {
@@ -60,6 +66,9 @@ export default {
     onRefresh() {
       this.$emit("onRefresh");
     }
+  },
+  created(){
+    console.log("surveyData----",this.surveyData)
   }
 };
 </script>
@@ -92,9 +101,11 @@ export default {
       font-size: 12px;
       font-weight: 500;
       color: rgba(178, 178, 178, 1);
-      line-height: 16px;
       position: relative;
       padding-left: 0.4rem;
+      display: flex;
+      line-height: 32px;
+      justify-content: space-between;
       &::before {
         content: "";
         width: 0.16rem;
@@ -102,9 +113,22 @@ export default {
         background: #e5e5e5;
         position: absolute;
         left: 0;
-        top: 0.133333rem;
+        top: 0.333333rem;
         border-radius: 50%;
       }
+      .surveyItem-time{}
+      .surveyItem-status{
+        color: #4679a3;
+        width: 77px;
+        border: 1px solid #4679a3;
+        text-align: center;
+        border-radius: 3px;
+      }
+    }
+    .surveyItem-wrap-s {
+      position: absolute;
+      right: 10px;
+      top: 36px;
     }
   }
 }
