@@ -25,7 +25,6 @@ export default {
     Banner,
     SurveyItem
   },
-  async created() {},
   data() {
     return {
       bannerList: [
