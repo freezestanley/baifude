@@ -25,7 +25,7 @@
           : index == 1?(currentPageIndex==1?{ color: unionConf.colour }:{}):{}"
         ></i>
         <div class="nameWrap">
-          <div v-if="!isBilingual" :class="index == 0 ? 'name on' : 'name'">
+          <div v-if="!isBilingual" :class="index == currentPageIndex ? 'name on' : 'name'">
             {{ tab.name }}
           </div>
           <div v-if="isBilingual" :class="index == 0 ? 'enName on' : 'enName'">
@@ -111,10 +111,15 @@ export default {
           pageUrl: "javascript:void(0);"
         },
         {
-          name: "福利",
+          name: "福利商城",
           enName: "benefits",
-          pageUrl: this.bavUrl.cardCenterUrl
+          pageUrl: "javascript:void(0);"
         },
+        // {
+        //   name: "福利",
+        //   enName: "benefits",
+        //   pageUrl: this.bavUrl.cardCenterUrl
+        // },
         {
           name: "我的",
           enName: "mine",
