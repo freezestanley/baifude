@@ -138,7 +138,7 @@ export default {
       this.time = setInterval(slide.bind(this), 60);
 
       //是否展示消息通知下拉箭头(当滚动消息大于一行)
-      console.log('---',scrollWidth,clientWidth);
+      //console.log('---',scrollWidth,clientWidth);
       
     },
     showDetail(){

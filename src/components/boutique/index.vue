@@ -40,7 +40,7 @@
       },
     },
     created(){
-      console.log("data---====",this.data)
+      //console.log("data---====",this.data)
     },
     methods:{
       jumpUrl(item){
