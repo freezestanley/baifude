@@ -210,9 +210,15 @@ export default {
             this.$toast.clear();
             // 收集要渲染的组件及缓存数据
             if (unionConf && unionConf.body) {
+              //---旧版，根据后端配置显示头部(搜索，客服)
+              // this.fords.push({
+              //   data: null,
+              //   comp: () => import(`@/views/${unionConf.body.styleCode}`)
+              // });
+              //---新版，写死头部(bfdUnion)
               this.fords.push({
                 data: null,
-                comp: () => import(`@/views/${unionConf.body.styleCode}`)
+                comp: () => import(`@/views/bfdUnion`)
               });
 
               // 站内公告
@@ -292,7 +298,7 @@ export default {
             this.fords.push({
               data: null,
               comp: () =>
-                  import(`@/views/${unionConf.body.styleCode}/footArea`)
+                  import(`@/views/bfdUnion/footArea`)
             });
 
             // 缓存工会商城配置
