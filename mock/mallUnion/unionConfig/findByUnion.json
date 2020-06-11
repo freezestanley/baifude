@@ -162,8 +162,8 @@
 			"gatewayParam": null
 		},
         "styleCode1": "elegance",
-        "styleCode": "elite",
-        "styleCode3": "fashion",
+        "styleCode2": "elite",
+        "styleCode": "fashion",
 		"homePageUrl": "http://corp.m.test04.com/bfd/home?union=xiaolang&city=null",
 		"pcHomePageUrl": null,
 		"shoppingCartUrl": "http://corp.m.test04.com/tmall/shopping/cart?union=xiaolang&city=null",
