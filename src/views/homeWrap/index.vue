@@ -276,6 +276,10 @@ export default {
               return false;
             }
 
+            this.updateState({
+              key: "unionAndPlatform",
+              val: unionMoulds.body
+            });
             // if (unionMoulds && unionMoulds.body) {
             //   unionMoulds.body.forEach(unionMod => {
             //     this.fords.push({

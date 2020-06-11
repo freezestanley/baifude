@@ -19,7 +19,8 @@ export default new Vuex.Store({
     showCityList: false,
     bavUrl: {}, //底部tab链接
     position: {}, //定位信息
-    locationCityId: ""
+    locationCityId: "",
+    unionAndPlatform:'' //十大模块
   },
   mutations: {
     updateState(state, { key, val }) {
