@@ -1,16 +1,18 @@
 <template>
     <div>
         <div>elite</div>
+        <navArea></navArea>
         <component
-            :is="ford.comp"
-            :content="ford.data"
-            v-for="(ford, index) of fords"
-            :key="index"
+                :is="ford.comp"
+                :content="ford.data"
+                v-for="(ford, index) of fords"
+                :key="index"
         ></component>
     </div>
 </template>
 <script>
   import { mapState } from "vuex";
+  import navArea from './components/navArea'
   export default {
     data(){
       return {
@@ -19,6 +21,9 @@
     },
     created(){
       this.getData()
+    },
+    components: {
+      navArea
     },
     methods:{
       getData(){
