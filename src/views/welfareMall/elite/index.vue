@@ -1,10 +1,45 @@
 <template>
-    <div>elite</div> 
+    <div>
+        <div>elite</div>
+        <component
+            :is="ford.comp"
+            :content="ford.data"
+            v-for="(ford, index) of fords"
+            :key="index"
+        ></component>
+    </div>
 </template>
 <script>
-export default {
-    
-}
+  import { mapState } from "vuex";
+  export default {
+    data(){
+      return {
+        fords:[]
+      };
+    },
+    created(){
+      this.getData()
+    },
+    methods:{
+      getData(){
+        if(this.unionAndPlatform){
+          this.unionAndPlatform.forEach(unionMod => {
+            this.fords.push({
+              data: unionMod,
+              comp: () => import(`@/components/${unionMod.formatCode}`)
+            });
+          });
+        }
+      }
+    },
+    computed: {
+      ...mapState({
+        unionAndPlatform:state => state.unionAndPlatform,//十大模块
+      }),
+
+    },
+
+  }
 </script>
 <style scoped>
 

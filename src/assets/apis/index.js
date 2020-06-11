@@ -17,7 +17,8 @@ export function cityList(params) {
 
 export function findByUnion(params) {
   const findByUnionApi = "/mallUnion/unionConfig/findByUnion";
-  return sendPost(findByUnionApi, params);
+  return sendPostNew(findByUnionApi, "post", params, true); //mock数据使用，测试开发使用
+  // return sendPost(findByUnionApi, params);
 }
 
 /**

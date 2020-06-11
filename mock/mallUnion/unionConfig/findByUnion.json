@@ -161,8 +161,8 @@
 			"isCleanH5logoImage": 0,
 			"gatewayParam": null
 		},
-        "styleCode": "elegance",
-        "styleCode1": "elite",
+        "styleCode1": "elegance",
+        "styleCode": "elite",
         "styleCode3": "fashion",
 		"homePageUrl": "http://corp.m.test04.com/bfd/home?union=xiaolang&city=null",
 		"pcHomePageUrl": null,

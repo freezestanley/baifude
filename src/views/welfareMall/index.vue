@@ -60,6 +60,7 @@ export default {
       cid: state => state.cid,
       unionConf: state => state.unionConf,
       styleCode: state => state.styleCode, //风格：elegance-雅致，elite-精英，fashion-时尚风
+      unionAndPlatform:state => state.unionAndPlatform,//十大模块
     }),
     
   },
