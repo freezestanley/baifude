@@ -1,8 +1,19 @@
 <template>
-    <div>fashion</div>
+    <div>
+        <div>fashion</div>
+        <navArea></navArea>
+    </div>
+    
 </template>
 <script>
+import navArea from './components/navArea'
 export default {
+    data(){
+        return {};
+    },
+    components: {
+        navArea
+    },
     
 }
 </script>
