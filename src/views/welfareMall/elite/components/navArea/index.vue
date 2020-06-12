@@ -4,11 +4,16 @@
     <!-- 两个nav -->
     <div v-show="navList.length === 2" class="twoItem">
       <div
+        class="towNavWrap PackagesBg"
         @click="goDetail(item.h5Url)"
         v-for="(item, index) in navList"
         :key="index"
       >
-        <img :src="item.h5ImagePath" alt />
+        <div class="navTitle-wrap">
+          <div class="title">{{item.name}}</div>
+          <div class="description">{{navDescriptionMap.get(item.code)}}</div>
+        </div>
+        <!-- <img :src="item.h5ImagePath" alt /> -->
       </div>
     </div>
     <!-- 数量小于5条没有滑动效果 -->
@@ -182,7 +187,9 @@ export default {
       navList_one: [],
       navList_two: [],
       navList_three: [],
-      navList_four: []
+      navList_four: [],
+      eliteBgMap: new Map([['Packages','PackagesBg'],['Movies','MoviesBg'],['Shows','ShowsBg'],['Travel','TravelBg'],['Birthday','BirthdayBg'],['Shopping','ShoppingBg'],['Health','HealthBg']]),
+      navDescriptionMap: new Map([["Packages","生日惊喜大酬宾"],["Movies","旅游玩乐真欢快"]]),  
     };
   },
   computed: {
@@ -345,6 +352,30 @@ img {
 }
 .twoItem {
   display: flex;
+  .towNavWrap{
+    height: 64px;
+    width: 165px;
+    display: flex;
+    align-items: center;
+    //background: coral;
+    .navTitle-wrap{
+      color: #FFFFFF;
+      margin-left: 12px;
+      .title{
+        font-size: 19px;
+      }
+      .description{
+        margin-top: 3px;
+        font-size: 11px;
+      }
+    }
+    &.PackagesBg{
+      background-size: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-image: url("../../../../../assets/images/elite/elite_card_package_eng.png");
+    }
+  }
 }
 .twoItem > div:first-child {
   margin-right: 13px;
