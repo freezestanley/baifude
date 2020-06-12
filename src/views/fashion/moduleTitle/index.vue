@@ -6,12 +6,12 @@
         <div v-show="!isBilingual">
           <div class="enTitle">
             <i
-              class="iconfont fashion-tag__left icon_left"
+              class="fashion-tag__left"
               :style="{ color: unionConf.colour }"
             ></i>
             <span class="title-text">{{ title }}</span>
             <i
-              class="iconfont fashion-tag__right icon_right"
+              class="fashion-tag__right"
               :style="{ color: unionConf.colour }"
             ></i>
           </div>
@@ -20,13 +20,13 @@
           <div class="cTitle">{{ title }}</div>
           <div class="enTitle">
             <i
-              class="iconfont fashion-tag__left icon_left"
+              class="fashion-tag__left"
               :style="{ color: unionConf.colour }"
             ></i>
             <span class="enTitle-text" v-if="enTitle">{{ enTitle }}</span>
             <span class="title-text" v-else>{{ title }}</span>
             <i
-              class="iconfont fashion-tag__right icon_right"
+              class="fashion-tag__right"
               :style="{ color: unionConf.colour }"
             ></i>
           </div>
@@ -65,6 +65,25 @@ export default {
   padding: 0 10px;
   text-align: center;
   .enTitle {
+    position: relative;
+    .fashion-tag__left{
+      width: 73px;
+      height:4px;
+      background: url("../../../assets/images/fashion/title_left_icon.png") no-repeat center center;
+      background-size: 100%;
+      position: absolute;
+      left: -80px;
+      top:10px;
+    }
+    .fashion-tag__right{
+      width: 73px;
+      height:4px;
+      background: url("../../../assets/images/fashion/title_right_icon.png") no-repeat center center;
+      background-size: 100%;
+      position: absolute;
+      right: -80px;
+      top:10px;
+    }
     &-text {
       vertical-align: top;
       font-family: Poppins-Medium;

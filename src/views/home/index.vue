@@ -1,6 +1,10 @@
 <template>
   <div class="wrap">
     <div class="container">
+      <!--工会图片-->
+      <div class="unionPicWrap">
+        <img :src="unionConfigMess.h5BgImage" alt="">
+      </div>
       <ActivityNav :activityNavData="activityNavData"></ActivityNav>
       <!-- 企业新闻 -->
       <div class="layout news" v-if="newsData.length > 0">
@@ -71,10 +75,10 @@
         </div>
       </div>
       <!-- 精品推荐 -->
-      <div class="layout" v-if="boutiqueData.length > 0">
-        <Title titleName="精品推荐"></Title>
-        <Boutique :data="boutiqueData"></Boutique>
-      </div>
+      <!--<div class="layout" v-if="boutiqueData.length > 0">-->
+        <!--<Title titleName="精品推荐"></Title>-->
+        <!--<Boutique :data="boutiqueData"></Boutique>-->
+      <!--</div>-->
       <div class="section-last-tip">
         <div class="section-last-text">已经到底啦</div>
       </div>
@@ -91,7 +95,7 @@ import { getQueryString, setCookie, getCookie } from "@/assets/utils";
 import BusinessActivity from "@/components/businessActivity/index";
 import Title from "@/components/moduleTtile/index";
 import NewsItem from "../corporateNews/components/newsItemIndex";
-import Boutique from "@/components/boutique/index";
+// import Boutique from "@/components/boutique/index";
 import ActivityNav from "@/components/activitynav/index";
 import {
   newsListPage,
@@ -144,20 +148,17 @@ export default {
         pic:
           "http://devimg.dongfangfuli.com/bfd/2020-05-02/276d7252c2cdf98f2fcafb58e902ac91.png"
       },
-      researchList: {} // 员工调研
+      researchList: {}, // 员工调研
+      unionConfigMess:{},// 工会信息配置
     };
   },
   components: {
-    homeShell: () => import("../../components/homeShell"),
-    LocationNotice: () => import("../../components/locationNotice"),
-    notice: () => import("../../components/notice"),
     Title,
     NewsItem,
     BusinessActivity,
-    Boutique,
+    // Boutique,
     ActivityNav
   },
-
   created() {
     const union = getQueryString("union");
     // this.isLogin(union);
@@ -357,6 +358,9 @@ export default {
                   this.boutiqueData = unionData[i].mouldContents;
                 }
               }
+            }
+            if(unionConf && unionConf.body){
+              this.unionConfigMess = unionConf.body.unionConfigurationDto;
             }
             // console.log("工会信息--", unionMoulds);
             // if (unionMoulds && unionMoulds.body) {
@@ -614,7 +618,7 @@ export default {
         document.body.style.height = "auto";
       }
     }
-  }
+  },
 };
 </script>
 
@@ -654,6 +658,17 @@ html {
 <style lang="less" scoped>
 .wrap {
   font-size: 12px;
+  .unionPicWrap{
+    width: 100%;
+    height:170px;
+    margin: 0 auto;
+    img{
+      width: auto;
+      height:auto;
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
   .layout {
     padding: 10px 15px 0;
   }

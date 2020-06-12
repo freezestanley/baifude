@@ -60,7 +60,7 @@ const routes = [
         meta: {
           title: "百福得首页",
           //是否展示轮播图banner
-          showBanner: true,
+          showBanner: false,
           //是否展示搜索图标(搜索功能)
           showSearch: true,
           //页面超出滑动是否浮动展示头部内容
@@ -157,6 +157,7 @@ const routes = [
           //页面超出滑动是否浮动展示头部内容
           showHeadNav: true,
           keepAlive: true,
+          showBanner:true,
         }
       }
     ]

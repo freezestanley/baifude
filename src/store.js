@@ -20,7 +20,8 @@ export default new Vuex.Store({
     bavUrl: {}, //底部tab链接
     position: {}, //定位信息
     locationCityId: "",
-    unionAndPlatform:'' //十大模块
+    unionAndPlatform:'', //十大模块
+    unionConDto:'',//首页banner部分图片接口数据
   },
   mutations: {
     updateState(state, { key, val }) {
