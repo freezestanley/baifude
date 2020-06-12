@@ -48,6 +48,7 @@
           <div v-show="item.tagFlag === 1" class="tag">{{ item.tag }}</div>
         </a>
       </div>
+      <div class="coming" style="font-size:14px;" v-if="navList&&(navList.length==4||navList.length==5)">敬请期待</div>
       <div
         class="moreWrap shoWrap"
         v-if="navList.length > 6 && !showMoreFlag"
@@ -209,6 +210,16 @@ a {
       height: 64px;
       overflow: hidden;
     }
+    .coming{
+      width: 104px;
+      height: 36px;
+      margin: 7px 8px;
+      background: #f8f8f8;
+      padding-left: 7px;
+      box-sizing: border-box;
+      text-align: center;
+      line-height: 36px;
+    }
     .item_3 {
       width: 104px;
       height: 36px;
@@ -217,6 +228,7 @@ a {
       padding-left: 7px;
       box-sizing: border-box;
       position: relative;
+      
       a {
         .imgWrap {
           width: 32px;
