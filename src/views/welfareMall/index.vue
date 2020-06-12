@@ -26,11 +26,17 @@ export default {
   },
   created(){
     // this.user_findUsableList();
-    // this.user_menu_list();
+    // this.user_menu_list();    
   },
   mounted(){
+    this.getStyleCode();
   },
   methods:{
+    getStyleCode(){
+      if(this.styleCode){
+        this.welfareMallStyleCodeModule = () => import(`@/views/welfareMall/${this.styleCode}`);
+      }
+    },
     async user_findUsableList() {
       let parseUrlObj = parseQueryString(window.location.search);
       let params={
@@ -66,7 +72,9 @@ export default {
   },
   watch:{
     styleCode:function(newVal,oldVal){
+      //console.log('styleCode',newVal);
       if(newVal){
+        //console.log('styleCode',newVal);
         this.welfareMallStyleCodeModule = () => import(`@/views/welfareMall/${newVal}`)
       }
     }
