@@ -4,11 +4,16 @@
     <!-- 两个nav -->
     <div v-show="navList.length === 2" class="indexItem twoItem">
       <div
+        :class="eliteBgMap.get(item.code) ? `towNavWrap ${eliteBgMap.get(item.code)}`:index==0?'towNavWrap PackagesBg':'towNavWrap ShoppingBg'"
         v-for="(item, index) in navList"
         :key="index"
         @click="goDetail(item.h5Url)"
       >
-        <img :src="item.h5ImagePath" alt />
+        <div class="navTitle-wrap">
+          <div class="title">{{item.name}}</div>
+          <div class="description">{{navDescriptionMap.get(item.code)}}</div>
+        </div>
+        <!-- <img :src="item.h5ImagePath" alt /> -->
       </div>
     </div>
     <!-- 三个nav -->
@@ -142,7 +147,9 @@ export default {
         enName: "retract",
         h5ImagePath: require("@/assets/images/fashion/retract.png")
       },
-      navLength: 0
+      navLength: 0,
+      eliteBgMap: new Map([['Packages','PackagesBg'],['Movies','MoviesBg'],['Shows','ShowsBg'],['Travel','TravelBg'],['Birthday','BirthdayBg'],['Shopping','ShoppingBg'],['Health','HealthBg']]),
+      navDescriptionMap: new Map([["Packages","生日惊喜大酬宾"],["Movies","旅游玩乐真欢快"]]),
     };
   },
   computed: {
@@ -277,6 +284,53 @@ img {
         width: 44px;
         height: 44px;
       }
+    }
+  }
+  .twoItem{
+    display: flex;
+    .towNavWrap{
+      height: 64px;
+      width: 165px;
+      display: flex;
+      align-items: center;
+      border-radius:8px;
+      background-size: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      //background: coral;
+      .navTitle-wrap{
+        color: #000000;
+        margin-left: 12px;
+        .title{
+          font-size: 17px;
+        }
+        .description{
+          margin-top: 3px;
+          font-size: 11px;
+        }
+      }
+      &.PackagesBg{
+        background-image: url("../../../../../assets/images/fashion/fashion_card_package_eng.png");
+      }
+      &.MoviesBg{
+        background-image: url("../../../../../assets/images/fashion/fashion_card_movie_eng.png");
+      }
+      &.ShowsBg{
+        background-image: url("../../../../../assets/images/fashion/fashion_card_show_eng.png");
+      }
+      &.TravelBg{
+        background-image: url("../../../../../assets/images/fashion/fashion_card_travel_eng.png");
+      }
+      &.BirthdayBg{
+        background-image: url("../../../../../assets/images/fashion/fashion_card_birthday_eng.png");
+      }
+      &.ShoppingBg{
+        background-image: url("../../../../../assets/images/fashion/fashion_card_shopping_eng.png");
+      }
+      &.HealthBg{
+        background-image: url("../../../../../assets/images/fashion/fashion_card_health_eng.png");
+      }
+
     }
   }
   .twoItem > div:first-child {

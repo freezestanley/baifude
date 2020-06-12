@@ -357,6 +357,7 @@ img {
     width: 165px;
     display: flex;
     align-items: center;
+    border-radius:4px 4px 0px 0px;
     //background: coral;
     .navTitle-wrap{
       color: #FFFFFF;
