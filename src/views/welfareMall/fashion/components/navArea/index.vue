@@ -49,6 +49,12 @@
         <div class="name">{{ item.name }}</div>
         <div v-show="isBilingual" class="enName">{{ item.enName }}</div>
       </div>
+      <div class="coming_soon_wrap" v-if="navList.length === 6 || navList.length === 7">
+        <div class="item">
+          <img src="../../../../../assets/images/fashion/comingSoonIcon.png" alt="">
+        </div>
+        <div class="text">敬请期待</div>
+      </div>
     </div>
     <!-- (5,9,10...) -->
     <div
@@ -69,6 +75,12 @@
         </div>
         <div class="name">{{ item.name }}</div>
         <div v-show="isBilingual" class="enName">{{ item.enName }}</div>
+      </div>
+      <div class="coming_soon_item5" v-if="navList.length === 9">
+        <div class="item">
+          <img src="../../../../../assets/images/fashion/comingSoonIcon.png" alt="">
+        </div>
+        <div class="text">敬请期待</div>
       </div>
     </div>
     <!-- (11,12,...) -->
@@ -241,6 +253,14 @@ img {
       height: 44px;
     }
   }
+  .text{
+    font-size: 14px;
+    font-family: PingFangSC-Light;
+    font-weight: 300;
+    color: rgba(34, 34, 34, 1);
+    line-height: 20px;
+    text-align: center;
+  }
   .item_3 {
     padding: 0 25px;
     img {
@@ -252,6 +272,24 @@ img {
     width: 85px;
     text-align: center;
     margin-bottom: 10px;
+  }
+  .coming_soon_wrap{
+    width: 85px;
+    .item{
+      img{
+        width: 44px;
+        height:44px;
+      }
+    }
+  }
+  .coming_soon_item5{
+    width: 68px;
+    .item{
+      img{
+        width: 44px;
+        height:44px;
+      }
+    }
   }
   .item_5 {
     width: 68px;
