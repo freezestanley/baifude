@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!--<Banner></Banner>-->
     <!-- <WelfareMall :welfareMallDataList="welfareMallDataList"></WelfareMall> -->
     <component
       :is="welfareMallStyleCodeModule"
@@ -12,11 +13,13 @@ import { user_findUsableList,menu_list } from "@/assets/apis/home";
 import { parseQueryString } from "@/assets/utils/request";
 import utilRes from "@/assets/utils/resResult";
 import WelfareMall from "@/components/welfareMall/index"
+// import Banner from "./components/banner"
 import { getQueryString } from "@/assets/utils";
 
 export default {
   components:{
-    WelfareMall
+    WelfareMall,
+    // Banner,
   },
   data(){
     return {

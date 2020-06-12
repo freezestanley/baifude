@@ -1,5 +1,5 @@
 <template>
-  <div :class="styleCode === 'elite' ? 'bgGray' : 'commonBg'">
+  <div class="commonBg">
     <!-- <notice
       v-if="isShowUnionNotice"
       :unionNoticeContent="unionNoticeContent"
