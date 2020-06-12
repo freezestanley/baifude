@@ -8,10 +8,14 @@
     "
   >
     <!-- 数量2条 -->
-    <div class="detailWrap" v-if="navList.length == 2">
+    <div class="detailWrap towNavWrap" v-if="navList.length == 2">
       <div class="item item_2" v-for="(item, index) in navList" :key="index">
         <div>
           <a :href="item.h5Url ? item.h5Url : 'javascript:void(0);'">
+            <div class="navTitle-wrap">
+              <div class="title">{{item.name}}</div>
+              <div class="description">{{navDescriptionMap.get(item.code)}}</div>
+            </div>
             <img :src="item.h5ImagePath" alt />
           </a>
         </div>
@@ -116,23 +120,25 @@ export default {
     return {
       color: "#000",
       showMoreFlag: false,
-      isBilingual: false //是否是双语
+      isBilingual: false, //是否是双语
+      navDescriptionMap: new Map([["Shows","生日惊喜大酬宾"],["Travel","旅游玩乐真欢快"]]),
     };
   },
   computed: {
     ...mapState({
-      mallUnionConf: state => state.mallUnionConf,
-      unionConf: state => state.unionConf,
+      //mallUnionConf: state => state.mallUnionConf,
+      //unionConf: state => state.unionConf,
       navList: state => state.unionMallConf
     })
   },
   created() {
-    this.isBilingual = this.mallUnionConf.isBilingual;
+    //this.isBilingual = this.mallUnionConf.isBilingual;
   }
 };
 </script>
 
 <style lang="less" scoped>
+@rem:75rem;
 img {
   width: 100%;
 }
@@ -160,7 +166,33 @@ a {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-
+    &.towNavWrap{
+      .item_2 {
+        a{
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          width: 165px;
+          height: 64px;
+          background:rgba(248,248,248,1);
+          border-radius:4px 4px 0px 0px;
+          .navTitle-wrap{
+            .title{
+              font-size: 15px;
+            }
+            .description{
+              font-size: 11px;
+              color: #888888;
+            }
+          }
+          img{
+            width: 44px;
+            height: 44px;
+          }
+        }
+        
+      }
+    }
     .item {
       margin: 7px 0;
       border-radius: 2px;

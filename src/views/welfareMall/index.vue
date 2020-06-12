@@ -25,7 +25,7 @@ export default {
     }
   },
   created(){
-    this.user_findUsableList();
+    // this.user_findUsableList();
     // this.user_menu_list();
   },
   mounted(){
