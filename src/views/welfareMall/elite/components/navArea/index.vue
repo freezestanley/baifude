@@ -362,7 +362,7 @@ img {
       color: #FFFFFF;
       margin-left: 12px;
       .title{
-        font-size: 19px;
+        font-size: 17px;
       }
       .description{
         margin-top: 3px;
