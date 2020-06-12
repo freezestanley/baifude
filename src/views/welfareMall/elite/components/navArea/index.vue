@@ -4,7 +4,7 @@
     <!-- 两个nav -->
     <div v-show="navList.length === 2" class="twoItem">
       <div
-        class="towNavWrap PackagesBg"
+        :class="eliteBgMap.get(item.code) ? `towNavWrap ${eliteBgMap.get(item.code)}`:index==0?'towNavWrap PackagesBg':'towNavWrap ShoppingBg'"
         @click="goDetail(item.h5Url)"
         v-for="(item, index) in navList"
         :key="index"
@@ -357,12 +357,16 @@ img {
     width: 165px;
     display: flex;
     align-items: center;
+    border-radius:4px 4px 0px 0px;
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
     //background: coral;
     .navTitle-wrap{
       color: #FFFFFF;
       margin-left: 12px;
       .title{
-        font-size: 19px;
+        font-size: 17px;
       }
       .description{
         margin-top: 3px;
@@ -370,10 +374,25 @@ img {
       }
     }
     &.PackagesBg{
-      background-size: 100%;
-      background-position: center;
-      background-repeat: no-repeat;
       background-image: url("../../../../../assets/images/elite/elite_card_package_eng.png");
+    }
+    &.MoviesBg{
+      background-image: url("../../../../../assets/images/elite/elite_card_movie_eng.png");
+    }
+    &.ShowsBg{
+      background-image: url("../../../../../assets/images/elite/elite_card_show_eng.png");
+    }
+    &.TravelBg{
+      background-image: url("../../../../../assets/images/elite/elite_card_travel_eng.png");
+    }
+    &.BirthdayBg{
+      background-image: url("../../../../../assets/images/elite/elite_card_birthday_eng.png");
+    }
+    &.ShoppingBg{
+      background-image: url("../../../../../assets/images/elite/elite_card_shopping_eng.png");
+    }
+    &.HealthBg{
+      background-image: url("../../../../../assets/images/elite/elite_card_health_eng.png");
     }
   }
 }
