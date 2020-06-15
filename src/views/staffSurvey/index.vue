@@ -90,10 +90,10 @@ export default {
         }
         this.listObj.loading = false;
       } else {
-        this.$message({
-          type: "error",
-          message: res.errMsg ? res.errMsg : "调用接口失败!"
-        });
+        // this.$message({
+        //   type: "error",
+        //   message: res.errMsg ? res.errMsg : "调用接口失败!"
+        // });
       }
     },
     clickBanner(v) {

@@ -122,10 +122,10 @@ export default {
           }
         }
       } else {
-        this.$message({
-          type: "error",
-          message: res.errMsg ? res.errMsg : "调用接口失败!"
-        });
+        // this.$message({
+        //   type: "error",
+        //   message: res.errMsg ? res.errMsg : "调用接口失败!"
+        // });
       }
     },
     // 获取已参与详情
@@ -157,10 +157,10 @@ export default {
           });
         }
       } else {
-        this.$message({
-          type: "error",
-          message: res.errMsg ? res.errMsg : "调用接口失败!"
-        });
+        // this.$message({
+        //   type: "error",
+        //   message: res.errMsg ? res.errMsg : "调用接口失败!"
+        // });
       }
     },
     async onSubmit(formObj) {
