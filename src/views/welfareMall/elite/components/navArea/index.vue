@@ -11,7 +11,7 @@
       >
         <div class="navTitle-wrap">
           <div class="title">{{item.name}}</div>
-          <div class="description">{{navDescriptionMap.get(item.code)}}</div>
+          <div class="description">{{navDescriptionMap.get(item.code)?navDescriptionMap.get(item.code):index==0?navDescriptionMap.get('Packages'):navDescriptionMap.get('Shopping')}}</div>
         </div>
         <!-- <img :src="item.h5ImagePath" alt /> -->
       </div>
@@ -189,7 +189,7 @@ export default {
       navList_three: [],
       navList_four: [],
       eliteBgMap: new Map([['Packages','PackagesBg'],['Movies','MoviesBg'],['Shows','ShowsBg'],['Travel','TravelBg'],['Birthday','BirthdayBg'],['Shopping','ShoppingBg'],['Health','HealthBg']]),
-      navDescriptionMap: new Map([["Packages","生日惊喜大酬宾"],["Movies","旅游玩乐真欢快"]]),  
+      navDescriptionMap: new Map([["Packages","定期送福利"],["Movies","大片及时看"],["Shows","精彩在现场"],["Travel","一起再出发"],["Birthday","精选温情礼"],['Shopping','好物随心购'],['Health','全民享健康']]),  
     };
   },
   computed: {
