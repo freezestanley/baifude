@@ -14,7 +14,7 @@
           <a :href="item.h5Url ? item.h5Url : 'javascript:void(0);'">
             <div class="navTitle-wrap">
               <div class="title">{{item.name}}</div>
-              <div class="description">{{navDescriptionMap.get(item.code)}}</div>
+              <div class="description">{{navDescriptionMap.get(item.code)?navDescriptionMap.get(item.code):index==0?navDescriptionMap.get('Packages'):navDescriptionMap.get('Shopping')}}</div>
             </div>
             <img :src="item.h5ImagePath" alt />
           </a>
@@ -122,7 +122,7 @@ export default {
       color: "#000",
       showMoreFlag: false,
       isBilingual: false, //是否是双语
-      navDescriptionMap: new Map([["Shows","生日惊喜大酬宾"],["Travel","旅游玩乐真欢快"]]),
+      navDescriptionMap: new Map([["Packages","定期送福利"],["Movies","大片及时看"],["Shows","精彩在现场"],["Travel","一起再出发"],["Birthday","精选温情礼"],['Shopping','好物随心购'],['Health','全民享健康']]),
     };
   },
   computed: {

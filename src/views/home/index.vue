@@ -152,6 +152,17 @@ export default {
       unionConfigMess:{},// 工会信息配置
     };
   },
+  beforeRouteEnter(to,form,next){
+    let urlParams = parseQueryString(window.location.search);
+    if(!true){
+      next(vm=>{
+        vm.$router.push({path:'/newbfd/home-h5/puremall',query:{...urlParams}});
+      });
+      
+    }else{
+      next();
+    }
+  },
   components: {
     Title,
     NewsItem,
