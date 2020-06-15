@@ -69,7 +69,7 @@ export default {
 <style lang="less" scoped>
 .warp {
   margin-top: 10px;
-  padding-left: 16px;
+  padding: 0 16px;
   background-color: #fff;
   overflow: hidden;
 }

@@ -662,11 +662,11 @@ html {
     width: 100%;
     height:170px;
     margin: 0 auto;
+    overflow: hidden;
     img{
-      width: auto;
-      height:auto;
-      max-width: 100%;
-      max-height: 100%;
+      width: 100%;
+      height: 100%;
+      display: block;
     }
   }
   .layout {
