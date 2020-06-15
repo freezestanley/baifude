@@ -159,6 +159,23 @@ const routes = [
           keepAlive: true,
           showBanner:true,
         }
+      },
+      {
+        path: "puremall",
+        name: "puremall",
+        component: WelfareMall,
+        meta: {
+          title: "福利商城",
+          //是否展示轮播图banner
+          // showBanner: true,
+          //是否展示搜索图标(搜索功能)
+          showSearch: true,
+          //页面超出滑动是否浮动展示头部内容
+          showHeadNav: true,
+          keepAlive: true,
+          showBanner:true,
+          pureMall:true   //是否是纯上传版
+        }
       }
     ]
   },
