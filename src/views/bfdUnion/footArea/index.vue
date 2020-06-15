@@ -28,9 +28,9 @@
           <div v-if="!isBilingual" :class="index == currentPageIndex ? 'name on' : 'name'">
             {{ tab.name }}
           </div>
-          <div v-if="isBilingual" :class="index == 0 ? 'enName on' : 'enName'">
+          <!-- <div v-if="isBilingual" :class="index == 0 ? 'enName on' : 'enName'">
             {{ tab.enName }}
-          </div>
+          </div> -->
         </div>
       </a>
     </div>
@@ -46,7 +46,8 @@ export default {
     return {
       footerList: [],
       currentPageIndex:0,  //默认为当前主页
-      showHeadNav: false
+      showHeadNav: false,
+      pureMall: false  //判断工会是否是纯商城版跳转过来的
     };
   },
   computed: {
@@ -82,9 +83,12 @@ export default {
         handler: function(val) {
             let { name,meta } = val;
             this.showHeadNav = meta.showHeadNav;
+            this.pureMall = meta.puremall;
             if(name=='welfaremall'){
               this.currentPageIndex = 1;
-            }else{
+            }else if(name=='home'){
+              this.currentPageIndex = 0;
+            }else if(name=='puremall'){
               this.currentPageIndex = 0;
             }
           },
@@ -93,11 +97,15 @@ export default {
   },
   created() {
     this.showHeadNav = this.$route.meta.showHeadNav;
+    this.pureMall = this.$route.meta.pureMall;
     if(this.$route.name=='welfaremall'){
       this.currentPageIndex = 1;
-    }else{
+    }else if(name=='home'){
+      this.currentPageIndex = 0;
+    }else if(name=='puremall'){
       this.currentPageIndex = 0;
     }
+    //console.log('this.pureMall',this.pureMall);
     if (!this.unionConf.isShowShoppCart) {
       this.footerList = [
         // {
@@ -126,6 +134,10 @@ export default {
           pageUrl: this.bavUrl.userCentUrl
         }
       ];
+      //如果是纯商城版的，则去除主页
+      if(this.pureMall){
+        this.footerList.splice(0,1);
+      }
     } else {
       this.footerList = [
         // {
@@ -158,7 +170,14 @@ export default {
           enName: "mine",
           pageUrl: this.bavUrl.userCentUrl
         }
+        
       ];
+
+      //如果是纯商城版的，则去除主页
+      if(this.pureMall){
+        this.footerList.splice(0,1);
+      }
+      
     }
   }
 };
