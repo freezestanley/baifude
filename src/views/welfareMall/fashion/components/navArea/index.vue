@@ -26,7 +26,7 @@
       >
         <div class="item" style="position:relative">
           <img :src="item.h5ImagePath" alt />
-          <div v-show="item.tagFlag === 1" class="tag">{{ item.tag }}</div>
+          <div v-show="item.tagFlag === 1 && item.tag" class="tag">{{ item.tag }}</div>
         </div>
         <div class="name">{{ item.name }}</div>
         <div v-show="isBilingual" class="enName">{{ item.enName }}</div>
@@ -49,7 +49,7 @@
       >
         <div class="item" style="position:relative">
           <img :src="item.h5ImagePath" alt />
-          <div v-show="item.tagFlag === 1" class="tag">{{ item.tag }}</div>
+          <div v-show="item.tagFlag === 1 && item.tag" class="tag">{{ item.tag }}</div>
         </div>
         <div class="name">{{ item.name }}</div>
         <div v-show="isBilingual" class="enName">{{ item.enName }}</div>
@@ -76,7 +76,7 @@
       >
         <div class="item" style="position:relative">
           <img :src="item.h5ImagePath" alt />
-          <div v-show="item.tagFlag === 1" class="tag">{{ item.tag }}</div>
+          <div v-show="item.tagFlag === 1 && item.tag" class="tag">{{ item.tag }}</div>
         </div>
         <div class="name">{{ item.name }}</div>
         <div v-show="isBilingual" class="enName">{{ item.enName }}</div>
@@ -99,7 +99,7 @@
         <template v-if="item.name === '更多'">
           <div class="item" style="position:relative" @click="moreHandler">
             <img :src="item.h5ImagePath" alt />
-            <div v-show="item.tagFlag === 1" class="tag">{{ item.tag }}</div>
+            <div v-show="item.tagFlag === 1 && item.tag" class="tag">{{ item.tag }}</div>
           </div>
           <div class="name" @click="moreHandler">{{ item.name }}</div>
           <div v-show="isBilingual" class="enName" @click="moreHandler">
@@ -109,7 +109,7 @@
         <template v-else-if="item.name == '收起'">
           <div class="item" style="position:relative" @click="upHandler">
             <img :src="item.h5ImagePath" alt />
-            <div v-show="item.tagFlag === 1" class="tag">{{ item.tag }}</div>
+            <div v-show="item.tagFlag === 1 && item.tag" class="tag">{{ item.tag }}</div>
           </div>
           <div class="name" @click="upHandler">{{ item.name }}</div>
           <div v-show="isBilingual" class="enName" @click="upHandler">
@@ -123,7 +123,7 @@
             @click="goDetail(item.h5Url)"
           >
             <img :src="item.h5ImagePath" alt />
-            <div v-show="item.tagFlag === 1" class="tag">{{ item.tag }}</div>
+            <div v-show="item.tagFlag === 1 && item.tag" class="tag">{{ item.tag }}</div>
           </div>
           <div class="name" @click="goDetail(item.h5Url)">{{ item.name }}</div>
           <div

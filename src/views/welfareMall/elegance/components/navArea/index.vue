@@ -45,7 +45,7 @@
             </div>
             <div v-if="isBilingual" class="enName">{{ item.enName }}</div>
           </div>
-          <div v-show="item.tagFlag === 1" class="tag">{{ item.tag }}</div>
+          <div v-show="item.tagFlag === 1 && item.tag" class="tag">{{ item.tag }}</div>
         </a>
       </div>
       <div class="coming" style="font-size:14px;" v-if="navList&&(navList.length==4||navList.length==5)">敬请期待</div>
@@ -59,12 +59,13 @@
         </div>
         <div class="moreEName" v-if="isBilingual">more</div>
         <div class="arrowWrap">
-          <van-icon
-            name="arrow-down"
-            color="#545454"
-            size="16px"
-            style="position:absolute;top:1px;"
-          />
+          <span class="icon_arrow_down"></span>
+          <!--<van-icon-->
+            <!--name="arrow-down"-->
+            <!--color="#545454"-->
+            <!--size="16px"-->
+            <!--style="position:absolute;top:1px;"-->
+          <!--/>-->
         </div>
       </div>
       <div
@@ -86,7 +87,7 @@
             </div>
             <div v-if="isBilingual" class="enName">{{ item.enName }}</div>
           </div>
-          <div v-show="item.tagFlag === 1" class="tag">{{ item.tag }}</div>
+          <div v-show="item.tagFlag === 1 && item.tag" class="tag">{{ item.tag }}</div>
         </a>
       </div>
       <div
@@ -101,12 +102,13 @@
         </div>
         <div class="moreEName" v-if="isBilingual">retract</div>
         <div class="arrowWrap">
-          <van-icon
-            name="arrow-up"
-            color="#545454"
-            size="16px"
-            style="position:absolute;top:2px;"
-          />
+          <span class="icon_arrow_up"></span>
+          <!--<van-icon-->
+            <!--name="arrow-up"-->
+            <!--color="#545454"-->
+            <!--size="16px"-->
+            <!--style="position:absolute;top:2px;"-->
+          <!--/>-->
         </div>
       </div>
     </div>
@@ -312,6 +314,25 @@ a {
     .arrowWrap {
       width: 12px;
       position: relative;
+      height: 7px;
+     .icon_arrow_down{
+       display: block;
+       width:14px;
+       height:7px;
+       background: url("../../../../../assets/images/elegance/Icon_arrow_down.png") no-repeat center;
+       background-size: 100%;
+       margin-top: 7px;
+       margin-left: 2px;
+     }
+      .icon_arrow_up{
+        display: block;
+        width:14px;
+        height:7px;
+        background: url("../../../../../assets/images/elegance/Icon_arrow_up.png") no-repeat center;
+        background-size: 100%;
+        margin-top: 6px;
+        margin-left: 2px;
+      }
     }
   }
 }

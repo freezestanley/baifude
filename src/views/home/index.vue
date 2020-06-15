@@ -558,10 +558,10 @@ export default {
           this.list = listObj;
         }
       } else {
-        this.$message({
-          type: "error",
-          message: res.errMsg ? res.errMsg : "调用接口失败!"
-        });
+        // this.$message({
+        //   type: "error",
+        //   message: res.errMsg ? res.errMsg : "调用接口失败!"
+        // });
       }
     },
     // 员工调研
@@ -579,10 +579,10 @@ export default {
           this.researchList = listObj[0];
         }
       } else {
-        this.$message({
-          type: "error",
-          message: res.errMsg ? res.errMsg : "调用接口失败!"
-        });
+        // this.$message({
+        //   type: "error",
+        //   message: res.errMsg ? res.errMsg : "调用接口失败!"
+        // });
       }
     },
     goToDetail(item) {
@@ -683,11 +683,11 @@ html {
     width: 100%;
     height:170px;
     margin: 0 auto;
+    overflow: hidden;
     img{
-      width: auto;
-      height:auto;
-      max-width: 100%;
-      max-height: 100%;
+      width: 100%;
+      height: 100%;
+      display: block;
     }
   }
   .layout {

@@ -32,7 +32,7 @@
       <div @click="goDetail(item.h5Url)" style="position:relative">
         <img :src="item.h5ImagePath" alt />
         <div
-          v-show="item.tagFlag === 1"
+          v-show="item.tagFlag === 1 && item.tag"
           :class="navList.length === 3 ? 'tag tag_3' : 'tag'"
         >
           {{ item.tag }}
@@ -57,7 +57,7 @@
             >
               <div @click="goDetail(item.h5Url)" style="position:relative">
                 <img :src="item.h5ImagePath" alt />
-                <div v-show="item.tagFlag === 1" class="tag">
+                <div v-show="item.tagFlag === 1 && item.tag" class="tag">
                   {{ item.tag }}
                 </div>
               </div>
@@ -76,7 +76,7 @@
             >
               <div style="position:relative">
                 <img :src="item.h5ImagePath" alt />
-                <div v-show="item.tagFlag === 1" class="tag">
+                <div v-show="item.tagFlag === 1 && item.tag" class="tag">
                   {{ item.tag }}
                 </div>
               </div>
@@ -108,7 +108,7 @@
             >
               <div style="position:relative">
                 <img :src="item.h5ImagePath" alt />
-                <div v-show="item.tagFlag === 1" class="tag">
+                <div v-show="item.tagFlag === 1 && item.tag" class="tag">
                   {{ item.tag }}
                 </div>
               </div>
@@ -125,7 +125,7 @@
             >
               <div style="position:relative">
                 <img :src="item.h5ImagePath" alt />
-                <div v-show="item.tagFlag === 1" class="tag">
+                <div v-show="item.tagFlag === 1 && item.tag" class="tag">
                   {{ item.tag }}
                 </div>
               </div>
@@ -144,7 +144,7 @@
             >
               <div style="position:relative">
                 <img :src="item.h5ImagePath" alt />
-                <div v-show="item.tagFlag === 1" class="tag">
+                <div v-show="item.tagFlag === 1 && item.tag" class="tag">
                   {{ item.tag }}
                 </div>
               </div>
@@ -161,7 +161,7 @@
             >
               <div style="position:relative">
                 <img :src="item.h5ImagePath" alt />
-                <div v-show="item.tagFlag === 1" class="tag">
+                <div v-show="item.tagFlag === 1 && item.tag" class="tag">
                   {{ item.tag }}
                 </div>
               </div>
@@ -306,7 +306,7 @@ img {
   color: #222;
   font-size: 12px;
   line-height: 17px;
-  padding: 30px 16px 5px 16px;
+  padding: 10px 16px 5px 16px;
   justify-content: center;
   .name {
     font-size: 14px;
