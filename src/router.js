@@ -340,19 +340,18 @@ router.beforeEach(async (to, from, next) => {
   //   );
   //   window.location.href = getLoginUrl();
   // }
-  // cookieCheck();
-  // if(await checkLogin()){
-  //   if(to.path == from.path || from.path == '/'){
-  //     next();
-  //   }
-  //   attachParam({
-  //     union: 'union',
-  //     city: 'city'
-  //   }, next, to, from);
-  // }else{
-  //   window.location.href = getLoginUrl();
-  // }
-  //登录有问题，开发测试时注释掉，测试使用
-  next();
+  cookieCheck();
+  if(await checkLogin()){
+    if(to.path == from.path || from.path == '/'){
+      next();
+    }
+    attachParam({
+      union: 'union',
+      city: 'city'
+    }, next, to, from);
+  }else{
+    window.location.href = getLoginUrl();
+  }
+  // next();
 });
 export default router;

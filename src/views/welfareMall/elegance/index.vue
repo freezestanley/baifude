@@ -1,6 +1,5 @@
 <template>
     <div>
-        <div>elegance</div>
         <navArea></navArea>
         <component
             :is="ford.comp"
