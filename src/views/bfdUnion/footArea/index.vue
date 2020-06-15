@@ -106,7 +106,7 @@ export default {
       this.currentPageIndex = 0;
     }
     //console.log('this.pureMall',this.pureMall);
-    if (this.unionConf.isShowShoppCart) {
+    if (!this.unionConf.isShowShoppCart) {
       this.footerList = [
         // {
         //   name: "主页",
