@@ -25,7 +25,7 @@
         }
       },
     created(){
-      console.log("thisprops----",this.props)
+      //console.log("thisprops----",this.props)
     },
     methods:{
       goToNext(item){

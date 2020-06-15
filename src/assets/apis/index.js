@@ -17,6 +17,7 @@ export function cityList(params) {
 
 export function findByUnion(params) {
   const findByUnionApi = "/mallUnion/unionConfig/findByUnion";
+  // return sendPostNew(findByUnionApi, "post", params, true); //mock数据使用，测试开发使用
   return sendPost(findByUnionApi, params);
 }
 
@@ -27,6 +28,7 @@ export function findByUnion(params) {
 
 export function navList(params) {
   const navListApi = "/mallUnion/unionMallConfig/findUsableList";
+  // return sendPostNew(navListApi, "post", params, true); //mock数据使用，测试开发使用
   return sendPost(navListApi, params);
 }
 

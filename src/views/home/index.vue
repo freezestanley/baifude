@@ -1,6 +1,10 @@
 <template>
   <div class="wrap">
     <div class="container">
+      <!--工会图片-->
+      <div class="unionPicWrap">
+        <img :src="unionConfigMess.h5BgImage" alt="">
+      </div>
       <ActivityNav :activityNavData="activityNavData"></ActivityNav>
       <!-- 企业新闻 -->
       <div class="layout news" v-if="newsData.length > 0">
@@ -71,10 +75,10 @@
         </div>
       </div>
       <!-- 精品推荐 -->
-      <div class="layout" v-if="boutiqueData.length > 0">
-        <Title titleName="精品推荐"></Title>
-        <Boutique :data="boutiqueData"></Boutique>
-      </div>
+      <!--<div class="layout" v-if="boutiqueData.length > 0">-->
+        <!--<Title titleName="精品推荐"></Title>-->
+        <!--<Boutique :data="boutiqueData"></Boutique>-->
+      <!--</div>-->
       <div class="section-last-tip">
         <div class="section-last-text">已经到底啦</div>
       </div>
@@ -91,16 +95,18 @@ import { getQueryString, setCookie, getCookie } from "@/assets/utils";
 import BusinessActivity from "@/components/businessActivity/index";
 import Title from "@/components/moduleTtile/index";
 import NewsItem from "../corporateNews/components/newsItemIndex";
-import Boutique from "@/components/boutique/index";
+// import Boutique from "@/components/boutique/index";
 import ActivityNav from "@/components/activitynav/index";
 import {
   newsListPage,
   activity_queryActivitiyPage,
-  cms_researchList
+  cms_researchList,
+  user_queryCurrentCompanyInfo
 } from "@/assets/apis/home";
 import utilRes from "@/assets/utils/resResult";
 import { parseQueryString } from "@/assets/utils/request";
 import { custRedirect } from "@/assets/utils";
+
 
 export default {
   name: "home",
@@ -144,20 +150,36 @@ export default {
         pic:
           "http://devimg.dongfangfuli.com/bfd/2020-05-02/276d7252c2cdf98f2fcafb58e902ac91.png"
       },
-      researchList: {} // 员工调研
+      researchList: {}, // 员工调研
+      unionConfigMess:{},// 工会信息配置
     };
   },
+  beforeRouteEnter(to,form,next){
+    // let urlParams = parseQueryString(window.location.search);
+    // console.log('window.location',window.location);
+    user_queryCurrentCompanyInfo({}).then(res=>{
+        //console.log('beforeRouteEnter',res);
+      if (utilRes.successCheck(res)) {
+        if(res.data.companyVersion==2){
+          //商城版
+          window.location.href = window.location.origin+'/newbfd/home-h5/puremall'+window.location.search
+        }else{
+          next();
+        }
+      }else{
+        next();
+      }
+    });
+    
+    
+  },
   components: {
-    homeShell: () => import("../../components/homeShell"),
-    LocationNotice: () => import("../../components/locationNotice"),
-    notice: () => import("../../components/notice"),
     Title,
     NewsItem,
     BusinessActivity,
-    Boutique,
+    // Boutique,
     ActivityNav
   },
-
   created() {
     const union = getQueryString("union");
     // this.isLogin(union);
@@ -358,6 +380,9 @@ export default {
                 }
               }
             }
+            if(unionConf && unionConf.body){
+              this.unionConfigMess = unionConf.body.unionConfigurationDto;
+            }
             // console.log("工会信息--", unionMoulds);
             // if (unionMoulds && unionMoulds.body) {
             //   unionMoulds.body.forEach(unionMod => {
@@ -533,10 +558,10 @@ export default {
           this.list = listObj;
         }
       } else {
-        this.$message({
-          type: "error",
-          message: res.errMsg ? res.errMsg : "调用接口失败!"
-        });
+        // this.$message({
+        //   type: "error",
+        //   message: res.errMsg ? res.errMsg : "调用接口失败!"
+        // });
       }
     },
     // 员工调研
@@ -554,10 +579,10 @@ export default {
           this.researchList = listObj[0];
         }
       } else {
-        this.$message({
-          type: "error",
-          message: res.errMsg ? res.errMsg : "调用接口失败!"
-        });
+        // this.$message({
+        //   type: "error",
+        //   message: res.errMsg ? res.errMsg : "调用接口失败!"
+        // });
       }
     },
     goToDetail(item) {
@@ -614,7 +639,7 @@ export default {
         document.body.style.height = "auto";
       }
     }
-  }
+  },
 };
 </script>
 
@@ -654,6 +679,17 @@ html {
 <style lang="less" scoped>
 .wrap {
   font-size: 12px;
+  .unionPicWrap{
+    width: 100%;
+    height:170px;
+    margin: 0 auto;
+    overflow: hidden;
+    img{
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  }
   .layout {
     padding: 10px 15px 0;
   }

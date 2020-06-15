@@ -120,7 +120,7 @@ export default {
 }
 .fashionModuleWrap {
   img {
-    border-radius: 4px;
+    width: auto;
   }
 }
 .eliteModuleWrap .eName,

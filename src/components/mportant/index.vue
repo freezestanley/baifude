@@ -120,9 +120,11 @@ export default {
   a {
     display: block;
     width: 100%;
+    height: 100%;
   }
   .leftGoods {
     width: 160px;
+    height: 180px;
   }
   .rightGoods {
     width: 175px;
@@ -131,6 +133,9 @@ export default {
       height: 86px;
       margin-bottom: 8px;
       overflow: hidden;
+    }
+    .mportantGoods:nth-child(3){
+      margin-bottom: 0;
     }
   }
 }
@@ -141,5 +146,6 @@ export default {
 }
 .rightImg {
   width: 175px;
+  height: 100%;
 }
 </style>

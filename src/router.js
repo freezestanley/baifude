@@ -60,7 +60,7 @@ const routes = [
         meta: {
           title: "百福得首页",
           //是否展示轮播图banner
-          showBanner: true,
+          showBanner: false,
           //是否展示搜索图标(搜索功能)
           showSearch: true,
           //页面超出滑动是否浮动展示头部内容
@@ -157,6 +157,24 @@ const routes = [
           //页面超出滑动是否浮动展示头部内容
           showHeadNav: true,
           keepAlive: true,
+          showBanner:true,
+        }
+      },
+      {
+        path: "puremall",
+        name: "puremall",
+        component: WelfareMall,
+        meta: {
+          title: "福利商城",
+          //是否展示轮播图banner
+          // showBanner: true,
+          //是否展示搜索图标(搜索功能)
+          showSearch: true,
+          //页面超出滑动是否浮动展示头部内容
+          showHeadNav: true,
+          keepAlive: true,
+          showBanner:true,
+          pureMall:true   //是否是纯上传版
         }
       }
     ]
@@ -346,7 +364,7 @@ router.beforeEach(async (to, from, next) => {
     }
     attachParam({
       union: 'union',
-      city: 'city' 
+      city: 'city'
     }, next, to, from);
   }else{
     window.location.href = getLoginUrl();
