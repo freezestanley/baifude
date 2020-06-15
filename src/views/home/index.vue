@@ -100,11 +100,13 @@ import ActivityNav from "@/components/activitynav/index";
 import {
   newsListPage,
   activity_queryActivitiyPage,
-  cms_researchList
+  cms_researchList,
+  user_queryCurrentCompanyInfo
 } from "@/assets/apis/home";
 import utilRes from "@/assets/utils/resResult";
 import { parseQueryString } from "@/assets/utils/request";
 import { custRedirect } from "@/assets/utils";
+
 
 export default {
   name: "home",
@@ -153,15 +155,23 @@ export default {
     };
   },
   beforeRouteEnter(to,form,next){
-    let urlParams = parseQueryString(window.location.search);
-    if(!true){
-      next(vm=>{
-        vm.$router.push({path:'/newbfd/home-h5/puremall',query:{...urlParams}});
-      });
-      
-    }else{
-      next();
-    }
+    // let urlParams = parseQueryString(window.location.search);
+    // console.log('window.location',window.location);
+    user_queryCurrentCompanyInfo({}).then(res=>{
+        //console.log('beforeRouteEnter',res);
+      if (utilRes.successCheck(res)) {
+        if(res.data.companyVersion==2){
+          //商城版
+          window.location.href = window.location.origin+'/newbfd/home-h5/puremall'+window.location.search
+        }else{
+          next();
+        }
+      }else{
+        next();
+      }
+    });
+    
+    
   },
   components: {
     Title,

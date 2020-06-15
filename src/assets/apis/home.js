@@ -169,8 +169,8 @@ function cms_researchUserList(params) {
  * 查询用户新老工会(是否为纯商城版)
  * @param { JSON } params 请求的参数
  */
-function search_info(params) {
-  return sendPostNew("/cms/front/research/user/list", "get", params);
+function user_queryCurrentCompanyInfo(params) {
+  return sendPostNew("/user/front/company/queryCurrentCompanyInfo","get", params);
 }
 
 
@@ -193,5 +193,6 @@ export {
   cms_researchGet,
   cms_researchSubmit,
   cms_researchUserList,
-  cms_researchUserDetail
+  cms_researchUserDetail,
+  user_queryCurrentCompanyInfo
 };
