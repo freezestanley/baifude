@@ -20,7 +20,7 @@
     ></fashion-module-title>
     <!-- 内容 -->
     <div class="optimization">
-      <div class="optimization-swiper-container">
+      <div class="optimization-swiper-container" v-if="content.mouldContents.length>3">
         <div class="swiper-wrapper">
           <div
             class="swiper-slide"
@@ -38,6 +38,19 @@
               <img v-lazy="detail.h5ImagePath" alt />
             </a>
           </div>
+        </div>
+      </div>
+      <div class="optimization_less" v-if="content.mouldContents.length<=3">
+        <div class="optimization_less_item" v-for="detail in content.mouldContents" :key="detail.id">
+          <a
+                  :href="
+                detail.h5RedirectUrl
+                  ? detail.h5RedirectUrl
+                  : 'javascript:void(0)'
+              "
+          >
+            <img v-lazy="detail.h5ImagePath" alt />
+          </a>
         </div>
       </div>
     </div>
@@ -126,5 +139,23 @@ export default {
     height: 106px;
     overflow: hidden;
   }
+  .optimization_less{
+    display: flex;
+    .optimization_less_item{
+      width: 106px;
+      height:106px;
+      overflow: hidden;
+      margin-right: 12px;
+      img,
+      a {
+        display: block;
+        width: 100%;
+      }
+    }
+    .optimization_less_item:nth-child(3){
+     margin-right: 0;
+    }
+  }
+
 }
 </style>
