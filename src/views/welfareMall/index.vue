@@ -9,7 +9,7 @@
 </template>
 <script>
 import { mapState } from "vuex";
-import { user_findUsableList,menu_list } from "@/assets/apis/home";
+import { user_findUsableList,menu_list,user_queryCurrentCompanyInfo } from "@/assets/apis/home";
 import { parseQueryString } from "@/assets/utils/request";
 import utilRes from "@/assets/utils/resResult";
 import WelfareMall from "@/components/welfareMall/index"
@@ -26,6 +26,25 @@ export default {
       welfareMallDataList:[], //福利商城基本信息
       welfareMallStyleCodeModule:""  //根据配置加载模块
     }
+  },
+  beforeRouteEnter(to,from,next){
+    console.log('beforeRouteEnter---from',from,to);
+    next();
+    //其它页面跳转福利商城，判断是否是纯商城版福利商城
+    user_queryCurrentCompanyInfo({}).then(res=>{
+      if (utilRes.successCheck(res)) {
+        if(res.data.companyVersion==2&&to.name=='welfaremall'){
+          //商城版
+          window.location.href = window.location.origin+'/newbfd/home-h5/puremall'+window.location.search
+        }else{
+          next();
+        }
+      }else{
+        next();
+      }
+    });
+    
+    
   },
   created(){
     // this.user_findUsableList();

@@ -269,12 +269,31 @@ const router = new Router({
     }
   }
 });
-const checkLogin = async () => {
+const checkLogin = async (to, from, next) => {
+  const unionName = getQueryString("union");
   const res = await user_checkLogin();
-  if (!res || res.code !== "0") {
-    return false;
+  const agreePath = '/newbfd/usercenter-h5/agree?union=%UNION%'.replace('%UNION%', unionName);
+  const agreeUrl = agreePath + '&returnUrl=' + encodeURIComponent(window.location.href);
+
+  if(res && res.code == "0"){
+    if (res.data.userStatus === 1) {
+      //判断用户是否已激活
+      window.location.href = '/newbfd/usercenter-h5/user/activate';
+    }
+    if (res.data.privacyReadStatus === 0) {
+      //判断是否已阅读隐私政策
+      window.location.href = agreeUrl;
+    }
+    //跳转到路由页面
+    isLoginPage(to, from, next, true);
+  }else{
+    //跳转到登陆页
+    isLoginPage(to, from, next, false);
   }
-  return true;
+  // if (!res || res.code !== "0") {
+  //   return false;
+  // }
+  // return true;
 };
 const getLoginUrl = () => {
   const unionName = getQueryString("union");
@@ -324,6 +343,21 @@ const attachParam = (params, next, to, from) => {
     next();
   }
 };
+
+//根据登陆态判断跳转路径
+const isLoginPage = (to, from, next, res)=>{
+  if(res){
+    if(to.path == from.path || from.path == '/'){
+      next();
+    }
+    attachParam({
+      union: 'union',
+      city: 'city'
+    }, next, to, from);
+  }else{
+    window.location.href = getLoginUrl();
+  }
+};
 router.beforeEach(async (to, from, next) => {
   // console.log("跳转页面:", to.name, from.name);
   // to.meta.keepAlive = true;
@@ -358,17 +392,7 @@ router.beforeEach(async (to, from, next) => {
   //   window.location.href = getLoginUrl();
   // }
   cookieCheck();
-  if(await checkLogin()){
-    if(to.path == from.path || from.path == '/'){
-      next();
-    }
-    attachParam({
-      union: 'union',
-      city: 'city'
-    }, next, to, from);
-  }else{
-    window.location.href = getLoginUrl();
-  }
-  // next();
+  await checkLogin(to, from, next);
+  //next();
 });
 export default router;
