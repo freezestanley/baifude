@@ -1,6 +1,6 @@
 <template>
   <!-- 活力时尚版  金刚区nav -->
-  <div class="nav">
+  <div class="nav" v-if="navList.length > 2">
     <!-- 两个nav -->
     <div v-show="navList.length === 2" class="indexItem twoItem">
       <div
@@ -236,7 +236,7 @@ img {
   color: #222;
   font-size: 12px;
   line-height: 17px;
-  padding: 30px 16px 10px 16px;
+  padding: 10px 16px 10px 16px;
   justify-content: center;
   .name {
     font-size: 14px;

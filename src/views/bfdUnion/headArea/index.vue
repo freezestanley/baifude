@@ -252,8 +252,8 @@ export default {
         font-size: 14px;
         .searchImg {
           display: block;
-          width: 24px;
-          height: 24px;
+          width: 30px;
+          height: 30px;
           margin-top: 6px;
         }
       }

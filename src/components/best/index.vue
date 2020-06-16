@@ -95,7 +95,6 @@ export default {
 .best {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   p {
     margin: 0;
     padding: 0;
@@ -107,6 +106,7 @@ export default {
   .bestGoods {
     width: 106px;
     overflow: hidden;
+    margin-right: 12px;
     a {
       display: block;
       width: 100%;
@@ -131,6 +131,9 @@ export default {
         line-height: 15px;
       }
     }
+  }
+  .bestGoods:nth-child(3n){
+    margin-right: 0;
   }
 }
 </style>

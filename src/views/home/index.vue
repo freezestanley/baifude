@@ -691,7 +691,7 @@ html {
     }
   }
   .layout {
-    padding: 10px 15px 0;
+    padding: 7px 15px 0;
   }
   .activity {
   }

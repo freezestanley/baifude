@@ -38,21 +38,21 @@
 <style lang="less" scoped>
     .title {
         display: flex;
-        height: 50px;
+        height: 40px;
         justify-content: space-between;
     .title-item {
         flex: 1;
         font-weight: bold;
-        font-size: 20px;
+        font-size: 16px;
         color: #000;
-        line-height: 50px;
+        line-height: 40px;
     }
     .title-more {
         flex: 1;
         color: #666666;
         text-align: right;
         font-size: 12px;
-        line-height: 60px;
+        line-height: 40px;
     }
     }
 </style>

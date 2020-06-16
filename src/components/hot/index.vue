@@ -100,12 +100,12 @@ export default {
 
 <style lang="less" scoped>
 .warp {
-  margin-top: 10px;
+  /*margin-top: 10px;*/
   padding: 16px;
   background-color: #fff;
 }
 .eleganceModuleWrap {
-  margin-top: 5px;
+  /*margin-top: 5px;*/
   padding: 15px 16px;
 }
 .fashionModuleWrap {
@@ -145,11 +145,12 @@ export default {
   .hotGoods {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    /*justify-content: space-between;*/
 
     .bottomgoods {
       width: 108px;
       overflow: hidden;
+      margin-right: 9px;
       a {
         display: block;
         width: 100%;
@@ -175,6 +176,9 @@ export default {
           }
         }
       }
+    }
+    .bottomgoods:nth-child(4){
+      margin-right: 0;
     }
   }
 }
