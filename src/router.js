@@ -270,7 +270,28 @@ const router = new Router({
   }
 });
 const checkLogin = async () => {
+  const unionName = getQueryString("union");
   const res = await user_checkLogin();
+  // const agreePath = 'http://corp.m.test04.com/newbfd/usercenter-h5/agree?union=%UNION%'.replace('%UNION%', unionName);
+  // const agreeUrl = agreePath + '&returnUrl=' + encodeURIComponent(window.location.href);
+
+  // if(res && res.code == "0"){
+  //   if (res.data.userStatus === 1) {
+  //     //判断用户是否已激活
+  //     window.location.href = '/newbfd/usercenter-h5/user/activate';
+  //     return false;
+  //   }
+  //   if (res.data.privacyReadStatus === 0) {
+  //     //判断是否已阅读隐私政策
+  //     console.log('agreeUrl',agreeUrl);
+  //     debugger
+  //     window.location.href = agreeUrl;
+  //     return false;
+  //   }
+  //   return true;
+  // }else{
+  //   return false;
+  // }
   if (!res || res.code !== "0") {
     return false;
   }
@@ -358,6 +379,7 @@ router.beforeEach(async (to, from, next) => {
   //   window.location.href = getLoginUrl();
   // }
   cookieCheck();
+  // await checkLogin()
   if(await checkLogin()){
     if(to.path == from.path || from.path == '/'){
       next();
