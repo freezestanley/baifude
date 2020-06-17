@@ -162,7 +162,7 @@ export default {
       if (utilRes.successCheck(res)) {
         if(res.data.companyVersion==2){
           //商城版
-          window.location.replace(`${window.location.origin}/newbfd/home-h5/puremall${window.location.search}`);
+          window.location.replace(`${window.location.origin}/newbfd/home-h5/welfaremall${window.location.search}`);
         }else{
           next();
         }

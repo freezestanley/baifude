@@ -47,7 +47,7 @@ export default {
       footerList: [],
       currentPageIndex:0,  //默认为当前主页
       showHeadNav: false,
-      pureMall: false  //判断工会是否是纯商城版跳转过来的
+      //pureMall: false  //判断工会是否是纯商城版跳转过来的
     };
   },
   computed: {
@@ -55,6 +55,7 @@ export default {
       unionConf: state => state.unionConf,
       isBilingual: state => state.mallUnionConf.isBilingual,
       bavUrl: state => state.bavUrl,
+      pureMall: state => state.pureMall
     })
   },
   methods: {
@@ -83,12 +84,12 @@ export default {
         handler: function(val) {
             let { name,meta } = val;
             this.showHeadNav = meta.showHeadNav;
-            this.pureMall = meta.puremall;
-            if(name=='welfaremall'){
+            // this.pureMall = meta.puremall;
+            if(name=='welfaremall'&&!this.pureMall){
               this.currentPageIndex = 1;
             }else if(name=='home'){
               this.currentPageIndex = 0;
-            }else if(name=='puremall'){
+            }else if(this.pureMall){
               this.currentPageIndex = 0;
             }
           },
@@ -97,12 +98,11 @@ export default {
   },
   created() {
     this.showHeadNav = this.$route.meta.showHeadNav;
-    this.pureMall = this.$route.meta.pureMall;
-    if(this.$route.name=='welfaremall'){
+    if(this.$route.name=='welfaremall'&&!this.pureMall){
       this.currentPageIndex = 1;
     }else if(name=='home'){
       this.currentPageIndex = 0;
-    }else if(name=='puremall'){
+    }else if(this.pureMall){
       this.currentPageIndex = 0;
     }
     //console.log('this.pureMall',this.pureMall);
