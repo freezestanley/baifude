@@ -9,12 +9,12 @@
   >
     <!-- 数量2条 -->
     <div class="detailWrap towNavWrap" v-if="navList.length == 2">
-      <div class="item item_2" v-for="(item, index) in navList" :key="index">
+      <div class="item item_2" v-for="(item, index) in navLists" :key="index">
         <div>
           <a :href="item.h5Url ? item.h5Url : 'javascript:void(0);'">
             <div class="navTitle-wrap">
               <div class="title">{{item.name}}</div>
-              <div class="description">{{navDescriptionMap.get(item.code)?navDescriptionMap.get(item.code):index==0?navDescriptionMap.get('Packages'):navDescriptionMap.get('Shopping')}}</div>
+              <div class="description">{{navDescriptionMap.get(item.code)}}</div>
             </div>
             <img :src="item.h5ImagePath" alt />
           </a>
@@ -132,7 +132,23 @@ export default {
       //mallUnionConf: state => state.mallUnionConf,
       //unionConf: state => state.unionConf,
       navList: state => state.unionMallConf
-    })
+    }),
+    navLists(){
+      let firstCode = '';
+
+      if(!this.navDescriptionMap.get(this.navList[0].code)&&this.navList[1].code!='Packages'){
+        this.navList[0].code='Packages';
+      }else if(!this.navDescriptionMap.get(this.navList[0].code)){
+        this.navList[0].code='Shopping';
+      }
+      
+      if(!this.navDescriptionMap.get(this.navList[1].code)&&this.navList[0].code!='Packages'){
+        this.navList[1].code='Packages';
+      }else if(!this.navDescriptionMap.get(this.navList[1].code)){
+        this.navList[1].code='Shopping';
+      }
+      return this.navList;
+    }
   },
   created() {
     //this.isBilingual = this.mallUnionConf.isBilingual;
