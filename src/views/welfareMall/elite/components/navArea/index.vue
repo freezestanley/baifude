@@ -1,6 +1,6 @@
 <template>
   <!-- 稳重精英版  金刚区nav -->
-  <div class="nav" v-if="navList.length>2">
+  <div class="nav" v-if="navList.length>1">
     <!-- 两个nav -->
     <div v-show="navList.length === 2" class="twoItem">
       <div
