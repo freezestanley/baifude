@@ -4,14 +4,14 @@
     <!-- 两个nav -->
     <div v-show="navList.length === 2" class="indexItem twoItem">
       <div
-        :class="eliteBgMap.get(item.code) ? `towNavWrap ${eliteBgMap.get(item.code)}`:index==0?'towNavWrap PackagesBg':'towNavWrap ShoppingBg'"
-        v-for="(item, index) in navList"
+        :class="`towNavWrap ${eliteBgMap.get(item.code)}`"
+        v-for="(item, index) in navLists"
         :key="index"
         @click="goDetail(item.h5Url)"
       >
         <div class="navTitle-wrap">
           <div class="title">{{item.name}}</div>
-          <div class="description">{{navDescriptionMap.get(item.code)?navDescriptionMap.get(item.code):index==0?navDescriptionMap.get('Packages'):navDescriptionMap.get('Shopping')}}</div>
+          <div class="description">{{navDescriptionMap.get(item.code)}}</div>
         </div>
         <!-- <img :src="item.h5ImagePath" alt /> -->
       </div>
@@ -169,7 +169,23 @@ export default {
       unionConf: state => state.unionConf,
       isBilingual: state => state.mallUnionConf.isBilingual, //是否是双语
       navList: state => state.unionMallConf
-    })
+    }),
+    navLists(){
+      let firstCode = '';
+
+      if(!this.navDescriptionMap.get(this.navList[0].code)&&this.navList[1].code!='Packages'){
+        this.navList[0].code='Packages';
+      }else if(!this.navDescriptionMap.get(this.navList[0].code)){
+        this.navList[0].code='Shopping';
+      }
+      
+      if(!this.navDescriptionMap.get(this.navList[1].code)&&this.navList[0].code!='Packages'){
+        this.navList[1].code='Packages';
+      }else if(!this.navDescriptionMap.get(this.navList[1].code)){
+        this.navList[1].code='Shopping';
+      }
+      return this.navList;
+    }
   },
   methods: {
     goDetail(url) {
