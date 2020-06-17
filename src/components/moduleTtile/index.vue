@@ -43,7 +43,7 @@
     .title-item {
         flex: 1;
         font-weight: bold;
-        font-size: 16px;
+        font-size: 18px;
         color: #000;
         line-height: 40px;
     }

@@ -45,7 +45,7 @@ export default {
   display: flex;
   justify-content: flex-start;
   .title {
-    font-size: 20px;
+    font-size: 16px;
     font-family: PingFangSC-Medium, sans-serif;
     font-weight: 500;
     color: #222;

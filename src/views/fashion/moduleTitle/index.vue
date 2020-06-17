@@ -57,7 +57,7 @@ export default {
   vertical-align: top;
 }
 .title {
-  font-size: 17px;
+  font-size: 16px;
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: rgba(34, 34, 34, 1);
