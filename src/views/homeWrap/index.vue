@@ -37,9 +37,9 @@
 
 <script>
 import axios from "axios";
-import { mapMutations } from "vuex";
+import { mapState, mapMutations } from "vuex";
 import { OK } from "@/assets/utils/constant";
-import { getQueryString, setCookie, getCookie } from "@/assets/utils";
+import { changeURLArg, getQueryString, setCookie, getCookie } from "@/assets/utils";
 import { parseQueryString } from "@/assets/utils/request";
 import { custRedirect } from "@/assets/utils";
 
@@ -77,12 +77,57 @@ export default {
     this.getNotice(union);
     this.getData(union);
     this.getCityList();
-    setTimeout(() => {
-      if (sessionStorage.getItem("userChange") !== "1") {
+    // console.log('testOutter:', this.cid || 'nocid',sessionStorage.getItem("userChange")||'nochange');
+    if (sessionStorage.getItem("userChange") !== "1") {
+      setTimeout(() => {
         this.getCurrentCity();
-      }
-      // sessionStorage.setItem("userChange", "0");
-    }, 1000);
+      }, 1000);
+    } else if(String(this.$route.query.city) !== String(this.cid || "145")) {
+      // console.log('moreinner:', this.cid);
+      const url = window.location.href;
+      const newUrl = changeURLArg(
+        url,
+        "city",
+        this.cid || "145"
+      );
+      // console.log(url, newUrl);
+      // window.history.pushState('', '', newUrl);
+      window.location.href = newUrl;
+      // window.location.href = changeURLArg(
+      //   url,
+      //   "city",
+      //   this.cid || "145"
+      // );
+    }
+    // setTimeout(() => {
+    //   if (sessionStorage.getItem("userChange") !== "1") {
+    //     this.getCurrentCity();
+    //   } else {
+    //     console.log('inner:',this.$route.query.city, this.cid);
+    //     if(String(this.$route.query.city) !== String(this.cid || "145")) {
+    //       console.log('moreinner:', this.cid);
+    //       const url = window.location.href;
+    //       window.location.href = changeURLArg(
+    //         url,
+    //         "city",
+    //         this.cid || "145"
+    //       );
+    //     }
+    //   }
+    //   // sessionStorage.setItem("userChange", "0");
+    // }, 1000);
+  },
+  computed: {
+    ...mapState({
+      // mallUnionConf: state => state.mallUnionConf,
+      // unionStyleInfo: state => state.unionStyleInfo,
+      // unionBaseInfo: state => state.unionBaseInfo,
+      // cityName: state => state.cityName,
+      // cityEnName: state => state.cityEnName,
+      cid: state => state.cid,
+      // isShowSearch: state => state.mallUnionConf.isShowSearch,
+      // openService: state => state.mallUnionConf.openService
+    })
   },
   methods: {
     ...mapMutations(["updateState"]),
