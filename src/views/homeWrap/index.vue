@@ -81,7 +81,7 @@ export default {
       if (sessionStorage.getItem("userChange") !== "1") {
         this.getCurrentCity();
       }
-      sessionStorage.setItem("userChange", "0");
+      // sessionStorage.setItem("userChange", "0");
     }, 1000);
   },
   methods: {
