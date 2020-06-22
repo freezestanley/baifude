@@ -20,10 +20,10 @@
     ></component>
     <!-- 首页弹窗 -->
     <homeShell></homeShell>
-      <LocationNotice
-        v-if="locationShow"
-        :locationCityName="locationCityName"
-        :locationCityId="locationCityId"
+    <LocationNotice
+      v-if="locationShow"
+      :locationCityName="locationCityName"
+      :locationCityId="locationCityId"
       ></LocationNotice>
     <keep-alive>
       <router-view v-if="$route.meta.keepAlive"></router-view>
@@ -79,7 +79,7 @@ export default {
     this.getCityList();
     if(!this.$route.query.city) {
       const url = window.location.href;
-      const newUrl = changeURLArg( url, "city", "145");
+      const newUrl = changeURLArg( url, "city", getCookie('city') || "145");
       window.location.href = newUrl;
     } else if (sessionStorage.getItem("userChange") !== "1") {
       setTimeout(() => {
@@ -161,6 +161,7 @@ export default {
     getCityList() {
       const cid = Number(getQueryString("city"));
       const union = getQueryString("union");
+      cid && setCookie('city', cid);
       this.apis
         .cityList({
           union: union,
