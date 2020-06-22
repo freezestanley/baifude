@@ -186,12 +186,12 @@ export default {
     this.getNotice(union);
     this.getData(union);
     this.getCityList();
-    setTimeout(() => {
-      if (sessionStorage.getItem("userChange") !== "1") {
-        this.getCurrentCity();
-      }
-      sessionStorage.setItem("userChange", "0");
-    }, 1000);
+    // setTimeout(() => {
+    //   if (sessionStorage.getItem("userChange") !== "1") {
+    //     this.getCurrentCity();
+    //   }
+    //   sessionStorage.setItem("userChange", "0");
+    // }, 1000);
     this.queryNewsList({ type: 1, categoryId: 1 }); //企业新闻
     this.queryActiveStyleList({ type: 1, categoryId: 2 }); //活动风采
     this.activity_queryActivitiyPage(); //企业活动

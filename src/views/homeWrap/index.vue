@@ -20,11 +20,11 @@
     ></component>
     <!-- 首页弹窗 -->
     <homeShell></homeShell>
-    <!-- <LocationNotice
-      v-if="locationShow"
-      :locationCityName="locationCityName"
-      :locationCityId="locationCityId"
-    ></LocationNotice> -->
+      <LocationNotice
+        v-if="locationShow"
+        :locationCityName="locationCityName"
+        :locationCityId="locationCityId"
+      ></LocationNotice>
     <keep-alive>
       <router-view v-if="$route.meta.keepAlive"></router-view>
     </keep-alive>
@@ -77,6 +77,12 @@ export default {
     this.getNotice(union);
     this.getData(union);
     this.getCityList();
+    setTimeout(() => {
+      if (sessionStorage.getItem("userChange") !== "1") {
+        this.getCurrentCity();
+      }
+      sessionStorage.setItem("userChange", "0");
+    }, 1000);
   },
   methods: {
     ...mapMutations(["updateState"]),

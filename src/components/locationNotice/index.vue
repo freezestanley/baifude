@@ -12,7 +12,7 @@
         <div class="modal-buttons modal-buttons-2">
           <span class="modal-button" @click="cancel">取消</span>
           <span
-            class="modal-button"
+            class="modal-button temporary-style"
             :style="{ background: unionConf.colour }"
             @click="confirm"
             >确定</span
@@ -176,6 +176,9 @@ export default {
   -webkit-box-flex: 1;
   -ms-flex: 1;
   background: rgba(255, 255, 255, 0.95);
+}
+.temporary-style {
+  background: #144a9e!important;
 }
 .modal-text {
   font-size: 14px;
