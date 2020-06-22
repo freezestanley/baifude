@@ -77,57 +77,15 @@ export default {
     this.getNotice(union);
     this.getData(union);
     this.getCityList();
-    // console.log('testOutter:', this.cid || 'nocid',sessionStorage.getItem("userChange")||'nochange');
-    if (sessionStorage.getItem("userChange") !== "1") {
+    if(!this.$route.query.city) {
+      const url = window.location.href;
+      const newUrl = changeURLArg( url, "city", "145");
+      window.location.href = newUrl;
+    } else if (sessionStorage.getItem("userChange") !== "1") {
       setTimeout(() => {
         this.getCurrentCity();
       }, 1000);
-    } else if(String(this.$route.query.city) !== String(this.cid || "145")) {
-      // console.log('moreinner:', this.cid);
-      const url = window.location.href;
-      const newUrl = changeURLArg(
-        url,
-        "city",
-        this.cid || "145"
-      );
-      // console.log(url, newUrl);
-      // window.history.pushState('', '', newUrl);
-      window.location.href = newUrl;
-      // window.location.href = changeURLArg(
-      //   url,
-      //   "city",
-      //   this.cid || "145"
-      // );
     }
-    // setTimeout(() => {
-    //   if (sessionStorage.getItem("userChange") !== "1") {
-    //     this.getCurrentCity();
-    //   } else {
-    //     console.log('inner:',this.$route.query.city, this.cid);
-    //     if(String(this.$route.query.city) !== String(this.cid || "145")) {
-    //       console.log('moreinner:', this.cid);
-    //       const url = window.location.href;
-    //       window.location.href = changeURLArg(
-    //         url,
-    //         "city",
-    //         this.cid || "145"
-    //       );
-    //     }
-    //   }
-    //   // sessionStorage.setItem("userChange", "0");
-    // }, 1000);
-  },
-  computed: {
-    ...mapState({
-      // mallUnionConf: state => state.mallUnionConf,
-      // unionStyleInfo: state => state.unionStyleInfo,
-      // unionBaseInfo: state => state.unionBaseInfo,
-      // cityName: state => state.cityName,
-      // cityEnName: state => state.cityEnName,
-      cid: state => state.cid,
-      // isShowSearch: state => state.mallUnionConf.isShowSearch,
-      // openService: state => state.mallUnionConf.openService
-    })
   },
   methods: {
     ...mapMutations(["updateState"]),
