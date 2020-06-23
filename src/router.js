@@ -1,8 +1,10 @@
 import Vue from "vue";
 import Router from "vue-router";
-import { user_checkLogin } from "@/assets/apis/home";
+import { user_checkLogin,user_queryCurrentCompanyInfo } from "@/assets/apis/home";
 import { getQueryString, setCookie } from "@/assets/utils"; 
 import Url from "url-parse";
+import store from "./store";
+import utilRes from "@/assets/utils/resResult";
 const Home = () => import("@/views/home/index").then(m => m.default);
 const HomeWrap = () => import("@/views/homeWrap/index").then(m => m.default);
 const CorporateNews = () =>
@@ -284,6 +286,7 @@ const checkLogin = async (to, from, next) => {
       //判断是否已阅读隐私政策
       window.location.href = agreeUrl;
     }
+    isPureMall();
     //跳转到路由页面
     isLoginPage(to, from, next, true);
   }else{
@@ -358,6 +361,21 @@ const isLoginPage = (to, from, next, res)=>{
     window.location.href = getLoginUrl();
   }
 };
+//根据工会判断全功能版和纯商城版
+const isPureMall = async()=>{
+  user_queryCurrentCompanyInfo({}).then(res=>{
+    //console.log('beforeRouteEnter',res);
+    if (utilRes.successCheck(res)) {
+      //1-全功能版 2-福利商城版
+      if(res.data.companyVersion==2){
+        store.state.pureMall = true;
+      }else{
+        store.state.pureMall = false;
+      }
+    };
+    //console.log('isPureMall',store);
+  });
+};
 router.beforeEach(async (to, from, next) => {
   // console.log("跳转页面:", to.name, from.name);
   // to.meta.keepAlive = true;
@@ -393,6 +411,7 @@ router.beforeEach(async (to, from, next) => {
   // }
   cookieCheck();
   await checkLogin(to, from, next);
+
   //next();
 });
 export default router;
