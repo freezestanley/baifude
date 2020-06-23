@@ -178,7 +178,7 @@ export default {
   background: rgba(255, 255, 255, 0.95);
 }
 .temporary-style {
-  background: #144a9e!important;
+  background: #FF7A71!important;
 }
 .modal-text {
   font-size: 14px;
