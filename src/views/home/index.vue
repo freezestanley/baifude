@@ -89,7 +89,7 @@
 <script>
 import { Toast } from "vant";
 import axios from "axios";
-import { mapMutations } from "vuex";
+import { mapMutations,mapState } from "vuex";
 import { OK } from "@/assets/utils/constant";
 import { getQueryString, setCookie, getCookie } from "@/assets/utils";
 import BusinessActivity from "@/components/businessActivity/index";
@@ -180,6 +180,12 @@ export default {
     // Boutique,
     ActivityNav
   },
+  computed:{
+    ...mapState({
+        activityConfigList: state => state.activityConfigList
+      }
+    )
+  },
   created() {
     const union = getQueryString("union");
     // this.isLogin(union);
@@ -191,6 +197,7 @@ export default {
     this.activity_queryActivitiyPage(); //企业活动
     this.queryNoticeList(); //企业公告
     this.queryResearchList(); // 员工调研
+    
   },
   methods: {
     ...mapMutations(["updateState"]),
@@ -435,6 +442,9 @@ export default {
     },
     // 获取顶部公告
     getNotice(union) {
+      setTimeout(()=>{
+        console.log('this.activityConfigList',this.activityConfigList);
+      },10000);
       this.apis
         .getNotice({
           platform: 1,

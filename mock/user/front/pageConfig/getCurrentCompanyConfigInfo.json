@@ -1,0 +1,33 @@
+{
+	"code": "",
+	"data": {
+		"homePageNavigationList": [
+            {
+                "configKey": "NEWS",
+                "configValue": {
+                    "name": "企业新闻"
+                }
+            },
+            {
+                "configKey": "ACTIVITY",
+                "configValue": {
+                    "name": "企业活动"
+                }
+            },
+            {
+                "configKey": "RESEARCH",
+                "configValue": {
+                    "name": "员工调研"
+                }
+            },
+            {
+                "configKey": "NOTICE",
+                "configValue": {
+                    "name": "企业公告"
+                }
+            }
+        ]
+	},
+	"errMsg": "",
+	"msg": ""
+}

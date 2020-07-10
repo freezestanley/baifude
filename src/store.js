@@ -22,7 +22,8 @@ export default new Vuex.Store({
     locationCityId: "",
     unionAndPlatform:'', //十大模块
     unionConDto:'',//首页banner部分图片接口数据
-    pureMall: false //是否为纯商城版
+    pureMall: false, //是否为纯商城版
+    activityConfigList: ''
   },
   mutations: {
     updateState(state, { key, val }) {

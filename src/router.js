@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import { user_checkLogin,user_queryCurrentCompanyInfo } from "@/assets/apis/home";
+import { user_checkLogin,user_queryCurrentCompanyInfo,user_getCurrentCompanyConfigInfo } from "@/assets/apis/home";
 import { getQueryString, setCookie } from "@/assets/utils"; 
 import Url from "url-parse";
 import store from "./store";
@@ -286,6 +286,7 @@ const checkLogin = async (to, from, next) => {
       //判断是否已阅读隐私政策
       window.location.href = agreeUrl;
     }
+    //是否是纯商城版
     isPureMall();
     //跳转到路由页面
     isLoginPage(to, from, next, true);
@@ -348,8 +349,10 @@ const attachParam = (params, next, to, from) => {
 };
 
 //根据登陆态判断跳转路径
-const isLoginPage = (to, from, next, res)=>{
+const isLoginPage = async(to, from, next, res)=>{
   if(res){
+    //获取模块配置-->跳转页面
+    await getCurrentCompanyConfigInfo();
     if(to.path == from.path || from.path == '/'){
       next();
     }
@@ -376,6 +379,16 @@ const isPureMall = async()=>{
     //console.log('isPureMall',store);
   });
 };
+
+//模块配置接口
+const getCurrentCompanyConfigInfo = async()=>{
+  let res = await user_getCurrentCompanyConfigInfo({});
+  if (utilRes.successCheck(res)) {
+    let activityConfigList = res.data.homePageNavigationList;
+    store.state.activityConfigList = activityConfigList;
+  }  
+};
+
 router.beforeEach(async (to, from, next) => {
   // console.log("跳转页面:", to.name, from.name);
   // to.meta.keepAlive = true;
