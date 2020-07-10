@@ -19,7 +19,7 @@
         <!--企业活动-->
         <div style="padding: 0 15px">
           <Title
-            titleName="企业活动"
+            :titleName="this.moduleConfigMap.get('ACTIVITY')"
             :titleMore="true"
             @goToNext="goToNext"
           ></Title>
@@ -41,7 +41,7 @@
       <!-- 员工调研 -->
       <div class="layout survey" v-if="researchList.title">
         <Title
-          titleName="员工调研"
+          :titleName="this.moduleConfigMap.get('RESEARCH')"
           :titleMore="true"
           @goToNext="goToNext"
         ></Title>
@@ -57,7 +57,7 @@
       <!-- 企业公告 -->
       <div class="layout notice" v-if="list.length > 0">
         <Title
-          titleName="企业公告"
+          :titleName="this.moduleConfigMap.get('NOTICE')"
           :titleMore="true"
           @goToNext="goToNext"
         ></Title>
@@ -123,6 +123,7 @@ export default {
       locationCityId: "",
       isShowUnionNotice: false,
       unionNoticeContent: "",
+      moduleConfigMap:[],
       activityNavData: [
         {
           url: require("@/assets/images/home/news.png"),
@@ -216,6 +217,7 @@ export default {
     },
     currentCompanyConfigInfo(){
       this.activityNavData = [];
+      let mapArray = []; 
       this.activityConfigList.forEach(itemConfig => {
         let url = '';
         if(itemConfig.configKey == 'NEWS'){
@@ -231,8 +233,11 @@ export default {
           url:url,
           instruct:itemConfig.configValue.name
         });
-        console.log('this.activityNavData',this.activityNavData);
+        mapArray.push([itemConfig.configKey,itemConfig.configValue.name]);
+        
       });
+      this.moduleConfigMap = new Map(mapArray)
+      //console.log('this.moduleConfigMap',this.moduleConfigMap);
     },
     showPosition(position) {
       this.updateState({
