@@ -126,19 +126,23 @@ export default {
       activityNavData: [
         {
           url: require("@/assets/images/home/news.png"),
-          instruct: "企业新闻"
+          instruct: "企业新闻",
+          key:"NEWS"
         },
         {
           url: require("@/assets/images/home/activity.png"),
-          instruct: "企业活动"
+          instruct: "企业活动",
+          key:"ACTIVITY"
         },
         {
           url: require("@/assets/images/home/employee_research.png"),
-          instruct: "员工调研"
+          instruct: "员工调研",
+          key:"RESEARCH"
         },
         {
           url: require("@/assets/images/home/notice.png"),
-          instruct: "企业公告"
+          instruct: "企业公告",
+          key:"NOTICE"
         }
       ], //活动导航栏
       newsData: [], //新闻数据
@@ -187,6 +191,7 @@ export default {
     )
   },
   created() {
+    console.log('this.activityConfigList',this.activityConfigList);
     const union = getQueryString("union");
     // this.isLogin(union);
     this.getNotice(union);
@@ -197,7 +202,7 @@ export default {
     this.activity_queryActivitiyPage(); //企业活动
     this.queryNoticeList(); //企业公告
     this.queryResearchList(); // 员工调研
-    
+    this.currentCompanyConfigInfo();
   },
   methods: {
     ...mapMutations(["updateState"]),
@@ -208,6 +213,26 @@ export default {
         "key"
       );
       geolocation.getLocation(this.showPosition, this.errorMsg);
+    },
+    currentCompanyConfigInfo(){
+      this.activityNavData = [];
+      this.activityConfigList.forEach(itemConfig => {
+        let url = '';
+        if(itemConfig.configKey == 'NEWS'){
+          url = require("@/assets/images/home/news.png");
+        }else if(itemConfig.configKey == 'ACTIVITY'){
+          url = require("@/assets/images/home/activity.png");
+        }else if(itemConfig.configKey == 'RESEARCH'){
+          url = require("@/assets/images/home/employee_research.png")
+        }else if(itemConfig.configKey == 'NOTICE'){
+          url = require("@/assets/images/home/notice.png");
+        }
+        this.activityNavData.push({
+          url:url,
+          instruct:itemConfig.configValue.name
+        });
+        console.log('this.activityNavData',this.activityNavData);
+      });
     },
     showPosition(position) {
       this.updateState({
@@ -442,9 +467,6 @@ export default {
     },
     // 获取顶部公告
     getNotice(union) {
-      setTimeout(()=>{
-        console.log('this.activityConfigList',this.activityConfigList);
-      },10000);
       this.apis
         .getNotice({
           platform: 1,

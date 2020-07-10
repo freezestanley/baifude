@@ -5,25 +5,25 @@
             {
                 "configKey": "NEWS",
                 "configValue": {
-                    "name": "企业新闻"
+                    "name": "企业新闻13"
                 }
             },
             {
                 "configKey": "ACTIVITY",
                 "configValue": {
-                    "name": "企业活动"
+                    "name": "企业活动2"
                 }
             },
             {
                 "configKey": "RESEARCH",
                 "configValue": {
-                    "name": "员工调研"
+                    "name": "员工调研3"
                 }
             },
             {
                 "configKey": "NOTICE",
                 "configValue": {
-                    "name": "企业公告"
+                    "name": "企业公告4"
                 }
             }
         ]
