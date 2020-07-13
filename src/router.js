@@ -307,8 +307,9 @@ const checkLogin = async (to, from, next) => {
 const getLoginUrl = () => {
   const unionName = getQueryString("union");
   const loginPath = PUBLIC_LOGIN_URL.replace("%UNION%", unionName);
+  // env.loginUrl 包含？
   const loginUrl =
-    loginPath + "?returnUrl=" + encodeURIComponent(window.location.href);
+    loginPath + "&returnUrl=" + encodeURIComponent(window.location.href);
   return loginUrl;
 };
 const cookieCheck = () => {
