@@ -198,6 +198,12 @@ export default {
     this.getNotice(union);
     this.getData(union);
     this.getCityList();
+    // setTimeout(() => {
+    //   if (sessionStorage.getItem("userChange") !== "1") {
+    //     this.getCurrentCity();
+    //   }
+    //   sessionStorage.setItem("userChange", "0");
+    // }, 1000);
     this.queryNewsList({ type: 1, categoryId: 1 }); //企业新闻
     this.queryActiveStyleList({ type: 1, categoryId: 2 }); //活动风采
     this.activity_queryActivitiyPage(); //企业活动
@@ -247,6 +253,7 @@ export default {
       let cityName = position.city.replace("市", "");
       this.locationCityName = cityName;
       this.getCityId(cityName);
+      // console.log('cityName:', cityName);
     },
     errorMsg() {
       console.log("定位失败");

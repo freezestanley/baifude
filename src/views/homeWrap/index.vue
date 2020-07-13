@@ -20,11 +20,11 @@
     ></component>
     <!-- 首页弹窗 -->
     <homeShell></homeShell>
-    <!-- <LocationNotice
+    <LocationNotice
       v-if="locationShow"
       :locationCityName="locationCityName"
       :locationCityId="locationCityId"
-    ></LocationNotice> -->
+      ></LocationNotice>
     <keep-alive>
       <router-view v-if="$route.meta.keepAlive"></router-view>
     </keep-alive>
@@ -37,9 +37,9 @@
 
 <script>
 import axios from "axios";
-import { mapMutations } from "vuex";
+import { mapState, mapMutations } from "vuex";
 import { OK } from "@/assets/utils/constant";
-import { getQueryString, setCookie, getCookie } from "@/assets/utils";
+import { changeURLArg, getQueryString, setCookie, getCookie } from "@/assets/utils";
 import { parseQueryString } from "@/assets/utils/request";
 import { custRedirect } from "@/assets/utils";
 
@@ -77,6 +77,15 @@ export default {
     this.getNotice(union);
     this.getData(union);
     this.getCityList();
+    if(!this.$route.query.city) {
+      const url = window.location.href;
+      const newUrl = changeURLArg( url, "city", getCookie('city') || "145");
+      window.location.href = newUrl;
+    } else if (sessionStorage.getItem("userChange") !== "1") {
+      setTimeout(() => {
+        this.getCurrentCity();
+      }, 1000);
+    }
   },
   methods: {
     ...mapMutations(["updateState"]),
@@ -152,6 +161,7 @@ export default {
     getCityList() {
       const cid = Number(getQueryString("city"));
       const union = getQueryString("union");
+      cid && setCookie('city', cid);
       this.apis
         .cityList({
           union: union,
