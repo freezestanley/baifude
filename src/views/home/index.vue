@@ -21,7 +21,7 @@
           <Title
             :titleName="this.moduleConfigMap.get('ACTIVITY')"
             :titleMore="true"
-            @goToNext="goToNext"
+            @goToNext="goToNext('ACTIVITY')"
           ></Title>
         </div>
         <BusinessActivity
@@ -43,7 +43,7 @@
         <Title
           :titleName="this.moduleConfigMap.get('RESEARCH')"
           :titleMore="true"
-          @goToNext="goToNext"
+          @goToNext="goToNext('RESEARCH')"
         ></Title>
         <div class="survey-wrap">
           <div class="survey-pic">
@@ -59,7 +59,7 @@
         <Title
           :titleName="this.moduleConfigMap.get('NOTICE')"
           :titleMore="true"
-          @goToNext="goToNext"
+          @goToNext="goToNext('NOTICE')"
         ></Title>
         <div class="notice-wrap">
           <div
@@ -508,7 +508,7 @@ export default {
         //   name: "corporateNews",
         //   query: { ...urlParams, type: "1" }
         // });
-      } else if (item == "企业活动") {
+      } else if (item == "ACTIVITY") {
         this.custRedirect("/newbfd/home-h5/corporateActivity", {
           ...urlParams
         });
@@ -525,13 +525,13 @@ export default {
         //   name: "corporateNews",
         //   query: { ...urlParams, type: "2" }
         // });
-      } else if (item == "企业公告") {
+      } else if (item == "NOTICE") {
         this.custRedirect("/newbfd/home-h5/corporatenotice", { ...urlParams });
         // this.$router.push({
         //   name: "corporateNotice",
         //   query: { ...urlParams }
         // });
-      } else if (item == "员工调研") {
+      } else if (item == "RESEARCH") {
         this.custRedirect("/newbfd/home-h5/staffsurvey", { ...urlParams });
         // this.$router.push({
         //   path: "/newbfd/home-h5/staffsurvey"
