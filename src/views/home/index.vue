@@ -495,13 +495,6 @@ export default {
     getPopUpShow() {},
     redirectSurvey() {
       custRedirect("/newbfd/home-h5/staffsurvey/detail"+window.location.search, { id: this.researchList.id })
-      // let urlParams = parseQueryString(window.location.search);
-      // this.custRedirect(
-      //   "/newbfd/home-h5/staffsurvey/detail/" + this.researchList.id,
-      //   {
-      //     ...urlParams
-      //   }
-      // );
     },
     // 点击更多跳转相对应列表页
     goToNext(item) {
@@ -511,38 +504,19 @@ export default {
           ...urlParams,
           type: "1"
         });
-        // this.$router.push({
-        //   name: "corporateNews",
-        //   query: { ...urlParams, type: "1" }
-        // });
       } else if (item == "企业活动") {
         this.custRedirect("/newbfd/home-h5/corporateActivity", {
           ...urlParams
         });
-        // this.$router.push({
-        //   name: "corporateActivity",
-        //   query: { ...urlParams }
-        // });
       } else if (item == "活动风采") {
         this.custRedirect("/newbfd/home-h5/corporatenews", {
           ...urlParams,
           type: "2"
         });
-        // this.$router.push({
-        //   name: "corporateNews",
-        //   query: { ...urlParams, type: "2" }
-        // });
       } else if (item == "企业公告") {
         this.custRedirect("/newbfd/home-h5/corporatenotice", { ...urlParams });
-        // this.$router.push({
-        //   name: "corporateNotice",
-        //   query: { ...urlParams }
-        // });
       } else if (item == "员工调研") {
         this.custRedirect("/newbfd/home-h5/staffsurvey", { ...urlParams });
-        // this.$router.push({
-        //   path: "/newbfd/home-h5/staffsurvey"
-        // });
       }
     },
     //企业新闻列表接口
