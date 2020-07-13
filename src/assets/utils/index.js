@@ -66,11 +66,14 @@ export function getQueryString(name) {
  * @param  {Number} day
  */
 export function setCookie(name, value, day, config = {}) {
+  // const _lt = window.location.host.split(".");
+  // const domain = [_lt.pop(), _lt.pop()].reverse().join(".");
+
   let str = name + "=" + encodeURIComponent(value);
   let exp = new Date();
-  let domain = window.location.hostname;
+  let domain = window.location.hostname.replace('corp.m.','');
   exp.setTime(exp.getTime() + day * 24 * 60 * 60 * 1000);
-  str += ";expires=" + exp.toGMTString() + ";path=/;domain=" + config.domain || domain;
+  str += ";expires=" + exp.toGMTString() + ";path=/;domain=" + (config.domain || domain);
   document.cookie = str;
 }
 

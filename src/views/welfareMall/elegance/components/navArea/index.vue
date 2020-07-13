@@ -249,8 +249,8 @@ a {
       
       a {
         .imgWrap {
-          width: 32px;
-          height: 36px;
+          width: 30px;
+          height: 34px;
           line-height: 36px;
           overflow: hidden;
           img {

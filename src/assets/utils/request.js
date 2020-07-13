@@ -3,7 +3,7 @@ import axios from "axios";
 import { OK } from "./constant";
 import qs from "qs";
 import { Notify } from "vant";
-import Url from 'url-parse'
+import Url from "url-parse";
 
 Vue.use(Notify);
 
@@ -11,25 +11,30 @@ let appAPI, mallAPI;
 const { NODE_ENV, VUE_APP_FLAG } = process.env;
 
 //#########TETS AREA
-    // appAPI = `http://appzuul.test04.com`;
-    // mallAPI = `http://api.test04.com`;
+// appAPI = `http://appzuul.test04.com`;
+// mallAPI = `http://api.test04.com`;
 //########TEST END
 
 if (NODE_ENV === "production") {
-  if (/test\d{2}$/g.test(VUE_APP_FLAG)) {
-    appAPI = `http://appzuul.${VUE_APP_FLAG}.com`;
-    mallAPI = `http://api.${VUE_APP_FLAG}.com`;
-  } else {
+  if (VUE_APP_FLAG === "test05") {
     appAPI = "/gw/app";
     mallAPI = "/mallapi";
+  } else {
+    if (/test\d{2}$/g.test(VUE_APP_FLAG)) {
+      appAPI = `http://appzuul.${VUE_APP_FLAG}.com`;
+      mallAPI = `http://api.${VUE_APP_FLAG}.com`;
+    } else {
+      appAPI = "/gw/app";
+      mallAPI = "/mallapi";
+    }
   }
 } else {
   // appAPI = "http://10.8.3.17/gw/app";
   // mallAPI = "http://10.8.3.17/mallapi";
   // appAPI = "/gw/app";
   // mallAPI = "/mallapi";
-    appAPI = `http://appzuul.test04.com`;
-    mallAPI = `http://api.test04.com`;
+  appAPI = `http://appzuul.test04.com`;
+  mallAPI = `http://api.test04.com`;
 }
 
 /**
@@ -107,12 +112,12 @@ export function sendPost(url, params, immediate) {
  * @param  { Boolean } immediate 区别mallAPI和appAPI接口
  * @return { Promise }
  */
-export function sendPostNew(url,type='post', params, immediate) {
+export function sendPostNew(url, type = "post", params, immediate) {
   return _axios({
-    url: type==='post'?url:mixUrl(url,params),
+    url: type === "post" ? url : mixUrl(url, params),
     method: type,
     data: params,
-    baseURL: '',
+    baseURL: "",
     transformRequest: [
       function(data) {
         return immediate
@@ -139,15 +144,15 @@ export function sendPostNew(url,type='post', params, immediate) {
  * @param  { Boolean } immediate 区别mallAPI和appAPI接口
  * @return { Promise }
  */
-export function sendUpload(url,type='post', params, immediate) {
+export function sendUpload(url, type = "post", params, immediate) {
   return _axios({
-    url: type==='post'?url:mixUrl(url,params),
+    url: type === "post" ? url : mixUrl(url, params),
     method: type,
     data: params,
-    baseURL: '',
+    baseURL: "",
     headers: {
       "Content-Type": "multipart/form-data"
-    },
+    }
     // timeout: 6000,
     // withCredentials: true
   }).catch(err => {
@@ -162,38 +167,36 @@ export function sendUpload(url,type='post', params, immediate) {
  * @type {Boolean} cache 是否经过本地缓存
  */
 function mixUrl(url, data = {}, cache = false) {
-  url = new Url(url)
-  let query = url.query
+  url = new Url(url);
+  let query = url.query;
 
   if (!cache) {
-    data['_'] = Date.now()
+    data["_"] = Date.now();
   }
 
   Object.keys(data).forEach(key => {
-    let seperator = query ? '&' : '?'
-    query += `${seperator}${key}=${encodeURIComponent(data[key])}`
-  })
+    let seperator = query ? "&" : "?";
+    query += `${seperator}${key}=${encodeURIComponent(data[key])}`;
+  });
 
-  url.set('query', query)
+  url.set("query", query);
 
-  return url.href
+  return url.href;
 }
 
 export function parseQueryString(url) {
   var obj = {};
   var keyvalue = [];
   var key = "",
-      value = "";
+    value = "";
   var paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");
   for (var i in paraString) {
-      keyvalue = paraString[i].split("=");
-      key = keyvalue[0];
-      value = keyvalue[1];
-      obj[key] = value;
+    keyvalue = paraString[i].split("=");
+    key = keyvalue[0];
+    value = keyvalue[1];
+    obj[key] = value;
   }
   return obj;
 }
-
-
 
 export { _axios, _axios_req, _axios_res };

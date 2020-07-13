@@ -198,6 +198,12 @@ export default {
     this.getNotice(union);
     this.getData(union);
     this.getCityList();
+    // setTimeout(() => {
+    //   if (sessionStorage.getItem("userChange") !== "1") {
+    //     this.getCurrentCity();
+    //   }
+    //   sessionStorage.setItem("userChange", "0");
+    // }, 1000);
     this.queryNewsList({ type: 1, categoryId: 1 }); //企业新闻
     this.queryActiveStyleList({ type: 1, categoryId: 2 }); //活动风采
     this.activity_queryActivitiyPage(); //企业活动
@@ -247,6 +253,7 @@ export default {
       let cityName = position.city.replace("市", "");
       this.locationCityName = cityName;
       this.getCityId(cityName);
+      // console.log('cityName:', cityName);
     },
     errorMsg() {
       console.log("定位失败");
@@ -488,13 +495,6 @@ export default {
     getPopUpShow() {},
     redirectSurvey() {
       custRedirect("/newbfd/home-h5/staffsurvey/detail"+window.location.search, { id: this.researchList.id })
-      // let urlParams = parseQueryString(window.location.search);
-      // this.custRedirect(
-      //   "/newbfd/home-h5/staffsurvey/detail/" + this.researchList.id,
-      //   {
-      //     ...urlParams
-      //   }
-      // );
     },
     // 点击更多跳转相对应列表页
     goToNext(item) {
@@ -512,10 +512,6 @@ export default {
         this.custRedirect("/newbfd/home-h5/corporateActivity", {
           ...urlParams
         });
-        // this.$router.push({
-        //   name: "corporateActivity",
-        //   query: { ...urlParams }
-        // });
       } else if (item == "活动风采") {
         this.custRedirect("/newbfd/home-h5/corporatenews", {
           ...urlParams,
@@ -533,9 +529,6 @@ export default {
         // });
       } else if (item == "RESEARCH") {
         this.custRedirect("/newbfd/home-h5/staffsurvey", { ...urlParams });
-        // this.$router.push({
-        //   path: "/newbfd/home-h5/staffsurvey"
-        // });
       }
     },
     //企业新闻列表接口
