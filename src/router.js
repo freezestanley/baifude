@@ -296,6 +296,10 @@ const checkLogin = async (to, from, next) => {
     //跳转到路由页面
     isLoginPage(to, from, next, true);
   }else{
+    // 特殊工会跳转-在checkLogin返回returnUrl
+    if (res.code == "99" && res.data && res.data.returnUrl) {
+      return (window.location.href = res.data.returnUrl);
+    }
     //跳转到登陆页
     isLoginPage(to, from, next, false);
   }
