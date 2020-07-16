@@ -74,11 +74,11 @@
           </div>
         </div>
       </div>
-      <!-- 精品推荐 -->
-      <!--<div class="layout" v-if="boutiqueData.length > 0">-->
-        <!--<Title titleName="精品推荐"></Title>-->
-        <!--<Boutique :data="boutiqueData"></Boutique>-->
-      <!--</div>-->
+      <!-- 感谢卡 -->
+      <div class="layout">
+        <Title titleName="感谢卡" :titleMore="true"></Title>
+        <ThankCard :data="thankCardList"></ThankCard>
+      </div>
       <div class="section-last-tip">
         <div class="section-last-text">已经到底啦</div>
       </div>
@@ -95,8 +95,8 @@ import { getQueryString, setCookie, getCookie } from "@/assets/utils";
 import BusinessActivity from "@/components/businessActivity/index";
 import Title from "@/components/moduleTtile/index";
 import NewsItem from "../corporateNews/components/newsItemIndex";
-// import Boutique from "@/components/boutique/index";
 import ActivityNav from "@/components/activitynav/index";
+import ThankCard from "@/components/thankCard/index"
 import {
   newsListPage,
   activity_queryActivitiyPage,
@@ -150,13 +150,16 @@ export default {
       activityData: [], //企业活动数据
       styleData: [], //活动风采数据
       list: [], //企业公告列表数据
-      boutiqueData: [], //精品推荐数据对象
       surveyObj: {
         pic:
           "http://devimg.dongfangfuli.com/bfd/2020-05-02/276d7252c2cdf98f2fcafb58e902ac91.png"
       },
       researchList: {}, // 员工调研
       unionConfigMess:{},// 工会信息配置
+      thankCardList:[
+        {"pic":"","name":"谢雪丽","date":"2020年7月5日","cardText":"助人为乐"},
+        {"pic":"","name":"谢雪丽2","date":"2020年7月6日","cardText":"正能量"},
+      ],//感谢卡数据
     };
   },
   beforeRouteEnter(to,form,next){
@@ -182,8 +185,8 @@ export default {
     Title,
     NewsItem,
     BusinessActivity,
-    // Boutique,
-    ActivityNav
+    ActivityNav,
+    ThankCard
   },
   computed:{
     ...mapState({
@@ -412,17 +415,6 @@ export default {
             } else {
               this.$notify(unionConf.data.msg);
               return false;
-            }
-            if (unionMoulds && unionMoulds.body) {
-              const unionData = unionMoulds.body;
-              for (let i = 0; i < unionData.length; i++) {
-                if (
-                  unionData[i].title == "精品推荐" ||
-                  unionData[i].formatCode == "mportant"
-                ) {
-                  this.boutiqueData = unionData[i].mouldContents;
-                }
-              }
             }
             if(unionConf && unionConf.body){
               this.unionConfigMess = unionConf.body.unionConfigurationDto;
