@@ -78,6 +78,14 @@
       <div class="layout">
         <Title titleName="感谢卡" :titleMore="true"></Title>
         <ThankCard :data="thankCardList"></ThankCard>
+        <div class="card-btn-wrap">
+          <div class="thank-card-btn">我要发送感谢卡</div>
+        </div>
+      </div>
+      <!-- 生日墙 -->
+      <div class="layout">
+        <Title titleName="生日墙" :titleMore="true"></Title>
+        <BirthdayWall :data="birthdayWallList"></BirthdayWall>
       </div>
       <div class="section-last-tip">
         <div class="section-last-text">已经到底啦</div>
@@ -97,6 +105,7 @@ import Title from "@/components/moduleTtile/index";
 import NewsItem from "../corporateNews/components/newsItemIndex";
 import ActivityNav from "@/components/activitynav/index";
 import ThankCard from "@/components/thankCard/index"
+import BirthdayWall from "@/components/birthdayWall/index"
 import {
   newsListPage,
   activity_queryActivitiyPage,
@@ -160,6 +169,12 @@ export default {
         {"pic":"","name":"谢雪丽","date":"2020年7月5日","cardText":"助人为乐"},
         {"pic":"","name":"谢雪丽2","date":"2020年7月6日","cardText":"正能量"},
       ],//感谢卡数据
+      birthdayWallList:[
+          {"userId": 62104, "avatar": null, "userName": "lily075", "birthday": "7月15日"},
+          {"userId": 62203, "avatar": null, "userName": "lucy075", "birthday": "7月15日"},
+          {"userId": 62203, "avatar": null, "userName": "lucy075", "birthday": "7月15日"},
+          {"userId": 62203, "avatar": null, "userName": "lucy075", "birthday": "7月15日"},
+      ],//生日墙数据
     };
   },
   beforeRouteEnter(to,form,next){
@@ -186,7 +201,8 @@ export default {
     NewsItem,
     BusinessActivity,
     ActivityNav,
-    ThankCard
+    ThankCard,
+    BirthdayWall
   },
   computed:{
     ...mapState({
@@ -788,6 +804,21 @@ html {
       background: #fff;
       color: #b2b2b2;
       text-align: center;
+    }
+  }
+  .card-btn-wrap{
+    padding: 10px 0 30px 0;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 14px;
+    .thank-card-btn{
+      margin: 0 auto;
+      text-align: center;
+      color: #fff;
+      width: 184px;
+      height:35px;
+      line-height: 35px;
+      border-radius: 17.5px;
+      background: linear-gradient(to right,#7CB1D0,#4679A3);
     }
   }
 }

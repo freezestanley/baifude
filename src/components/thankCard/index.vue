@@ -6,8 +6,8 @@
                <div class="user-name">{{item.name}}</div>
            </div>
            <div class="item-right">
-               <div class="card-time"></div>
-               <div class="card-name"></div>
+               <div class="card-time">{{item.date}}</div>
+               <div class="card-name">{{`「${item.cardText}」`}}</div>
            </div>
        </div>
     </div>
@@ -35,9 +35,9 @@
             height: 44px;
             display: flex;
             .item-left{
-                width: 50%;
-                min-width: 50%;
-                max-width: 50%;
+                width: 40%;
+                min-width: 40%;
+                max-width: 40%;
                 display: flex;
                 align-items: center;
                 .user-pic{
@@ -53,15 +53,19 @@
                 }
             }
             .item-right{
-                width: 50%;
-                min-width: 50%;
-                max-width: 50%;
+                width: 60%;
+                min-width: 60%;
+                max-width: 60%;
                 display: flex;
                 align-items: center;
                 font-size: 14px;
                 color: #666666;
+                justify-content: flex-end;
                 .card-time{
-
+                }
+                .card-name{
+                    color: #C6AA85;
+                    font-weight: bold;
                 }
             }
         }

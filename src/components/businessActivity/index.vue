@@ -1,6 +1,6 @@
 <template>
     <section class="business-activity" ref="activity">
-        <div class="swiper-container">
+        <div class="business-activity-swiper swiper-container">
             <div class="swiper-wrapper">
                 <div class="item swiper-slide" v-for="(item,index) in data" :key="index" @click="activityDetail(item)">
                     <div class="pic">
@@ -35,7 +35,7 @@
     methods:{
       creatSwiper() {
         if (this.data.length > 1) {
-          new Swiper(".swiper-container", {
+          new Swiper(".business-activity-swiper", {
             loop: true,
             slidesPerView: 'auto',
             // loopedSlides: 6,
