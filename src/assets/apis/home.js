@@ -173,6 +173,13 @@ function user_queryCurrentCompanyInfo(params) {
   return sendPostNew("/user/front/company/queryCurrentCompanyInfo","get", params);
 }
 
+/**
+ * 查询用户信息
+ * @param { JSON } params 请求的参数
+ */
+function user_getCurrentCompanyConfigInfo(params) {
+  return sendPostNew("/misc/front/pageConfig/getCurrentCompanyConfigInfo", "get", params, true);
+}
 
 export {
   queryActivityList,
@@ -194,5 +201,6 @@ export {
   cms_researchSubmit,
   cms_researchUserList,
   cms_researchUserDetail,
-  user_queryCurrentCompanyInfo
+  user_queryCurrentCompanyInfo,
+  user_getCurrentCompanyConfigInfo
 };

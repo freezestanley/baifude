@@ -19,9 +19,9 @@
         <!--企业活动-->
         <div style="padding: 0 15px">
           <Title
-            titleName="企业活动"
+            :titleName="this.moduleConfigMap.get('ACTIVITY')"
             :titleMore="true"
-            @goToNext="goToNext"
+            @goToNext="goToNext('ACTIVITY')"
           ></Title>
         </div>
         <BusinessActivity
@@ -41,9 +41,9 @@
       <!-- 员工调研 -->
       <div class="layout survey" v-if="researchList.title">
         <Title
-          titleName="员工调研"
+          :titleName="this.moduleConfigMap.get('RESEARCH')"
           :titleMore="true"
-          @goToNext="goToNext"
+          @goToNext="goToNext('RESEARCH')"
         ></Title>
         <div class="survey-wrap">
           <div class="survey-pic">
@@ -57,9 +57,9 @@
       <!-- 企业公告 -->
       <div class="layout notice" v-if="list.length > 0">
         <Title
-          titleName="企业公告"
+          :titleName="this.moduleConfigMap.get('NOTICE')"
           :titleMore="true"
-          @goToNext="goToNext"
+          @goToNext="goToNext('NOTICE')"
         ></Title>
         <div class="notice-wrap">
           <div
@@ -89,7 +89,7 @@
 <script>
 import { Toast } from "vant";
 import axios from "axios";
-import { mapMutations } from "vuex";
+import { mapMutations,mapState } from "vuex";
 import { OK } from "@/assets/utils/constant";
 import { getQueryString, setCookie, getCookie } from "@/assets/utils";
 import BusinessActivity from "@/components/businessActivity/index";
@@ -123,22 +123,27 @@ export default {
       locationCityId: "",
       isShowUnionNotice: false,
       unionNoticeContent: "",
+      moduleConfigMap:[],
       activityNavData: [
         {
           url: require("@/assets/images/home/news.png"),
-          instruct: "企业新闻"
+          instruct: "企业新闻",
+          key:"NEWS"
         },
         {
           url: require("@/assets/images/home/activity.png"),
-          instruct: "企业活动"
+          instruct: "企业活动",
+          key:"ACTIVITY"
         },
         {
           url: require("@/assets/images/home/employee_research.png"),
-          instruct: "员工调研"
+          instruct: "员工调研",
+          key:"RESEARCH"
         },
         {
           url: require("@/assets/images/home/notice.png"),
-          instruct: "企业公告"
+          instruct: "企业公告",
+          key:"NOTICE"
         }
       ], //活动导航栏
       newsData: [], //新闻数据
@@ -180,7 +185,14 @@ export default {
     // Boutique,
     ActivityNav
   },
+  computed:{
+    ...mapState({
+        activityConfigList: state => state.activityConfigList
+      }
+    )
+  },
   created() {
+    console.log('this.activityConfigList',this.activityConfigList);
     const union = getQueryString("union");
     // this.isLogin(union);
     this.getNotice(union);
@@ -197,6 +209,7 @@ export default {
     this.activity_queryActivitiyPage(); //企业活动
     this.queryNoticeList(); //企业公告
     this.queryResearchList(); // 员工调研
+    this.currentCompanyConfigInfo();
   },
   methods: {
     ...mapMutations(["updateState"]),
@@ -207,6 +220,31 @@ export default {
         "key"
       );
       geolocation.getLocation(this.showPosition, this.errorMsg);
+    },
+    currentCompanyConfigInfo(){
+      this.activityNavData = [];
+      let mapArray = []; 
+      this.activityConfigList.forEach(itemConfig => {
+        let url = '';
+        if(itemConfig.configKey == 'NEWS'){
+          url = require("@/assets/images/home/news.png");
+        }else if(itemConfig.configKey == 'ACTIVITY'){
+          url = require("@/assets/images/home/activity.png");
+        }else if(itemConfig.configKey == 'RESEARCH'){
+          url = require("@/assets/images/home/employee_research.png")
+        }else if(itemConfig.configKey == 'NOTICE'){
+          url = require("@/assets/images/home/notice.png");
+        }
+        this.activityNavData.push({
+          url:url,
+          instruct:itemConfig.configValue.name,
+          key:itemConfig.configKey,
+        });
+        mapArray.push([itemConfig.configKey,itemConfig.configValue.name]);
+        
+      });
+      this.moduleConfigMap = new Map(mapArray)
+      //console.log('this.moduleConfigMap',this.moduleConfigMap);
     },
     showPosition(position) {
       this.updateState({
@@ -458,13 +496,6 @@ export default {
     getPopUpShow() {},
     redirectSurvey() {
       custRedirect("/newbfd/home-h5/staffsurvey/detail"+window.location.search, { id: this.researchList.id })
-      // let urlParams = parseQueryString(window.location.search);
-      // this.custRedirect(
-      //   "/newbfd/home-h5/staffsurvey/detail/" + this.researchList.id,
-      //   {
-      //     ...urlParams
-      //   }
-      // );
     },
     // 点击更多跳转相对应列表页
     goToNext(item) {
@@ -478,14 +509,10 @@ export default {
         //   name: "corporateNews",
         //   query: { ...urlParams, type: "1" }
         // });
-      } else if (item == "企业活动") {
+      } else if (item == "ACTIVITY") {
         this.custRedirect("/newbfd/home-h5/corporateActivity", {
           ...urlParams
         });
-        // this.$router.push({
-        //   name: "corporateActivity",
-        //   query: { ...urlParams }
-        // });
       } else if (item == "活动风采") {
         this.custRedirect("/newbfd/home-h5/corporatenews", {
           ...urlParams,
@@ -495,17 +522,14 @@ export default {
         //   name: "corporateNews",
         //   query: { ...urlParams, type: "2" }
         // });
-      } else if (item == "企业公告") {
+      } else if (item == "NOTICE") {
         this.custRedirect("/newbfd/home-h5/corporatenotice", { ...urlParams });
         // this.$router.push({
         //   name: "corporateNotice",
         //   query: { ...urlParams }
         // });
-      } else if (item == "员工调研") {
+      } else if (item == "RESEARCH") {
         this.custRedirect("/newbfd/home-h5/staffsurvey", { ...urlParams });
-        // this.$router.push({
-        //   path: "/newbfd/home-h5/staffsurvey"
-        // });
       }
     },
     //企业新闻列表接口

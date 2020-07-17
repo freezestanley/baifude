@@ -5,7 +5,7 @@
       v-for="(item, index) in activityNavData"
       :key="index"
     >
-      <div class="activity" @click="gotoActivity(index)">
+      <div class="activity" @click="gotoActivity(item)">
         <div class="activity-icon">
           <img :src="item.url" alt="" />
         </div>
@@ -39,21 +39,21 @@ export default {
     }
   },
   methods: {
-    gotoActivity(index) {
+    gotoActivity(item) {
       let urlParams = parseQueryString(window.location.search);
       if (urlParams.type) {
         urlParams.type = 1;
       }
       let path = "";
-      if (index == 0) {
+      if (item.key == 'NEWS') {
         path = "/newbfd/home-h5/corporatenews";
         urlParams.type = 1;
-      } else if (index == 1) {
+      } else if (item.key == 'ACTIVITY') {
         path = "/newbfd/home-h5/corporateactivity";
-      } else if (index == 2) {
+      } else if (item.key == 'RESEARCH') {
         // return Toast("敬请期待");
         path = "/newbfd/home-h5/staffsurvey";
-      } else if (index == 3) {
+      } else if (item.key == 'NOTICE') {
         path = "/newbfd/home-h5/corporatenotice";
       }
       custRedirect(path, { ...urlParams})
