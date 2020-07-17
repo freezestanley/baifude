@@ -16,7 +16,7 @@ const { NODE_ENV, VUE_APP_FLAG } = process.env;
 //########TEST END
 
 if (NODE_ENV === "production") {
-  if (VUE_APP_FLAG === "test05") {
+  if (VUE_APP_FLAG === "test05" || VUE_APP_FLAG === "dev") {
     const { VUE_APP_EXTERNAL_HOST } = process.env;
     appAPI = `${VUE_APP_EXTERNAL_HOST}/gw/app`;
     mallAPI = `${VUE_APP_EXTERNAL_HOST}/mallapi`;
