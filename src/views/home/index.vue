@@ -240,7 +240,8 @@ export default {
         }
         this.activityNavData.push({
           url:url,
-          instruct:itemConfig.configValue.name
+          instruct:itemConfig.configValue.name,
+          key:itemConfig.configKey,
         });
         mapArray.push([itemConfig.configKey,itemConfig.configValue.name]);
         
