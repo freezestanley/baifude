@@ -6,6 +6,7 @@
         <img :src="unionConfigMess.h5BgImage" alt="">
       </div>
       <ActivityNav :activityNavData="activityNavData"></ActivityNav>
+      <BirthdayThank :data="gatherThankBirthday"></BirthdayThank>
       <!-- 企业新闻 -->
       <div class="layout news" v-if="newsData.length > 0">
         <Title
@@ -83,8 +84,10 @@
         </div>
       </div>
       <!-- 生日墙 -->
-      <div class="layout">
-        <Title titleName="生日墙" :titleMore="true"></Title>
+      <div class="birthdayWall">
+        <div style="padding: 0 15px">
+          <Title titleName="生日墙" :titleMore="true"></Title>
+        </div>
         <BirthdayWall :data="birthdayWallList"></BirthdayWall>
       </div>
       <div class="section-last-tip">
@@ -106,6 +109,7 @@ import NewsItem from "../corporateNews/components/newsItemIndex";
 import ActivityNav from "@/components/activitynav/index";
 import ThankCard from "@/components/thankCard/index"
 import BirthdayWall from "@/components/birthdayWall/index"
+import BirthdayThank from "@/components/birthdayThankMuster/index"
 import {
   newsListPage,
   activity_queryActivitiyPage,
@@ -175,6 +179,10 @@ export default {
           {"userId": 62203, "avatar": null, "userName": "lucy075", "birthday": "7月15日"},
           {"userId": 62203, "avatar": null, "userName": "lucy075", "birthday": "7月15日"},
       ],//生日墙数据
+      gatherThankBirthday:[
+       {"module":"thankCard","name":"感谢卡","des":"256人收到了感谢卡","bgPic":require("@/assets/images/home/thankCardBg.png")},
+       {"module":"birthDay","name":"生日墙","des":"30位同事最近过生日","bgPic":require("@/assets/images/home/birthdayBg.png")},
+       ],//生日墙感谢卡集合数据
     };
   },
   beforeRouteEnter(to,form,next){
@@ -202,7 +210,8 @@ export default {
     BusinessActivity,
     ActivityNav,
     ThankCard,
-    BirthdayWall
+    BirthdayWall,
+    BirthdayThank
   },
   computed:{
     ...mapState({

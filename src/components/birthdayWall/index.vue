@@ -44,6 +44,10 @@
    .birthday-warp-wrap{
        display: flex;
        justify-content: center;
+       padding-top: 5px;
+       .swiper-wrapper{
+           padding-left: 25px;
+       }
        .birthday-warp-item{
            width: 100px;
            min-width: 100px;
