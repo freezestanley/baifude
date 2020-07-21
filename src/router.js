@@ -80,7 +80,7 @@ const routes = [
           //是否展示搜索图标(搜索功能)
           // showSearch: true
           keepAlive: true,
-          key:"NEWS"
+          key:"VAJRA_DISTR_NEWS"
         }
       },
       {
@@ -97,7 +97,7 @@ const routes = [
         component: CorporateActivity,
         meta: {
           title: "企业活动",
-          key:"ACTIVITY"
+          key:"VAJRA_DISTR_ACTIVITY"
           // keepAlive: true,
           //是否展示搜索图标(搜索功能)
           // showSearch: true
@@ -118,7 +118,7 @@ const routes = [
         meta: {
           title: "企业公告",
           keepAlive: true,
-          key:"NOTICE"
+          key:"VAJRA_DISTR_NOTICE"
           //是否展示搜索图标(搜索功能)
           // showSearch: true
         }
@@ -138,7 +138,7 @@ const routes = [
         meta: {
           title: "员工调研",
           keepAlive: true,
-          key:"RESEARCH"
+          key:"VAJRA_DISTR_RESEARCH"
           //是否展示搜索图标(搜索功能)
           // showSearch: true
         }
@@ -401,6 +401,7 @@ const getCurrentCompanyConfigInfo = async()=>{
       moduleConfigArray.push([itemConfig.configKey,itemConfig.configValue.name])
     });
     let moduleConfigObj = new Map(moduleConfigArray);
+    console.log("routes[1]--===",routes[1])
     routes[1].children.forEach((item,index)=>{
       if(item.meta.key){
         item.meta.title = moduleConfigObj.get(item.meta.key);

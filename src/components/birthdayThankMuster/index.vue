@@ -1,10 +1,10 @@
 <template>
     <div class="birthday-thank-wrap">
-        <div class="birthday-thank-item" v-for="(item,index) in data" :key="index">
+        <div class="birthday-thank-item" v-for="(item,index) in data" :key="index" @click="gotoList(item)">
             <img :src="item.bgPic" alt="">
             <div class="item-text">
                 <div class="item-text-title">{{item.name}}</div>
-                <div class="item-text-desc" :class="[item.module == 'birthDay'?'color_b':'color_t']">{{item.des}}</div>
+                <div class="item-text-desc" :class="[item.module == 'birthDay'?'color_b':'color_t']">{{`${item.num}${item.des}`}}</div>
             </div>
         </div>
     </div>
@@ -21,6 +21,16 @@
         }
       },
     },
+    methods:{
+      gotoList(item){
+        console.log(item)
+        if(item.module == 'thankCard'){//感谢卡
+          window.location.href = '/newbfd/usercenter-h5/thankCard?' +window.location.search.replace('?', '&');
+        }else if(item.module == 'birthDay'){//生日墙
+          window.location.href = '/newbfd/usercenter-h5/birthdaywall?' +window.location.search.replace('?', '&');
+        }
+      }
+    }
   }
 </script>
 
