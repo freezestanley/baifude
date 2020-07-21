@@ -16,13 +16,13 @@
             <div class="sign-date">{{data.date || ''}}</div>
           </div>
         </div>
-        <div class="look-over-other" v-if="data.noReadCount>0 || true">
+        <div class="look-over-other" v-if="data.noReadCount>0">
           <div class="other-card">还收到其他<span>{{data.noReadCount}}</span>张感谢卡</div>
-          <button class="look-over-btn">立即查看</button>
+          <button class="look-over-btn" @click="lookOver">立即查看</button>
         </div>
-        <div class="send" v-if="data.isSend && false">
-          <button @click="send">确认发送</button>
-        </div>
+        <!-- <div class="send" v-if="data.isSend && false"> -->
+        <!--   <button @click="send">确认发送</button> -->
+        <!-- </div> -->
       </div>
       <div class="close" @click="close">+</div>
     </div>
@@ -55,6 +55,10 @@ export default {
   methods: {
     close() {
       this.$emit('close');
+    },
+    lookOver() {
+      this.close();
+      this.$router.push({name: 'thankCard'});
     }
   },
   created() {

@@ -1,9 +1,10 @@
 <template>
-    <div class="birthday-warp-wrap swiper-container">
+    <div class="birthday-wall-wrap">
         <div class="swiper-wrapper">
             <div class="birthday-warp-item swiper-slide" v-for="(item,index) in data" :key="index">
                 <div class="item-pic">
-                    <img :src="item.avatar" alt="">
+                    <img :src="item.headPic" alt="">
+                    <span class="shortName">{{item.shortName}}</span>
                 </div>
                 <div class="item-name">{{item.userName}}</div>
                 <span class="item-date">{{item.birthday}}</span>
@@ -26,28 +27,30 @@
       },
     },
     methods:{
-      creatSwiper() {
-        if (this.data.length > 1) {
-          new Swiper(".birthday-warp-wrap", {
-            slidesPerView: 'auto',
+      creatSwiperBirthday() {
+          new Swiper(".birthday-wall-wrap", {
+            loop: false,
+            slidesPerView: "auto",
+            slidesOffsetAfter: 0,
+            freeMode: true,
+
           });
-        }
       },
     },
     mounted() {
-      this.creatSwiper();
+      this.creatSwiperBirthday();
     }
   }
 </script>
 
 <style scoped lang="less">
-   .birthday-warp-wrap{
+   .birthday-wall-wrap{
        display: flex;
        justify-content: center;
        padding-top: 5px;
-       .swiper-wrapper{
-           padding-left: 25px;
-       }
+       /*.swiper-wrapper{*/
+           /*padding-left: 25px;*/
+       /*}*/
        .birthday-warp-item{
            width: 100px;
            min-width: 100px;
@@ -62,7 +65,21 @@
                height:50px;
                margin:10px auto 0 auto;
                border-radius: 50%;
-               background-color: pink;
+               position: relative;
+              img{
+                  width: 100%;
+                  height:100%;
+                  display: inline-block;
+              }
+               .shortName{
+                   color: #fff;
+                   display: block;
+                   position: absolute;
+                   left:50%;
+                   top:50%;
+                   font-size: 14px;
+                   transform: translate(-50%,-50%);
+               }
            }
            .item-name{
                font-size: 14px;
