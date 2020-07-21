@@ -218,7 +218,7 @@ function care_companyThankCardClassifys(params) {
  * @param { JSON } params 请求的参数
  */
 function care_queryHomePopup(params) {
-  return sendPostNew("/care/front/thankCard/queryHomePopup", "post", params);
+  return sendPostNew("/care/front/thankCard/queryHomePopup", "get", params);
 }
 
 export {

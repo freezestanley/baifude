@@ -30,23 +30,14 @@ export default {
     thankCard() {
       return this.popupInfo.thankCardPopVO;
     },
-    hasThankCard() {
-      return this.popCode == 'THANK_CARD_POP' && this.thankCard;
-    },
     entryPop() {
       return this.popupInfo.entryPopVO;
-    },
-    hasEntryPop() {
-      return this.popCode == 'ENTRY_ANNIVERSARY_POP' && this.entryPop;
     },
     birthdayPop() {
       return this.popupInfo.birthdayPop;
     },
-    hasBirthday() {
-      return this.popCode == 'BIRTHDAY_WISH_POP' && this.birthdayPop;
-    },
     showPopup() {
-      return this.popupInfo.isPop;
+      return this.popupInfo.pop;
     },
   },
   mounted() {
