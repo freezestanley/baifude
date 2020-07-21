@@ -1,5 +1,6 @@
 <template>
   <div class="wrap">
+    <CommonPopUp :popup-info="popupInfo" v-if="popupInfo"/>
     <div class="container">
       <!--工会图片-->
       <div class="unionPicWrap">
@@ -110,11 +111,13 @@ import ActivityNav from "@/components/activitynav/index";
 import ThankCard from "@/components/thankCard/index"
 import BirthdayWall from "@/components/birthdayWall/index"
 import BirthdayThank from "@/components/birthdayThankMuster/index"
+import CommonPopUp from "./components/pop-up";
 import {
   newsListPage,
   activity_queryActivitiyPage,
   cms_researchList,
-  user_queryCurrentCompanyInfo
+  user_queryCurrentCompanyInfo,
+  care_queryHomePopup
 } from "@/assets/apis/home";
 import utilRes from "@/assets/utils/resResult";
 import { parseQueryString } from "@/assets/utils/request";
@@ -137,6 +140,7 @@ export default {
       isShowUnionNotice: false,
       unionNoticeContent: "",
       moduleConfigMap:[],
+      popupInfo: null,
       activityNavData: [
         {
           url: require("@/assets/images/home/news.png"),
@@ -211,7 +215,8 @@ export default {
     ActivityNav,
     ThankCard,
     BirthdayWall,
-    BirthdayThank
+    BirthdayThank,
+    CommonPopUp,
   },
   computed:{
     ...mapState({
@@ -238,6 +243,7 @@ export default {
     this.queryNoticeList(); //企业公告
     this.queryResearchList(); // 员工调研
     this.currentCompanyConfigInfo();
+    this.queryHomePopup();
   },
   methods: {
     ...mapMutations(["updateState"]),
@@ -668,7 +674,16 @@ export default {
       //   query: { id: item.id }
       // });
       // this.$router.push({name:'activityDetail',params:{...item}});
-    }
+    },
+    queryHomePopup() {
+      care_queryHomePopup().then((res) =>{
+        if (utilRes.successCheck(res) && res.data) {
+          this.popupInfo = res.data;
+        } else {
+          this.$notify(res.errMsg);
+        }
+      });
+    },
   },
   watch: {
     $route(newVal, oldVal) {

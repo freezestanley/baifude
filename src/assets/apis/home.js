@@ -181,6 +181,14 @@ function user_getCurrentCompanyConfigInfo(params) {
   return sendPostNew("/misc/front/pageConfig/getCurrentCompanyConfigInfo", "get", params, true);
 }
 
+/**
+ * 首页弹窗接口 
+ * @param { JSON } params 请求的参数
+ */
+function care_queryHomePopup(params) {
+  return sendPostNew("/care/front/thankCard/queryHomePopup", "post", params);
+}
+
 export {
   queryActivityList,
   submitActivity,
@@ -202,5 +210,6 @@ export {
   cms_researchUserList,
   cms_researchUserDetail,
   user_queryCurrentCompanyInfo,
-  user_getCurrentCompanyConfigInfo
+  user_getCurrentCompanyConfigInfo,
+  care_queryHomePopup
 };
