@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import { user_checkLogin,user_queryCurrentCompanyInfo } from "@/assets/apis/home";
+import { user_checkLogin,user_queryCurrentCompanyInfo,user_getCurrentCompanyConfigInfo } from "@/assets/apis/home";
 import { getQueryString, setCookie } from "@/assets/utils"; 
 import Url from "url-parse";
 import store from "./store";
@@ -27,6 +27,7 @@ const WelfareMall = () =>
 const MallHome = () =>
   import("@/views/mallHome/index").then(m => m.default);  
 Vue.use(Router);
+
 
 const routes = [
   {
@@ -79,6 +80,7 @@ const routes = [
           //是否展示搜索图标(搜索功能)
           // showSearch: true
           keepAlive: true,
+          key:"NEWS"
         }
       },
       {
@@ -95,6 +97,7 @@ const routes = [
         component: CorporateActivity,
         meta: {
           title: "企业活动",
+          key:"ACTIVITY"
           // keepAlive: true,
           //是否展示搜索图标(搜索功能)
           // showSearch: true
@@ -115,6 +118,7 @@ const routes = [
         meta: {
           title: "企业公告",
           keepAlive: true,
+          key:"NOTICE"
           //是否展示搜索图标(搜索功能)
           // showSearch: true
         }
@@ -134,6 +138,7 @@ const routes = [
         meta: {
           title: "员工调研",
           keepAlive: true,
+          key:"RESEARCH"
           //是否展示搜索图标(搜索功能)
           // showSearch: true
         }
@@ -286,10 +291,15 @@ const checkLogin = async (to, from, next) => {
       //判断是否已阅读隐私政策
       window.location.href = agreeUrl;
     }
+    //是否是纯商城版
     isPureMall();
     //跳转到路由页面
     isLoginPage(to, from, next, true);
   }else{
+    // 特殊工会跳转-在checkLogin返回returnUrl
+    if (res.code == "99" && res.data && res.data.returnUrl) {
+      return (window.location.href = res.data.returnUrl);
+    }
     //跳转到登陆页
     isLoginPage(to, from, next, false);
   }
@@ -301,8 +311,9 @@ const checkLogin = async (to, from, next) => {
 const getLoginUrl = () => {
   const unionName = getQueryString("union");
   const loginPath = PUBLIC_LOGIN_URL.replace("%UNION%", unionName);
+  // env.loginUrl 包含？
   const loginUrl =
-    loginPath + "?returnUrl=" + encodeURIComponent(window.location.href);
+    loginPath + "&returnUrl=" + encodeURIComponent(window.location.href);
   return loginUrl;
 };
 const cookieCheck = () => {
@@ -348,8 +359,10 @@ const attachParam = (params, next, to, from) => {
 };
 
 //根据登陆态判断跳转路径
-const isLoginPage = (to, from, next, res)=>{
+const isLoginPage = async(to, from, next, res)=>{
   if(res){
+    //获取模块配置-->跳转页面
+    await getCurrentCompanyConfigInfo();
     if(to.path == from.path || from.path == '/'){
       next();
     }
@@ -376,6 +389,26 @@ const isPureMall = async()=>{
     //console.log('isPureMall',store);
   });
 };
+
+//模块配置接口
+const getCurrentCompanyConfigInfo = async()=>{
+  let res = await user_getCurrentCompanyConfigInfo({});
+  if (utilRes.successCheck(res)) {
+    let moduleConfigArray = [];
+    let activityConfigList = res.data.homePageNavigationList;
+    store.state.activityConfigList = activityConfigList;
+    activityConfigList.forEach((itemConfig,index)=>{
+      moduleConfigArray.push([itemConfig.configKey,itemConfig.configValue.name])
+    });
+    let moduleConfigObj = new Map(moduleConfigArray);
+    routes[1].children.forEach((item,index)=>{
+      if(item.meta.key){
+        item.meta.title = moduleConfigObj.get(item.meta.key);
+      }
+    })
+  }  
+};
+
 router.beforeEach(async (to, from, next) => {
   // console.log("跳转页面:", to.name, from.name);
   // to.meta.keepAlive = true;
