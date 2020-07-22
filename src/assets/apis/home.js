@@ -180,6 +180,46 @@ function user_queryCurrentCompanyInfo(params) {
 function user_getCurrentCompanyConfigInfo(params) {
   return sendPostNew("/misc/front/pageConfig/getCurrentCompanyConfigInfo", "get", params, true);
 }
+/**
+ * 获取生日墙接口列表
+ * @param { JSON } params 请求的参数
+ */
+function user_getCompanyBirthList(params) {
+  const birthdaylistPageApi = "/user/front/user/getCompanyBirthList";
+  return sendPostNew(birthdaylistPageApi, "post", params, false);
+}
+/**
+ * 获取楼层数量接口
+ * @param { JSON } params 请求的参数
+ */
+function company_getStoreyNum(params) {
+  const getStoreyNumPageApi = "/user/front/company/getStoreyNum";
+  return sendPostNew(getStoreyNumPageApi, "post", params, false);
+}
+/**
+ * 获取感谢卡接口
+ * @param { JSON } params 请求的参数
+ */
+function care_companyThankCardList(params) {
+  const gcompanyThankCardListPageApi = "/care/front/thankCard/companyThankCardList";
+  return sendPostNew(gcompanyThankCardListPageApi, "get", params, false);
+}
+/**
+ * 获取首页感谢卡接口
+ * @param { JSON } params 请求的参数
+ */
+function care_companyThankCardClassifys(params) {
+  const companyThankCardClassifysPageApi = "/care/front/thankCard/companyThankCardClassifys";
+  return sendPostNew(companyThankCardClassifysPageApi, "get", params, false);
+}
+
+/**
+ * 首页弹窗接口 
+ * @param { JSON } params 请求的参数
+ */
+function care_queryHomePopup(params) {
+  return sendPostNew("/care/front/thankCard/queryHomePopup", "get", params);
+}
 
 export {
   queryActivityList,
@@ -202,5 +242,10 @@ export {
   cms_researchUserList,
   cms_researchUserDetail,
   user_queryCurrentCompanyInfo,
-  user_getCurrentCompanyConfigInfo
+  user_getCurrentCompanyConfigInfo,
+  care_queryHomePopup,
+  user_getCompanyBirthList,
+  company_getStoreyNum,
+  care_companyThankCardList,
+  care_companyThankCardClassifys,
 };

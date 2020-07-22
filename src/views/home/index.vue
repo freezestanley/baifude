@@ -1,11 +1,13 @@
 <template>
   <div class="wrap">
+    <CommonPopUp :popup-info="popupInfo" v-if="popupInfo"/>
     <div class="container">
       <!--工会图片-->
       <div class="unionPicWrap">
         <img :src="unionConfigMess.h5BgImage" alt="">
       </div>
       <ActivityNav :activityNavData="activityNavData"></ActivityNav>
+      <BirthdayThank :data="gatherThankBirthday" v-if="storeyNum<=2 && isCardOdd"></BirthdayThank>
       <!-- 企业新闻 -->
       <div class="layout news" v-if="newsData.length > 0">
         <Title
@@ -19,7 +21,7 @@
         <!--企业活动-->
         <div style="padding: 0 15px">
           <Title
-            :titleName="this.moduleConfigMap.get('ACTIVITY')"
+            :titleName="this.moduleConfigMap.get('VAJRA_DISTR_ACTIVITY')"
             :titleMore="true"
             @goToNext="goToNext('ACTIVITY')"
           ></Title>
@@ -41,7 +43,7 @@
       <!-- 员工调研 -->
       <div class="layout survey" v-if="researchList.title">
         <Title
-          :titleName="this.moduleConfigMap.get('RESEARCH')"
+          :titleName="this.moduleConfigMap.get('VAJRA_DISTR_RESEARCH')"
           :titleMore="true"
           @goToNext="goToNext('RESEARCH')"
         ></Title>
@@ -57,7 +59,7 @@
       <!-- 企业公告 -->
       <div class="layout notice" v-if="list.length > 0">
         <Title
-          :titleName="this.moduleConfigMap.get('NOTICE')"
+          :titleName="this.moduleConfigMap.get('VAJRA_DISTR_NOTICE')"
           :titleMore="true"
           @goToNext="goToNext('NOTICE')"
         ></Title>
@@ -74,11 +76,21 @@
           </div>
         </div>
       </div>
-      <!-- 精品推荐 -->
-      <!--<div class="layout" v-if="boutiqueData.length > 0">-->
-        <!--<Title titleName="精品推荐"></Title>-->
-        <!--<Boutique :data="boutiqueData"></Boutique>-->
-      <!--</div>-->
+      <!-- 感谢卡 -->
+      <div class="layout" v-if="thankCardList.length>0 ">
+        <Title titleName="感谢卡" :titleMore="true" @goToNext="goToNext('THANKCARD')"></Title>
+        <ThankCard :data="thankCardList"></ThankCard>
+        <div class="card-btn-wrap">
+          <div class="thank-card-btn" @click="senCard()">我要发送感谢卡</div>
+        </div>
+      </div>
+      <!-- 生日墙 -->
+      <div class="birthdayWall layout" v-if="birthdayWallList.length>0">
+        <div class="">
+          <Title titleName="生日墙" :titleMore="true" @goToNext="goToNext('BIRTHDAYWALL')"></Title>
+        </div>
+        <BirthdayWall :data="birthdayWallList"></BirthdayWall>
+      </div>
       <div class="section-last-tip">
         <div class="section-last-text">已经到底啦</div>
       </div>
@@ -95,13 +107,21 @@ import { getQueryString, setCookie, getCookie } from "@/assets/utils";
 import BusinessActivity from "@/components/businessActivity/index";
 import Title from "@/components/moduleTtile/index";
 import NewsItem from "../corporateNews/components/newsItemIndex";
-// import Boutique from "@/components/boutique/index";
 import ActivityNav from "@/components/activitynav/index";
+import ThankCard from "@/components/thankCard/index"
+import BirthdayWall from "@/components/birthdayWall/index"
+import BirthdayThank from "@/components/birthdayThankMuster/index"
+import CommonPopUp from "./components/pop-up";
 import {
   newsListPage,
   activity_queryActivitiyPage,
   cms_researchList,
-  user_queryCurrentCompanyInfo
+  user_queryCurrentCompanyInfo,
+  care_queryHomePopup,
+  user_getCompanyBirthList,
+  company_getStoreyNum,
+  care_companyThankCardList,
+  care_companyThankCardClassifys,
 } from "@/assets/apis/home";
 import utilRes from "@/assets/utils/resResult";
 import { parseQueryString } from "@/assets/utils/request";
@@ -124,6 +144,7 @@ export default {
       isShowUnionNotice: false,
       unionNoticeContent: "",
       moduleConfigMap:[],
+      popupInfo: null,
       activityNavData: [
         {
           url: require("@/assets/images/home/news.png"),
@@ -150,13 +171,19 @@ export default {
       activityData: [], //企业活动数据
       styleData: [], //活动风采数据
       list: [], //企业公告列表数据
-      boutiqueData: [], //精品推荐数据对象
       surveyObj: {
         pic:
           "http://devimg.dongfangfuli.com/bfd/2020-05-02/276d7252c2cdf98f2fcafb58e902ac91.png"
       },
       researchList: {}, // 员工调研
       unionConfigMess:{},// 工会信息配置
+      thankCardList:[],//感谢卡数据
+      birthdayWallList:[],//生日墙数据
+      gatherThankBirthday:[
+       {"module":"thankCard","name":"感谢卡","des":"人收到了感谢卡",num:"0","bgPic":require("@/assets/images/home/thankCardBg.png")},
+       {"module":"birthDay","name":"生日墙","des":"位同事最近过生日",num:"0","bgPic":require("@/assets/images/home/birthdayBg.png")},
+       ],//生日墙感谢卡集合数据
+      storeyNum:0,//楼层数据
     };
   },
   beforeRouteEnter(to,form,next){
@@ -182,34 +209,41 @@ export default {
     Title,
     NewsItem,
     BusinessActivity,
-    // Boutique,
-    ActivityNav
+    ActivityNav,
+    ThankCard,
+    BirthdayWall,
+    BirthdayThank,
+    CommonPopUp,
   },
   computed:{
     ...mapState({
         activityConfigList: state => state.activityConfigList
       }
-    )
+    ),
+    isCardOdd(){
+      if(this.birthdayWallList.length>0 && this.thankCardList.length>0){
+        return true;
+      }else{
+        return false;
+      }
+    },
   },
   created() {
-    console.log('this.activityConfigList',this.activityConfigList);
     const union = getQueryString("union");
     // this.isLogin(union);
     this.getNotice(union);
     this.getData(union);
     this.getCityList();
-    // setTimeout(() => {
-    //   if (sessionStorage.getItem("userChange") !== "1") {
-    //     this.getCurrentCity();
-    //   }
-    //   sessionStorage.setItem("userChange", "0");
-    // }, 1000);
     this.queryNewsList({ type: 1, categoryId: 1 }); //企业新闻
     this.queryActiveStyleList({ type: 1, categoryId: 2 }); //活动风采
     this.activity_queryActivitiyPage(); //企业活动
     this.queryNoticeList(); //企业公告
     this.queryResearchList(); // 员工调研
     this.currentCompanyConfigInfo();
+    this.queryHomePopup();
+    this.getCompanyBirthList();//生日墙列表
+    this.getStoreyNum();//楼层数量接口
+    this.getCompanyThankCardList();//感谢卡列表
   },
   methods: {
     ...mapMutations(["updateState"]),
@@ -225,26 +259,22 @@ export default {
       this.activityNavData = [];
       let mapArray = []; 
       this.activityConfigList.forEach(itemConfig => {
-        let url = '';
-        if(itemConfig.configKey == 'NEWS'){
-          url = require("@/assets/images/home/news.png");
-        }else if(itemConfig.configKey == 'ACTIVITY'){
-          url = require("@/assets/images/home/activity.png");
-        }else if(itemConfig.configKey == 'RESEARCH'){
-          url = require("@/assets/images/home/employee_research.png")
-        }else if(itemConfig.configKey == 'NOTICE'){
-          url = require("@/assets/images/home/notice.png");
-        }
-        this.activityNavData.push({
-          url:url,
-          instruct:itemConfig.configValue.name,
-          key:itemConfig.configKey,
-        });
+        // let url = '';
+        // if(itemConfig.configKey == 'NEWS'){
+        //   url = require("@/assets/images/home/news.png");
+        // }else if(itemConfig.configKey == 'ACTIVITY'){
+        //   url = require("@/assets/images/home/activity.png");
+        // }else if(itemConfig.configKey == 'RESEARCH'){
+        //   url = require("@/assets/images/home/employee_research.png")
+        // }else if(itemConfig.configKey == 'NOTICE'){
+        //   url = require("@/assets/images/home/notice.png");
+        // }
+        this.activityNavData.push(itemConfig);
         mapArray.push([itemConfig.configKey,itemConfig.configValue.name]);
-        
+
       });
       this.moduleConfigMap = new Map(mapArray)
-      //console.log('this.moduleConfigMap',this.moduleConfigMap);
+      console.log('this.moduleConfigMap',this.moduleConfigMap);
     },
     showPosition(position) {
       this.updateState({
@@ -339,6 +369,10 @@ export default {
           }
         });
     },
+    //我要发送感谢卡
+    senCard(){
+      window.location.href = '/newbfd/usercenter-h5/user/thankcard/send' + window.location.search;
+    },
     getData(union) {
       this.$toast.loading({
         duration: 0,
@@ -413,17 +447,6 @@ export default {
             } else {
               this.$notify(unionConf.data.msg);
               return false;
-            }
-            if (unionMoulds && unionMoulds.body) {
-              const unionData = unionMoulds.body;
-              for (let i = 0; i < unionData.length; i++) {
-                if (
-                  unionData[i].title == "精品推荐" ||
-                  unionData[i].formatCode == "mportant"
-                ) {
-                  this.boutiqueData = unionData[i].mouldContents;
-                }
-              }
             }
             if(unionConf && unionConf.body){
               this.unionConfigMess = unionConf.body.unionConfigurationDto;
@@ -505,10 +528,6 @@ export default {
           ...urlParams,
           type: "1"
         });
-        // this.$router.push({
-        //   name: "corporateNews",
-        //   query: { ...urlParams, type: "1" }
-        // });
       } else if (item == "ACTIVITY") {
         this.custRedirect("/newbfd/home-h5/corporateActivity", {
           ...urlParams
@@ -518,18 +537,14 @@ export default {
           ...urlParams,
           type: "2"
         });
-        // this.$router.push({
-        //   name: "corporateNews",
-        //   query: { ...urlParams, type: "2" }
-        // });
       } else if (item == "NOTICE") {
         this.custRedirect("/newbfd/home-h5/corporatenotice", { ...urlParams });
-        // this.$router.push({
-        //   name: "corporateNotice",
-        //   query: { ...urlParams }
-        // });
       } else if (item == "RESEARCH") {
         this.custRedirect("/newbfd/home-h5/staffsurvey", { ...urlParams });
+      }else if(item == 'THANKCARD'){
+        window.location.href = '/newbfd/usercenter-h5/thankCard?' +window.location.search.replace('?', '&');
+      }else if(item == 'BIRTHDAYWALL'){
+        window.location.href = '/newbfd/usercenter-h5/birthdaywall?' +window.location.search.replace('?', '&');
       }
     },
     //企业新闻列表接口
@@ -543,6 +558,16 @@ export default {
         } else {
           this.newsData = list;
         }
+      } else {
+        this.$notify(res.errMsg);
+      }
+    },
+    //楼层数量接口
+    async getStoreyNum(param) {
+      const obj = { ...param };
+      let res = await company_getStoreyNum(obj);
+      if (utilRes.successCheck(res)) {
+        this.storeyNum = res.data.storeyNum;
       } else {
         this.$notify(res.errMsg);
       }
@@ -589,10 +614,42 @@ export default {
           this.list = listObj;
         }
       } else {
-        // this.$message({
-        //   type: "error",
-        //   message: res.errMsg ? res.errMsg : "调用接口失败!"
-        // });
+      }
+    },
+    //生日墙接口列表
+    async getCompanyBirthList() {
+      let params = {
+        currentPage: 1,
+        itemsPerPage: 10,
+      };
+      const obj = { ...params };
+      let res = await user_getCompanyBirthList(obj);
+      if (utilRes.successCheck(res)) {
+        const list = res.data.listObj;
+        if(list.length>=4){
+          this.birthdayWallList = list.slice(0, 4); //首页感谢卡列表新闻里面前四条
+        }else{
+          this.birthdayWallList = list;
+        }
+        this.gatherThankBirthday[1].num = res.data.total;
+      } else {
+        this.$notify(res.errMsg);
+      }
+    },
+    //感谢卡墙接口列表
+    async getCompanyThankCardList() {
+      let res = await care_companyThankCardClassifys();
+      if (utilRes.successCheck(res)) {
+        const list = res.data.companyThankCardVOList;
+        if (list.length >= 3) {
+          this.thankCardList = list.slice(0, 2); //首页感谢卡列表新闻里面前二条
+        } else {
+          this.thankCardList = list;
+        }
+        this.gatherThankBirthday[0].num = res.data.thankCardNum;
+
+      } else {
+        this.$notify(res.errMsg);
       }
     },
     // 员工调研
@@ -610,10 +667,7 @@ export default {
           this.researchList = listObj[0];
         }
       } else {
-        // this.$message({
-        //   type: "error",
-        //   message: res.errMsg ? res.errMsg : "调用接口失败!"
-        // });
+        this.$notify(res.errMsg);
       }
     },
     goToDetail(item) {
@@ -621,11 +675,6 @@ export default {
         "/newbfd/home-h5/corporatenews/newsdetail" + window.location.search,
         { id: item.id }
       );
-      // this.$router.push({
-      //   path:
-      //     "/newbfd/home-h5/corporatenews/newsdetail" + window.location.search,
-      //   query: { id: item.id }
-      // });
     },
     //公告列表跳详情
     goNoticeDetail(item) {
@@ -633,10 +682,6 @@ export default {
         "/newbfd/home-h5/corporatenotice/detail" + window.location.search,
         { id: item.id }
       );
-      // this.$router.push({
-      //   path: "/newbfd/home-h5/corporatenotice/detail" + window.location.search,
-      //   query: { id: item.id }
-      // });
     },
     // 活动列表跳详情
     activityDetail(item) {
@@ -651,7 +696,16 @@ export default {
       //   query: { id: item.id }
       // });
       // this.$router.push({name:'activityDetail',params:{...item}});
-    }
+    },
+    queryHomePopup() {
+      care_queryHomePopup().then((res) =>{
+        if (utilRes.successCheck(res) && res.data) {
+          this.popupInfo = res.data;
+        } else {
+          this.$notify(res.errMsg);
+        }
+      });
+    },
   },
   watch: {
     $route(newVal, oldVal) {
@@ -796,6 +850,21 @@ html {
       background: #fff;
       color: #b2b2b2;
       text-align: center;
+    }
+  }
+  .card-btn-wrap{
+    padding: 10px 0 30px 0;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 14px;
+    .thank-card-btn{
+      margin: 0 auto;
+      text-align: center;
+      color: #fff;
+      width: 184px;
+      height:35px;
+      line-height: 35px;
+      border-radius: 17.5px;
+      background: linear-gradient(to right,#7CB1D0,#4679A3);
     }
   }
 }
