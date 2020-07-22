@@ -76,15 +76,15 @@
         </div>
       </div>
       <!-- 感谢卡 -->
-      <div class="layout" v-if="!isCardOdd && thankCardList.length>0 ">
+      <div class="layout" v-if="thankCardList.length>0 ">
         <Title titleName="感谢卡" :titleMore="true" @goToNext="goToNext('THANKCARD')"></Title>
         <ThankCard :data="thankCardList"></ThankCard>
         <div class="card-btn-wrap">
-          <div class="thank-card-btn">我要发送感谢卡</div>
+          <div class="thank-card-btn" @click="senCard()">我要发送感谢卡</div>
         </div>
       </div>
       <!-- 生日墙 -->
-      <div class="birthdayWall layout" v-if="!isCardOdd && birthdayWallList.length>0">
+      <div class="birthdayWall layout" v-if="birthdayWallList.length>0">
         <div class="">
           <Title titleName="生日墙" :titleMore="true" @goToNext="goToNext('BIRTHDAYWALL')"></Title>
         </div>
@@ -363,6 +363,10 @@ export default {
           }
         });
     },
+    //我要发送感谢卡
+    senCard(){
+      window.location.href = '/newbfd/usercenter-h5/user/thankcard/send' + window.location.search;
+    },
     getData(union) {
       this.$toast.loading({
         duration: 0,
@@ -615,7 +619,12 @@ export default {
       const obj = { ...params };
       let res = await user_getCompanyBirthList(obj);
       if (utilRes.successCheck(res)) {
-        this.birthdayWallList = res.data.listObj;
+        const list = res.data.listObj;
+        if(list.length>=4){
+          this.birthdayWallList = list.slice(0, 4); //首页感谢卡列表新闻里面前四条
+        }else{
+          this.birthdayWallList = list;
+        }
         this.gatherThankBirthday[1].num = res.data.total;
       } else {
         this.$notify(res.errMsg);
