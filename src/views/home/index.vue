@@ -7,7 +7,7 @@
         <img :src="unionConfigMess.h5BgImage" alt="">
       </div>
       <ActivityNav :activityNavData="activityNavData"></ActivityNav>
-      <BirthdayThank :data="gatherThankBirthday" v-if="storeyNum<=2 && isCardOdd"></BirthdayThank>
+      <BirthdayThank :data="gatherThankBirthday" v-if="storeyNum >= 3 && isCardOdd"></BirthdayThank>
       <!-- 企业新闻 -->
       <div class="layout news" v-if="newsData.length > 0">
         <Title
@@ -77,7 +77,7 @@
         </div>
       </div>
       <!-- 感谢卡 -->
-      <div class="layout" v-if="thankCardList.length>0 ">
+      <div class="layout" v-if="thankCardList.length>0 && this.storeyNum <3">
         <Title titleName="感谢卡" :titleMore="true" @goToNext="goToNext('THANKCARD')"></Title>
         <ThankCard :data="thankCardList"></ThankCard>
         <div class="card-btn-wrap">
@@ -85,7 +85,7 @@
         </div>
       </div>
       <!-- 生日墙 -->
-      <div class="birthdayWall layout" v-if="birthdayWallList.length>0">
+      <div class="birthdayWall layout" v-if="birthdayWallList.length>0 && this.storeyNum <3">
         <div class="">
           <Title titleName="生日墙" :titleMore="true" @goToNext="goToNext('BIRTHDAYWALL')"></Title>
         </div>
