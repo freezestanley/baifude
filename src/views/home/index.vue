@@ -542,9 +542,12 @@ export default {
       } else if (item == "RESEARCH") {
         this.custRedirect("/newbfd/home-h5/staffsurvey", { ...urlParams });
       }else if(item == 'THANKCARD'){
-        window.location.href = '/newbfd/usercenter-h5/thankCard?' +window.location.search.replace('?', '&');
+        this.custRedirect("/newbfd/usercenter-h5/thankCard", { ...urlParams });
+
+        // window.location.href = '/newbfd/usercenter-h5/thankCard?' +window.location.search;
       }else if(item == 'BIRTHDAYWALL'){
-        window.location.href = '/newbfd/usercenter-h5/birthdaywall?' +window.location.search.replace('?', '&');
+        this.custRedirect("/newbfd/usercenter-h5/birthdaywall", { ...urlParams });
+        // window.location.href = '/newbfd/usercenter-h5/birthdaywall?' +window.location.search;
       }
     },
     //企业新闻列表接口
