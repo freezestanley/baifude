@@ -131,7 +131,7 @@ export default {
         {
           name: "我的",
           enName: "mine",
-          pageUrl: this.bavUrl.userCentUrl
+          pageUrl: this.pureMall?this.bavUrl.userCentUrl:('/newbfd/usercenter-h5/user/newcenter'+window.location.search)
         }
       ];
       //如果是纯商城版的，则去除主页
@@ -168,7 +168,7 @@ export default {
         {
           name: "我的",
           enName: "mine",
-          pageUrl: this.bavUrl.userCentUrl
+          pageUrl: this.pureMall?this.bavUrl.userCentUrl:('/newbfd/usercenter-h5/user/newcenter'+window.location.search)
         }
         
       ];
