@@ -1,6 +1,6 @@
 <template>
     <div class="thank-card-wrap">
-       <div class="thank-card-item" v-for="(item,index) in data" :key="index">
+       <div class="thank-card-item" v-for="(item,index) in data" :key="index" @click="goToThankCard()">
            <div class="item-left">
                <div class="user-pic">
                    <img :src="item.userHeadPic" alt="">
@@ -27,6 +27,12 @@
         }
       },
     },
+    methods:{
+      //感谢卡跳转
+      goToThankCard(){
+        window.location.href = '/newbfd/usercenter-h5/thankCard?' +window.location.search.replace('?', '&');
+      }
+    }
   }
 </script>
 
