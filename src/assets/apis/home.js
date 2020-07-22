@@ -213,6 +213,14 @@ function care_companyThankCardClassifys(params) {
   return sendPostNew(companyThankCardClassifysPageApi, "get", params, false);
 }
 
+/**
+ * 首页弹窗接口 
+ * @param { JSON } params 请求的参数
+ */
+function care_queryHomePopup(params) {
+  return sendPostNew("/care/front/thankCard/queryHomePopup", "get", params);
+}
+
 export {
   queryActivityList,
   submitActivity,
@@ -235,6 +243,7 @@ export {
   cms_researchUserDetail,
   user_queryCurrentCompanyInfo,
   user_getCurrentCompanyConfigInfo,
+  care_queryHomePopup,
   user_getCompanyBirthList,
   company_getStoreyNum,
   care_companyThankCardList,
