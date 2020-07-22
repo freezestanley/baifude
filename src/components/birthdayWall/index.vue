@@ -8,7 +8,7 @@
                 </div>
                 <div class="item-name">{{item.userName}}</div>
                 <span class="item-date">{{item.birthday}}</span>
-                <div class="item-btn">送祝福</div>
+                <div class="item-btn" @click="sendBlessing(item)">送祝福</div>
             </div>
         </div>
     </div>
@@ -36,6 +36,11 @@
 
           });
       },
+      //发送祝福
+      sendBlessing(item){
+        const {userId} = item
+        window.location.href = '/newbfd/usercenter-h5/user/thankcard/send?id=' + userId +'&thankCardCode=HAPPY_BIRTHDAY'+ window.location.search.replace('?', '&');
+      }
     },
     mounted() {
       this.creatSwiperBirthday();

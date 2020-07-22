@@ -21,7 +21,7 @@
         <!--企业活动-->
         <div style="padding: 0 15px">
           <Title
-            :titleName="this.moduleConfigMap.get('ACTIVITY')"
+            :titleName="this.moduleConfigMap.get('VAJRA_DISTR_ACTIVITY')"
             :titleMore="true"
             @goToNext="goToNext('ACTIVITY')"
           ></Title>
@@ -43,7 +43,7 @@
       <!-- 员工调研 -->
       <div class="layout survey" v-if="researchList.title">
         <Title
-          :titleName="this.moduleConfigMap.get('RESEARCH')"
+          :titleName="this.moduleConfigMap.get('VAJRA_DISTR_RESEARCH')"
           :titleMore="true"
           @goToNext="goToNext('RESEARCH')"
         ></Title>
@@ -59,7 +59,7 @@
       <!-- 企业公告 -->
       <div class="layout notice" v-if="list.length > 0">
         <Title
-          :titleName="this.moduleConfigMap.get('NOTICE')"
+          :titleName="this.moduleConfigMap.get('VAJRA_DISTR_NOTICE')"
           :titleMore="true"
           @goToNext="goToNext('NOTICE')"
         ></Title>
