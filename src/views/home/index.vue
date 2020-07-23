@@ -7,7 +7,7 @@
         <img :src="unionConfigMess.h5BgImage" alt="">
       </div>
       <ActivityNav :activityNavData="activityNavData"></ActivityNav>
-      <BirthdayThank :data="gatherThankBirthday" v-if="storeyNum >= 3 && isCardOdd"></BirthdayThank>
+      <BirthdayThank :data="gatherThankBirthday" v-if="isCardOdd && storeyNum > 2"></BirthdayThank>
       <!-- 企业新闻 -->
       <div class="layout news" v-if="newsData.length > 0">
         <Title
@@ -77,7 +77,7 @@
         </div>
       </div>
       <!-- 感谢卡 -->
-      <div class="layout" v-if="thankCardList.length>0 && this.storeyNum <3">
+      <div class="layout" v-if="thankCardList.length>0 && (!isCardOdd || this.storeyNum <= 2)">
         <Title titleName="感谢卡" :titleMore="true" @goToNext="goToNext('THANKCARD')"></Title>
         <ThankCard :data="thankCardList"></ThankCard>
         <div class="card-btn-wrap">
@@ -85,7 +85,7 @@
         </div>
       </div>
       <!-- 生日墙 -->
-      <div class="birthdayWall layout" v-if="birthdayWallList.length>0 && this.storeyNum <3">
+      <div class="birthdayWall layout" v-if="birthdayWallList.length>0 && (!isCardOdd || this.storeyNum <= 2)">
         <div class="">
           <Title titleName="生日墙" :titleMore="true" @goToNext="goToNext('BIRTHDAYWALL')"></Title>
         </div>
@@ -543,11 +543,8 @@ export default {
         this.custRedirect("/newbfd/home-h5/staffsurvey", { ...urlParams });
       }else if(item == 'THANKCARD'){
         this.custRedirect("/newbfd/usercenter-h5/thankCard", { ...urlParams });
-
-        // window.location.href = '/newbfd/usercenter-h5/thankCard?' +window.location.search;
       }else if(item == 'BIRTHDAYWALL'){
         this.custRedirect("/newbfd/usercenter-h5/birthdaywall", { ...urlParams });
-        // window.location.href = '/newbfd/usercenter-h5/birthdaywall?' +window.location.search;
       }
     },
     //企业新闻列表接口
