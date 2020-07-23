@@ -111,6 +111,8 @@ export default {
         path = "/newbfd/home-h5/staffsurvey";
       } else if (item.configKey == 'VAJRA_DISTR_NOTICE') {
         path = "/newbfd/home-h5/corporatenotice";
+      } else if(item.configKey == 'VAJRA_DISTR_WALKING'){
+        path = "/newbfd/usercenter-h5/briskwalking"
       }
       custRedirect(path, { ...urlParams})
     },
