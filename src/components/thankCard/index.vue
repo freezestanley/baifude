@@ -61,7 +61,7 @@
                         display: block;
                     }
                     .shortName{
-                        color: #fff;
+                        color: #4679A3;
                         display: block;
                         position: absolute;
                         left:50%;
