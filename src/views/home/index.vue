@@ -120,7 +120,6 @@ import {
   care_queryHomePopup,
   user_getCompanyBirthList,
   company_getStoreyNum,
-  care_companyThankCardList,
   care_companyThankCardClassifys,
 } from "@/assets/apis/home";
 import utilRes from "@/assets/utils/resResult";
