@@ -38,6 +38,15 @@
               alt
             />
           </div>
+          <div class="serveContainer">
+            <img
+              @click="goMessage"
+              class="serviceImg"
+              v-if="openService"
+              src="../../../assets/images/elegance/bell_message.png"
+              alt
+            />
+          </div>
           <!-- <div class="dialogContainer">
             <img 
               @click="goService"
@@ -101,6 +110,9 @@ export default {
         this.mallUnionConf.h5SearchUrl +
         "&returnUrl=" +
         encodeURIComponent(baseUrl);
+    },
+    goMessage(){
+      window.location.href = '/newbfd/usercenter-h5/message'+window.location.search;
     }
   }
 };
