@@ -7,7 +7,7 @@
         <img :src="unionConfigMess.h5BgImage" alt="">
       </div>
       <ActivityNav :activityNavData="activityNavData"></ActivityNav>
-      <BirthdayThank :data="gatherThankBirthday" v-if="isCardOdd && storeyNum > 2 && !isAvaiable"></BirthdayThank>
+      <BirthdayThank :data="gatherThankBirthday" v-if="isCardOdd && storeyNum > 2"></BirthdayThank>
       <!-- 企业新闻 -->
       <div class="layout news" v-if="newsData.length > 0">
         <Title
@@ -96,7 +96,7 @@
         </div>
       </div>
       <!-- 生日墙 -->
-      <div class="birthdayWall layout" v-if="birthdayWallList.length>0 && (!isCardOdd || this.storeyNum <= 2 || isAvaiable)">
+      <div class="birthdayWall layout" v-if="birthdayWallList.length>0 && (!isCardOdd || this.storeyNum <= 2 ) && !isAvaiableBirth">
         <div class="">
           <Title titleName="生日墙" :titleMore="true" @goToNext="goToNext('BIRTHDAYWALL')"></Title>
         </div>
@@ -195,6 +195,7 @@ export default {
        ],//生日墙感谢卡集合数据
       storeyNum:0,//楼层数据
       isAvaiable:false,//感谢卡是否可用,false不可用，true可用
+      isAvaiableBirth:false,//感谢卡是否可用,false不可用，true可用
     };
   },
   beforeRouteEnter(to,form,next){
@@ -240,6 +241,7 @@ export default {
     },
   },
   created() {
+    console.log("isAvaiable--==",this.isAvaiable)
     const union = getQueryString("union");
     // this.isLogin(union);
     this.getNotice(union);
@@ -563,11 +565,13 @@ export default {
       const obj = { ...param };
       let res = await newsListPage(obj);
       if (utilRes.successCheck(res)) {
-        const list = res.data.listObj;
-        if (list.length >= 3) {
-          this.newsData = list.slice(0, 3); //首页新闻取列表新闻里面前三条
-        } else {
-          this.newsData = list;
+        if(res.data.listObj){
+          const list = res.data.listObj;
+          if (list.length >= 3) {
+            this.newsData = list.slice(0, 3); //首页新闻取列表新闻里面前三条
+          } else {
+            this.newsData = list;
+          }
         }
       } else {
         this.$notify(res.errMsg);
@@ -588,11 +592,13 @@ export default {
       const obj = { ...param };
       let res = await newsListPage(obj);
       if (utilRes.successCheck(res)) {
-        const list = res.data.listObj;
-        if (list.length >= 3) {
-          this.styleData = list.slice(0, 2);
-        } else {
-          this.styleData = list;
+        if(res.data.listObj){
+          const list = res.data.listObj;
+          if (list.length >= 3) {
+            this.styleData = list.slice(0, 2);
+          } else {
+            this.styleData = list;
+          }
         }
       } else {
         this.$notify(res.errMsg);
@@ -603,7 +609,9 @@ export default {
       let params = { currentPage: 1, itemsPerPage: 10 };
       let res = await activity_queryActivitiyPage(params);
       if (utilRes.successCheck(res)) {
-        this.activityData = res.data.listObj;
+        if(res.data.listObj){
+          this.activityData = res.data.listObj;
+        }
       } else {
         this.$notify(res.errMsg);
       }
@@ -618,13 +626,16 @@ export default {
       const obj = { ...params };
       let res = await newsListPage(obj);
       if (utilRes.successCheck(res)) {
-        const listObj = res.data.listObj;
-        if (listObj.length > 6) {
-          this.list = listObj.slice(0, 5);
-        } else {
-          this.list = listObj;
+        if(res.data.listObj){
+          const listObj = res.data.listObj;
+          if (listObj.length > 6) {
+            this.list = listObj.slice(0, 5);
+          } else {
+            this.list = listObj;
+          }
         }
       } else {
+        this.$notify(res.errMsg);
       }
     },
     //生日墙接口列表
@@ -636,13 +647,18 @@ export default {
       const obj = { ...params };
       let res = await user_getCompanyBirthList(obj);
       if (utilRes.successCheck(res)) {
-        const list = res.data.listObj;
-        if(list.length>=4){
-          this.birthdayWallList = list.slice(0, 4); //首页感谢卡列表新闻里面前四条
+        if(res.data === null){
+          this.isAvaiableBirth = true;
         }else{
-          this.birthdayWallList = list;
+          this.isAvaiableBirth = false;
+          const list = res.data.listObj;
+          if(list.length>=4){
+            this.birthdayWallList = list.slice(0, 4); //首页感谢卡列表新闻里面前四条
+          }else{
+            this.birthdayWallList = list;
+          }
+          this.gatherThankBirthday[1].num = res.data.total;
         }
-        this.gatherThankBirthday[1].num = res.data.total;
       } else {
         this.$notify(res.errMsg);
       }
@@ -655,9 +671,11 @@ export default {
           this.isAvaiable = false;
         }else {
           this.isAvaiable = true;
+          console.log("res--===",res)
           const list = res.data.companyThankCardVOList;
           if (list.length >= 3) {
             this.thankCardList = list.slice(0, 2); //首页感谢卡列表新闻里面前二条
+            console.log("this.thankCardList",this.thankCardList)
           } else {
             this.thankCardList = list;
           }
