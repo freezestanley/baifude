@@ -194,7 +194,7 @@ export default {
        {"module":"birthDay","name":"生日墙","des":"位同事最近过生日",num:"0","bgPic":require("@/assets/images/home/birthdayBg.png")},
        ],//生日墙感谢卡集合数据
       storeyNum:0,//楼层数据
-      isAvaiable:true,//感谢卡是否可用,false不可用，true可用
+      isAvaiable:false,//感谢卡是否可用,false不可用，true可用
     };
   },
   beforeRouteEnter(to,form,next){
