@@ -4,14 +4,20 @@
       <div class="user-name">{{data.name}}</div>
       <div class="company-simple-name">{{data.companySimpleName}}<br/>{{data.date}}</div>
       <div class="company-logo"><img :src="data.companyLogo"/></div>
-      <div class="close" @click="close">+</div>
+      <img class="close" @click="close" :src="closePng"/>
     </div>
   </div>
 </template>
 
 <script>
+import closePng from '@/assets/images/popup/closeIcon.png';
 export default {
   props: ['data'],
+  data() {
+    return {
+      closePng
+    }
+  },
   methods: {
     close() {
       this.$emit('close');
@@ -65,17 +71,10 @@ export default {
     .close{
       position: absolute;
       bottom: -40px;
-      left:50%;
-      transform: translateX(-50%) rotate(45deg);
-      text-align: center;
-      width: 28px;
-      height: 28px;
-      border: 1px solid #fff;
-      border-radius: 28px;
-      color: #fff;
-      font-size: 39px;
-      font-weight: 200;
-      line-height: 20px;
+      width: 30px;
+      height: 30px;
+      left: 50%;
+      transform: translateX(-50%);
     }
   }
 }

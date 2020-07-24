@@ -3,7 +3,7 @@
     <div class="dialog-body" :class="isSend ? 'send-class' : ''">
       <div class="content-head">
         <div class="head-name">{{data.acceptName || ''}}</div>
-        <div class="head-point" v-if="data.amtType == 1">赠礼<span>{{data.amt || 0}}</span>积分</div>
+        <div class="head-point" v-if="data.amtType == 1 && !!data.amt">赠礼<span>{{data.amt}}</span>积分</div>
       </div>
       <div class="content-message" v-if="data.thankCardMsg">{{data.thankCardMsg}}</div>
       <div class="content-message default-case" v-else>TA什么话都没留下，但是情谊已经送到～</div> 
@@ -24,17 +24,18 @@
         <!--   <button @click="send">确认发送</button> -->
         <!-- </div> -->
       </div>
-      <div class="close" @click="close">+</div>
+      <img class="close" @click="close" :src="closePng"></img>
     </div>
   </div>
 </template>
 
 <script>
+import closePng from '@/assets/images/popup/closeIcon.png';
 export default {
   props: ['data'],
   data() {
     return {
-      classType: 1
+      closePng
     }
   },
   computed: {
@@ -57,12 +58,9 @@ export default {
       this.$emit('close');
     },
     lookOver() {
-      this.close();
-      this.$router.push({name: 'thankCard'});
+      window.location.href='/newbfd/usercenter-h5/user/thankcard/myReceive' + location.search;
     }
   },
-  created() {
-  }
 }
 </script>
 
@@ -211,17 +209,10 @@ export default {
     .close{
       position: absolute;
       bottom: -60px;
-      left:50%;
-      transform: translateX(-50%) rotate(45deg);
-      text-align: center;
-      width: 28px;
-      height: 28px;
-      border: 1px solid #fff;
-      border-radius: 28px;
-      color: #fff;
-      font-size: 39px;
-      font-weight: 200;
-      line-height: 20px;
+      width: 30px;
+      height: 30px;
+      left: 50%;
+      transform: translateX(-50%);
     }
   }
 }
