@@ -7,7 +7,7 @@
         <img :src="unionConfigMess.h5BgImage" alt="">
       </div>
       <ActivityNav :activityNavData="activityNavData"></ActivityNav>
-      <BirthdayThank :data="gatherThankBirthday" v-if="isCardOdd && storeyNum > 2"></BirthdayThank>
+      <BirthdayThank :data="gatherThankBirthday" v-if="isCardOdd && storeyNum > 2 && !isAvaiable"></BirthdayThank>
       <!-- 企业新闻 -->
       <div class="layout news" v-if="newsData.length > 0">
         <Title
@@ -77,15 +77,26 @@
         </div>
       </div>
       <!-- 感谢卡 -->
-      <div class="layout" v-if="thankCardList.length>0 && (!isCardOdd || this.storeyNum <= 2)">
-        <Title titleName="感谢卡" :titleMore="true" @goToNext="goToNext('THANKCARD')"></Title>
-        <ThankCard :data="thankCardList"></ThankCard>
-        <div class="card-btn-wrap">
-          <div class="thank-card-btn" @click="senCard()">我要发送感谢卡</div>
+      <div v-if="isAvaiable">
+        <div class="layout" v-if="thankCardList.length>0 && (!isCardOdd || this.storeyNum <= 2)">
+          <Title titleName="感谢卡" :titleMore="true" @goToNext="goToNext('THANKCARD')"></Title>
+          <ThankCard :data="thankCardList"></ThankCard>
+          <div class="card-btn-wrap">
+            <div class="thank-card-btn" @click="senCard()">我要发送感谢卡</div>
+          </div>
+        </div>
+        <div class="layout" v-if="thankCardList.length== 0">
+          <Title titleName="感谢卡" :titleMore="true" @goToNext="goToNext('THANKCARD')"></Title>
+          <div class="empty-thank-card">
+            <img src="../../../src/assets/images/home/birthdayWall.png" alt="">
+          </div>
+          <div class="card-btn-wrap">
+            <div class="thank-card-btn" @click="senCard()">我要发送感谢卡</div>
+          </div>
         </div>
       </div>
       <!-- 生日墙 -->
-      <div class="birthdayWall layout" v-if="birthdayWallList.length>0 && (!isCardOdd || this.storeyNum <= 2)">
+      <div class="birthdayWall layout" v-if="birthdayWallList.length>0 && (!isCardOdd || this.storeyNum <= 2 || isAvaiable)">
         <div class="">
           <Title titleName="生日墙" :titleMore="true" @goToNext="goToNext('BIRTHDAYWALL')"></Title>
         </div>
@@ -183,6 +194,7 @@ export default {
        {"module":"birthDay","name":"生日墙","des":"位同事最近过生日",num:"0","bgPic":require("@/assets/images/home/birthdayBg.png")},
        ],//生日墙感谢卡集合数据
       storeyNum:0,//楼层数据
+      isAvaiable:true,//感谢卡是否可用,false不可用，true可用
     };
   },
   beforeRouteEnter(to,form,next){
@@ -639,14 +651,18 @@ export default {
     async getCompanyThankCardList() {
       let res = await care_companyThankCardClassifys();
       if (utilRes.successCheck(res)) {
-        const list = res.data.companyThankCardVOList;
-        if (list.length >= 3) {
-          this.thankCardList = list.slice(0, 2); //首页感谢卡列表新闻里面前二条
-        } else {
-          this.thankCardList = list;
+        if(res.data === null){
+          this.isAvaiable = false;
+        }else {
+          this.isAvaiable = true;
+          const list = res.data.companyThankCardVOList;
+          if (list.length >= 3) {
+            this.thankCardList = list.slice(0, 2); //首页感谢卡列表新闻里面前二条
+          } else {
+            this.thankCardList = list;
+          }
+          this.gatherThankBirthday[0].num = res.data.thankCardNum;
         }
-        this.gatherThankBirthday[0].num = res.data.thankCardNum;
-
       } else {
         this.$notify(res.errMsg);
       }
@@ -864,6 +880,16 @@ html {
       line-height: 35px;
       border-radius: 17.5px;
       background: linear-gradient(to right,#7CB1D0,#4679A3);
+    }
+  }
+  .empty-thank-card{
+    width:135px;
+    height:135px;
+    margin: 0 auto;
+    img{
+      width: 100%;
+      height:100%;
+      display: block;
     }
   }
 }
