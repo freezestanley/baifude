@@ -139,7 +139,7 @@ export default {
           border-radius: 24px;
           margin-right: 6px;
           font-size: 18px;
-          color: #fff;
+          color: #4679A3;
           display: flex;
           align-items: center;
           justify-content: center;
