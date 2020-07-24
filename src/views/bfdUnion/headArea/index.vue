@@ -42,7 +42,6 @@
             <img
               @click="goMessage"
               class="serviceImg"
-              v-if="openService"
               src="../../../assets/images/elegance/bell_message.png"
               alt
             />
