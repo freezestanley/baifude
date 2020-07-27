@@ -651,13 +651,15 @@ export default {
           this.isAvaiableBirth = true;
         }else{
           this.isAvaiableBirth = false;
-          const list = res.data.listObj;
-          if(list.length>=4){
-            this.birthdayWallList = list.slice(0, 4); //首页感谢卡列表新闻里面前四条
-          }else{
-            this.birthdayWallList = list;
+          if(res.data.listObj){
+            const list = res.data.listObj;
+            if(list.length>=4){
+              this.birthdayWallList = list.slice(0, 4); //首页感谢卡列表新闻里面前四条
+            }else{
+              this.birthdayWallList = list;
+            }
+            this.gatherThankBirthday[1].num = res.data.total;
           }
-          this.gatherThankBirthday[1].num = res.data.total;
         }
       } else {
         this.$notify(res.errMsg);
@@ -671,15 +673,16 @@ export default {
           this.isAvaiable = false;
         }else {
           this.isAvaiable = true;
-          console.log("res--===",res)
-          const list = res.data.companyThankCardVOList;
-          if (list.length >= 3) {
-            this.thankCardList = list.slice(0, 2); //首页感谢卡列表新闻里面前二条
-            console.log("this.thankCardList",this.thankCardList)
-          } else {
-            this.thankCardList = list;
+          if(res.data.companyThankCardVOList){
+            const list = res.data.companyThankCardVOList;
+            if (list.length >= 3) {
+              this.thankCardList = list.slice(0, 2); //首页感谢卡列表新闻里面前二条
+              console.log("this.thankCardList",this.thankCardList)
+            } else {
+              this.thankCardList = list;
+            }
+            this.gatherThankBirthday[0].num = res.data.thankCardNum;
           }
-          this.gatherThankBirthday[0].num = res.data.thankCardNum;
         }
       } else {
         this.$notify(res.errMsg);
@@ -695,7 +698,7 @@ export default {
       const obj = { ...params };
       let res = await cms_researchList(obj);
       if (utilRes.successCheck(res)) {
-        const { listObj } = res.data;
+        const { listObj} = res.data;
         if (listObj.length > 0) {
           this.researchList = listObj[0];
         }

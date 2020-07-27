@@ -8,7 +8,7 @@
                 </div>
                 <div class="item-name">{{item.userName}}</div>
                 <span class="item-date">{{item.birthday}}</span>
-                <div class="item-btn" @click="sendBlessing(item)">送祝福</div>
+                <div class="item-btn" @click="sendBlessing(item)" v-if="item.isShowThankCard == 1">送祝福</div>
             </div>
         </div>
     </div>
