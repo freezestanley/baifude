@@ -38,6 +38,15 @@
               alt
             />
           </div>
+          <div class="serveContainer bell_message">
+            <img
+              @click="goMessage"
+              class="serviceImg"
+              src="../../../assets/images/elegance/bell_message.png"
+              alt
+            />
+            <span v-if="unReadNumber" class="unRead_Message"></span>
+          </div>
           <!-- <div class="dialogContainer">
             <img 
               @click="goService"
@@ -56,15 +65,18 @@
 
 <script>
 import { mapState } from "vuex";
+import { user_countUnReadNum } from "@/assets/apis/home"
 export default {
   name: "Header",
   data() {
     return {
-      showSearchBypage: false
+      showSearchBypage: false,
+      unReadNumber: 0 //未读消息
     };
   },
   created(){
     this.showSearchBypage = this.$route.meta.showSearch;
+    this.user_countUnReadNum();
   },
   watch: {
     $route: {
@@ -101,6 +113,15 @@ export default {
         this.mallUnionConf.h5SearchUrl +
         "&returnUrl=" +
         encodeURIComponent(baseUrl);
+    },
+    goMessage(){
+      window.location.href = '/newbfd/usercenter-h5/message'+window.location.search;
+    },
+    async user_countUnReadNum(){
+      let res = await user_countUnReadNum();
+      if(res&&res.code=='0'){
+        this.unReadNumber = res.data.unReadNumber;
+      }
     }
   }
 };
@@ -136,13 +157,26 @@ export default {
       vertical-align: middle;
       .serviceImg {
         // position: absolute;
-        width: 32px;
-        height: 32px;
+        width: 30px;
+        height: 30px;
         // top: 12px;
         // right: 10px;
         cursor: pointer;
         vertical-align: middle;
         margin-bottom: 6px;
+      }
+    }
+    .bell_message{
+      position: relative;
+      .unRead_Message{
+        position: absolute;
+        display: inline-block;
+        height: 4px;
+        width: 4px;
+        top: 10px;
+        right: 3px;
+        border-radius: 50%;
+        background: red;
       }
     }
     .dialogContainer{
