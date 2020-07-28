@@ -48,7 +48,7 @@
 import { mapState } from "vuex";
 // import navArea from "./navArea";
 import headArea from "./headArea";
-// import headTop from "./headArea/HeadTop.vue";
+import headTop from "./headArea/HeadTop.vue";
 // import news from "./news/newIndex.vue";
 import banner from "./banner";
 export default {
