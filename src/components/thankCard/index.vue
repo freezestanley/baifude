@@ -9,7 +9,7 @@
                <div class="user-name">{{item.acceptUseName}}</div>
            </div>
            <div class="item-right">
-               <div class="card-time">{{item.isCurrentDay == 0?item.createtime:'刚刚收到'}}</div>
+               <div class="card-time">{{item.isCurrentDay == 0?`${item.createtime}收到`:'刚刚收到'}}</div>
                <div class="card-name">{{`「${item.thankCardName}」`}}</div>
            </div>
        </div>
