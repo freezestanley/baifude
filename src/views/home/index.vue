@@ -86,7 +86,7 @@
           </div>
         </div>
         <div class="layout" v-if="thankCardList.length== 0">
-          <Title titleName="感谢卡" :titleMore="true" @goToNext="goToNext('THANKCARD')"></Title>
+          <Title titleName="感谢卡111" :titleMore="true" @goToNext="goToNext('THANKCARD')"></Title>
           <div class="empty-thank-card">
             <img src="../../../src/assets/images/home/birthdayWall.png" alt="">
           </div>
@@ -98,11 +98,11 @@
       <!-- 生日墙 -->
       <div class="birthdayWall layout" v-if="birthdayWallList.length>0 && (!isCardOdd || this.storeyNum <= 2 ) && !isAvaiableBirth">
         <div class="">
-          <Title titleName="生日墙" :titleMore="true" @goToNext="goToNext('BIRTHDAYWALL')"></Title>
+          <Title titleName="生日墙11" :titleMore="true" @goToNext="goToNext('BIRTHDAYWALL')"></Title>
         </div>
         <BirthdayWall :data="birthdayWallList"></BirthdayWall>
       </div>
-      <div class="section-last-tip">
+      <div class="section-last-tip" v-if="this.storeyNum>2">
         <div class="section-last-text">已经到底啦</div>
       </div>
     </div>
