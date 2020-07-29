@@ -52,7 +52,8 @@
                 .user-pic{
                     width: 30px;
                     height:30px;
-                    background-color: yellowgreen;
+                    min-width: 30px;
+                    max-width: 30px;
                     border-radius: 50%;
                     position: relative;
                     img{
@@ -61,7 +62,7 @@
                         display: block;
                     }
                     .shortName{
-                        color: #fff;
+                        color: #4679A3;
                         display: block;
                         position: absolute;
                         left:50%;
@@ -73,6 +74,9 @@
                     font-size: 14px;
                     color: #111111;
                     margin-left: 4px;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
                 }
             }
             .item-right{

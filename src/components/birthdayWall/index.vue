@@ -68,6 +68,8 @@
            .item-pic{
                width: 50px;
                height:50px;
+               min-width: 50px;
+               max-width: 50px;
                margin:10px auto 0 auto;
                border-radius: 50%;
                position: relative;
@@ -77,7 +79,7 @@
                   display: inline-block;
               }
                .shortName{
-                   color: #fff;
+                   color: #4679A3;
                    display: block;
                    position: absolute;
                    left:50%;
@@ -87,8 +89,13 @@
                }
            }
            .item-name{
+               width: 80%;
+               margin: 0 auto;
                font-size: 14px;
                color: #333333;
+               overflow: hidden;
+               white-space: nowrap;
+               text-overflow: ellipsis;
            }
            .item-date{
                font-size: 11px;
