@@ -52,6 +52,8 @@
                 .user-pic{
                     width: 30px;
                     height:30px;
+                    min-width: 30px;
+                    max-width: 30px;
                     border-radius: 50%;
                     position: relative;
                     img{
@@ -72,6 +74,9 @@
                     font-size: 14px;
                     color: #111111;
                     margin-left: 4px;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
                 }
             }
             .item-right{
