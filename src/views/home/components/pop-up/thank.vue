@@ -1,6 +1,6 @@
 <template>
   <div class="dialog" :style="{background: `url(${data.thankCardPopPic}) no-repeat center top/100%`}">
-    <div class="dialog-body" :class="isSend ? 'send-class' : ''">
+    <div class="dialog-body">
       <div class="content-head">
         <div class="head-name">{{data.acceptName || ''}}</div>
         <div class="head-point" v-if="data.amtType == 1 && !!data.amt">赠礼<span>{{data.amt}}</span>积分</div>
@@ -20,9 +20,6 @@
           <div class="other-card">还收到其他<span>{{data.noReadCount}}</span>张感谢卡</div>
           <button class="look-over-btn" @click="lookOver">立即查看</button>
         </div>
-        <!-- <div class="send" v-if="data.isSend && false"> -->
-        <!--   <button @click="send">确认发送</button> -->
-        <!-- </div> -->
       </div>
       <img class="close" @click="close" :src="closePng"></img>
     </div>
@@ -49,9 +46,6 @@ export default {
       }
       return s;
     },
-    isSend() {
-      return true;
-    }
   },
   methods: {
     close() {
@@ -69,7 +63,7 @@ export default {
 
 .dialog{
   width: 335px;
-  height: 370px;
+  padding: 107px 0 20px;
   background: #fff;
   z-index: 10001;
   position: absolute;
@@ -80,13 +74,9 @@ export default {
   .dialog-body{
     position: relative;
     background: #fff;
-    top: 100px;
-    height: 182px;
     margin: 0 20px;
     padding: 15px;
-    &.send-class{
-      height: 224px;
-    }
+    padding-bottom: 0;
     .content-head{
       display: flex;
       align-content: center;
@@ -124,9 +114,6 @@ export default {
       }
     }
     .changeable-area{
-      position: absolute;
-      bottom: 0;
-      width: 265px;
       .sign{
         display: flex;
         justify-content: flex-end;
@@ -135,7 +122,7 @@ export default {
         .sign-avatar{
           width: 24px;
           height: 24px;
-          background: gray;
+          background: #ECF5FD;
           border-radius: 24px;
           margin-right: 6px;
           font-size: 18px;
@@ -187,28 +174,10 @@ export default {
           line-height: 22px;
         }
       }
-      .send{
-        display: flex;
-        align-items: center;
-        justify-content: center; 
-        padding-top: 30px;
-        padding-bottom: 20px;
-        button{
-          width:165px;
-          height:44px;
-          background:linear-gradient(147deg,rgba(124,177,208,1) 0%,rgba(70,121,163,1) 100%);
-          border-radius:4px;
-          font-size:15px;
-          font-family:PingFangSC-Medium,PingFang SC;
-          font-weight:500;
-          color: #fff;
-          border: none;
-        }
-      }
     }
     .close{
       position: absolute;
-      bottom: -60px;
+      bottom: -70px;
       width: 30px;
       height: 30px;
       left: 50%;
