@@ -98,7 +98,7 @@
       <!-- 生日墙 -->
       <div class="birthdayWall layout" v-if="birthdayWallList.length>0 && (!isCardOdd || this.storeyNum <= 2 ) && !isAvaiableBirth">
         <div class="">
-          <Title titleName="生日墙11" :titleMore="true" @goToNext="goToNext('BIRTHDAYWALL')"></Title>
+          <Title titleName="生日墙" :titleMore="true" @goToNext="goToNext('BIRTHDAYWALL')"></Title>
         </div>
         <BirthdayWall :data="birthdayWallList"></BirthdayWall>
       </div>
