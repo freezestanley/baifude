@@ -221,6 +221,17 @@ function care_queryHomePopup(params) {
   return sendPostNew("/care/front/thankCard/queryHomePopup", "get", params);
 }
 
+
+/**
+ * 是否有未读消息
+ * @param { JSON } params 请求的参数
+ */
+function user_countUnReadNum(params) {
+  const user_countUnReadNum = "/user/front/message/countUnReadNum";
+  return sendPostNew(user_countUnReadNum, "post", params, false);
+}
+
+
 export {
   queryActivityList,
   submitActivity,
@@ -248,4 +259,5 @@ export {
   company_getStoreyNum,
   care_companyThankCardList,
   care_companyThankCardClassifys,
+  user_countUnReadNum
 };
