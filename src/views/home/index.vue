@@ -7,7 +7,7 @@
         <img :src="unionConfigMess.h5BgImage" alt="">
       </div>
       <ActivityNav :activityNavData="activityNavData"></ActivityNav>
-      <BirthdayThank :data="gatherThankBirthday" v-if="isCardOdd && storeyNum > 2"></BirthdayThank>
+      <BirthdayThank :data="gatherThankBirthday" v-if="isCardEven && storeyNum > 2"></BirthdayThank>
       <!-- 企业新闻 -->
       <div class="layout news" v-if="newsData.length > 0">
         <Title
@@ -76,31 +76,44 @@
           </div>
         </div>
       </div>
-      <!-- 感谢卡 -->
-      <div v-if="isAvaiable">
-        <div class="layout" v-if="thankCardList.length>0 && (!isCardOdd || this.storeyNum <= 2)">
-          <Title titleName="感谢卡" :titleMore="true" @goToNext="goToNext('THANKCARD')"></Title>
-          <ThankCard :data="thankCardList"></ThankCard>
-          <div class="card-btn-wrap">
-            <div class="thank-card-btn" @click="senCard()">我要发送感谢卡</div>
+      <div v-if="!isCardEven || storeyNum <= 2">
+        <!-- 感谢卡 -->
+        <div v-if="isAvaiable">
+          <div class="layout" v-if="thankCardList.length>0">
+            <Title titleName="感谢卡" :titleMore="true" @goToNext="goToNext('THANKCARD')"></Title>
+            <ThankCard :data="thankCardList"></ThankCard>
+            <div class="card-btn-wrap">
+              <div class="thank-card-btn" @click="senCard()">我要发送感谢卡</div>
+            </div>
+          </div>
+          <div class="layout" v-if="thankCardList.length== 0">
+            <Title titleName="感谢卡111" :titleMore="true" @goToNext="goToNext('THANKCARD')"></Title>
+            <div class="empty-thank-card">
+              <img src="../../../src/assets/images/home/birthdayWall.png" alt="">
+            </div>
+            <div class="card-btn-wrap">
+              <div class="thank-card-btn" @click="senCard()">我要发送感谢卡</div>
+            </div>
           </div>
         </div>
-        <div class="layout" v-if="thankCardList.length== 0">
-          <Title titleName="感谢卡111" :titleMore="true" @goToNext="goToNext('THANKCARD')"></Title>
-          <div class="empty-thank-card">
-            <img src="../../../src/assets/images/home/birthdayWall.png" alt="">
+        <!-- 生日墙 -->
+        <div v-if="isAvaiableBirth">
+          <div class="birthdayWall layout" v-if="birthdayWallList.length>0 ">
+            <div class="">
+              <Title titleName="生日墙" :titleMore="true" @goToNext="goToNext('BIRTHDAYWALL')"></Title>
+            </div>
+            <BirthdayWall :data="birthdayWallList"></BirthdayWall>
           </div>
-          <div class="card-btn-wrap">
-            <div class="thank-card-btn" @click="senCard()">我要发送感谢卡</div>
+          <div class="layout" v-if="birthdayWallList.length== 0">
+            <Title titleName="生日墙" :titleMore="true" @goToNext="goToNext('THANKCARD')"></Title>
+            <div class="empty-thank-card">
+              <img src="../../../src/assets/images/home/birthdayWall.png" alt="">
+            </div>
+            <div class="card-btn-wrap">
+              <div class="thank-card-btn" @click="senCard()">我要发送感谢卡</div>
+            </div>
           </div>
         </div>
-      </div>
-      <!-- 生日墙 -->
-      <div class="birthdayWall layout" v-if="birthdayWallList.length>0 && (!isCardOdd || this.storeyNum <= 2 ) && !isAvaiableBirth">
-        <div class="">
-          <Title titleName="生日墙" :titleMore="true" @goToNext="goToNext('BIRTHDAYWALL')"></Title>
-        </div>
-        <BirthdayWall :data="birthdayWallList"></BirthdayWall>
       </div>
       <div class="section-last-tip" v-if="this.storeyNum>2">
         <div class="section-last-text">已经到底啦</div>
@@ -195,7 +208,8 @@ export default {
        ],//生日墙感谢卡集合数据
       storeyNum:0,//楼层数据
       isAvaiable:false,//感谢卡是否可用,false不可用，true可用
-      isAvaiableBirth:false,//感谢卡是否可用,false不可用，true可用
+      isAvaiableBirth:false,//生日卡是否可用,false不可用，true可用
+      // isAvaiableThank:false,//感谢卡是否可用,false不可用，true可用
     };
   },
   beforeRouteEnter(to,form,next){
@@ -232,8 +246,8 @@ export default {
         activityConfigList: state => state.activityConfigList
       }
     ),
-    isCardOdd(){
-      if(this.birthdayWallList.length>0 && this.thankCardList.length>0){
+    isCardEven(){
+      if(this.isAvaiableBirth && this.isAvaiable){
         return true;
       }else{
         return false;
@@ -648,9 +662,9 @@ export default {
       let res = await user_getCompanyBirthList(obj);
       if (utilRes.successCheck(res)) {
         if(res.data === null){
-          this.isAvaiableBirth = true;
-        }else{
           this.isAvaiableBirth = false;
+        }else{
+          this.isAvaiableBirth = true;
           if(res.data.listObj){
             const list = res.data.listObj;
             if(list.length>=4){
