@@ -22,9 +22,9 @@
               <span class="arrow"></span>
             </div>
           </div>
-          <div class="search" v-if="isShowSearch&&showSearchBypage" @click="goSearch">
+          <div class="serveContainer" v-if="isShowSearch&&showSearchBypage" @click="goSearch">
             <img
-              class="searchImg"
+              class="serviceImg"
               src="../../../assets/images/elegance/elegance_icon_search.png"
               alt
             />
