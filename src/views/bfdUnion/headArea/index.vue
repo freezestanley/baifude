@@ -4,8 +4,8 @@
       <div class="subTop">
         <div class="show">
           <div class="union clearfix">
-            <div class="imgWrap fl" v-if="!!mallUnionConf.logo">
-              <img :src="mallUnionConf.logo" />
+            <div class="imgWrap fl" v-if="!!mallUnionConf.h5ShopLogo">
+              <img :src="mallUnionConf.h5ShopLogo" />
             </div>
             <!-- <span class="unionName fl">{{ mallUnionConf.customerName }}</span> -->
           </div>
