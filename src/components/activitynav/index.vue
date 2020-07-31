@@ -14,7 +14,7 @@
         </div>
       </div>
     </div>
-    <div  class="wrap swiper-container-activitynav" v-if="activityNavData.length == 7 || activityNavData.length == 6 || activityNavData.length == 5 || activityNavData.length>8">
+    <div  class="swiper-container-activitynav nav-swiper-box" v-if="activityNavData.length == 7 || activityNavData.length == 6 || activityNavData.length == 5 || activityNavData.length>8">
      <div class="swiper-wrapper">
        <div class="swiper-slide" style="display: flex">
          <div
@@ -46,21 +46,21 @@
            </div>
          </div>
        </div>
-       <div class="swiper-slide" v-if="navList_three.length>0" style="display: flex">
-         <div
-                 class="activity_container"
-                 v-for="(item, index) in navList_three"
-                 :key="index"
+       <!--<div class="swiper-slide" v-if="navList_three.length>0" style="display: flex">-->
+         <!--<div-->
+                 <!--class="activity_container"-->
+                 <!--v-for="(item, index) in navList_three"-->
+                 <!--:key="index"-->
 
-         >
-           <div class="activity" @click="gotoActivity(item)">
-             <div class="activity-icon">
-               <img :src="item.configValue.icon" alt="" />
-             </div>
-             <div class="activity-title">{{ item.configValue.name }}</div>
-           </div>
-         </div>
-       </div>
+         <!--&gt;-->
+           <!--<div class="activity" @click="gotoActivity(item)">-->
+             <!--<div class="activity-icon">-->
+               <!--<img :src="item.configValue.icon" alt="" />-->
+             <!--</div>-->
+             <!--<div class="activity-title">{{ item.configValue.name }}</div>-->
+           <!--</div>-->
+         <!--</div>-->
+       <!--</div>-->
      </div>
       <!-- 分页器 -->
       <div class="swiper-pagination activity-style"></div>
@@ -159,10 +159,15 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.nav-swiper-box{
+    display: flex;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
 .wrap {
   display: flex;
   width: 100%;
-  position: relative;
   /*flex-wrap: wrap;*/
   .activity_container {
     text-align: center;
