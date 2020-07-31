@@ -1,0 +1,48 @@
+{
+  "code": "0",
+  "data": {
+    "companyThankCardVOList": [{
+      "id": 2007300000000527,
+      "thankCardName": "低调大咖",
+      "thankCardCode": "RESPONSIBILITY",
+      "pic": "http://devimg.dongfangfuli.com/bfd/2020-07-23/dbf9ac6b2fe06aae4a50dd0a6f7f4865.png",
+      "userHeadPic": "http://devimg.dongfangfuli.com/bfd/2020-07-23/f073ed00d65ef0b1be1c4a9d8cbdc4ed.png",
+      "headPortraitWords": "丽",
+      "acceptUseId": 82148,
+      "acceptUseName": "谢雪丽",
+      "departmentId": 2007100000000294,
+      "departmentName": "百福得二期测试工会",
+      "isCurrentDay": 0,
+      "createtime": "07-30"
+    }, {
+      "id": 2007300000000515,
+      "thankCardName": "生日祝福",
+      "thankCardCode": "HAPPY_BIRTHDAY",
+      "pic": "http://devimg.dongfangfuli.com/bfd/2020-07-23/cdb0a8fde2798c3c954a0c7ac5438d02.png",
+      "userHeadPic": "http://devimg.dongfangfuli.com/bfd/2020-07-23/f073ed00d65ef0b1be1c4a9d8cbdc4ed.png",
+      "headPortraitWords": "就",
+      "acceptUseId": 82219,
+      "acceptUseName": "测试就",
+      "departmentId": 2007100000000294,
+      "departmentName": "百福得二期测试工会",
+      "isCurrentDay": 0,
+      "createtime": "07-30"
+    }, {
+      "id": 2007300000000374,
+      "thankCardName": "乐于助人",
+      "thankCardCode": "HELPFUL",
+      "pic": "http://devimg.dongfangfuli.com/bfd/2020-07-23/1c839190275f83f8a2576336cdeeacf4.png",
+      "userHeadPic": "http://devimg.dongfangfuli.com/bfd/2020-07-23/f073ed00d65ef0b1be1c4a9d8cbdc4ed.png",
+      "headPortraitWords": "3",
+      "acceptUseId": 82214,
+      "acceptUseName": "李晨1234567890123453",
+      "departmentId": 2007280000001132,
+      "departmentName": "测试部凄凄切切群群群群群群群群群群群群群群群群群群哈哈哈",
+      "isCurrentDay": 0,
+      "createtime": "07-30"
+    }],
+    "thankCardNum": 9
+  },
+  "msg": "success",
+  "errMsg": null
+}

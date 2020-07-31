@@ -87,7 +87,7 @@
             </div>
           </div>
           <div class="layout" v-if="thankCardList.length== 0">
-            <Title titleName="感谢卡111" :titleMore="true" @goToNext="goToNext('THANKCARD')"></Title>
+            <Title titleName="感谢卡" :titleMore="true" @goToNext="goToNext('THANKCARD')"></Title>
             <div class="empty-thank-card">
               <img src="../../../src/assets/images/home/birthdayWall.png" alt="">
             </div>
@@ -105,12 +105,12 @@
             <BirthdayWall :data="birthdayWallList"></BirthdayWall>
           </div>
           <div class="layout" v-if="birthdayWallList.length== 0">
-            <Title titleName="生日墙" :titleMore="true" @goToNext="goToNext('THANKCARD')"></Title>
+            <Title titleName="生日墙" :titleMore="true" @goToNext="goToNext('BIRTHDAYWALL')"></Title>
             <div class="empty-thank-card">
               <img src="../../../src/assets/images/home/birthdayWall.png" alt="">
             </div>
             <div class="card-btn-wrap">
-              <div class="thank-card-btn" @click="senCard()">我要发送感谢卡</div>
+              <div class="birthdayWall-text">今天没人过生日哦</div>
             </div>
           </div>
         </div>
@@ -909,6 +909,7 @@ html {
     padding: 10px 0 30px 0;
     border-bottom: 1px solid #e5e5e5;
     font-size: 14px;
+    text-align: center;
     .thank-card-btn{
       margin: 0 auto;
       text-align: center;
@@ -918,6 +919,9 @@ html {
       line-height: 35px;
       border-radius: 17.5px;
       background: linear-gradient(to right,#7CB1D0,#4679A3);
+    }
+    .birthdayWall-text{
+      color: #999999;
     }
   }
   .empty-thank-card{
