@@ -814,6 +814,9 @@ html {
 <style lang="less" scoped>
 .wrap {
   font-size: 12px;
+  .container{
+    width: 100%;
+  }
   .unionPicWrap{
     width: 100%;
     height:170px;
