@@ -163,7 +163,7 @@ export default {
   display: flex;
   width: 100%;
   position: relative;
-  flex-wrap: wrap;
+  /*flex-wrap: wrap;*/
   .activity_container {
     text-align: center;
     width: 25%;

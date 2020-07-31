@@ -6,7 +6,7 @@
       <div class="unionPicWrap">
         <img :src="unionConfigMess.h5BgImage" alt="">
       </div>
-      <!--<ActivityNav :activityNavData="activityNavData"></ActivityNav>-->
+      <ActivityNav :activityNavData="activityNavData"></ActivityNav>
       <BirthdayThank :data="gatherThankBirthday" v-if="isCardEven && storeyNum > 2"></BirthdayThank>
       <!-- 企业新闻 -->
       <div class="layout news" v-if="newsData.length > 0">
