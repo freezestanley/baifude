@@ -1,6 +1,6 @@
 <template>
   <div v-show="showIt" class="dialog" :style="{background: `url(${data.birthdayPopPic || data.entryPopPic}) no-repeat center top/100%`}">
-    <img style="width:0; height:0; position: absolute;" :src="data.birthdayPopPic" @load="imgLoad"/>
+    <img style="width:0; height:0; position: absolute;" :src="data.birthdayPopPic || data.entryPopPic" @load="imgLoad"/>
     <div class="dialog-body">
       <div class="user-name">{{data.name}}</div>
       <div class="company-simple-name">{{data.companySimpleName}}<br/>{{data.date}}</div>
