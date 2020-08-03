@@ -170,7 +170,8 @@ export default {
           font-weight:400;
           color: #fff;
           border: none;
-          width: 70px;
+          padding: 0 12px;
+          // width: 70px;
           line-height: 22px;
         }
       }
