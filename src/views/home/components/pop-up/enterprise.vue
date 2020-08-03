@@ -1,9 +1,9 @@
 <template>
-  <div class="dialog" :style="{background: `url(${data.birthdayPopPic || data.entryPopPic}) no-repeat center top/100%`}">
+  <div v-show="showIt" class="dialog" :style="{background: `url(${data.birthdayPopPic || data.entryPopPic}) no-repeat center top/100%`}">
     <div class="dialog-body">
       <div class="user-name">{{data.name}}</div>
       <div class="company-simple-name">{{data.companySimpleName}}<br/>{{data.date}}</div>
-      <div class="company-logo"><img :src="data.companyLogo"/></div>
+      <div class="company-logo"><img :src="data.companyLogo" @load="imgLoad"/></div>
       <img class="close" @click="close" :src="closePng"/>
     </div>
   </div>
@@ -15,12 +15,16 @@ export default {
   props: ['data'],
   data() {
     return {
-      closePng
+      closePng,
+      showIt: false
     }
   },
   methods: {
     close() {
       this.$emit('close');
+    },
+    imgLoad(e){
+      this.showIt = true;
     }
   },
   created() {
@@ -63,9 +67,9 @@ export default {
       font-weight:300;
     }
     .company-logo{
-      top: 455px;
+      top: 460px;
       img{
-        width: 84px;
+        height: 25px;
       }
     }
     .close{
