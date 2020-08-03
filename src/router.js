@@ -286,10 +286,12 @@ const checkLogin = async (to, from, next) => {
     if (res.data.userStatus === 1) {
       //判断用户是否已激活
       window.location.href = '/newbfd/usercenter-h5/user/activate';
+      return;
     }
     if (res.data.privacyReadStatus === 0) {
       //判断是否已阅读隐私政策
       window.location.href = agreeUrl;
+      return;
     }
     //是否是纯商城版
     isPureMall();
