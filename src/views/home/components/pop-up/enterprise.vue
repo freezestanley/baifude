@@ -1,9 +1,10 @@
 <template>
   <div v-show="showIt" class="dialog" :style="{background: `url(${data.birthdayPopPic || data.entryPopPic}) no-repeat center top/100%`}">
+    <img style="width:0; height:0; position: absolute;" :src="data.birthdayPopPic" @load="imgLoad"/>
     <div class="dialog-body">
       <div class="user-name">{{data.name}}</div>
       <div class="company-simple-name">{{data.companySimpleName}}<br/>{{data.date}}</div>
-      <div class="company-logo"><img :src="data.companyLogo" @load="imgLoad"/></div>
+      <div class="company-logo"><img :src="data.companyLogo"/></div>
       <img class="close" @click="close" :src="closePng"/>
     </div>
   </div>
