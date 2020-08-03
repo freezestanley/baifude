@@ -198,7 +198,7 @@ export default {
 </style>
 <style lang="less">
   .swiper-container-activitynav{
-    margin-bottom: 15px;
+    margin-bottom: 20px;
   .activity-style.swiper-pagination-custom{
     bottom: -4px;
   }

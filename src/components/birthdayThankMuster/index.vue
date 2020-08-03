@@ -37,7 +37,7 @@
 <style scoped lang="less">
 .birthday-thank-wrap{
     display: flex;
-    padding: 0 15px;
+    padding:0 15px 15px;
     justify-content: space-between;
     .birthday-thank-item{
         width: 165px;
