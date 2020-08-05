@@ -168,6 +168,7 @@ export default {
 .wrap {
   display: flex;
   width: 100%;
+  margin-bottom: 10px;
   /*flex-wrap: wrap;*/
   .activity_container {
     text-align: center;
