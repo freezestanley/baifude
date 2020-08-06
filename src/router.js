@@ -278,6 +278,7 @@ const router = new Router({
 });
 const checkLogin = async (to, from, next) => {
   const unionName = getQueryString("union");
+  const city = getQueryString("city");
   const res = await user_checkLogin();
   const agreePath = '/newbfd/usercenter-h5/agree?union=%UNION%'.replace('%UNION%', unionName);
   const agreeUrl = agreePath + '&returnUrl=' + encodeURIComponent(window.location.href);
@@ -285,7 +286,7 @@ const checkLogin = async (to, from, next) => {
   if(res && res.code == "0"){
     if (res.data.userStatus === 1) {
       //判断用户是否已激活
-      window.location.href = '/newbfd/usercenter-h5/user/activate';
+      window.location.href = `/newbfd/usercenter-h5/user/activate?union=${unionName}&city=${city}`;
       return;
     }
     if (res.data.privacyReadStatus === 0) {
