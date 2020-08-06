@@ -327,3 +327,22 @@ export function custRedirect(path, params = {}) {
   // console.log('url:', url, path, params);
   window.location.href = url;
 }
+
+/**
+ * 检测PC访问跳转PC
+ */
+export function detectJump() {
+  let union = getQueryString("union");
+  let city = getQueryString("city");
+  let ENV = process.env.VUE_APP_FLAG; // PC_Host需要用到-勿删
+  let ua = navigator.userAgent;
+  if (
+    !detect(ua).os.phone &&
+    ua.toLowerCase().indexOf("windowswechat") === -1
+  ) {
+    if (process.env.NODE_ENV == "production") {
+      const PC_Host = eval(`\`${process.env.VUE_APP_BFD_PC}\``);
+      window.location = `${PC_Host}/home-pc/home?union=${union}&city=${city}`;
+    }
+  }
+}
