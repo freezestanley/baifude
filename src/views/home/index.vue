@@ -579,7 +579,7 @@ export default {
       const obj = { ...param };
       let res = await newsListPage(obj);
       if (utilRes.successCheck(res)) {
-        if(res.data.listObj){
+        if(res.data && res.data.listObj){
           const list = res.data.listObj;
           if (list.length >= 3) {
             this.newsData = list.slice(0, 3); //首页新闻取列表新闻里面前三条
@@ -606,7 +606,7 @@ export default {
       const obj = { ...param };
       let res = await newsListPage(obj);
       if (utilRes.successCheck(res)) {
-        if(res.data.listObj){
+        if(res.data && res.data.listObj){
           const list = res.data.listObj;
           if (list.length >= 3) {
             this.styleData = list.slice(0, 2);
@@ -623,7 +623,7 @@ export default {
       let params = { currentPage: 1, itemsPerPage: 10 };
       let res = await activity_queryActivitiyPage(params);
       if (utilRes.successCheck(res)) {
-        if(res.data.listObj){
+        if(res.data && res.data.listObj){
           this.activityData = res.data.listObj;
         }
       } else {
@@ -640,7 +640,7 @@ export default {
       const obj = { ...params };
       let res = await newsListPage(obj);
       if (utilRes.successCheck(res)) {
-        if(res.data.listObj){
+        if(res.data && res.data.listObj){
           const listObj = res.data.listObj;
           if (listObj.length > 6) {
             this.list = listObj.slice(0, 5);
@@ -665,7 +665,7 @@ export default {
           this.isAvaiableBirth = false;
         }else{
           this.isAvaiableBirth = true;
-          if(res.data.listObj){
+          if(res.data && res.data.listObj){
             const list = res.data.listObj;
             if(list.length>=4){
               this.birthdayWallList = list.slice(0, 4); //首页感谢卡列表新闻里面前四条
