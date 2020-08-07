@@ -255,7 +255,6 @@ export default {
     },
   },
   created() {
-    console.log("isAvaiable--==",this.isAvaiable)
     const union = getQueryString("union");
     // this.isLogin(union);
     this.getNotice(union);
@@ -301,7 +300,6 @@ export default {
 
       });
       this.moduleConfigMap = new Map(mapArray)
-      console.log('this.moduleConfigMap',this.moduleConfigMap);
     },
     showPosition(position) {
       this.updateState({

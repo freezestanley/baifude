@@ -404,7 +404,6 @@ const getCurrentCompanyConfigInfo = async()=>{
       moduleConfigArray.push([itemConfig.configKey,itemConfig.configValue.name])
     });
     let moduleConfigObj = new Map(moduleConfigArray);
-    console.log("routes[1]--===",routes[1])
     routes[1].children.forEach((item,index)=>{
       if(item.meta.key){
         item.meta.title = moduleConfigObj.get(item.meta.key);

@@ -90,7 +90,6 @@ export default {
     }
   },
   created(){
-    console.log("activityNavData--===",this.activityNavData.length)
   },
   mounted(){
     this.getNav();
