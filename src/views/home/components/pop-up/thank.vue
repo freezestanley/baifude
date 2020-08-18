@@ -66,7 +66,7 @@ export default {
   padding: 107px 0 20px;
   background: #fff;
   z-index: 10001;
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
