@@ -4,6 +4,7 @@
     <ThankPop :data="thankCard" @close="close" v-if="popCode === 'THANK_CARD_POP'"/>
     <Enterprise :data="birthdayPop" @close="close" v-else-if="popCode === 'BIRTHDAY_WISH_POP'"/>
     <Enterprise :data="entryPop" @close="close" v-else-if="popCode === 'ENTRY_ANNIVERSARY_POP'"/>
+    <Signature :data="signPopVO" @close="close" v-else-if="popCode === 'SIGNATURE_POP'"/>
     <template v-else></template>
   </div>
 </template>
@@ -11,11 +12,13 @@
 <script>
 import ThankPop from './thank';
 import Enterprise from './enterprise';
+import Signature from './signature';
 export default {
   props: ["popupInfo"],
   components: {
     ThankPop,
     Enterprise,
+    Signature
   },
   data() {
     return {
@@ -35,6 +38,9 @@ export default {
     },
     birthdayPop() {
       return this.popupInfo.birthdayPop;
+    },
+    signPopVO() {
+      return this.popupInfo.signPopVO;
     },
     showPopup() {
       return this.popupInfo.pop;
