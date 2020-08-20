@@ -231,6 +231,15 @@ function user_countUnReadNum(params) {
   return sendPostNew(user_countUnReadNum, "post", params, false);
 }
 
+/**
+ * 首页气泡
+ * @param { JSON } params 请求的参数
+ */
+function thankCard_queryHomeAir(params) {
+  const user_queryHomeAir = "/user/front/thankCard/queryHomeAir";
+  return sendPostNew(user_queryHomeAir, "get", params, false);
+}
+
 
 export {
   queryActivityList,
@@ -259,5 +268,6 @@ export {
   company_getStoreyNum,
   care_companyThankCardList,
   care_companyThankCardClassifys,
-  user_countUnReadNum
+  user_countUnReadNum,
+  thankCard_queryHomeAir
 };

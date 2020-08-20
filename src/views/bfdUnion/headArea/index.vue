@@ -57,6 +57,12 @@
             />
           </div> -->
         </div>
+        <!-- 待签收弹窗福利 -->
+        <div class="signature_container" v-if="showSignPop&&waitSignNum">
+          <div class="gift_icon"></div>
+          <div class="content" @click="gotoSign">您有{{waitSignNum}}笔福利待签收</div>
+          <div class="close_icon" @click="closePop"></div>
+        </div>
       </div>
       
     </div>
@@ -65,18 +71,21 @@
 
 <script>
 import { mapState } from "vuex";
-import { user_countUnReadNum } from "@/assets/apis/home"
+import { user_countUnReadNum,thankCard_queryHomeAir } from "@/assets/apis/home"
 export default {
   name: "Header",
   data() {
     return {
       showSearchBypage: false,
-      unReadNumber: 0 //未读消息
+      unReadNumber: 0, //未读消息
+      showSignPop: true,
+      waitSignNum: 0  //待签收数量
     };
   },
   created(){
     this.showSearchBypage = this.$route.meta.showSearch;
     this.user_countUnReadNum();
+    this.thankCard_queryHomeAir();
   },
   watch: {
     $route: {
@@ -117,10 +126,22 @@ export default {
     goMessage(){
       window.location.href = '/newbfd/usercenter-h5/message'+window.location.search;
     },
+    gotoSign() {
+      window.location.href='/newbfd/usercenter-h5/eleSignature' + location.search;
+    },
+    closePop(){
+      this.showSignPop = false;
+    },
     async user_countUnReadNum(){
       let res = await user_countUnReadNum();
       if(res&&res.code=='0'){
         this.unReadNumber = res.data.unReadNumber;
+      }
+    },
+    async thankCard_queryHomeAir(){
+      let res = await thankCard_queryHomeAir();
+      if(res&&res.code=='0'){
+        this.waitSignNum = res.data.waitSignNum;
       }
     }
   }
@@ -128,6 +149,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@rem: 75rem;
 .header {
   width: 100%;
   height: 40px;
@@ -224,6 +246,7 @@ export default {
     }
   }
   .subTop {
+    position: relative;
     margin: 0 auto;
     width: 356px;
     height: 40px;
@@ -231,7 +254,49 @@ export default {
     border-radius: 4px;
     box-sizing: border-box;
     opacity: 1;
-
+    .signature_container{
+      position: absolute;
+      width: 365/@rem;
+      background: #000;
+      height: 89.11/@rem;
+      z-index: 1000;
+      right: 6/@rem;
+      display: flex;
+      .gift_icon{
+        height: 40/@rem;
+        width: 40/@rem;
+        // background: #fff;
+        margin: 0 8/@rem 0 20/@rem;
+        position: relative;
+        top: 50%;
+        bottom: 50%;
+        transform: translateY(-50%);
+        background-image: url("~@/assets/images/popup/waitSignIcon.png");
+        background-size: 100% 100%;
+      }
+      .content{
+        color: #fff;
+        height: 89.11/@rem;
+        font-size:28/@rem;
+        font-family:PingFangSC-Regular,PingFang SC;
+        font-weight:400;
+        color:rgba(255,255,255,1);
+        line-height: 89.11/@rem;
+      }
+      .close_icon{
+        width:20/@rem;
+        height:20/@rem;
+        //border-radius: 50%;
+        margin-left: 16/@rem;
+        // background:rgba(255,255,255,1);
+        position: relative;
+        top: 50%;
+        bottom: 50%;
+        transform: translateY(-50%);
+        background-image: url("~@/assets/images/popup/closeSmall.png");
+        background-size: 100% 100%;
+      }
+    }
     .show {
       height: 37px;
       display: flex;
