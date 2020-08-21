@@ -265,6 +265,7 @@ export default {
       padding-top: 3rem/@rem;
       background-image: url("~@/assets/images/popup/SignPop.png");
       background-size: 100% 100%;
+      bottom:-80rem/@rem;
       .gift_icon{
         height: 40/@rem;
         width: 40/@rem;

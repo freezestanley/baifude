@@ -236,7 +236,7 @@ function user_countUnReadNum(params) {
  * @param { JSON } params 请求的参数
  */
 function thankCard_queryHomeAir(params) {
-  const user_queryHomeAir = "/user/front/thankCard/queryHomeAir";
+  const user_queryHomeAir = "/care/front/thankCard/queryHomeAir";
   return sendPostNew(user_queryHomeAir, "get", params, false);
 }
 
