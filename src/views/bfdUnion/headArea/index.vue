@@ -257,11 +257,14 @@ export default {
     .signature_container{
       position: absolute;
       width: 365/@rem;
-      background: #000;
-      height: 89.11/@rem;
+      // background: #000;
+      height: 86.11/@rem;
       z-index: 1000;
       right: 6/@rem;
       display: flex;
+      padding-top: 3rem/@rem;
+      background-image: url("~@/assets/images/popup/SignPop.png");
+      background-size: 100% 100%;
       .gift_icon{
         height: 40/@rem;
         width: 40/@rem;

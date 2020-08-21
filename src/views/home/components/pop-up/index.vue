@@ -4,7 +4,7 @@
     <ThankPop :data="thankCard" @close="close" v-if="popCode === 'THANK_CARD_POP'"/>
     <Enterprise :data="birthdayPop" @close="close" v-else-if="popCode === 'BIRTHDAY_WISH_POP'"/>
     <Enterprise :data="entryPop" @close="close" v-else-if="popCode === 'ENTRY_ANNIVERSARY_POP'"/>
-    <Signature :data="signPopVO" @close="close" v-else-if="popCode === 'SIGNATURE_POP'"/>
+    <Signature :data="signPopVO" @close="close" v-else-if="popCode === 'ELECTRONIC_SIGN_POP'"/>
     <template v-else></template>
   </div>
 </template>
