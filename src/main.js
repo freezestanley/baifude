@@ -21,6 +21,9 @@ FastClick.prototype.focus = function (targetElement) {
 
 FastClick.attach(document.body)
 
+import { detectJump } from "./assets/utils";
+// 检测PC浏览器跳转
+detectJump();
 Vue.prototype.apis = apis;
 
 // 引入阿里手淘团队发布的可伸缩布局方案

@@ -65,7 +65,7 @@ export default {
 
 <style lang="less" scoped>
     .eleganceBanner {
-        height: 100px;
+        height: 129px;
         overflow: hidden;
         border-radius: 4px;
         padding: 10px 12px;

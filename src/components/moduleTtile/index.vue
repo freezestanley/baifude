@@ -1,7 +1,12 @@
 <template>
     <div class="title" @click="goToNext(titleName)">
         <div class="title-item">{{titleName}}</div>
-        <div v-if="titleMore" class="title-more">更多</div>
+        <div v-if="titleMore" class="title-more">
+            <span style="margin-right: 15px">更多</span>
+            <span class="icon-arrow-right">
+                <van-icon name="arrow" />
+            </span>
+        </div>
     </div>
 </template>
 
@@ -53,6 +58,15 @@
         text-align: right;
         font-size: 12px;
         line-height: 40px;
+        position: relative;
+        .icon-arrow-right{
+            font-weight: bold;
+            font-size: 14px;
+           position: absolute;
+            right: 0;
+            top:50%;
+            margin-top: -19px;
+        }
     }
     }
 </style>

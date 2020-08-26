@@ -66,11 +66,14 @@ export function getQueryString(name) {
  * @param  {Number} day
  */
 export function setCookie(name, value, day, config = {}) {
+  // const _lt = window.location.host.split(".");
+  // const domain = [_lt.pop(), _lt.pop()].reverse().join(".");
+
   let str = name + "=" + encodeURIComponent(value);
   let exp = new Date();
-  let domain = window.location.hostname;
+  let domain = window.location.hostname.replace('corp.m.','');
   exp.setTime(exp.getTime() + day * 24 * 60 * 60 * 1000);
-  str += ";expires=" + exp.toGMTString() + ";path=/;domain=" + config.domain || domain;
+  str += ";expires=" + exp.toGMTString() + ";path=/;domain=" + (config.domain || domain);
   document.cookie = str;
 }
 
@@ -323,4 +326,23 @@ export function custRedirect(path, params = {}) {
   const url = mixUrl(path,params);
   // console.log('url:', url, path, params);
   window.location.href = url;
+}
+
+/**
+ * 检测PC访问跳转PC
+ */
+export function detectJump() {
+  let union = getQueryString("union");
+  let city = getQueryString("city");
+  let ENV = process.env.VUE_APP_FLAG; // PC_Host需要用到-勿删
+  let ua = navigator.userAgent;
+  if (
+    !detect(ua).os.phone &&
+    ua.toLowerCase().indexOf("windowswechat") === -1
+  ) {
+    if (process.env.NODE_ENV == "production") {
+      const PC_Host = eval(`\`${process.env.VUE_APP_BFD_PC}\``);
+      window.location = `${PC_Host}/home-pc/home?union=${union}&city=${city}`;
+    }
+  }
 }
