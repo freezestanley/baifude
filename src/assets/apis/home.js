@@ -240,6 +240,15 @@ function thankCard_queryHomeAir(params) {
   return sendPostNew(user_queryHomeAir, "get", params, false);
 }
 
+/**
+ * 首页聚合接口
+ * @param { JSON } params 请求的参数
+ */
+function homePageAggregation_list(params) {
+  const url = "/cms/front/homePageAggregation/list";
+  return sendPostNew(url, "post", params, false);
+}
+
 
 export {
   queryActivityList,
@@ -269,5 +278,6 @@ export {
   care_companyThankCardList,
   care_companyThankCardClassifys,
   user_countUnReadNum,
-  thankCard_queryHomeAir
+  thankCard_queryHomeAir,
+  homePageAggregation_list
 };
