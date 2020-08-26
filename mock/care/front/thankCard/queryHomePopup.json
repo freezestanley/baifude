@@ -1,0 +1,43 @@
+{
+	"code": "",
+	"data": {
+		"birthdayPop": {
+			"birthdayPopPic": "",
+			"companyLogo": "",
+			"companySimpleName": "",
+			"date": "",
+			"name": ""
+		},
+		"entryPopVO": {
+			"companyLogo": "",
+			"companySimpleName": "",
+			"date": "",
+			"entryPopPic": "",
+			"entryYear": 0,
+			"name": ""
+		},
+		"pop": false,
+		"popCode": "SIGNATURE_POP",
+		"signPopVO": {
+			"careName": "生日快乐",
+			"isDolby": "1",
+			"signPopPic": "http://devimg.dongfangfuli.com/bfd/2020-07-21/0121f7b685948c9da1cfbbe30a6d8b7b.png"
+		},
+		"thankCardPopVO": {
+			"acceptName": "超级管理员",
+			"amt": 100,
+			"amtType": 1,
+			"date": "2020-07-20",
+			"noReadCount": 1,
+			"sendUserId": 68460,
+			"sendUserPic": "http://devimg.dongfangfuli.com/bfd/2020-07-21/65831d83fb518ef22c4e774857db9b43.png",
+			"sendUserPicWords": "c",
+			"sendUsername": "xzc",
+			"thankCardCode": "HELPFUL",
+			"thankCardMsg": "感谢师傅对于新人的我的各种帮助，虽然很忙仍然不厌其烦的解决我的各种小白问题",
+			"thankCardPopPic": "http://devimg.dongfangfuli.com/bfd/2020-07-21/0121f7b685948c9da1cfbbe30a6d8b7b.png"
+		}
+	},
+	"errMsg": "",
+	"msg": ""
+}

@@ -136,6 +136,7 @@ import ThankCard from "@/components/thankCard/index"
 import BirthdayWall from "@/components/birthdayWall/index"
 import BirthdayThank from "@/components/birthdayThankMuster/index"
 import CommonPopUp from "./components/pop-up";
+import store from "../../store";
 import {
   newsListPage,
   activity_queryActivitiyPage,
@@ -214,21 +215,26 @@ export default {
   },
   beforeRouteEnter(to,form,next){
     // let urlParams = parseQueryString(window.location.search);
-    // console.log('window.location',window.location);
-    user_queryCurrentCompanyInfo({}).then(res=>{
-        //console.log('beforeRouteEnter',res);
-      if (utilRes.successCheck(res)) {
-        if(res.data.companyVersion==2){
-          //商城版
-          window.location.replace(`${window.location.origin}/newbfd/home-h5/welfaremall${window.location.search}`);
-        }else{
-          next();
-        }
-      }else{
-        next();
-      }
-    });
-    
+    // console.log('beforeRouteEnter-home',store);
+    // next();
+    // user_queryCurrentCompanyInfo({}).then(res=>{
+    //   if (utilRes.successCheck(res)) {
+    //     if(res.data.companyVersion==2){    
+    //       //商城版
+    //       window.location.replace(`${window.location.origin}/newbfd/home-h5/welfaremall${window.location.search}`);
+    //     }else{
+    //       next();
+    //     }
+    //   }else{
+    //     next();
+    //   }
+    // });
+    if(store.state.pureMall){    
+      //商城版
+      window.location.replace(`${window.location.origin}/newbfd/home-h5/welfaremall${window.location.search}`);
+    }else{
+      next();
+    }
     
   },
   components: {
@@ -257,9 +263,9 @@ export default {
   created() {
     const union = getQueryString("union");
     // this.isLogin(union);
-    this.getNotice(union);
-    this.getData(union);
-    this.getCityList();
+    // this.getNotice(union);
+    // this.getData(union);
+    // this.getCityList();
     this.queryNewsList({ type: 1, categoryId: 1 }); //企业新闻
     this.queryActiveStyleList({ type: 1, categoryId: 2 }); //活动风采
     this.activity_queryActivitiyPage(); //企业活动
@@ -689,7 +695,7 @@ export default {
             const list = res.data.companyThankCardVOList;
             if (list.length >= 3) {
               this.thankCardList = list.slice(0, 2); //首页感谢卡列表新闻里面前二条
-              console.log("this.thankCardList",this.thankCardList)
+              // console.log("this.thankCardList",this.thankCardList)
             } else {
               this.thankCardList = list;
             }

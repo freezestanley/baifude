@@ -322,7 +322,7 @@ export default {
                 val: unionMallConf.body
               });
             };
-            console.log('this.fords',unionConf.body.styleCode);
+            // console.log('this.fords',unionConf.body.styleCode);
           })
         );
     },

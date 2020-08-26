@@ -186,7 +186,7 @@ img {
 
 .container {
   background-color: #fff;
-  overflow: hidden;
+  // overflow: hidden;
 }
 
 .wrap:last-child {
