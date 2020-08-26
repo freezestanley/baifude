@@ -146,6 +146,8 @@ import {
   user_getCompanyBirthList,
   company_getStoreyNum,
   care_companyThankCardClassifys,
+  homePageAggregation_list,
+
 } from "@/assets/apis/home";
 import utilRes from "@/assets/utils/resResult";
 import { parseQueryString } from "@/assets/utils/request";
@@ -266,19 +268,59 @@ export default {
     // this.getNotice(union);
     // this.getData(union);
     // this.getCityList();
-    this.queryNewsList({ type: 1, categoryId: 1 }); //企业新闻
-    this.queryActiveStyleList({ type: 1, categoryId: 2 }); //活动风采
-    this.activity_queryActivitiyPage(); //企业活动
-    this.queryNoticeList(); //企业公告
-    this.queryResearchList(); // 员工调研
+    // this.queryNewsList({ type: 1, categoryId: 1 }); //企业新闻
+    this.init();
+    // this.queryActiveStyleList({ type: 1, categoryId: 2 }); //活动风采
+    // this.activity_queryActivitiyPage(); //企业活动
+    // this.queryNoticeList(); //企业公告
+    // this.queryResearchList(); // 员工调研
     this.currentCompanyConfigInfo();
     this.queryHomePopup();
-    this.getCompanyBirthList();//生日墙列表
-    this.getStoreyNum();//楼层数量接口
-    this.getCompanyThankCardList();//感谢卡列表
+    // this.getCompanyBirthList();//生日墙列表
+    // this.getStoreyNum();//楼层数量接口
+    // this.getCompanyThankCardList();//感谢卡列表
   },
   methods: {
     ...mapMutations(["updateState"]),
+    async init() {
+      const params = {};
+      let res = await homePageAggregation_list(params);
+      if (utilRes.successCheck(res)) {
+        // this.storeyNum = res.data.storeyNum;
+        const {
+          companyNews,
+          activityStyle,
+          companyActivity,
+          companyNotice,
+          employeeResearch,
+          storeyNum,
+          thankCardHome,
+          birthList,
+        } = res.data;
+        this.newsData = companyNews == null ? [] : companyNews.length >= 3 ? companyNews.slice(0, 3) : companyNews;
+        this.styleData = activityStyle == null ? [] : activityStyle.length >=3 ? activityStyle.slice(0, 3) : activityStyle;
+        this.activityData = companyActivity || [];
+        this.list = companyNotice == null ? [] : companyNotice.length > 6 ? companyNotice.slice(0, 5) : companyNotice;
+        this.researchList = employeeResearch == null || employeeResearch.length === 0 ? [] : employeeResearch[0];
+        this.storeyNum = storeyNum;
+        // 感谢卡
+        this.isAvaiable = thankCardHome !== null;
+        const { companyThankCardVOList: _list, thankCardNum} = thankCardHome;
+        if(this.isAvaiable && _list) {
+          this.thankCardList = _list.length >= 3 ? _list.slice(0, 2) : _list;
+          this.gatherThankBirthday[0].num = thankCardNum;
+        }
+        // 生日墙
+        this.isAvaiableBirth = birthList !== null;
+        const { listObj, total } = birthList;
+        if(this.isAvaiableBirth) {
+          this.birthdayWallList = listObj.length >= 4 ? listObj.slice(0, 4) : listObj;
+          this.gatherThankBirthday[1].num = total;
+        }
+      } else {
+        this.$notify(res.errMsg);
+      }
+    },
     getCurrentCity() {
       // eslint-disable-next-line no-undef
       let geolocation = new qq.maps.Geolocation(
