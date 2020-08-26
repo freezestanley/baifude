@@ -280,6 +280,8 @@ export default {
         this.activityData.controlList.forEach((item,index)=>{
           if(item.optionsType==2){
             item.optionsValue = []; 
+          }else{
+            item.optionsValue = '';
           }
         })
       }else{
