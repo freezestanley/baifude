@@ -263,22 +263,26 @@ export default {
     },
   },
   created() {
+    const openAggregation = false;
     const union = getQueryString("union");
     // this.isLogin(union);
     // this.getNotice(union);
     // this.getData(union);
     // this.getCityList();
-    // this.queryNewsList({ type: 1, categoryId: 1 }); //企业新闻
-    this.init();
-    // this.queryActiveStyleList({ type: 1, categoryId: 2 }); //活动风采
-    // this.activity_queryActivitiyPage(); //企业活动
-    // this.queryNoticeList(); //企业公告
-    // this.queryResearchList(); // 员工调研
+    if(openAggregation) {
+      this.init();
+    }else{
+      this.queryNewsList({ type: 1, categoryId: 1 }); //企业新闻
+      this.queryActiveStyleList({ type: 1, categoryId: 2 }); //活动风采
+      this.activity_queryActivitiyPage(); //企业活动
+      this.queryNoticeList(); //企业公告
+      this.queryResearchList(); // 员工调研
+      this.getCompanyBirthList();//生日墙列表
+      this.getStoreyNum();//楼层数量接口
+      this.getCompanyThankCardList();//感谢卡列表
+    }
     this.currentCompanyConfigInfo();
     this.queryHomePopup();
-    // this.getCompanyBirthList();//生日墙列表
-    // this.getStoreyNum();//楼层数量接口
-    // this.getCompanyThankCardList();//感谢卡列表
   },
   methods: {
     ...mapMutations(["updateState"]),
