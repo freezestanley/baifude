@@ -218,7 +218,7 @@ export default {
     line-height: 30px;
     background: #fff;
     box-sizing: border-box;
-    margin-top: 2px;
+    margin-top: 4px;
     margin-left: -5px;
     .imgWrap {
       width: 100px;
