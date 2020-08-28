@@ -213,16 +213,17 @@ export default {
   }
   .union {
     display: block;
-    width: 70px;
-    height: 40px;
-    line-height: 40px;
-    margin: 0 0 0 10px;
+    width: 100px;
+    max-height: 30px;
+    line-height: 30px;
     background: #fff;
     box-sizing: border-box;
+    margin-top: 2px;
+    margin-left: -5px;
     .imgWrap {
-      width: 40px;
-      height: 40px;
-      line-height: 40px;
+      width: 100px;
+      height: 30px;
+      line-height: 30px;
       overflow: hidden;
       position: relative;
       img {
@@ -302,7 +303,7 @@ export default {
       }
     }
     .show {
-      height: 37px;
+      height: 40px;
       display: flex;
       .location {
         font-size: 15px;
