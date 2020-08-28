@@ -219,7 +219,6 @@ export default {
     background: #fff;
     box-sizing: border-box;
     margin-top: 4px;
-    margin-left: -5px;
     .imgWrap {
       width: 100px;
       height: 30px;
