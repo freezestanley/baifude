@@ -266,7 +266,7 @@ export default {
     const union = getQueryString("union");
     // this.isLogin(union);
     // this.getNotice(union);
-    // this.getData(union);
+    this.getData(union);
     // this.getCityList();
     // this.queryNewsList({ type: 1, categoryId: 1 }); //企业新闻
     this.init();
