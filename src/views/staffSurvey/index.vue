@@ -109,16 +109,15 @@ export default {
   }
 };
 </script>
+<style>
+.commonBg {
+  padding-bottom: 0;
+}
+</style>
 
 <style lang="less" scoped>
 .page {
   padding: 0px 10px 0;
   font-size: 14px;
-  // height: calc(100vh - 117px);
-  // // display: flex;
-  // // flex-direction: column;
-  // .surveyItem {
-  //   flex: 1;
-  // }
 }
 </style>
