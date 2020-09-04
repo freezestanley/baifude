@@ -301,11 +301,11 @@ export default {
           thankCardHome,
           birthList,
         } = res.data;
-        this.newsData = companyNews == null ? [] : companyNews.length >= 3 ? companyNews.slice(0, 3) : companyNews;
-        this.styleData = activityStyle == null ? [] : activityStyle.length >=3 ? activityStyle.slice(0, 3) : activityStyle;
-        this.activityData = companyActivity || [];
-        this.list = companyNotice == null ? [] : companyNotice.length > 6 ? companyNotice.slice(0, 5) : companyNotice;
-        this.researchList = employeeResearch == null || employeeResearch.length === 0 ? [] : employeeResearch[0];
+        this.newsData = companyNews.listObj == null ? [] : companyNews.listObj.length >= 3 ? companyNews.listObj.slice(0, 3) : companyNews.listObj;
+        this.styleData = activityStyle.listObj == null ? [] : activityStyle.listObj.length >=3 ? activityStyle.listObj.slice(0, 3) : activityStyle.listObj;
+        this.activityData = companyActivity.listObj || [];
+        this.list = companyNotice.listObj == null ? [] : companyNotice.listObj.length > 6 ? companyNotice.listObj.slice(0, 5) : companyNotice.listObj;
+        this.researchList = employeeResearch.listObj == null || employeeResearch.listObj.length === 0 ? [] : employeeResearch.listObj[0];
         this.storeyNum = storeyNum;
         // 感谢卡
         this.isAvaiable = thankCardHome !== null;
