@@ -305,7 +305,7 @@ export default {
         activityStyle && (this.styleData = activityStyle.listObj == null ? [] : activityStyle.listObj.length >=3 ? activityStyle.listObj.slice(0, 3) : activityStyle.listObj);
         companyActivity && (this.activityData = companyActivity.listObj || []);
         companyNotice && (this.list = companyNotice.listObj == null ? [] : companyNotice.listObj.length > 6 ? companyNotice.listObj.slice(0, 5) : companyNotice.listObj);
-        researchList && (this.researchList = employeeResearch.listObj == null || employeeResearch.listObj.length === 0 ? [] : employeeResearch.listObj[0]);
+        employeeResearch && (this.researchList = employeeResearch.listObj == null || employeeResearch.listObj.length === 0 ? [] : employeeResearch.listObj[0]);
         this.storeyNum = storeyNum;
         // 感谢卡
         this.isAvaiable = thankCardHome !== null;
