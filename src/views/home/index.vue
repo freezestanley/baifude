@@ -263,7 +263,7 @@ export default {
     },
   },
   created() {
-    const openAggregation = false;
+    const openAggregation = true;
     const union = getQueryString("union");
     // this.isLogin(union);
     // this.getNotice(union);
