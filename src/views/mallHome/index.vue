@@ -356,7 +356,7 @@ html {
   margin: 0;
 }
 .van-popup {
-  background-color: transparent;
+  /*background-color: transparent;*/
 }
 .bgGray {
   background-color: #f8f8f8;
