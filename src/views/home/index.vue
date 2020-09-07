@@ -11,7 +11,7 @@
       <!-- 企业新闻 -->
       <div class="layout news" v-if="newsData.length > 0">
         <Title
-          titleName="企业新闻1"
+          titleName="企业新闻"
           :titleMore="true"
           @goToNext="goToNext"
         ></Title>
@@ -264,11 +264,11 @@ export default {
     },
   },
   created() {
-    const openAggregation = false;
+    const openAggregation = true;
     const union = getQueryString("union");
     // this.isLogin(union);
     // this.getNotice(union);
-    // this.getData(union);
+    this.getData(union);
     // this.getCityList();
     if(openAggregation) {
       this.init();
@@ -302,11 +302,11 @@ export default {
           thankCardHome,
           birthList,
         } = res.data;
-        this.newsData = companyNews == null ? [] : companyNews.length >= 3 ? companyNews.slice(0, 3) : companyNews;
-        this.styleData = activityStyle == null ? [] : activityStyle.length >=3 ? activityStyle.slice(0, 3) : activityStyle;
-        this.activityData = companyActivity || [];
-        this.list = companyNotice == null ? [] : companyNotice.length > 6 ? companyNotice.slice(0, 5) : companyNotice;
-        this.researchList = employeeResearch == null || employeeResearch.length === 0 ? [] : employeeResearch[0];
+        companyNews && (this.newsData = companyNews && companyNews.listObj == null ? [] : companyNews.listObj.length >= 3 ? companyNews.listObj.slice(0, 3) : companyNews.listObj);
+        activityStyle && (this.styleData = activityStyle.listObj == null ? [] : activityStyle.listObj.length >=3 ? activityStyle.listObj.slice(0, 3) : activityStyle.listObj);
+        companyActivity && (this.activityData = companyActivity.listObj || []);
+        companyNotice && (this.list = companyNotice.listObj == null ? [] : companyNotice.listObj.length > 6 ? companyNotice.listObj.slice(0, 5) : companyNotice.listObj);
+        employeeResearch && (this.researchList = employeeResearch.listObj == null || employeeResearch.listObj.length === 0 ? [] : employeeResearch.listObj[0]);
         this.storeyNum = storeyNum;
         // 感谢卡
         this.isAvaiable = thankCardHome !== null;
@@ -324,6 +324,7 @@ export default {
         }
       } else {
         Toast(res.errMsg);
+        this.$notify({type: 'danger', message: res.errMsg || '网络繁忙，请稍后重试'});
       }
     },
     getCurrentCity() {
@@ -523,7 +524,7 @@ export default {
                 sessionStorage.setItem("cityList", JSON.stringify(cityList));
               }
             } else {
-              Toast(unionConf.data.msg);
+              this.$notify(unionConf.data.msg);
               return false;
             }
             if(unionConf && unionConf.body){
@@ -639,7 +640,7 @@ export default {
           }
         }
       } else {
-        Toast(res.errMsg);
+        this.$notify({type: 'danger', message: res.errMsg || '网络繁忙，请稍后重试'});
       }
     },
     //楼层数量接口
@@ -649,7 +650,7 @@ export default {
       if (utilRes.successCheck(res)) {
         this.storeyNum = res.data.storeyNum;
       } else {
-        Toast(res.errMsg);
+        this.$notify({type: 'danger', message: res.errMsg || '网络繁忙，请稍后重试'});
       }
     },
     //活动风采列表接口
@@ -666,7 +667,7 @@ export default {
           }
         }
       } else {
-        Toast(res.errMsg);
+        this.$notify({type: 'danger', message: res.errMsg || '网络繁忙，请稍后重试'});
       }
     },
     //企业活动列表接口
@@ -678,7 +679,7 @@ export default {
           this.activityData = res.data.listObj;
         }
       } else {
-        Toast(res.errMsg);
+        this.$notify({type: 'danger', message: res.errMsg || '网络繁忙，请稍后重试'});
       }
     },
     //企业公告列表
@@ -700,7 +701,7 @@ export default {
           }
         }
       } else {
-        Toast(res.errMsg);
+        this.$notify({type: 'danger', message: res.errMsg || '网络繁忙，请稍后重试'});
       }
     },
     //生日墙接口列表
@@ -727,7 +728,7 @@ export default {
           }
         }
       } else {
-        Toast(res.errMsg);
+        this.$notify({type: 'danger', message: res.errMsg || '网络繁忙，请稍后重试'});
       }
     },
     //感谢卡墙接口列表
@@ -750,7 +751,7 @@ export default {
           }
         }
       } else {
-        Toast(res.errMsg);
+        this.$notify({type: 'danger', message: res.errMsg || '网络繁忙，请稍后重试'});
       }
     },
     // 员工调研
@@ -768,7 +769,7 @@ export default {
           this.researchList = listObj[0];
         }
       } else {
-        Toast(res.errMsg);
+        this.$notify({type: 'danger', message: res.errMsg || '网络繁忙，请稍后重试'});
       }
     },
     goToDetail(item) {
@@ -803,7 +804,7 @@ export default {
         if (utilRes.successCheck(res) && res.data) {
           this.popupInfo = res.data;
         } else {
-          Toast(res.errMsg);
+          this.$notify({type: 'danger', message: res.errMsg || '网络繁忙，请稍后重试'});
         }
       });
     },
@@ -836,7 +837,7 @@ html {
   margin: 0;
 }
 .van-popup {
-  background-color: transparent;
+  /*background-color: transparent;*/
 }
 .bgGray {
   background-color: #f8f8f8;
