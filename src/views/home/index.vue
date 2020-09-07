@@ -11,7 +11,7 @@
       <!-- 企业新闻 -->
       <div class="layout news" v-if="newsData.length > 0">
         <Title
-          titleName="企业新闻"
+          titleName="企业新闻1"
           :titleMore="true"
           @goToNext="goToNext"
         ></Title>
@@ -123,6 +123,7 @@
 </template>
 
 <script>
+import { Notify } from 'vant';
 import { Toast } from "vant";
 import axios from "axios";
 import { mapMutations,mapState } from "vuex";
@@ -322,7 +323,7 @@ export default {
           this.gatherThankBirthday[1].num = total;
         }
       } else {
-        this.$notify(res.errMsg);
+        Toast(res.errMsg);
       }
     },
     getCurrentCity() {
@@ -522,7 +523,7 @@ export default {
                 sessionStorage.setItem("cityList", JSON.stringify(cityList));
               }
             } else {
-              this.$notify(unionConf.data.msg);
+              Toast(unionConf.data.msg);
               return false;
             }
             if(unionConf && unionConf.body){
@@ -638,7 +639,7 @@ export default {
           }
         }
       } else {
-        this.$notify(res.errMsg);
+        Toast(res.errMsg);
       }
     },
     //楼层数量接口
@@ -648,7 +649,7 @@ export default {
       if (utilRes.successCheck(res)) {
         this.storeyNum = res.data.storeyNum;
       } else {
-        this.$notify(res.errMsg);
+        Toast(res.errMsg);
       }
     },
     //活动风采列表接口
@@ -665,7 +666,7 @@ export default {
           }
         }
       } else {
-        this.$notify(res.errMsg);
+        Toast(res.errMsg);
       }
     },
     //企业活动列表接口
@@ -677,7 +678,7 @@ export default {
           this.activityData = res.data.listObj;
         }
       } else {
-        this.$notify(res.errMsg);
+        Toast(res.errMsg);
       }
     },
     //企业公告列表
@@ -699,7 +700,7 @@ export default {
           }
         }
       } else {
-        this.$notify(res.errMsg);
+        Toast(res.errMsg);
       }
     },
     //生日墙接口列表
@@ -726,7 +727,7 @@ export default {
           }
         }
       } else {
-        this.$notify(res.errMsg);
+        Toast(res.errMsg);
       }
     },
     //感谢卡墙接口列表
@@ -749,7 +750,7 @@ export default {
           }
         }
       } else {
-        this.$notify(res.errMsg);
+        Toast(res.errMsg);
       }
     },
     // 员工调研
@@ -767,7 +768,7 @@ export default {
           this.researchList = listObj[0];
         }
       } else {
-        this.$notify(res.errMsg);
+        Toast(res.errMsg);
       }
     },
     goToDetail(item) {
@@ -802,7 +803,7 @@ export default {
         if (utilRes.successCheck(res) && res.data) {
           this.popupInfo = res.data;
         } else {
-          this.$notify(res.errMsg);
+          Toast(res.errMsg);
         }
       });
     },
