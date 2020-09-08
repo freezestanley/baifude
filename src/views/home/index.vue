@@ -9,14 +9,15 @@
       <ActivityNav :activityNavData="activityNavData"></ActivityNav>
       <BirthdayThank :data="gatherThankBirthday" v-if="isCardEven && storeyNum > 2"></BirthdayThank>
       <!-- 企业新闻 -->
-      <div class="layout news" v-if="newsData.length > 0">
-        <Title
-          titleName="企业新闻"
-          :titleMore="true"
-          @goToNext="goToNext"
-        ></Title>
-        <NewsItem :newsData="newsData" @goToDetail="goToDetail"></NewsItem>
-      </div>
+      <news-module></news-module>
+<!--      <div class="layout news" v-if="newsData.length > 0">-->
+<!--        <Title-->
+<!--          titleName="企业新闻"-->
+<!--          :titleMore="true"-->
+<!--          @goToNext="goToNext"-->
+<!--        ></Title>-->
+<!--        <NewsItem :newsData="newsData" @goToDetail="goToDetail"></NewsItem>-->
+<!--      </div>-->
       <div class="activity" v-if="activityData.length > 0">
         <!--企业活动-->
         <div style="padding: 0 15px">
@@ -32,14 +33,14 @@
         ></BusinessActivity>
       </div>
       <!-- 活动风采 -->
-      <div class="layout elegance" v-if="styleData.length > 0">
-        <Title
-          titleName="活动风采"
-          :titleMore="true"
-          @goToNext="goToNext"
-        ></Title>
-        <NewsItem :newsData="styleData" @goToDetail="goToDetail"></NewsItem>
-      </div>
+<!--      <div class="layout elegance" v-if="styleData.length > 0">-->
+<!--        <Title-->
+<!--          titleName="活动风采"-->
+<!--          :titleMore="true"-->
+<!--          @goToNext="goToNext"-->
+<!--        ></Title>-->
+<!--        <NewsItem :newsData="styleData" @goToDetail="goToDetail"></NewsItem>-->
+<!--      </div>-->
       <!-- 员工调研 -->
       <div class="layout survey" v-if="researchList.title">
         <Title
@@ -137,6 +138,7 @@ import ThankCard from "@/components/thankCard/index"
 import BirthdayWall from "@/components/birthdayWall/index"
 import BirthdayThank from "@/components/birthdayThankMuster/index"
 import CommonPopUp from "./components/pop-up";
+import NewsModule from "./components/newsModule/index"
 import store from "../../store";
 import {
   newsListPage,
@@ -249,6 +251,7 @@ export default {
     BirthdayWall,
     BirthdayThank,
     CommonPopUp,
+    NewsModule,
   },
   computed:{
     ...mapState({
