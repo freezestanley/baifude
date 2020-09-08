@@ -322,7 +322,7 @@ export default {
           this.gatherThankBirthday[1].num = total;
         }
       } else {
-        this.$notify({type: 'danger', message: res.errMsg || '网络繁忙，请稍后重试'});
+        this.$notify({type: 'danger', message: res.data.errMsg || '网络繁忙，请稍后重试'});
       }
     },
     getCurrentCity() {
@@ -638,7 +638,7 @@ export default {
           }
         }
       } else {
-        this.$notify({type: 'danger', message: res.errMsg || '网络繁忙，请稍后重试'});
+        this.$notify({type: 'danger', message: res.data.errMsg || '网络繁忙，请稍后重试'});
       }
     },
     //楼层数量接口
@@ -648,7 +648,7 @@ export default {
       if (utilRes.successCheck(res)) {
         this.storeyNum = res.data.storeyNum;
       } else {
-        this.$notify({type: 'danger', message: res.errMsg || '网络繁忙，请稍后重试'});
+        this.$notify({type: 'danger', message: res.data.errMsg || '网络繁忙，请稍后重试'});
       }
     },
     //活动风采列表接口
@@ -665,7 +665,7 @@ export default {
           }
         }
       } else {
-        this.$notify({type: 'danger', message: res.errMsg || '网络繁忙，请稍后重试'});
+        this.$notify({type: 'danger', message: res.data.errMsg || '网络繁忙，请稍后重试'});
       }
     },
     //企业活动列表接口
@@ -677,7 +677,7 @@ export default {
           this.activityData = res.data.listObj;
         }
       } else {
-        this.$notify({type: 'danger', message: res.errMsg || '网络繁忙，请稍后重试'});
+        this.$notify({type: 'danger', message: res.data.errMsg || '网络繁忙，请稍后重试'});
       }
     },
     //企业公告列表
@@ -699,7 +699,7 @@ export default {
           }
         }
       } else {
-        this.$notify({type: 'danger', message: res.errMsg || '网络繁忙，请稍后重试'});
+        this.$notify({type: 'danger', message: res.data.errMsg || '网络繁忙，请稍后重试'});
       }
     },
     //生日墙接口列表
@@ -726,7 +726,7 @@ export default {
           }
         }
       } else {
-        this.$notify({type: 'danger', message: res.errMsg || '网络繁忙，请稍后重试'});
+        this.$notify({type: 'danger', message: res.data.errMsg || '网络繁忙，请稍后重试'});
       }
     },
     //感谢卡墙接口列表
@@ -749,7 +749,7 @@ export default {
           }
         }
       } else {
-        this.$notify({type: 'danger', message: res.errMsg || '网络繁忙，请稍后重试'});
+        this.$notify({type: 'danger', message: res.data.errMsg || '网络繁忙，请稍后重试'});
       }
     },
     // 员工调研
@@ -767,7 +767,7 @@ export default {
           this.researchList = listObj[0];
         }
       } else {
-        this.$notify({type: 'danger', message: res.errMsg || '网络繁忙，请稍后重试'});
+        this.$notify({type: 'danger', message: res.data.errMsg || '网络繁忙，请稍后重试'});
       }
     },
     goToDetail(item) {
@@ -802,7 +802,7 @@ export default {
         if (utilRes.successCheck(res) && res.data) {
           this.popupInfo = res.data;
         } else {
-          this.$notify({type: 'danger', message: res.errMsg || '网络繁忙，请稍后重试'});
+          this.$notify({type: 'danger', message: res.data.errMsg || '网络繁忙，请稍后重试'});
         }
       });
     },
