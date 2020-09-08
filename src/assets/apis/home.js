@@ -26,6 +26,14 @@ function newsListPage(params) {
   return sendPostNew(newslistPageApi, "post", params, false);
 }
 /**
+ * 获取企业新闻配置
+ * @param { JSON } params 请求的参数
+ */
+function news_getNewsCategoryList(params) {
+  const getNewsCategoryListApi = "/cms/front/news/getNewsCategoryList";
+  return sendPostNew(getNewsCategoryListApi, "get", params, false);
+}
+/**
  * 获取新闻详情
  * @param { JSON } params 请求的参数
  */
@@ -279,5 +287,6 @@ export {
   care_companyThankCardClassifys,
   user_countUnReadNum,
   thankCard_queryHomeAir,
-  homePageAggregation_list
+  homePageAggregation_list,
+  news_getNewsCategoryList,
 };

@@ -1,18 +1,34 @@
 <template>
   <div class="page">
     <div style="height:50px;width: 100%;"></div>
-    <div v-if="bannerList.length>0">
+    <div v-if="bannerList.length > 0">
       <Banner :bannerList="bannerList" @clickBanner="clickBanner"></Banner>
     </div>
     <div class="news-cont">
-      <Tab :tabList="tabList" :tabIndex="tabIndex" @changeTab="changeTab">
-        <template slot="name1">
-          <NewsItem ref="newsListNode" @refresh="refresh" @infinite="infinite" :newsData="newsData" :bannerList="bannerList" @goToDetail="goToDetail"></NewsItem>
-        </template>
-        <template slot="name2">
-          <NewsItem ref="newsListNode" @refresh="refresh" @infinite="infinite" :newsData="newsData" :bannerList="bannerList" @goToDetail="goToDetail"></NewsItem>
-        </template>
-      </Tab>
+      <!--      <Tab :tabList="tabList" :tabIndex="tabIndex" @changeTab="changeTab">-->
+      <!--        <template slot="name1">-->
+      <!--          <NewsItem ref="newsListNode" @refresh="refresh" @infinite="infinite" :newsData="newsData" :bannerList="bannerList" @goToDetail="goToDetail"></NewsItem>-->
+      <!--        </template>-->
+      <!--        <template slot="name2">-->
+      <!--          <NewsItem ref="newsListNode" @refresh="refresh" @infinite="infinite" :newsData="newsData" :bannerList="bannerList" @goToDetail="goToDetail"></NewsItem>-->
+      <!--        </template>-->
+      <!--      </Tab>-->
+      <van-tabs @click="tabClick()" color="#4679A3">
+        <van-tab
+          v-for="item in moduleList"
+          :title="item.categoryName"
+          :name="item.categoryId"
+        >
+          <NewsItem
+            ref="newsListNode"
+            @refresh="refresh"
+            @infinite="infinite"
+            :newsData="newsData"
+            :bannerList="bannerList"
+            @goToDetail="goToDetail"
+          ></NewsItem>
+        </van-tab>
+      </van-tabs>
     </div>
   </div>
 </template>
@@ -21,14 +37,17 @@
 import Tab from "./components/nav";
 import NewsItem from "./components/newsItem";
 import Banner from "./components/banner";
-import { newsListPage,newsConf_list } from "@/assets/apis/home";
+import {
+  newsListPage,
+  newsConf_list,
+  news_getNewsCategoryList
+} from "@/assets/apis/home";
 import utilRes from "@/assets/utils/resResult";
 import { parseQueryString } from "@/assets/utils/request";
 import { custRedirect } from "@/assets/utils";
 export default {
   name: "index",
   components: {
-    Tab,
     NewsItem,
     Banner
   },
@@ -39,19 +58,21 @@ export default {
         { index: 0, name: "企业新闻", key: "name1" },
         { index: 1, name: "活动风采", key: "name2" }
       ],
-      newsData:[], //新闻列表数据
-      bannerList:[],//banner数组
-      currentPage: 0,//请求第几页
-      itemsPerPage: 10,//每页请求的数量
-      total: 0,//总共的数据条数
+      newsData: [], //新闻列表数据
+      bannerList: [], //banner数组
+      currentPage: 0, //请求第几页
+      itemsPerPage: 10, //每页请求的数量
+      total: 0, //总共的数据条数
       loading: false,
       finished: false,
       refreshing: false,
       urlParams: {},
+      moduleList: []
     };
   },
   created() {
     this.queryNewsBanner();
+    this.queryModuleList();
   },
   watch: {
     // $route: {
@@ -67,54 +88,65 @@ export default {
     changeTab(tab) {
       this.urlParams = parseQueryString(window.location.search);
       // this.$refs.newsListNode.$refs.my_scroller.finishInfinite(false);
-      custRedirect('/newbfd/home-h5/corporatenews', { ...this.urlParams,type: tab.index + 1})
-      return ;
+      custRedirect("/newbfd/home-h5/corporatenews", {
+        ...this.urlParams,
+        type: tab.index + 1
+      });
+      return;
     },
-    refresh(done){
+    tabClick(name, title) {
+      console.log(title);
+    },
+    refresh(done) {
       this.currentPage = 1;
       this.total = 0;
       this.newsData = [];
-      if(this.$route.query.type == 2){
+      if (this.$route.query.type == 2) {
         this.tabIndex = 1;
-      }else{
+      } else {
         this.tabIndex = 0;
       }
-      let params = {type:1,categoryId:this.$route.query.type}
-      this.queryNewsList(params,done);
+      let params = { type: 1, categoryId: this.$route.query.type };
+      this.queryNewsList(params, done);
     },
-    infinite(done){
-      if(this.$route.query.type == 2){
+    infinite(done) {
+      if (this.$route.query.type == 2) {
         this.tabIndex = 1;
-      }else{
+      } else {
         this.tabIndex = 0;
       }
-      let params = {type:1,categoryId:this.$route.query.type}
+      let params = { type: 1, categoryId: this.$route.query.type };
       this.currentPage += 1;
-      this.queryNewsList(params,done);
+      this.queryNewsList(params, done);
     },
     goToDetail(item) {
-      custRedirect("/newbfd/home-h5/corporatenews/newsdetail"+window.location.search, { id: item.id })
+      custRedirect(
+        "/newbfd/home-h5/corporatenews/newsdetail" + window.location.search,
+        { id: item.id }
+      );
       // this.$router.push({
       //   path: "/newbfd/home-h5/corporatenews/newsdetail"+window.location.search,
       //   query: { id: item.id }
       // });
     },
-    async queryNewsList(param,done) {
-      if(this.newsData.length!=0 && this.total <= this.newsData.length){
+    async queryNewsList(param, done) {
+      if (this.newsData.length != 0 && this.total <= this.newsData.length) {
         this.$refs.newsListNode.$refs.my_scroller.finishInfinite(true);
         return;
-      };
-      let params ={
-        currentPage:this.currentPage,
-        itemsPerPage:this.itemsPerPage,
       }
-      const obj ={...param,...params}
+      let params = {
+        currentPage: this.currentPage,
+        itemsPerPage: this.itemsPerPage
+      };
+      const obj = { ...param, ...params };
       let res = await newsListPage(obj);
-      if (utilRes.successCheck(res)&&(res.data.total!=0)) {
+      if (utilRes.successCheck(res) && res.data.total != 0) {
         //this.newsData = res.data.listObj; //请求返回当页的列表
-        this.newsData = JSON.parse(JSON.stringify(this.newsData)).concat(res.data.listObj);
+        this.newsData = JSON.parse(JSON.stringify(this.newsData)).concat(
+          res.data.listObj
+        );
         this.total = res.data.total;
-        if(typeof done === "function"){
+        if (typeof done === "function") {
           done();
         }
       } else {
@@ -124,7 +156,7 @@ export default {
     async queryNewsBanner() {
       let res = await newsConf_list();
       if (utilRes.successCheck(res)) {
-        this.bannerList=res.data;
+        this.bannerList = res.data;
       } else {
         this.$notify({
           type: "error",
@@ -132,13 +164,29 @@ export default {
         });
       }
     },
-    clickBanner(item){
-      custRedirect("/newbfd/home-h5/corporatenews/newsdetail"+window.location.search, { id: item.id })
+    clickBanner(item) {
+      custRedirect(
+        "/newbfd/home-h5/corporatenews/newsdetail" + window.location.search,
+        { id: item.id }
+      );
       // this.$router.push({
       //   path: "/newbfd/home-h5/corporatenews/newsdetail"+window.location.search,
       //   query: { id: item.id }
       // });
-    },
+    }, //企业新闻模块列表接口
+    async queryModuleList() {
+      let res = await news_getNewsCategoryList();
+      if (utilRes.successCheck(res)) {
+        if (res.data) {
+          this.moduleList = res.data;
+        }
+      } else {
+        this.$notify({
+          type: "danger",
+          message: res.data.errMsg || "网络繁忙，请稍后重试"
+        });
+      }
+    }
   }
 };
 </script>
@@ -151,13 +199,13 @@ export default {
   .news-banner {
     height: 180px;
     width: 100%;
-    background: #4679A3;
+    background: #4679a3;
     border-radius: 5px;
     margin: 10px 0;
   }
   .news-cont {
-    padding: 0 15px ;
+    padding: 0 15px;
     overflow: hidden;
-  }
+font-size: 14px;}
 }
 </style>

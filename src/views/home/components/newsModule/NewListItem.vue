@@ -1,6 +1,6 @@
 <template>
     <section class="newItem">
-        <div class="newItem-wrap" v-for="(item,index) in newsData" :key="index" @click="goToDetail(item)">
+        <div class="newItem-wrap" v-for="(item,index) in list" :key="index" @click="goToDetail(item)">
             <div class="newItem-wrap-left">
                 <div class="newItem-title">{{item.title}}</div>
                 <div class="newItem-date">{{item.publishDate}}</div>
@@ -23,6 +23,15 @@
                 }
             },
         },
+        computed:{
+            list(){
+                if(this.newsData.length >=3){
+                    return this.newsData.slice(0,3);
+                }else {
+                    return this.newsData;
+                }
+            }
+        },
         methods:{
             //跳转详情页面操作
             goToDetail(item){
@@ -43,8 +52,8 @@
             margin-bottom: 16px;
             justify-content: space-between;
             .newItem-wrap-right{
-                width: 100px;
-                height: 75px;
+                width: 117px;
+                height: 66px;
                 box-sizing: border-box;
                 img{
                     display: block;
@@ -54,10 +63,10 @@
                 }
             }
             .newItem-wrap-left{
-                width: 230px;
+                width: 211px;
                 overflow: hidden;
                 .newItem-title{
-                    width: 230px;
+                    width: 211px;
                     color: #333333;
                     font-size: 14px;
                     font-weight: bold;

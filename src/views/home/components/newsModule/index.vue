@@ -12,10 +12,10 @@
         @goToNext="goToNext(item)"
       ></Title>
       <NewListItem
-        :newsData="item.pageResponseVO"
+        :newsData="item.newsQueryFrontOutVOS"
         v-if="item.styleType == 1"
       ></NewListItem>
-      <NewsCardItem :newsData="item.pageResponseVO" v-else></NewsCardItem>
+      <NewsCardItem :newsData="item.newsQueryFrontOutVOS" v-else></NewsCardItem>
     </div>
   </div>
 </template>
@@ -24,10 +24,17 @@
 import Title from "@/components/moduleTtile/index";
 import NewListItem from "./NewListItem";
 import NewsCardItem from "./NewsCardItem";
+import { custRedirect } from "@/assets/utils";
+import { parseQueryString } from "@/assets/utils/request";
+import utilRes from "@/assets/utils/resResult";
+import {
+  news_getNewsCategoryList
+} from "@/assets/apis/home";
 export default {
   name: "index",
   data() {
     return {
+      custRedirect,
       moduleList: [
         {
           categoryId: 0,
@@ -40,14 +47,29 @@ export default {
               isAttachment: null,
               isTop: 0,
               picture:
-                "http://devimg.dongfangfuli.com/bfd/2020-09-07/eb8661c05c52a730b97003c11e0cc2a5.jpg",
+                "http://devimg.dongfangfuli.com/bfd/2020-05-27/18334a71b9af42c226011d189bff6602.png",
               publishDate: "2020-09-07",
               publishDay: "07",
               publishMonth: "09",
               publishTime: "2020-09-07 13:14:53",
-              title: "测试新闻1",
+              title: "起源于维多利亚时代的欧洲宫廷童装和洛可可风格的服饰",
               type: 1
-            }
+            },
+            {
+              categoryId: 1,
+              content: "起源于维多利亚时代的欧洲宫廷童装和洛可可风格的服饰",
+              id: 2009070000000129,
+              isAttachment: null,
+              isTop: 0,
+              picture:
+                      "http://devimg.dongfangfuli.com/bfd/2020-05-27/18334a71b9af42c226011d189bff6602.png",
+              publishDate: "2020-09-07",
+              publishDay: "07",
+              publishMonth: "09",
+              publishTime: "2020-09-07 13:14:53",
+              title: "起源于维多利亚时代的欧洲宫廷童装和洛可可风格的服饰",
+              type: 1
+            },
           ],
           styleType: 1
         },
@@ -86,7 +108,7 @@ export default {
               publishTime: "2020-09-07 13:14:53",
               title: "起源于维多利亚时代的欧洲宫廷童装和洛可可风格的服饰",
               type: 1
-            }
+            },
           ],
           styleType: 2
         }
@@ -98,11 +120,28 @@ export default {
     NewListItem,
     NewsCardItem
   },
-  created() {},
+  created() {
+    this.queryModuleList()
+  },
   methods: {
-    goToNext() {
-      console.log(121212);
-    }
+    goToNext(item) {
+      let urlParams = parseQueryString(window.location.search);
+      this.custRedirect("/newbfd/home-h5/corporatenews", {
+        ...urlParams,
+        type: item.categoryId
+      });
+    },
+    //企业新闻模块列表接口
+    async queryModuleList() {
+      let res = await news_getNewsCategoryList();
+      if (utilRes.successCheck(res)) {
+        if(res.data){
+          this.moduleList = res.data
+        }
+      } else {
+        this.$notify({type: 'danger', message: res.data.errMsg || '网络繁忙，请稍后重试'});
+      }
+    },
   }
 };
 </script>

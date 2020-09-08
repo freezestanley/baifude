@@ -56,7 +56,9 @@ import {
   Swipe,
   SwipeItem,
   PullRefresh,
-  Notify
+  Notify,
+  Tab,
+  Tabs,
 } from "vant";
 Vue.use(NavBar);
 Vue.use(Search);
@@ -82,6 +84,8 @@ Vue.use(SwipeItem);
 Vue.use(PullRefresh);
 Vue.use(VueScroller);
 Vue.use(Notify);
+Vue.use(Tab);
+Vue.use(Tabs);
 router.beforeEach((to, from, next) => {
   next();
   const { meta } = to;

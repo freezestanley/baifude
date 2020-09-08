@@ -88,8 +88,8 @@
         justify-content: space-between;
         margin:16px auto 0 auto;
         .newItem-wrap-right{
-            width: 100px;
-            height: 75px;
+            width: 117px;
+            height: 66px;
             box-sizing: border-box;
             img{
                 display: block;
@@ -99,10 +99,10 @@
             }
         }
         .newItem-wrap-left{
-            width: 230px;
+            width: 211px;
             overflow: hidden;
             .newItem-title{
-                width: 230px;
+                width: 211px;
                 color: #333333;
                 font-size: 14px;
                 font-weight: bold;

@@ -1,6 +1,6 @@
 <template>
     <div class="module-card">
-        <div class="card-item"  v-for="(item,index) in newsData" :key="index" @click="goToDetail(item)">
+        <div class="card-item"  v-for="(item,index) in list" :key="index" @click="goToDetail(item)">
             <div class="pic-wrap">
                 <img :src="item.picture"/>
             </div>
@@ -23,6 +23,15 @@
                     return []
                 }
             },
+        },
+        computed:{
+            list(){
+                if(this.newsData.length >=2){
+                    return this.newsData.slice(0,2);
+                }else {
+                    return this.newsData;
+                }
+            }
         },
         methods:{
             //跳转详情页面操作
