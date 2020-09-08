@@ -10,14 +10,14 @@
       <BirthdayThank :data="gatherThankBirthday" v-if="isCardEven && storeyNum > 2"></BirthdayThank>
       <!-- 企业新闻 -->
       <news-module></news-module>
-<!--      <div class="layout news" v-if="newsData.length > 0">-->
-<!--        <Title-->
-<!--          titleName="企业新闻"-->
-<!--          :titleMore="true"-->
-<!--          @goToNext="goToNext"-->
-<!--        ></Title>-->
-<!--        <NewsItem :newsData="newsData" @goToDetail="goToDetail"></NewsItem>-->
-<!--      </div>-->
+      <div class="layout news" v-if="newsData.length > 0">
+        <Title
+          titleName="企业新闻"
+          :titleMore="true"
+          @goToNext="goToNext"
+        ></Title>
+        <NewsItem :newsData="newsData" @goToDetail="goToDetail"></NewsItem>
+      </div>
       <div class="activity" v-if="activityData.length > 0">
         <!--企业活动-->
         <div style="padding: 0 15px">

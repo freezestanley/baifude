@@ -51,14 +51,6 @@ export default {
     };
   },
   created() {
-    // this.urlParams = parseQueryString(window.location.search);
-    // if(this.$route.query.type == 2){
-    //   this.tabIndex = 1;
-    // }else{
-    //   this.tabIndex = 0;
-    // }
-    // let params = {type:1,categoryId:this.$route.query.type}
-    // this.queryNewsList(params);
     this.queryNewsBanner();
   },
   watch: {
@@ -77,22 +69,6 @@ export default {
       // this.$refs.newsListNode.$refs.my_scroller.finishInfinite(false);
       custRedirect('/newbfd/home-h5/corporatenews', { ...this.urlParams,type: tab.index + 1})
       return ;
-      // this.$router.push({
-      //   path: 'corporateNews',
-      //   query: { ...this.urlParams,type: tab.index + 1}
-      // })
-    
-      // this.tabIndex = tab.index;
-      // let params = {};
-      // this.newsData=[];
-      // this.total=0;
-      // this.currentPage= 1;
-      // if (tab.index == 1) {
-      //   params = { type: 1, categoryId: "2" };
-      // }else {
-      //   params = { type: 1, categoryId: "1" };
-      // }
-      // this.queryNewsList(params);
     },
     refresh(done){
       this.currentPage = 1;
@@ -124,7 +100,6 @@ export default {
       // });
     },
     async queryNewsList(param,done) {
-      // console.log('queryNewsList',this.total,this.newsData.length);
       if(this.newsData.length!=0 && this.total <= this.newsData.length){
         this.$refs.newsListNode.$refs.my_scroller.finishInfinite(true);
         return;
@@ -138,7 +113,6 @@ export default {
       if (utilRes.successCheck(res)&&(res.data.total!=0)) {
         //this.newsData = res.data.listObj; //请求返回当页的列表
         this.newsData = JSON.parse(JSON.stringify(this.newsData)).concat(res.data.listObj);
-        // console.log(this.newsData);
         this.total = res.data.total;
         if(typeof done === "function"){
           done();
