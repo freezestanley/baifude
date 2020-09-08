@@ -13,9 +13,9 @@
       <!--          <NewsItem ref="newsListNode" @refresh="refresh" @infinite="infinite" :newsData="newsData" :bannerList="bannerList" @goToDetail="goToDetail"></NewsItem>-->
       <!--        </template>-->
       <!--      </Tab>-->
-      <van-tabs @click="tabClick()" color="#4679A3">
+      <van-tabs @change="changeTab" color="#4679A3" >
         <van-tab
-          v-for="item in moduleList"
+          v-for="(item,index) in moduleList"
           :title="item.categoryName"
           :name="item.categoryId"
         >
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import Tab from "./components/nav";
+// import Tab from "./components/nav";
 import NewsItem from "./components/newsItem";
 import Banner from "./components/banner";
 import {
@@ -85,18 +85,18 @@ export default {
   },
   methods: {
     //tab切换事件
-    changeTab(tab) {
-      this.urlParams = parseQueryString(window.location.search);
-      // this.$refs.newsListNode.$refs.my_scroller.finishInfinite(false);
-      custRedirect("/newbfd/home-h5/corporatenews", {
-        ...this.urlParams,
-        type: tab.index + 1
-      });
-      return;
+    changeTab() {
+      // this.urlParams = parseQueryString(window.location.search);
+      // // this.$refs.newsListNode.$refs.my_scroller.finishInfinite(false);
+      // custRedirect("/newbfd/home-h5/corporatenews", {
+      //   ...this.urlParams,
+      //   type: tab.index + 1
+      // });
+      // return;
     },
-    tabClick(name, title) {
-      console.log(title);
-    },
+    // tabClick(name, title) {
+    //   console.log(title);
+    // },
     refresh(done) {
       this.currentPage = 1;
       this.total = 0;
@@ -206,6 +206,7 @@ export default {
   .news-cont {
     padding: 0 15px;
     overflow: hidden;
-font-size: 14px;}
+    font-size: 14px;
+  }
 }
 </style>
