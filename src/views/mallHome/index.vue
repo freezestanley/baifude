@@ -173,6 +173,10 @@ export default {
             this.$toast.clear();
             // 收集要渲染的组件及缓存数据
             if (unionConf && unionConf.body) {
+              //  如果有配置指定首页， 直接跳走
+              const h5RedirectUrl = unionConf.body.mallUnionConfigDto.h5RedirectUrl;
+              if(h5RedirectUrl) location.href=h5RedirectUrl;
+              
               this.fords.push({
                 data: null,
                 comp: () => import(`@/views/${unionConf.body.styleCode}`)
