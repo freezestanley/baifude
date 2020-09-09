@@ -65,10 +65,11 @@ export default {
         refreshing: false
       },
       currentPage: 1,
-      itemsPerPage: 12,
+      itemsPerPage: 2,
       total: 0,
       urlParams: {},
-      categoryId: ""
+      categoryId: this.$route.query.type,
+      active:  this.$route.query.type,
     };
   },
   computed: {
@@ -80,13 +81,12 @@ export default {
               .moduleConfigList;
       }
     }),
-    active: function() {
-      return this.$route.query.type;
-    }
+    // active: function() {
+    //   return this.$route.query.type;
+    // }
   },
   created() {
     this.queryNewsBanner();
-    this.queryModuleList();
     console.log("active---===",this.active)
   },
   watch: {
@@ -108,7 +108,6 @@ export default {
       this.listObj.loading = false;
     },
     onRefresh() {
-      console.log(22222);
       // 清空列表数据
       this.listObj.finished = false;
       // 重新加载数据
