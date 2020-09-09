@@ -83,6 +83,7 @@ export default {
   },
   created() {
     this.queryNewsBanner();
+    this.queryModuleList();
   },
   watch: {
     // $route: {
