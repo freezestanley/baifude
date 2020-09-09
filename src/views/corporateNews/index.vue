@@ -58,7 +58,6 @@ export default {
   data() {
     return {
       bannerList: [], //banner数组
-      active:1,
       listObj: {
         list: [],
         loading: false,
@@ -68,7 +67,8 @@ export default {
       currentPage: 1,
       itemsPerPage: 12,
       total: 0,
-      urlParams: {}
+      urlParams: {},
+      categoryId: ""
     };
   },
   computed: {
@@ -79,11 +79,15 @@ export default {
           : JSON.parse(sessionStorage.getItem("moduleConfigList"))
               .moduleConfigList;
       }
-    })
+    }),
+    active: function() {
+      return this.$route.query.type;
+    }
   },
   created() {
     this.queryNewsBanner();
     this.queryModuleList();
+    console.log("active---===",this.active)
   },
   watch: {
     // $route: {
@@ -95,16 +99,16 @@ export default {
     // }
   },
   methods: {
-    onLoad(fn = "onLoad", param) {
-      console.log("加载----==", param);
+    async onLoad(fn = "onLoad") {
       if (this.listObj.refreshing) {
         this.listObj.list = [];
         this.listObj.refreshing = false;
       }
-      this.queryNewsList(fn, param);
+      await this.queryNewsList(fn);
       this.listObj.loading = false;
     },
     onRefresh() {
+      console.log(22222);
       // 清空列表数据
       this.listObj.finished = false;
       // 重新加载数据
@@ -117,10 +121,11 @@ export default {
     async queryNewsList(fn, param) {
       let params = {
         currentPage: this.currentPage,
-        itemsPerPage: this.itemsPerPage
+        itemsPerPage: this.itemsPerPage,
+        categoryId: this.categoryId,
+        type: 1
       };
       const obj = { ...params, ...param };
-      console.log("掉接口---==", obj);
       let res = await newsListPage(obj);
       if (utilRes.successCheck(res)) {
         if (fn === "onLoad") {
@@ -139,16 +144,12 @@ export default {
         }
         this.listObj.loading = false;
       } else {
-        // this.$message({
-        //   type: "error",
-        //   message: res.errMsg ? res.errMsg : "调用接口失败!"
-        // });
       }
     },
     tabClick(name, title) {
-      const params = { type: 1, categoryId: name };
-      console.log("click--====", params);
-      this.onLoad((fn = "onLoad"), params);
+      this.categoryId = name;
+      this.active = name;
+      this.onRefresh();
     },
     goToDetail(item) {
       custRedirect(

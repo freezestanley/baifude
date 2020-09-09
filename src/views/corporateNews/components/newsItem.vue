@@ -82,7 +82,7 @@ export default {
 
 <style lang="less" scoped>
 .newItem {
-  height: calc(100vh - 4.586rem);
+  /*height: calc(100vh - 4.586rem);*/
   /*.newItem-pull-refresh {*/
   /*  height: 100%;*/
   /*}*/
