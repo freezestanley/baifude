@@ -5,74 +5,84 @@
       <Banner :bannerList="bannerList" @clickBanner="clickBanner"></Banner>
     </div>
     <div class="news-cont">
-      <!--      <Tab :tabList="tabList" :tabIndex="tabIndex" @changeTab="changeTab">-->
-      <!--        <template slot="name1">-->
-      <!--          <NewsItem ref="newsListNode" @refresh="refresh" @infinite="infinite" :newsData="newsData" :bannerList="bannerList" @goToDetail="goToDetail"></NewsItem>-->
-      <!--        </template>-->
-      <!--        <template slot="name2">-->
-      <!--          <NewsItem ref="newsListNode" @refresh="refresh" @infinite="infinite" :newsData="newsData" :bannerList="bannerList" @goToDetail="goToDetail"></NewsItem>-->
-      <!--        </template>-->
-      <!--      </Tab>-->
-      <van-tabs @click="tabClick()" color="#4679A3">
-        <van-tab
-          v-for="item in moduleList"
-          :title="item.categoryName"
-          :name="item.categoryId"
+      <div v-if="moduleConfigList.length > 1">
+        <van-tabs
+          v-model="active"
+          @click="tabClick"
+          color="#4679A3"
+          title-active-color="#4679A3"
         >
-          <NewsItem
-            ref="newsListNode"
-            @refresh="refresh"
-            @infinite="infinite"
-            :newsData="newsData"
-            :bannerList="bannerList"
-            @goToDetail="goToDetail"
-          ></NewsItem>
-        </van-tab>
-      </van-tabs>
+          <van-tab
+            v-for="item in moduleConfigList"
+            :title="item.categoryName"
+            :name="item.categoryId"
+          >
+            <NewsItem
+              :newsData="listObj"
+              @goToDetail="goToDetail"
+              @onLoad="onLoad"
+              @onRefresh="onRefresh"
+            ></NewsItem>
+          </van-tab>
+        </van-tabs>
+      </div>
+      <div v-else>
+        <NewsItem
+          :newsData="listObj"
+          @goToDetail="goToDetail"
+          @onLoad="onLoad"
+          @onRefresh="onRefresh"
+        ></NewsItem>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import Tab from "./components/nav";
+// import Tab from "./components/nav";
 import NewsItem from "./components/newsItem";
 import Banner from "./components/banner";
-import {
-  newsListPage,
-  newsConf_list,
-  news_getNewsCategoryList
-} from "@/assets/apis/home";
+import { newsListPage, newsConf_list } from "@/assets/apis/home";
 import utilRes from "@/assets/utils/resResult";
-import { parseQueryString } from "@/assets/utils/request";
+// import { parseQueryString } from "@/assets/utils/request";
 import { custRedirect } from "@/assets/utils";
+import { mapState } from "vuex";
+
 export default {
   name: "index",
   components: {
     NewsItem,
     Banner
+    // Tab
   },
   data() {
     return {
-      tabIndex: 0,
-      tabList: [
-        { index: 0, name: "企业新闻", key: "name1" },
-        { index: 1, name: "活动风采", key: "name2" }
-      ],
-      newsData: [], //新闻列表数据
       bannerList: [], //banner数组
-      currentPage: 0, //请求第几页
-      itemsPerPage: 10, //每页请求的数量
-      total: 0, //总共的数据条数
-      loading: false,
-      finished: false,
-      refreshing: false,
-      urlParams: {},
-      moduleList: []
+      active:1,
+      listObj: {
+        list: [],
+        loading: false,
+        finished: false,
+        refreshing: false
+      },
+      currentPage: 1,
+      itemsPerPage: 12,
+      total: 0,
+      urlParams: {}
     };
+  },
+  computed: {
+    ...mapState({
+      moduleConfigList: state => {
+        return state.moduleConfigList.length
+          ? state.moduleConfigList
+          : JSON.parse(sessionStorage.getItem("moduleConfigList"))
+              .moduleConfigList;
+      }
+    })
   },
   created() {
     this.queryNewsBanner();
-    this.queryModuleList();
   },
   watch: {
     // $route: {
@@ -84,74 +94,66 @@ export default {
     // }
   },
   methods: {
-    //tab切换事件
-    changeTab(tab) {
-      this.urlParams = parseQueryString(window.location.search);
-      // this.$refs.newsListNode.$refs.my_scroller.finishInfinite(false);
-      custRedirect("/newbfd/home-h5/corporatenews", {
-        ...this.urlParams,
-        type: tab.index + 1
-      });
-      return;
+    onLoad(fn = "onLoad", param) {
+      console.log("加载----==", param);
+      if (this.listObj.refreshing) {
+        this.listObj.list = [];
+        this.listObj.refreshing = false;
+      }
+      this.queryNewsList(fn, param);
+      this.listObj.loading = false;
+    },
+    onRefresh() {
+      // 清空列表数据
+      this.listObj.finished = false;
+      // 重新加载数据
+      // 将 loading 设置为 true，表示处于加载状态
+      this.listObj.loading = true;
+      this.currentPage = 1;
+      this.listObj.list = [];
+      this.onLoad("refresh");
+    },
+    async queryNewsList(fn, param) {
+      let params = {
+        currentPage: this.currentPage,
+        itemsPerPage: this.itemsPerPage
+      };
+      const obj = { ...params, ...param };
+      console.log("掉接口---==", obj);
+      let res = await newsListPage(obj);
+      if (utilRes.successCheck(res)) {
+        if (fn === "onLoad") {
+          this.listObj.list = [...this.listObj.list, ...res.data.listObj]; //请求返回当页的列表
+        } else {
+          this.listObj.list = res.data.listObj; //请求返回当页的列表
+        }
+        this.currentPage++;
+        this.total = res.data.total;
+        // 没有数据关闭下拉
+        if (
+          this.listObj.list.length >= this.total ||
+          this.listObj.list.length === 0
+        ) {
+          this.listObj.finished = true;
+        }
+        this.listObj.loading = false;
+      } else {
+        // this.$message({
+        //   type: "error",
+        //   message: res.errMsg ? res.errMsg : "调用接口失败!"
+        // });
+      }
     },
     tabClick(name, title) {
-      console.log(title);
-    },
-    refresh(done) {
-      this.currentPage = 1;
-      this.total = 0;
-      this.newsData = [];
-      if (this.$route.query.type == 2) {
-        this.tabIndex = 1;
-      } else {
-        this.tabIndex = 0;
-      }
-      let params = { type: 1, categoryId: this.$route.query.type };
-      this.queryNewsList(params, done);
-    },
-    infinite(done) {
-      if (this.$route.query.type == 2) {
-        this.tabIndex = 1;
-      } else {
-        this.tabIndex = 0;
-      }
-      let params = { type: 1, categoryId: this.$route.query.type };
-      this.currentPage += 1;
-      this.queryNewsList(params, done);
+      const params = { type: 1, categoryId: name };
+      console.log("click--====", params);
+      this.onLoad((fn = "onLoad"), params);
     },
     goToDetail(item) {
       custRedirect(
         "/newbfd/home-h5/corporatenews/newsdetail" + window.location.search,
         { id: item.id }
       );
-      // this.$router.push({
-      //   path: "/newbfd/home-h5/corporatenews/newsdetail"+window.location.search,
-      //   query: { id: item.id }
-      // });
-    },
-    async queryNewsList(param, done) {
-      if (this.newsData.length != 0 && this.total <= this.newsData.length) {
-        this.$refs.newsListNode.$refs.my_scroller.finishInfinite(true);
-        return;
-      }
-      let params = {
-        currentPage: this.currentPage,
-        itemsPerPage: this.itemsPerPage
-      };
-      const obj = { ...param, ...params };
-      let res = await newsListPage(obj);
-      if (utilRes.successCheck(res) && res.data.total != 0) {
-        //this.newsData = res.data.listObj; //请求返回当页的列表
-        this.newsData = JSON.parse(JSON.stringify(this.newsData)).concat(
-          res.data.listObj
-        );
-        this.total = res.data.total;
-        if (typeof done === "function") {
-          done();
-        }
-      } else {
-        this.$refs.newsListNode.$refs.my_scroller.finishInfinite(true);
-      }
     },
     async queryNewsBanner() {
       let res = await newsConf_list();
@@ -169,23 +171,6 @@ export default {
         "/newbfd/home-h5/corporatenews/newsdetail" + window.location.search,
         { id: item.id }
       );
-      // this.$router.push({
-      //   path: "/newbfd/home-h5/corporatenews/newsdetail"+window.location.search,
-      //   query: { id: item.id }
-      // });
-    }, //企业新闻模块列表接口
-    async queryModuleList() {
-      let res = await news_getNewsCategoryList();
-      if (utilRes.successCheck(res)) {
-        if (res.data) {
-          this.moduleList = res.data;
-        }
-      } else {
-        this.$notify({
-          type: "danger",
-          message: res.data.errMsg || "网络繁忙，请稍后重试"
-        });
-      }
     }
   }
 };
@@ -206,6 +191,15 @@ export default {
   .news-cont {
     padding: 0 15px;
     overflow: hidden;
-font-size: 14px;}
+  }
+}
+</style>
+<style lang="less">
+.news-cont {
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-size: 14px;
+  .van-tab--active {
+    font-weight: bold;
+  }
 }
 </style>

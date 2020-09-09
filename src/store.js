@@ -23,7 +23,8 @@ export default new Vuex.Store({
     unionAndPlatform:'', //十大模块
     unionConDto:'',//首页banner部分图片接口数据
     pureMall: false, //是否为纯商城版
-    activityConfigList: []
+    activityConfigList: [],
+    moduleConfigList: [],   //新闻模块配置
   },
   mutations: {
     updateState(state, { key, val }) {
