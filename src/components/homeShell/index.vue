@@ -5,7 +5,7 @@
     :before-close="clickClose"
     :close-on-click-overlay="true"
     :lock-scroll="true"
-    style="width:8.9333rem;background-color:transparent;"
+    style="width:8.9333rem;background-color:transparent;top: 50%;"
   >
     <div style="text-align:center">
       <div
