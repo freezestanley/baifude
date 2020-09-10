@@ -222,7 +222,8 @@ export default {
             if (unionConf && unionConf.body) {
               //  如果有配置指定首页， 直接跳走
               const h5RedirectUrl = unionConf.body.mallUnionConfigDto.h5RedirectUrl;
-              if(h5RedirectUrl) location.href=h5RedirectUrl;
+              const isRedirect = unionConf.body.mallUnionConfigDto.isRedirect;
+              if(isRedirect && h5RedirectUrl) location.href=h5RedirectUrl;
               //---旧版，根据后端配置显示头部(搜索，客服)
               // this.fords.push({
               //   data: null,
