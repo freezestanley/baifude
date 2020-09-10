@@ -5,7 +5,7 @@
     :before-close="clickClose"
     :close-on-click-overlay="true"
     :lock-scroll="true"
-    style="width:6.4rem;background-color:transparent;"
+    style="width:8.9333rem;background-color:transparent;"
   >
     <div style="text-align:center">
       <div
@@ -102,7 +102,8 @@ i {
   font-size: 24px;
 }
 .contentWrap {
-  width: 240px;
+  width: 335px;
+  min-height: 500px;
   background: transparent;
   overflow: hidden;
   .chooseWrap {
