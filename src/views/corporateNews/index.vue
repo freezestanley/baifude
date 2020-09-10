@@ -7,7 +7,7 @@
     <div class="news-cont">
       <div v-if="moduleConfigList.length > 1">
         <van-tabs
-          v-model="active"
+          v-model="activeName"
           @click="tabClick"
           color="#4679A3"
           title-active-color="#4679A3"
@@ -44,7 +44,7 @@ import NewsItem from "./components/newsItem";
 import Banner from "./components/banner";
 import { newsListPage, newsConf_list } from "@/assets/apis/home";
 import utilRes from "@/assets/utils/resResult";
-// import { parseQueryString } from "@/assets/utils/request";
+import { parseQueryString } from "@/assets/utils/request";
 import { custRedirect } from "@/assets/utils";
 import { mapState } from "vuex";
 
@@ -57,6 +57,7 @@ export default {
   },
   data() {
     return {
+      custRedirect,
       bannerList: [], //banner数组
       listObj: {
         list: [],
@@ -64,12 +65,12 @@ export default {
         finished: false,
         refreshing: false
       },
-      currentPage: 1,
-      itemsPerPage: 2,
+      currentPage: 0,
+      itemsPerPage: 12,
       total: 0,
       urlParams: {},
       categoryId: this.$route.query.type,
-      active:  this.$route.query.type,
+      activeName: Number(this.$route.query.type),
     };
   },
   computed: {
@@ -81,13 +82,12 @@ export default {
               .moduleConfigList;
       }
     }),
-    // active: function() {
-    //   return this.$route.query.type;
-    // }
   },
   created() {
     this.queryNewsBanner();
-    console.log("active---===",this.active)
+    if(this.$route.query.flag == 1){
+      this.activeName = this.moduleConfigList[0].categoryId;
+    }
   },
   watch: {
     // $route: {
@@ -99,13 +99,14 @@ export default {
     // }
   },
   methods: {
-    async onLoad(fn = "onLoad") {
+     onLoad() {
+       this.currentPage++;
       if (this.listObj.refreshing) {
         this.listObj.list = [];
         this.listObj.refreshing = false;
       }
-      await this.queryNewsList(fn);
-      this.listObj.loading = false;
+       this.listObj.loading = false;
+       this.queryNewsList();
     },
     onRefresh() {
       // 清空列表数据
@@ -113,11 +114,11 @@ export default {
       // 重新加载数据
       // 将 loading 设置为 true，表示处于加载状态
       this.listObj.loading = true;
-      this.currentPage = 1;
+      this.currentPage = 0;
       this.listObj.list = [];
-      this.onLoad("refresh");
+      this.onLoad();
     },
-    async queryNewsList(fn, param) {
+    async queryNewsList(param) {
       let params = {
         currentPage: this.currentPage,
         itemsPerPage: this.itemsPerPage,
@@ -127,34 +128,32 @@ export default {
       const obj = { ...params, ...param };
       let res = await newsListPage(obj);
       if (utilRes.successCheck(res)) {
-        if (fn === "onLoad") {
-          this.listObj.list = [...this.listObj.list, ...res.data.listObj]; //请求返回当页的列表
-        } else {
-          this.listObj.list = res.data.listObj; //请求返回当页的列表
-        }
-        this.currentPage++;
         this.total = res.data.total;
+        this.listObj.loading = true;
+        this.listObj.list.push(...res.data.listObj)
         // 没有数据关闭下拉
         if (
           this.listObj.list.length >= this.total ||
           this.listObj.list.length === 0
         ) {
+          console.log("999999---===",this.listObj.list.length)
           this.listObj.finished = true;
         }
-        this.listObj.loading = false;
       } else {
       }
     },
-    tabClick(name, title) {
+    tabClick(name) {
       this.categoryId = name;
-      this.active = name;
+      this.activeName = name;
       this.onRefresh();
     },
     goToDetail(item) {
-      custRedirect(
-        "/newbfd/home-h5/corporatenews/newsdetail" + window.location.search,
-        { id: item.id }
-      );
+      let urlParams = parseQueryString(window.location.search);
+      this.custRedirect("/newbfd/home-h5/corporatenews/newsdetail", {
+        ...urlParams,
+        id: item.id,
+        type: item.categoryId
+      });
     },
     async queryNewsBanner() {
       let res = await newsConf_list();

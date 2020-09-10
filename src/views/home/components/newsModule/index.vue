@@ -53,7 +53,8 @@ export default {
       let urlParams = parseQueryString(window.location.search);
       this.custRedirect("/newbfd/home-h5/corporatenews", {
         ...urlParams,
-        type: item.categoryId
+        type: item.categoryId,
+        flag:0
       });
     },
     //企业新闻模块列表接口

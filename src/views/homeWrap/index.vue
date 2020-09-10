@@ -47,6 +47,7 @@ export default {
   name: "home",
   data() {
     return {
+      custRedirect,
       locationShow: false,
       styleCode: "",
       fords: [],
@@ -68,10 +69,11 @@ export default {
   },
 
   created() {
+    console.log("xiexiexie-----====",this.$route)
     let urlParams = parseQueryString(window.location.href);
-    if(urlParams.type == 2 && this.$route.meta.title=='新闻详情'){
-      this.meatTitle = "活动详情";
-    }
+    // if(urlParams.type == 2 && this.$route.meta.title=='新闻详情'){
+    //   this.meatTitle = "活动详情";
+    // }
     const union = getQueryString("union");
     // this.isLogin(union);
     this.getNotice(union);
@@ -107,7 +109,7 @@ export default {
       this.getCityId(cityName);
     },
     gotoBack(){
-      // let urlParams = parseQueryString(window.location.search);
+      let urlParams = parseQueryString(window.location.search);
       if(this.$route.name == "corporateNews"){
         // 如果是企业新闻直接跳转到首页-不用tab切换
         // this.$router.push({
@@ -115,6 +117,8 @@ export default {
         //   query: {...urlParams}
         // })
         custRedirect("/newbfd/home-h5"+window.location.search)
+      }else if(this.$route.name == "newsDetail"){
+        this.custRedirect("/newbfd/home-h5/corporatenews",{...urlParams,flag:0,})
       }else{
         this.$router.go(-1);
       }
@@ -398,11 +402,7 @@ export default {
       if (newVal.query.city !== oldVal.query.city) {
         this.getCityList();
       }
-      if(urlParams.type == 2 && newVal.meta.title=='新闻详情'){
-        this.meatTitle = "活动详情";
-      }else{
-        this.meatTitle = newVal.meta.title;
-      }
+      this.meatTitle = newVal.meta.title;
       this.showBanner = newVal.meta.showBanner
       this.showHeadNav = newVal.meta.showHeadNav
     },

@@ -97,13 +97,14 @@ export default {
   methods: {
     gotoActivity(item) {
       let urlParams = parseQueryString(window.location.search);
-      if (urlParams.type) {
-        urlParams.type = 1;
-      }
+      // if (urlParams.type) {
+      //   urlParams.type = 1;
+      // }
+      urlParams.flag = "";
       let path = "";
       if (item.configKey == 'VAJRA_DISTR_NEWS') {
         path = "/newbfd/home-h5/corporatenews";
-        urlParams.type = 1;
+        urlParams.flag = 1;
       } else if (item.configKey == 'VAJRA_DISTR_ACTIVITY') {
         path = "/newbfd/home-h5/corporateactivity";
       } else if (item.configKey == 'VAJRA_DISTR_RESEARCH') {
