@@ -11,6 +11,7 @@
           @click="tabClick"
           color="#4679A3"
           title-active-color="#4679A3"
+          :ellipsis="false"
         >
           <van-tab
             v-for="item in moduleConfigList"
@@ -210,6 +211,9 @@ export default {
 .news-cont {
   font-family: PingFangSC-Medium, PingFang SC;
   font-size: 14px;
+  .van-tab{
+    padding: 0 10px;
+  }
   .van-tab--active {
     font-weight: bold;
   }

@@ -6,7 +6,7 @@
       :key="index"
       :class="[item.styleType != 1 ? 'bg_card' : '']"
     >
-      <div style="margin-bottom: 10px">
+      <div style="margin-bottom: 6px">
         <Title
                 :titleName="item.categoryName"
                 :titleMore="true"
@@ -16,8 +16,9 @@
       <NewListItem
         :newsData="item.newsQueryFrontOutVOS"
         v-if="item.styleType == 1"
+        @goToDetail="goToDetail"
       ></NewListItem>
-      <NewsCardItem :newsData="item.newsQueryFrontOutVOS" v-else></NewsCardItem>
+      <NewsCardItem :newsData="item.newsQueryFrontOutVOS"  @goToDetail="goToDetail" v-else></NewsCardItem>
     </div>
   </div>
 </template>
@@ -28,15 +29,22 @@ import NewListItem from "./NewListItem";
 import NewsCardItem from "./NewsCardItem";
 import { custRedirect } from "@/assets/utils";
 import { parseQueryString } from "@/assets/utils/request";
-import utilRes from "@/assets/utils/resResult";
-import { news_getNewsCategoryList } from "@/assets/apis/home";
+// import utilRes from "@/assets/utils/resResult";
+// import {  } from "@/assets/apis/home";
 import {mapMutations} from "vuex";
 export default {
   name: "index",
+  props:{
+    moduleList: {
+      type: Array,
+      default: function () {
+        return []
+      }
+    },
+  },
   data() {
     return {
       custRedirect,
-      moduleList: [] //模块数据
     };
   },
   components: {
@@ -45,7 +53,7 @@ export default {
     NewsCardItem
   },
   created() {
-    this.queryModuleList();
+
   },
   methods: {
     ...mapMutations(["updateState"]),
@@ -57,28 +65,14 @@ export default {
         flag:0
       });
     },
-    //企业新闻模块列表接口
-    async queryModuleList() {
-      let res = await news_getNewsCategoryList();
-      if (utilRes.successCheck(res)) {
-        if (res.data) {
-          this.moduleList = res.data;
-          this.updateState({
-            key: "moduleConfigList",
-            val: res.data
-          });
-          const obj = {
-            moduleConfigList: res.data,
-          };
-          sessionStorage.setItem("moduleConfigList", JSON.stringify(obj));
-        }
-      } else {
-        this.$notify({
-          type: "danger",
-          message: res.data.errMsg || "网络繁忙，请稍后重试"
-        });
-      }
-    }
+    goToDetail(item) {
+      let urlParams = parseQueryString(window.location.search);
+      this.custRedirect("/newbfd/home-h5/corporatenews/newsdetail", {
+        ...urlParams,
+        id: item.id,
+        type: item.categoryId
+      });
+    },
   }
 };
 </script>
