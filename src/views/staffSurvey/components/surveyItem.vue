@@ -75,9 +75,9 @@ export default {
 
 <style lang="less" scoped>
 .surveyItem {
-  height: calc(100vh - 4.586rem);
+  /*height: calc(100vh - 4.586rem);*/
   .surveyItem-pull-refresh {
-    height: 100%;
+    /*height: 100%;*/
   }
   .surveyItem-wrap {
     padding: 15px 0;

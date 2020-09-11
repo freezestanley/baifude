@@ -65,12 +65,14 @@ export default {
         finished: false,
         refreshing: false
       },
-      currentPage: 0,
-      itemsPerPage: 12,
+      currentPage: 1,
+      itemsPerPage: 10,
       total: 0,
       urlParams: {},
       categoryId: this.$route.query.type,
       activeName: Number(this.$route.query.type),
+      // onRefreshing:false,
+
     };
   },
   computed: {
@@ -99,52 +101,62 @@ export default {
     // }
   },
   methods: {
-     onLoad() {
-       this.currentPage++;
+    async onLoad(fn = "onLoad") {
+      // if(this.onRefreshing){
+      //   return
+      // }
+      // this.onRefreshing = true
       if (this.listObj.refreshing) {
         this.listObj.list = [];
         this.listObj.refreshing = false;
       }
-       this.listObj.loading = false;
-       this.queryNewsList();
+      await this.queryNewsList(fn);
+      // this.onRefreshing = false;
+      this.listObj.loading = false;
     },
+
     onRefresh() {
-      // 清空列表数据
       this.listObj.finished = false;
       // 重新加载数据
       // 将 loading 设置为 true，表示处于加载状态
       this.listObj.loading = true;
-      this.currentPage = 0;
+      this.currentPage = 1;
       this.listObj.list = [];
-      this.onLoad();
+      this.onLoad("refresh");
     },
-    async queryNewsList(param) {
+    async queryNewsList(fn) {
       let params = {
         currentPage: this.currentPage,
         itemsPerPage: this.itemsPerPage,
         categoryId: this.categoryId,
         type: 1
       };
-      const obj = { ...params, ...param };
+      const obj = { ...params };
       let res = await newsListPage(obj);
       if (utilRes.successCheck(res)) {
+        // this.onRefreshing = false;
+        if (fn === "onLoad") {
+          this.listObj.list = [...this.listObj.list, ...res.data.listObj]; //请求返回当页的列表
+        } else {
+          this.listObj.list = res.data.listObj; //请求返回当页的列表
+        }
+        this.currentPage++;
         this.total = res.data.total;
-        this.listObj.loading = true;
-        this.listObj.list.push(...res.data.listObj)
         // 没有数据关闭下拉
         if (
-          this.listObj.list.length >= this.total ||
-          this.listObj.list.length === 0
+            this.listObj.list.length >= this.total ||
+            this.listObj.list.length === 0
         ) {
-          console.log("999999---===",this.listObj.list.length)
           this.listObj.finished = true;
         }
+        this.listObj.loading = false;
       } else {
       }
     },
     tabClick(name) {
       this.categoryId = name;
       this.activeName = name;
+      this.currentPage = 1;
       this.onRefresh();
     },
     goToDetail(item) {

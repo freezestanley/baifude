@@ -8,6 +8,7 @@
       <van-list
         v-model="newsData.loading"
         :finished="newsData.finished"
+        :offset="1"
         finished-text="没有更多了"
         @load="onLoad"
       >
