@@ -364,14 +364,6 @@ export default {
               : activityStyle.listObj);
         companyActivity && (this.activityData = companyActivity.listObj || []);
         newsCategoryList && (this.moduleList = newsCategoryList || []);
-        newsCategoryList &&(this.updateState({
-          key: "moduleConfigList",
-          val: newsCategoryList
-        }));
-        const obj = {
-          moduleConfigList: newsCategoryList,
-        };
-        sessionStorage.setItem("moduleConfigList", JSON.stringify(obj));
         companyNotice &&
           (this.list =
             companyNotice.listObj == null
@@ -539,14 +531,6 @@ export default {
       if (utilRes.successCheck(res)) {
         if (res.data) {
           this.moduleList = res.data;
-          this.updateState({
-            key: "moduleConfigList",
-            val: res.data
-          });
-          const obj = {
-            moduleConfigList: res.data,
-          };
-          sessionStorage.setItem("moduleConfigList", JSON.stringify(obj));
         }
       } else {
         this.$notify({

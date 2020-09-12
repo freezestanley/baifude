@@ -5,7 +5,7 @@
       <Banner :bannerList="bannerList" @clickBanner="clickBanner"></Banner>
     </div>
     <div class="news-cont">
-      <div v-if="moduleConfigList.length > 1">
+      <div v-if="moduleList.length > 1">
         <van-tabs
           v-model="activeName"
           @click="tabClick"
@@ -14,7 +14,7 @@
           :ellipsis="false"
         >
           <van-tab
-            v-for="item in moduleConfigList"
+            v-for="item in moduleList"
             :title="item.categoryName"
             :name="item.categoryId"
           >
@@ -43,7 +43,7 @@
 // import Tab from "./components/nav";
 import NewsItem from "./components/newsItem";
 import Banner from "./components/banner";
-import { newsListPage, newsConf_list } from "@/assets/apis/home";
+import { newsListPage, newsConf_list,news_getNewsCategoryList } from "@/assets/apis/home";
 import utilRes from "@/assets/utils/resResult";
 import { parseQueryString } from "@/assets/utils/request";
 import { custRedirect } from "@/assets/utils";
@@ -72,24 +72,26 @@ export default {
       urlParams: {},
       categoryId: this.$route.query.type,
       activeName: Number(this.$route.query.type),
+      moduleList:[],//新闻模块数据
       // onRefreshing:false,
 
     };
   },
   computed: {
     ...mapState({
-      moduleConfigList: state => {
-        return state.moduleConfigList.length
-          ? state.moduleConfigList
-          : JSON.parse(sessionStorage.getItem("moduleConfigList"))
-              .moduleConfigList;
-      }
+      // moduleConfigList: state => {
+      //   return state.moduleConfigList.length
+      //     ? state.moduleConfigList
+      //     : JSON.parse(sessionStorage.getItem("moduleConfigList"))
+      //         .moduleConfigList;
+      // }
     }),
   },
   created() {
     this.queryNewsBanner();
+    this.queryModuleList();
     if(this.$route.query.flag == 1){
-      this.activeName = this.moduleConfigList[0].categoryId;
+      this.activeName = this.moduleList[0].categoryId;
     }
   },
   watch: {
@@ -103,22 +105,16 @@ export default {
   },
   methods: {
     async onLoad(fn = "onLoad") {
-      // if(this.onRefreshing){
-      //   return
-      // }
-      // this.onRefreshing = true
       if (this.listObj.refreshing) {
         this.listObj.list = [];
         this.listObj.refreshing = false;
       }
       await this.queryNewsList(fn);
-      // this.onRefreshing = false;
       this.listObj.loading = false;
     },
 
     onRefresh() {
       this.listObj.finished = false;
-      // 重新加载数据
       // 将 loading 设置为 true，表示处于加载状态
       this.listObj.loading = true;
       this.currentPage = 1;
@@ -179,6 +175,20 @@ export default {
         });
       }
     },
+    //企业新闻模块列表接口
+    async queryModuleList() {
+      let res = await news_getNewsCategoryList();
+      if (utilRes.successCheck(res)) {
+        if (res.data) {
+          this.moduleList = res.data;
+        }
+      } else {
+        this.$notify({
+          type: "danger",
+          message: res.data.errMsg || "网络繁忙，请稍后重试"
+        });
+      }
+    },
     clickBanner(item) {
       custRedirect(
         "/newbfd/home-h5/corporatenews/newsdetail" + window.location.search,
@@ -216,6 +226,9 @@ export default {
   }
   .van-tab--active {
     font-weight: bold;
+  }
+  .van-hairline--top-bottom:after, .van-hairline-unset--top-bottom:after{
+    border-width:0
   }
 }
 </style>
