@@ -47,7 +47,7 @@ import { newsListPage, newsConf_list,news_getNewsCategoryList } from "@/assets/a
 import utilRes from "@/assets/utils/resResult";
 import { parseQueryString } from "@/assets/utils/request";
 import { custRedirect } from "@/assets/utils";
-import { mapState } from "vuex";
+import { mapState ,mapMutations} from "vuex";
 
 export default {
   name: "index",
@@ -73,25 +73,26 @@ export default {
       categoryId: this.$route.query.type,
       activeName: Number(this.$route.query.type),
       moduleList:[],//新闻模块数据
+      isHas:false,//接口是否有数据
       // onRefreshing:false,
 
     };
   },
   computed: {
     ...mapState({
-      // moduleConfigList: state => {
-      //   return state.moduleConfigList.length
-      //     ? state.moduleConfigList
-      //     : JSON.parse(sessionStorage.getItem("moduleConfigList"))
-      //         .moduleConfigList;
-      // }
+      moduleConfigList: state => {
+        return state.moduleConfigList.length
+          ? state.moduleConfigList
+          : JSON.parse(sessionStorage.getItem("moduleConfigList"))
+              .moduleConfigList;
+      }
     }),
   },
-  created() {
-    this.queryNewsBanner();
-    this.queryModuleList();
+   created() {
+     this.queryNewsBanner();
+     this.queryModuleList();
     if(this.$route.query.flag == 1){
-      this.activeName = this.moduleList[0].categoryId;
+      this.activeName = this.moduleConfigList[0].categoryId;
     }
   },
   watch: {
@@ -104,6 +105,7 @@ export default {
     // }
   },
   methods: {
+    ...mapMutations(["updateState"]),
     async onLoad(fn = "onLoad") {
       if (this.listObj.refreshing) {
         this.listObj.list = [];
@@ -177,10 +179,20 @@ export default {
     },
     //企业新闻模块列表接口
     async queryModuleList() {
+
       let res = await news_getNewsCategoryList();
       if (utilRes.successCheck(res)) {
         if (res.data) {
           this.moduleList = res.data;
+          let newsCategoryList = res.data;
+         this.updateState({
+            key: "moduleConfigList",
+            val: newsCategoryList
+          });
+          const obj = {
+            moduleConfigList: newsCategoryList,
+          };
+          sessionStorage.setItem("moduleConfigList", JSON.stringify(obj));
         }
       } else {
         this.$notify({
