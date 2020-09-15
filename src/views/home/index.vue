@@ -215,30 +215,6 @@ export default {
       // isAvaiableThank:false,//感谢卡是否可用,false不可用，true可用
     };
   },
-  beforeRouteEnter(to,form,next){
-    // let urlParams = parseQueryString(window.location.search);
-    // console.log('beforeRouteEnter-home',store);
-    // next();
-    // user_queryCurrentCompanyInfo({}).then(res=>{
-    //   if (utilRes.successCheck(res)) {
-    //     if(res.data.companyVersion==2){    
-    //       //商城版
-    //       window.location.replace(`${window.location.origin}/newbfd/home-h5/welfaremall${window.location.search}`);
-    //     }else{
-    //       next();
-    //     }
-    //   }else{
-    //     next();
-    //   }
-    // });
-    if(store.state.pureMall){    
-      //商城版
-      window.location.replace(`${window.location.origin}/newbfd/home-h5/welfaremall${window.location.search}`);
-    }else{
-      next();
-    }
-    
-  },
   components: {
     Title,
     NewsItem,
