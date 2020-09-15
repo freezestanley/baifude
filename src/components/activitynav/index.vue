@@ -113,6 +113,8 @@ export default {
         path = "/newbfd/home-h5/corporatenotice";
       } else if(item.configKey == 'VAJRA_DISTR_WALKING'){
         path = "/newbfd/usercenter-h5/briskwalking"
+      } else if(item.configKey == 'VAJRA_DISTR_QA'){//交流中心
+        path = "/newbfd/usercenter-h5/exchange-center"
       }
       custRedirect(path, { ...urlParams})
     },
