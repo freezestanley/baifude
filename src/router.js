@@ -312,20 +312,26 @@ const checkLogin = async (to, from, next) => {
   // return true;
 };
 
-let repeatedCallsCount = 0;
-const repeatedCalls = (to, from, next, res)=>{
-  setTimeout(async ()=>{
-    repeatedCallsCount++
+
+// const delay= async (timer) => {
+//   return new Promise((res) =>{
+//     setTimeout(()=>{
+//       return res(true);
+//     }, timer)
+//   })
+// }
+
+const repeatedCalls = async(to, from, next, res)=>{
+  for (let index = 0; index < 3; index++) {
     //是否是纯商城版
     let resResultData = await isPureMall();
-    // debugger
-    if(!resResultData&&repeatedCallsCount<3){
-      repeatedCalls()
-    }else if(resResultData){
+    if(resResultData){
       //跳转到路由页面
       isLoginPage(to, from, next, res);
+      break;
     }
-  });
+  }
+
 }
 const getLoginUrl = () => {
   const unionName = getQueryString("union");
