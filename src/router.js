@@ -313,18 +313,19 @@ const checkLogin = async (to, from, next) => {
 };
 
 
-// const delay= async (timer) => {
-//   return new Promise((res) =>{
-//     setTimeout(()=>{
-//       return res(true);
-//     }, timer)
-//   })
-// }
+const delay = async (timer) => {
+  return new Promise((res) =>{
+    setTimeout(()=>{
+      return res(true);
+    }, timer)
+  })
+}
 
 const repeatedCalls = async(to, from, next, res)=>{
   for (let index = 0; index < 3; index++) {
     //是否是纯商城版
     let resResultData = await isPureMall();
+    await delay(300);
     if(resResultData){
       //跳转到路由页面
       isLoginPage(to, from, next, res);
