@@ -243,6 +243,9 @@ export default {
         .then(
           axios.spread((unionConf, unionMallConf, unionMoulds) => {
             this.$toast.clear();
+            // if (unionConf && unionConf.body) {
+            //   this.unionConfigMess = unionConf.body.unionConfigurationDto;
+            // }
             // 收集要渲染的组件及缓存数据
             if (unionConf && unionConf.body) {
               //  如果有配置指定首页， 直接跳走
@@ -292,6 +295,8 @@ export default {
                 key: "unionConf",
                 val: unionConf.body.unionConfigurationDto
               });
+              sessionStorage.setItem("unionConf", JSON.stringify(unionConf));
+
               this.updateState({
                 key: "popUpConf",
                 val: unionConf.body.tunionPopupConfigDto
