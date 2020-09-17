@@ -83,10 +83,10 @@ export default {
 
 <style lang="less" scoped>
 .newItem {
-  /*height: calc(100vh - 4.586rem);*/
-  /*.newItem-pull-refresh {*/
-  /*  height: 100%;*/
-  /*}*/
+  height: calc(100vh - 6.1rem);
+  .van-pull-refresh{
+    height: 100%;
+  }
   .top_banner_height {
     top: 221px;
   }

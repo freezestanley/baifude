@@ -224,6 +224,7 @@ export default {
     margin: 10px 0;
   }
   .news-cont {
+    /*height: calc(100vh - 4.2rem);*/
     padding: 0 15px;
     overflow: hidden;
   }
@@ -243,4 +244,8 @@ export default {
     border-width:0
   }
 }
+.commonBg {
+  padding-bottom: 0;
+}
 </style>
+
