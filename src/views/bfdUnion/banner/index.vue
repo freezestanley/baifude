@@ -16,7 +16,7 @@
     <!--</div>-->
   <!--</div>-->
     <div class="eleganceBanner" >
-        <van-swipe class="my-swipe" :autoplay="2000" indicator-color="#ffffff" style="height: 100%;">
+        <van-swipe class="my-swipe" :autoplay="2000" indicator-color="#ffffff" style="height: 100%;" :stop-propagation="false">
             <van-swipe-item v-for="(item,index) in mallUnionConf.tnewsRecommendImageDtos" :key="index">
                 <a :href="item.h5Url ? item.h5Url : 'javascript:void(0);'">
                     <img :src="item.h5Pic" />

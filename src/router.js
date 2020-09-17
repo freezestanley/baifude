@@ -294,10 +294,10 @@ const checkLogin = async (to, from, next) => {
       window.location.href = agreeUrl;
       return;
     }
-    //是否是纯商城版
-    isPureMall();
-    //跳转到路由页面
-    isLoginPage(to, from, next, true);
+    
+    
+    repeatedCalls(to, from, next, true);
+    
   }else{
     // 特殊工会跳转-在checkLogin返回returnUrl
     if (res.code == "99" && res.data && res.data.returnUrl) {
@@ -311,6 +311,29 @@ const checkLogin = async (to, from, next) => {
   // }
   // return true;
 };
+
+
+const delay = async (timer) => {
+  return new Promise((res) =>{
+    setTimeout(()=>{
+      return res(true);
+    }, timer)
+  })
+}
+
+const repeatedCalls = async(to, from, next, res)=>{
+  for (let index = 0; index < 3; index++) {
+    //是否是纯商城版
+    let resResultData = await isPureMall();
+    await delay(300);
+    if(resResultData){
+      //跳转到路由页面
+      isLoginPage(to, from, next, res);
+      break;
+    }
+  }
+
+}
 const getLoginUrl = () => {
   const unionName = getQueryString("union");
   const loginPath = PUBLIC_LOGIN_URL.replace("%UNION%", unionName);
@@ -379,18 +402,20 @@ const isLoginPage = async(to, from, next, res)=>{
 };
 //根据工会判断全功能版和纯商城版
 const isPureMall = async()=>{
-  user_queryCurrentCompanyInfo({}).then(res=>{
-    //console.log('beforeRouteEnter',res);
-    if (utilRes.successCheck(res)) {
-      //1-全功能版 2-福利商城版
-      if(res.data.companyVersion==2){
-        store.state.pureMall = true;
-      }else{
-        store.state.pureMall = false;
-      }
-    };
-    //console.log('isPureMall',store);
-  });
+  let res = await user_queryCurrentCompanyInfo({});
+  if (utilRes.successCheck(res)) {
+    //1-全功能版 2-福利商城版
+    if(res.data.companyVersion==2){
+      store.state.pureMall = true;
+    }else{
+      store.state.pureMall = false;
+    }
+    return true;
+  }else{
+    return false;
+  };
+
+  
 };
 
 //模块配置接口

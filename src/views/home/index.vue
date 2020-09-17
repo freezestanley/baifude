@@ -7,10 +7,7 @@
         <img :src="unionConfigMess.h5BgImage" alt="" />
       </div>
       <ActivityNav :activityNavData="activityNavData"></ActivityNav>
-      <BirthdayThank
-        :data="gatherThankBirthday"
-        v-if="isCardEven && storeyNum > 2"
-      ></BirthdayThank>
+      <BirthdayThank :data="gatherThankBirthday" v-if="isCardEven && storeyNum > 2"></BirthdayThank>
       <!-- 企业新闻 -->
       <news-module :moduleList="moduleList"></news-module>
       <!--      <div class="layout news" v-if="newsData.length > 0">-->
@@ -394,10 +391,7 @@ export default {
           this.gatherThankBirthday[1].num = total;
         }
       } else {
-        this.$notify({
-          type: "danger",
-          message: res.errMsg || "网络繁忙，请稍后重试"
-        });
+        this.$notify({type: 'danger', message: res.data.errMsg || '网络繁忙，请稍后重试'});
       }
     },
     getCurrentCity() {

@@ -42,6 +42,7 @@ import { OK } from "@/assets/utils/constant";
 import { changeURLArg, getQueryString, setCookie, getCookie } from "@/assets/utils";
 import { parseQueryString } from "@/assets/utils/request";
 import { custRedirect } from "@/assets/utils";
+import store from "../../store";
 
 export default {
   name: "home",
@@ -67,7 +68,27 @@ export default {
     LocationNotice: () => import("../../components/locationNotice"),
     notice: () => import("../../components/notice")
   },
-
+  beforeRouteEnter(to, form, next) {
+    if (store.state.pureMall) {
+      if(to.name=='welfaremall'){
+        next();
+      }else{
+        //商城版
+        window.location.replace(
+          `${window.location.origin}/newbfd/home-h5/welfaremall${window.location.search}`
+        );
+      }
+    } else {
+      if(to.name=='welfaremall'){
+        //全功能版首页
+        window.location.replace(
+          `${window.location.origin}/newbfd/home-h5${window.location.search}`
+        );
+      }else{
+        next();
+      }
+    }
+  },
   created() {
     console.log("xiexiexie-----====",this.$route)
     let urlParams = parseQueryString(window.location.href);
