@@ -313,7 +313,7 @@ export default {
     // this.unionConfigMess = JSON.parse(sessionStorage.getItem("unionConf"));
     const openAggregation = true;
     const union = getQueryString("union");
-    // this.getunionConfigData();//首页去除调两遍公共接口换算方法
+    this.getunionConfigData();//首页去除调两遍公共接口换算方法
     // this.isLogin(union);
     // this.getNotice(union);
     // this.getData(union);
