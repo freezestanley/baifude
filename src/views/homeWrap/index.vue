@@ -79,15 +79,15 @@ export default {
         );
       }
     } else {
-      if(to.name=='welfaremall'){
-        //全功能版首页
-        window.location.replace(
-          `${window.location.origin}/newbfd/home-h5${window.location.search}`
-        );
-      }else{
-        next();
-      }
-      // next();
+      // if(to.name=='welfaremall'){
+      //   //全功能版首页
+      //   window.location.replace(
+      //     `${window.location.origin}/newbfd/home-h5${window.location.search}`
+      //   );
+      // }else{
+      //   next();
+      // }
+      next();
     }
   },
   created() {
