@@ -104,7 +104,7 @@ export default {
     if(!this.$route.query.city) {
       const url = window.location.href;
       const newUrl = changeURLArg( url, "city", getCookie('city') || "145");
-      window.location.href = newUrl;
+      window.location.replace(newUrl);
     } else if (sessionStorage.getItem("userChange") !== "1") {
       setTimeout(() => {
         this.getCurrentCity();
