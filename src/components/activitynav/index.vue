@@ -122,7 +122,7 @@ export default {
     initSwiper() {
       new Swiper(".swiper-container-activitynav", {
         pagination: {
-          el: ".activity-style",
+          el: ".swiper-pagination",
           type: "custom",
           renderCustom: function(swiper, current, total) {
             const activeColor = "#4679A3";
@@ -130,7 +130,7 @@ export default {
             let color = "";
             let paginationStyle = "";
             let html = "";
-            for (let i = 1; i <= total; i++) {
+            for (let i = 1; i <= 2; i++) {
               if (i === current) {
                 color = activeColor;
               } else {
