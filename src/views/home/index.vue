@@ -309,11 +309,9 @@ export default {
     }
   },
   created() {
-    console.log("unionConf---",this.unionConf)
     // this.unionConfigMess = JSON.parse(sessionStorage.getItem("unionConf"));
     const openAggregation = true;
     const union = getQueryString("union");
-    // this.getunionConfigData();//首页去除调两遍公共接口换算方法
     // this.isLogin(union);
     // this.getNotice(union);
     // this.getData(union);
@@ -331,6 +329,7 @@ export default {
       this.getCompanyThankCardList(); //感谢卡列表
       this.queryModuleList();
     }
+    this.getunionConfigData();//首页去除调两遍公共接口换算方法
     this.currentCompanyConfigInfo();
     this.queryHomePopup();
   },
