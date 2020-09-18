@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
     <div class="wrap" v-if="activityNavData.length <= 4 || activityNavData.length == 8">
       <div
               class="activity_container"
@@ -46,25 +46,10 @@
            </div>
          </div>
        </div>
-       <!--<div class="swiper-slide" v-if="navList_three.length>0" style="display: flex">-->
-         <!--<div-->
-                 <!--class="activity_container"-->
-                 <!--v-for="(item, index) in navList_three"-->
-                 <!--:key="index"-->
-
-         <!--&gt;-->
-           <!--<div class="activity" @click="gotoActivity(item)">-->
-             <!--<div class="activity-icon">-->
-               <!--<img :src="item.configValue.icon" alt="" />-->
-             <!--</div>-->
-             <!--<div class="activity-title">{{ item.configValue.name }}</div>-->
-           <!--</div>-->
-         <!--</div>-->
-       <!--</div>-->
      </div>
       <!-- 分页器 -->
       <div class="swiper-pagination activity-style"></div>
-   </div>
+    </div>
   </div>
 </template>
 <script>
@@ -122,7 +107,7 @@ export default {
     initSwiper() {
       new Swiper(".swiper-container-activitynav", {
         pagination: {
-          el: ".swiper-pagination",
+          el: ".swiper-pagination.activity-style",
           type: "custom",
           renderCustom: function(swiper, current, total) {
             const activeColor = "#4679A3";
@@ -130,7 +115,7 @@ export default {
             let color = "";
             let paginationStyle = "";
             let html = "";
-            for (let i = 1; i <= 2; i++) {
+            for (let i = 1; i <= total; i++) {
               if (i === current) {
                 color = activeColor;
               } else {
