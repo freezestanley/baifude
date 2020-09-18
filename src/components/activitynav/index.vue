@@ -130,7 +130,7 @@ export default {
             let color = "";
             let paginationStyle = "";
             let html = "";
-            for (let i = 1; i <= total; i++) {
+            for (let i = 1; i <= 2; i++) {
               if (i === current) {
                 color = activeColor;
               } else {

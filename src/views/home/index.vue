@@ -304,19 +304,17 @@ export default {
         return false;
       }
     },
-    unionConf(){
-      return JSON.parse(sessionStorage.getItem("unionConf"))
-    }
+    // unionConf(){
+    //   return JSON.parse(sessionStorage.getItem("unionConf"))
+    // }
   },
   created() {
-    console.log("unionConf---",this.unionConf)
     // this.unionConfigMess = JSON.parse(sessionStorage.getItem("unionConf"));
     const openAggregation = true;
     const union = getQueryString("union");
-    this.getunionConfig();//首页去除调两遍公共接口换算方法
     // this.isLogin(union);
     // this.getNotice(union);
-    // this.getData(union);
+    this.getData(union);
     // this.getCityList();
     if (openAggregation) {
       this.init();
@@ -331,6 +329,7 @@ export default {
       this.getCompanyThankCardList(); //感谢卡列表
       this.queryModuleList();
     }
+    // this.getunionConfigData();//首页去除调两遍公共接口换算方法
     this.currentCompanyConfigInfo();
     this.queryHomePopup();
   },
@@ -530,76 +529,76 @@ export default {
         });
       }
     },
-    getunionConfig(){
-      if (this.unionConf && this.unionConf.body) {
-        let unionConf = this.unionConf;
-        this.unionConfigMess = unionConf.body.unionConfigurationDto;
-        //  如果有配置指定首页， 直接跳走
-        const h5RedirectUrl =
-            unionConf.body.mallUnionConfigDto.h5RedirectUrl;
-        const isRedirect = unionConf.body.mallUnionConfigDto.isRedirect;
-        if (isRedirect && h5RedirectUrl) location.href = h5RedirectUrl;
-
-        this.fords.push({
-          data: null,
-          comp: () => import(`@/views/${unionConf.body.styleCode}`)
-        });
-
-        // 站内公告
-        this.isShowUnionNotice =
-            unionConf.body.mallUnionConfigDto.isShowUnionNotice;
-        this.unionNoticeContent =
-            unionConf.body.mallUnionConfigDto.unionNoticeContent;
-
-        this.styleCode = unionConf.body.styleCode;
-        this.updateState({
-          key: "styleCode",
-          val: unionConf.body.styleCode
-        });
-        this.updateState({
-          key: "mallUnionConf",
-          val: unionConf.body.mallUnionConfigDto
-        });
-        const bavUrl = {
-          homePageUrl: unionConf.body.homePageUrl,
-          shoppingCartUrl: unionConf.body.shoppingCartUrl,
-          userCentUrl: unionConf.body.userCentUrl,
-          cardCenterUrl: unionConf.body.cardCenterUrl
-        };
-        this.updateState({
-          key: "bavUrl",
-          val: bavUrl
-        });
-        // 动态修改title
-        document.getElementsByTagName("title")[0].innerText =
-            unionConf.body.mallUnionConfigDto.unionName;
-        this.updateState({
-          key: "unionConf",
-          val: unionConf.body.unionConfigurationDto
-        });
-        this.updateState({
-          key: "popUpConf",
-          val: unionConf.body.tunionPopupConfigDto
-        });
-        // 获取弹窗信息
-        this.popUp = unionConf.body.tunionPopupConfigDto;
-        this.getPopUpShow();
-
-        // 在本地sessionStorage 追加isBilingual的记录
-        const CL_DATA = sessionStorage.getItem("cityList");
-
-        if (CL_DATA) {
-          const cityList = {
-            ...JSON.parse(CL_DATA),
-            mallUnionConf: unionConf.body.mallUnionConfigDto
-          };
-          sessionStorage.setItem("cityList", JSON.stringify(cityList));
-        }
-      } else {
-        this.$notify(unionConf.data.msg);
-        return false;
-      }
-    },
+    // getunionConfigData(){
+    //   if (this.unionConf && this.unionConf.body) {
+    //     let unionConf = this.unionConf;
+    //     this.unionConfigMess = unionConf.body.unionConfigurationDto;
+    //     //  如果有配置指定首页， 直接跳走
+    //     const h5RedirectUrl =
+    //         unionConf.body.mallUnionConfigDto.h5RedirectUrl;
+    //     const isRedirect = unionConf.body.mallUnionConfigDto.isRedirect;
+    //     if (isRedirect && h5RedirectUrl) location.href = h5RedirectUrl;
+    //
+    //     this.fords.push({
+    //       data: null,
+    //       comp: () => import(`@/views/${unionConf.body.styleCode}`)
+    //     });
+    //
+    //     // 站内公告
+    //     this.isShowUnionNotice =
+    //         unionConf.body.mallUnionConfigDto.isShowUnionNotice;
+    //     this.unionNoticeContent =
+    //         unionConf.body.mallUnionConfigDto.unionNoticeContent;
+    //
+    //     this.styleCode = unionConf.body.styleCode;
+    //     this.updateState({
+    //       key: "styleCode",
+    //       val: unionConf.body.styleCode
+    //     });
+    //     this.updateState({
+    //       key: "mallUnionConf",
+    //       val: unionConf.body.mallUnionConfigDto
+    //     });
+    //     const bavUrl = {
+    //       homePageUrl: unionConf.body.homePageUrl,
+    //       shoppingCartUrl: unionConf.body.shoppingCartUrl,
+    //       userCentUrl: unionConf.body.userCentUrl,
+    //       cardCenterUrl: unionConf.body.cardCenterUrl
+    //     };
+    //     this.updateState({
+    //       key: "bavUrl",
+    //       val: bavUrl
+    //     });
+    //     // 动态修改title
+    //     document.getElementsByTagName("title")[0].innerText =
+    //         unionConf.body.mallUnionConfigDto.unionName;
+    //     this.updateState({
+    //       key: "unionConf",
+    //       val: unionConf.body.unionConfigurationDto
+    //     });
+    //     this.updateState({
+    //       key: "popUpConf",
+    //       val: unionConf.body.tunionPopupConfigDto
+    //     });
+    //     // 获取弹窗信息
+    //     this.popUp = unionConf.body.tunionPopupConfigDto;
+    //     this.getPopUpShow();
+    //
+    //     // 在本地sessionStorage 追加isBilingual的记录
+    //     const CL_DATA = sessionStorage.getItem("cityList");
+    //
+    //     if (CL_DATA) {
+    //       const cityList = {
+    //         ...JSON.parse(CL_DATA),
+    //         mallUnionConf: unionConf.body.mallUnionConfigDto
+    //       };
+    //       sessionStorage.setItem("cityList", JSON.stringify(cityList));
+    //     }
+    //   } else {
+    //     this.$notify(unionConf.data.msg);
+    //     return false;
+    //   }
+    // },
     getData(union) {
       this.$toast.loading({
         duration: 0,
@@ -608,8 +607,8 @@ export default {
       axios
         .all([
           this.getUnionConfig(union),
-          this.getUnionMallConfig(union),
-          this.getUnionMoulds(union)
+          // this.getUnionMallConfig(union),
+          // this.getUnionMoulds(union)
         ])
         .then(
           axios.spread((unionConf, unionMallConf, unionMoulds) => {
@@ -681,9 +680,9 @@ export default {
               this.$notify(unionConf.data.msg);
               return false;
             }
-            // if (unionConf && unionConf.body) {
-            //   this.unionConfigMess = unionConf.body.unionConfigurationDto;
-            // }
+            if (unionConf && unionConf.body) {
+              this.unionConfigMess = unionConf.body.unionConfigurationDto;
+            }
             // console.log("工会信息--", unionMoulds);
             // if (unionMoulds && unionMoulds.body) {
             //   unionMoulds.body.forEach(unionMod => {
