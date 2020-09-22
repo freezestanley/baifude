@@ -93,7 +93,7 @@ export default {
      this.queryModuleList();
     if(this.$route.query.flag == 1){
       this.activeName = this.moduleConfigList[0].categoryId;
-      // this.categoryId = this.moduleConfigList[0].categoryId
+      this.categoryId = this.moduleConfigList[0].categoryId
     }
   },
   watch: {
@@ -128,7 +128,7 @@ export default {
       let params = {
         currentPage: this.currentPage,
         itemsPerPage: this.itemsPerPage,
-        categoryId: this.categoryId || this.activeName,
+        categoryId: this.categoryId,
         type: 1
       };
       const obj = { ...params };
