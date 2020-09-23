@@ -367,6 +367,14 @@ export default {
               : activityStyle.listObj);
         companyActivity && (this.activityData = companyActivity.listObj || []);
         newsCategoryList && (this.moduleList = newsCategoryList || []);
+        newsCategoryList &&(this.updateState({
+          key: "moduleConfigList",
+          val: newsCategoryList
+        }));
+        const obj = {
+          moduleConfigList: newsCategoryList,
+        };
+        sessionStorage.setItem("moduleConfigList", JSON.stringify(obj));
         companyNotice &&
           (this.list =
             companyNotice.listObj == null
