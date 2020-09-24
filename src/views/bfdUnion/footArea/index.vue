@@ -40,6 +40,7 @@
 <script>
 import { mapState } from "vuex";
 import Url from 'url-parse'
+import { custRedirect } from "@/assets/utils";
 export default {
   name: "footArea",
   data() {
@@ -69,13 +70,15 @@ export default {
     },
     gotoPath(tab){
       if(tab.enName == 'home'){
-        this.$router.push({
-          path:'/newbfd/home-h5'+window.location.search
-        });
+        custRedirect('/newbfd/home-h5' + window.location.search);
+        // this.$router.push({
+        //   path:'/newbfd/home-h5'+window.location.search
+        // });
       }else if(tab.enName == 'benefits'){
-        this.$router.push({
-          path:'/newbfd/home-h5/welfaremall'+window.location.search
-        });
+        custRedirect('/newbfd/home-h5/welfaremall'+window.location.search);
+        // this.$router.push({
+        //   path:'/newbfd/home-h5/welfaremall'+window.location.search
+        // });
       }
     }
   },
