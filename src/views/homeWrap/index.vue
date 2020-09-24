@@ -68,6 +68,14 @@ export default {
     notice: () => import("../../components/notice")
   },
   beforeRouteEnter(to, form, next) {
+    const city = Number(getQueryString("city"));
+    if(!city) {
+      const url = window.location.href;
+      const newUrl = changeURLArg( url, "city", getCookie('city') || "145");
+      window.location.replace(newUrl);
+      return;
+    }
+
     if (store.state.pureMall) {
       if(to.name=='welfaremall'){
         next();
@@ -78,14 +86,15 @@ export default {
         );
       }
     } else {
-      if(to.name=='welfaremall'){
-        //全功能版首页
-        window.location.replace(
-          `${window.location.origin}/newbfd/home-h5${window.location.search}`
-        );
-      }else{
-        next();
-      }
+      // if(to.name=='welfaremall'){
+      //   //全功能版首页
+      //   window.location.replace(
+      //     `${window.location.origin}/newbfd/home-h5${window.location.search}`
+      //   );
+      // }else{
+      //   next();
+      // }
+      next();
     }
   },
   created() {
@@ -98,11 +107,8 @@ export default {
     this.getNotice(union);
     this.getData(union);
     this.getCityList();
-    if(!this.$route.query.city) {
-      const url = window.location.href;
-      const newUrl = changeURLArg( url, "city", getCookie('city') || "145");
-      window.location.href = newUrl;
-    } else if (sessionStorage.getItem("userChange") !== "1") {
+    
+    if (sessionStorage.getItem("userChange") !== "1") {
       setTimeout(() => {
         this.getCurrentCity();
       }, 1000);
