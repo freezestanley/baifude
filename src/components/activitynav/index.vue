@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
     <div class="wrap" v-if="activityNavData.length <= 4 || activityNavData.length == 8">
       <div
               class="activity_container"
@@ -46,25 +46,10 @@
            </div>
          </div>
        </div>
-       <!--<div class="swiper-slide" v-if="navList_three.length>0" style="display: flex">-->
-         <!--<div-->
-                 <!--class="activity_container"-->
-                 <!--v-for="(item, index) in navList_three"-->
-                 <!--:key="index"-->
-
-         <!--&gt;-->
-           <!--<div class="activity" @click="gotoActivity(item)">-->
-             <!--<div class="activity-icon">-->
-               <!--<img :src="item.configValue.icon" alt="" />-->
-             <!--</div>-->
-             <!--<div class="activity-title">{{ item.configValue.name }}</div>-->
-           <!--</div>-->
-         <!--</div>-->
-       <!--</div>-->
      </div>
       <!-- 分页器 -->
       <div class="swiper-pagination activity-style"></div>
-   </div>
+    </div>
   </div>
 </template>
 <script>
@@ -97,13 +82,14 @@ export default {
   methods: {
     gotoActivity(item) {
       let urlParams = parseQueryString(window.location.search);
-      if (urlParams.type) {
-        urlParams.type = 1;
-      }
+      // if (urlParams.type) {
+      //   urlParams.type = 1;
+      // }
+      urlParams.flag = "";
       let path = "";
       if (item.configKey == 'VAJRA_DISTR_NEWS') {
         path = "/newbfd/home-h5/corporatenews";
-        urlParams.type = 1;
+        urlParams.flag = 1;
       } else if (item.configKey == 'VAJRA_DISTR_ACTIVITY') {
         path = "/newbfd/home-h5/corporateactivity";
       } else if (item.configKey == 'VAJRA_DISTR_RESEARCH') {
@@ -112,6 +98,8 @@ export default {
         path = "/newbfd/home-h5/corporatenotice";
       } else if(item.configKey == 'VAJRA_DISTR_WALKING'){
         path = "/newbfd/usercenter-h5/briskwalking"
+      } else if(item.configKey == 'VAJRA_DISTR_QA'){//交流中心
+        path = "/newbfd/usercenter-h5/exchange-center"
       }
       custRedirect(path, { ...urlParams})
     },
@@ -119,7 +107,7 @@ export default {
     initSwiper() {
       new Swiper(".swiper-container-activitynav", {
         pagination: {
-          el: ".swiper-pagination",
+          el: ".swiper-pagination.activity-style",
           type: "custom",
           renderCustom: function(swiper, current, total) {
             const activeColor = "#4679A3";

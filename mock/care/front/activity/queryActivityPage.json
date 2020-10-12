@@ -1,0 +1,19 @@
+{
+  "code": "0",
+  "data": {
+    "listObj": [{
+      "companyId": 185,
+      "id": 2007140000000199,
+      "title": "谢雪丽测试1",
+      "picture": "http://devimg.dongfangfuli.com/bfd/2020-07-14/6a58fd98eaf78c529063eb6db4c0ea04.jpg",
+      "controlValue": "活动结束",
+      "activityTime": "2020-07-25~2020-08-20",
+      "activityContent": "写几句的卡萨队问问i书香世家啊但还是觉得很是激动还是激动会撒娇的哈就会大声疾呼"
+    }],
+    "total": 4,
+    "currentPage": 1,
+    "itemsPerPage": 10
+  },
+  "msg": "success",
+  "errMsg": null
+}

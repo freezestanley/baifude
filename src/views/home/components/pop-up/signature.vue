@@ -2,7 +2,7 @@
   <div class="dialog" :style="{background: `url(${data.signPopPic}) no-repeat center top/100%`}">
     <div class="dialog-body">
       <div class="content-head">
-          <div class="title">收到{{data.careName}}<span v-if="data.isDolby==1">等多个</span>福利金</div>
+          <div class="title">收到{{data.careName}}<span v-if="data.isDolby==1">等多个</span>福利</div>
           <div class="warning-info">需要您签收后才能使用</div>
       </div>
       <div class="sign-btn-area">

@@ -50,6 +50,7 @@ module.exports = {
     }
   },
   chainWebpack: config => {
+    config.plugins.delete('prefetch');
     config.plugin('define').tap(args => {
       args[0].PUBLIC_LOGIN_URL = JSON.stringify(env.loginUrl);
       return args;

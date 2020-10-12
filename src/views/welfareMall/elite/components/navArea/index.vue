@@ -45,7 +45,7 @@
     <div
       style="padding-top:7px"
       v-show="navList.length > 5 && navList.length <= 10"
-      :class="isBilingual ? 'swiper-container _doub' : 'swiper-container'"
+      :class="isBilingual ? 'swiper-container _doub' : 'swiper-container swiper-container-elite'"
     >
       <div class="swiper-wrapper">
         <div class="swiper-slide">
@@ -87,14 +87,14 @@
         </div>
       </div>
       <!-- 分页器 -->
-      <div class="swiper-pagination"></div>
+      <div class="swiper-pagination elite-style-pagination"></div>
     </div>
     <!-- (11,12,...) -->
     <div
       style="padding-top:7px"
       v-show="navList.length > 10"
       :class="
-        isBilingual ? 'swiper-container _twoLine' : 'swiper-container twoLine'
+        isBilingual ? 'swiper-container _twoLine' : 'swiper-container swiper-container-elite twoLine'
       "
     >
       <div class="swiper-wrapper">
@@ -172,7 +172,7 @@
         </div>
       </div>
       <!-- 分页器 -->
-      <div class="swiper-pagination"></div>
+      <div class="swiper-pagination elite-style-pagination"></div>
     </div>
   </div>
 </template>
@@ -230,9 +230,9 @@ export default {
     // 初始化swiper
     initSwiper() {
       var that = this;
-      new Swiper(".swiper-container", {
+      new Swiper(".swiper-container-elite", {
         pagination: {
-          el: ".swiper-pagination",
+          el: ".swiper-pagination.elite-style-pagination",
           type: "custom",
           renderCustom: function(swiper, current, total) {
             const activeColor = that.unionConf.colour;

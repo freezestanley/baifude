@@ -75,9 +75,11 @@ export default {
 
 <style lang="less" scoped>
 .surveyItem {
-  height: calc(100vh - 4.586rem);
+  // padding: 0px 10px 0;
+  height: 100%;
+  // overflow: auto;
   .surveyItem-pull-refresh {
-    height: 100%;
+    min-height: calc(100vh - 4.586rem);
   }
   .surveyItem-wrap {
     padding: 15px 0;

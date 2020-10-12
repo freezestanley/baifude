@@ -24,6 +24,20 @@
     <!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script> -->
     <title></title>
     <script>
+      !function() {
+        var _query = location.search;
+        var _newQuery = '';
+        // 不含city, 默认加145
+        if(!_query) {
+          _newQuery = '?city=145';
+        } else if(_query.indexOf('city') < 0) {
+          _newQuery = _query.replace('?', '?city=145&');
+        }
+        if(_newQuery){
+          var url = location.href.replace(location.search, _newQuery);
+          location.replace(url);
+        }
+      }();
       (function() {
         window.addEventListener("load", function() {
           var s = document.createElement("script");

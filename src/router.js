@@ -88,7 +88,7 @@ const routes = [
         name: "newsDetail",
         component: NewsDetail,
         meta: {
-          title: "新闻详情"
+          title: "详情"
         }
       },
       {
