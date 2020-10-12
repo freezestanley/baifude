@@ -99,7 +99,6 @@ export default {
     }
   },
   created() {
-    console.log("xiexiexie-----====",this.$route)
     let urlParams = parseQueryString(window.location.href);
     // if(urlParams.type == 2 && this.$route.meta.title=='新闻详情'){
     //   this.meatTitle = "活动详情";
@@ -109,10 +108,7 @@ export default {
     this.getNotice(union);
     this.getData(union);
     this.getCityList();
-<<<<<<< HEAD
-    
-=======
->>>>>>> tag-home-h5-202010121401
+
     if (sessionStorage.getItem("userChange") !== "1") {
       setTimeout(() => {
         this.getCurrentCity();
