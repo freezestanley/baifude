@@ -199,6 +199,7 @@ export default {
       navList: state => state.unionMallConf
     }),
     navLists(){
+      this.getNav();
       let firstCode = '';
 
       if(!this.navDescriptionMap.get(this.navList[0].code)&&this.navList[1].code!='Packages'){
@@ -255,6 +256,7 @@ export default {
       });
     },
     getNav() {
+      console.log('getNavgetNavgetNav',this.navList);
       if (
         this.navList.length === 6 ||
         this.navList.length === 7 ||
