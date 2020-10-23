@@ -225,7 +225,7 @@ export default {
   },
   methods: {
     goDetail(url) {
-      window.location.href = url;
+      window.location.href = url + '&reload=1';
     },
     // 初始化swiper
     initSwiper() {

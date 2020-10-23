@@ -11,7 +11,7 @@
     <div class="detailWrap towNavWrap" v-if="navList.length == 2">
       <div class="item item_2" v-for="(item, index) in navLists" :key="index">
         <div>
-          <a :href="item.h5Url ? item.h5Url : 'javascript:void(0);'">
+          <a :href="item.h5Url ? item.h5Url + '&reload=1': 'javascript:void(0);'">
             <div class="navTitle-wrap">
               <div class="title">{{item.name}}</div>
               <div class="description">{{navDescriptionMap.get(item.code)}}</div>
@@ -34,7 +34,7 @@
       >
         <a
           class="clearfix"
-          :href="item.h5Url ? item.h5Url : 'javascript:void(0);'"
+          :href="item.h5Url ? item.h5Url + '&reload=1' : 'javascript:void(0);'"
         >
           <div class="imgWrap fl">
             <img :src="item.h5ImagePath" alt />
@@ -76,7 +76,7 @@
       >
         <a
           class="clearfix"
-          :href="item.h5Url ? item.h5Url : 'javascript:void(0);'"
+          :href="item.h5Url ? item.h5Url + '&reload=1' : 'javascript:void(0);'"
         >
           <div class="imgWrap fl">
             <img :src="item.h5ImagePath" alt />
