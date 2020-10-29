@@ -4,7 +4,8 @@
     <div class="container">
       <!--工会图片-->
       <div class="unionPicWrap">
-        <img :src="unionConfigMess.h5BgImage" alt="" />
+        <!-- <img :src="unionConfigMess.h5BgImage" alt="" /> -->
+        <img v-lazy="unionConfigMess.h5BgImage" alt="" />
       </div>
       <ActivityNav :activityNavData="activityNavData"></ActivityNav>
       <BirthdayThank :data="gatherThankBirthday" v-if="isCardEven && storeyNum > 2"></BirthdayThank>
@@ -50,7 +51,8 @@
         ></Title>
         <div class="survey-wrap">
           <div class="survey-pic">
-            <img :src="surveyObj.pic" alt="" />
+            <!-- <img :src="surveyObj.pic" alt="" /> -->
+            <img v-lazy="surveyObj.pic" alt="" />
           </div>
           <p @click="redirectSurvey">
             {{ researchList.title }}
@@ -240,14 +242,14 @@ export default {
           name: "感谢卡",
           des: "人收到了感谢卡",
           num: "0",
-          bgPic: require("@/assets/images/home/thankCardBg.png")
+          bgPic: require("@/assets/images/home/thankCardBg.jpeg")
         },
         {
           module: "birthDay",
           name: "生日墙",
           des: "位同事最近过生日",
           num: "0",
-          bgPic: require("@/assets/images/home/birthdayBg.png")
+          bgPic: require("@/assets/images/home/birthdayBg.jpeg")
         }
       ], //生日墙感谢卡集合数据
       storeyNum: 0, //楼层数据

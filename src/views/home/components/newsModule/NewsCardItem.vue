@@ -2,7 +2,8 @@
   <div class="module-card">
     <div class="card-item" v-for="(item, index) in list" :key="index">
       <div class="pic-wrap">
-        <img :src="item.picture" />
+        <!-- <img :src="item.picture" /> -->
+        <img v-lazy="item.picture" />
       </div>
       <div class="text-wrap" @click="goToDetail(item)">
         <div class="title">{{ item.title }}</div>

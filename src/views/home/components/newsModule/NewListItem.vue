@@ -6,7 +6,8 @@
                 <div class="newItem-date">{{item.publishDate}}</div>
             </div>
             <div class="newItem-wrap-right">
-                <img :src="item.picture"/>
+                <!-- <img :src="item.picture"/> -->
+                <img v-lazy="item.picture"/>
             </div>
         </div>
     </section>

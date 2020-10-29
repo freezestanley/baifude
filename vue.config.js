@@ -43,6 +43,7 @@ module.exports = {
   publicPath: env.NODE_ENV === "development" ? "/" : `${env.publicPath}/home-h5/`,
   outputDir: 'dist/home-h5',
   assetsDir: "assets",
+  productionSourceMap: false,
   pluginOptions: {
     "style-resources-loader": {
       preProcessor: "less",
@@ -80,12 +81,12 @@ module.exports = {
         outputPath: "./vendor",
       })
     ];
-    const exts = {
-      swiper: "Swiper"
-    };
+    // const exts = {
+    //   swiper: "Swiper"
+    // };
     if (env.NODE_ENV !== "development") {
       config.plugins = [...config.plugins, ...plugins];
-      config.externals = { ...config.externals, ...exts };
+      // config.externals = { ...config.externals, ...exts };
     }
   },
   devServer: DEV_SERVER
