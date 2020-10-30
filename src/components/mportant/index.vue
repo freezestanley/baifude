@@ -30,7 +30,7 @@
               detail.h5RedirectUrl ? detail.h5RedirectUrl : 'javascript:void(0)'
             "
           >
-            <img class="leftImg" v-lazy="detail.h5ImagePath" alt />
+            <img class="leftImg" :src="detail.h5ImagePath" alt />
           </a>
         </div>
       </div>
@@ -46,7 +46,7 @@
               detail.h5RedirectUrl ? detail.h5RedirectUrl : 'javascript:void(0)'
             "
           >
-            <img class="rightImg" v-lazy="detail.h5ImagePath" alt />
+            <img class="rightImg" :src="detail.h5ImagePath" alt />
           </a>
         </div>
       </div>

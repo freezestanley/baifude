@@ -7,7 +7,6 @@ import VueScroller from 'vue-scroller';
 import * as apis from "./assets/apis";
 import VConsole from 'vconsole';
 import FastClick from 'fastclick';
-import VueLazyLoad from 'vue-lazyload';
 import 'swiper/dist/css/swiper.css';
 
 FastClick.prototype.focus = function (targetElement) {
@@ -88,11 +87,6 @@ Vue.use(VueScroller);
 Vue.use(Notify);
 Vue.use(Tab);
 Vue.use(Tabs);
-const placeHolderImg = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABlBMVEXo8/z///+c6oWgAAAAAWJLR0QB/wIt3gAAAAd0SU1FB+QKHgAGKNiYxEUAAAAKSURBVAjXY2AAAAACAAHiIbwzAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIwLTEwLTI5VDE2OjA2OjQxKzA4OjAwt8Gg4AAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMC0xMC0yOVQxNjowNjo0MCswODowMGDrE+gAAAAASUVORK5CYII=';
-Vue.use(VueLazyLoad,{
-  error: placeHolderImg,                        //报错需要的图片
-  loading: placeHolderImg                    // 替换需要的图片
-})
 router.beforeEach((to, from, next) => {
   next();
   const { meta } = to;

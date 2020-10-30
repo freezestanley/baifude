@@ -5,7 +5,7 @@
       <!--工会图片-->
       <div class="unionPicWrap">
         <!-- <img :src="unionConfigMess.h5BgImage" alt="" /> -->
-        <img v-lazy="unionConfigMess.h5BgImage" alt="" />
+        <img :src="unionConfigMess.h5BgImage" alt="" />
       </div>
       <ActivityNav :activityNavData="activityNavData"></ActivityNav>
       <BirthdayThank :data="gatherThankBirthday" v-if="isCardEven && storeyNum > 2"></BirthdayThank>
@@ -52,7 +52,7 @@
         <div class="survey-wrap">
           <div class="survey-pic">
             <!-- <img :src="surveyObj.pic" alt="" /> -->
-            <img v-lazy="surveyObj.pic" alt="" />
+            <img :src="surveyObj.pic" alt="" />
           </div>
           <p @click="redirectSurvey">
             {{ researchList.title }}
@@ -259,6 +259,7 @@ export default {
     };
   },
   beforeRouteEnter(to, form, next) {
+    document.body.className = 'pre';
     // let urlParams = parseQueryString(window.location.search);
     // console.log('beforeRouteEnter-home',store);
     // next();
@@ -310,7 +311,14 @@ export default {
     //   return JSON.parse(sessionStorage.getItem("unionConf"))
     // }
   },
+  // beforeCreate() {
+  //   document.body.className = 'pre';
+  // },
+  beforeDestroy() {
+    document.body.className = '';
+  },
   created() {
+    this.$toast.clear();
     // this.unionConfigMess = JSON.parse(sessionStorage.getItem("unionConf"));
     const openAggregation = true;
     const union = getQueryString("union");
@@ -610,10 +618,10 @@ export default {
     //   }
     // },
     getData(union) {
-      this.$toast.loading({
-        duration: 0,
-        message: "加载中..."
-      });
+      // this.$toast.loading({
+      //   duration: 0,
+      //   message: "加载中..."
+      // });
       axios
         .all([
           this.getUnionConfig(union),
@@ -622,7 +630,7 @@ export default {
         ])
         .then(
           axios.spread((unionConf, unionMallConf, unionMoulds) => {
-            this.$toast.clear();
+            // this.$toast.clear();
             // 收集要渲染的组件及缓存数据
             if (unionConf && unionConf.body) {
               //  如果有配置指定首页， 直接跳走

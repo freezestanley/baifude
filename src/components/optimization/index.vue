@@ -35,7 +35,7 @@
                   : 'javascript:void(0)'
               "
             >
-              <img v-lazy="detail.h5ImagePath" alt />
+              <img :src="detail.h5ImagePath" alt />
             </a>
           </div>
         </div>
@@ -49,7 +49,7 @@
                   : 'javascript:void(0)'
               "
           >
-            <img v-lazy="detail.h5ImagePath" alt />
+            <img :src="detail.h5ImagePath" alt />
           </a>
         </div>
       </div>

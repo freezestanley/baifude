@@ -31,7 +31,7 @@
             detail.h5RedirectUrl ? detail.h5RedirectUrl : 'javascript:void(0)'
           "
         >
-          <img v-lazy="detail.h5ImagePath" alt />
+          <img :src="detail.h5ImagePath" alt />
           <div class="goodsTitle">
             <p class="name" v-if="detail.title">{{ detail.title }}</p>
             <p class="eName" v-if="detail.enTitle">{{ detail.enTitle }}</p>

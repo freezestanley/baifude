@@ -16,6 +16,7 @@
     <!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script> -->
     <title></title>
     <script>
+
       !function() {
         var _query = location.search;
         var _newQuery = '';
@@ -70,7 +71,14 @@
 
     </script>
   </head>
+  <!-- <body class="pre"> -->
   <body>
+    <script>
+      if(location.href.indexOf("newbfd/home-h5?") > 0) {
+        document.body.className = 'pre';
+      }
+    </script>
+
     <noscript>
       <strong
         >We're sorry but fore-ford-h5 doesn't work properly without JavaScript
