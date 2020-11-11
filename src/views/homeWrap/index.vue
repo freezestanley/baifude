@@ -235,6 +235,7 @@ export default {
         });
     },
     getData(union) {
+      document.body.className = '';
       this.$toast.loading({
         duration: 0,
         message: "加载中..."
