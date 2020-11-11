@@ -401,14 +401,14 @@ export default {
         this.storeyNum = storeyNum;
         // 感谢卡
         this.isAvaiable = thankCardHome !== null;
-        const { companyThankCardVOList: _list, thankCardNum } = thankCardHome;
+        const { companyThankCardVOList: _list, thankCardNum } = thankCardHome || {};
         if (this.isAvaiable && _list) {
           this.thankCardList = _list.length >= 3 ? _list.slice(0, 2) : _list;
           this.gatherThankBirthday[0].num = thankCardNum;
         }
         // 生日墙
         this.isAvaiableBirth = birthList !== null;
-        const { listObj, total } = birthList;
+        const { listObj, total } = birthList || {};
         if (this.isAvaiableBirth) {
           this.birthdayWallList =
             listObj.length >= 4 ? listObj.slice(0, 4) : listObj;
