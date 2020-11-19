@@ -40,7 +40,7 @@ exec(cmd2,function(error, stdout, stderr){
 
 
 module.exports = {
-  publicPath: env.NODE_ENV === "development" ? "/" : `${env.publicPath}/home-h5/`,
+  publicPath: 'dfapps://dongfangfuli.com/',
   outputDir: 'dist/home-h5',
   assetsDir: "assets",
   productionSourceMap: false,
@@ -60,27 +60,31 @@ module.exports = {
   configureWebpack: config => {
     config.plugins.forEach((val) => {
       if (val instanceof HtmlWebpackPlugin) {
+        // console.log('==========================')
+        // console.log(JSON.stringify(val))
+        // console.log('==========================')
+        // val.publicPath = 
         val.options.meta = Object.assign(val.options.meta, {
           'app-version': gitVersion
         });
       }
     });
-
-    const plugins = [
-      new webpack.DllReferencePlugin({
-        context: process.cwd(),
-        manifest: require("./public/vendor/vendor-manifest.json")
-      }),
-      // 将 dll 注入到 生成的 html 模板中
-      new AddAssetHtmlPlugin({
-        // dll文件位置
-        filepath: path.resolve(__dirname, "./public/vendor/*.js"),
-        // dll 引用路径
-        publicPath: (env.NODE_ENV === "development" ? "/" : `${env.publicPath}/home-h5/`) + "vendor",
-        // dll最终输出的目录
-        outputPath: "./vendor",
-      })
-    ];
+    const plugins = []
+    // const plugins = [
+    //   new webpack.DllReferencePlugin({
+    //     context: process.cwd(),
+    //     manifest: require("./public/vendor/vendor-manifest.json")
+    //   }),
+    //   // 将 dll 注入到 生成的 html 模板中
+    //   new AddAssetHtmlPlugin({
+    //     // dll文件位置
+    //     filepath: path.resolve(__dirname, "./public/vendor/*.js"),
+    //     // dll 引用路径
+    //     publicPath: (env.NODE_ENV === "development" ? "/" : `${env.publicPath}/home-h5/`) + "vendor",
+    //     // dll最终输出的目录
+    //     outputPath: "./vendor",
+    //   })
+    // ];
     // const exts = {
     //   swiper: "Swiper"
     // };
